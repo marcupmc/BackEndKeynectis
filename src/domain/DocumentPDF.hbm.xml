@@ -13,7 +13,7 @@
 		<property name="url">
 			<column name="URL" />
 		</property>
-	    <property name="certified">
+	    <property name="certified" type="domain.MyBooleanType">
 			<column name="CERTIFIED" />
 		</property>
 		

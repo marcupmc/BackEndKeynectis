@@ -17,9 +17,7 @@ public class Initialisator {
 		return instance;
 	}
 
-	/** Constructeur redéfini comme étant privé pour interdire
-	 * son appel et forcer à passer par la méthode <link
-	 */
+	
 	private Initialisator() {
 	}
 
