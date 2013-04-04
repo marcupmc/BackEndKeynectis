@@ -21,10 +21,10 @@ public class Connexion {
 	public JSONObject isAuthentified(MultivaluedMap<String, String> formParam)
 	{
 		//Initialisation de la base A ENLEVER !!
-//		System.out.println("[HIBERNATE] Initialisation de la base...");
-//		boolean isInitOk = Initialisator.getInstance().initBDD();
-//		if(isInitOk)System.out.println("[HIBERNATE] Base Initialisée");
-//		else System.err.println("[HIBERNATE] Erreur!!!");
+		System.out.println("[HIBERNATE] Initialisation de la base...");
+		boolean isInitOk = Initialisator.getInstance().initBDD();
+		if(isInitOk)System.out.println("[HIBERNATE] Base Initialisée");
+		else System.err.println("[HIBERNATE] Erreur!!!");
 		// retourne ok si l utilisateur est dans la base, retourne ko sinon
 		System.out.println("Connection Autorisée pour "+formParam.get("login"));
 

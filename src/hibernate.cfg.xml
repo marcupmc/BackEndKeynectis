@@ -13,7 +13,7 @@
 		<!-- valeur = update i..e si les tables de la base n'existent pas elles 
 			sont crees, sinon elles sont MAJ, la valeur =create i.e. creation à chaque 
 			lancement -->
-		<property name="hbm2ddl.auto">update</property>
+		<property name="hbm2ddl.auto">create</property>
 		<!-- mapping files/lien vers les fichiers de mapping -->
 		<mapping resource="domain/Utilisateur.hbm.xml" />
 		<mapping resource="domain/DocumentPDF.hbm.xml" />
