@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="domain.DocumentPDF" table="DOCUMENTPDF">
+	    <id name="id">
+			<column name="ID_DOCUMENT" />
+			<generator class="increment" />
+		</id>
+		<property name="name">
+			<column name="NAME" />
+		</property>
+		<property name="url">
+			<column name="URL" />
+		</property>
+	    <property name="certified">
+			<column name="CERTIFIED" />
+		</property>
+		
+	     <many-to-one name="owner" column="ID_UTILISATEUR" class="domain.Utilisateur"  unique="false" />
+		
+	</class>
+</hibernate-mapping>

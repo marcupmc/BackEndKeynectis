@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="domain.Utilisateur" table="UTILISATEUR">
+		<id name="id">
+			<column name="ID_UTILISATEUR" />
+			<generator class="increment" />
+		</id>
+
+		<property name="firstName">
+			<column name="FIRSTNAME" />
+		</property>
+		<property name="lastName">
+			<column name="LASTNAME" />
+		</property>
+		<property name="email">
+			<column name="EMAIL" />
+		</property>
+		<property name="password">
+			<column name="PASSWORD" />
+		</property>
+		<property name="phoneNumber">
+			<column name="PHONENUMBER" />
+		</property>
+
+		<set name="documents" inverse="true" lazy="false" cascade="all">
+			<key column="ID_UTILISATEUR" />
+			<one-to-many class="domain.DocumentPDF" />
+		</set>
+
+	</class>
+</hibernate-mapping>
