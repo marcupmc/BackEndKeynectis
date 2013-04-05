@@ -2,6 +2,7 @@ package dao;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Query;
@@ -10,8 +11,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import tools.CryptoTool;
-
-import controller.Initialisator;
 import domain.DocumentPDF;
 import domain.Utilisateur;
 
@@ -63,7 +62,7 @@ public class DAOUtilisateur {
 			user.setIdentifiant(identifiant);
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
-			
+
 			//On crypte le mot de passe ici
 			try {
 				user.setPassword(CryptoTool.getEncodedPassword(password));
@@ -114,7 +113,7 @@ public class DAOUtilisateur {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param id
@@ -141,5 +140,29 @@ public class DAOUtilisateur {
 			System.out.println(e.getMessage());
 			return null;
 		}
+	}
+
+	public ArrayList<Utilisateur> getUsersByRegex(String s)
+	{
+		ArrayList<Utilisateur> users = new ArrayList<Utilisateur>();
+		String regex = "%"+s+"%";
+		Session session = null;
+		try{
+			SessionFactory sessionFactory =
+					new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			//begin a transaction
+			org.hibernate.Transaction tx = session.beginTransaction();
+			Query q =session.createQuery("from Utilisateur as c where c.lastName like '"+regex+"'" +
+					" or c.firstName like '"+regex+"' " +
+					" or c.email like '"+regex+"'" +
+					" or c.identifiant like '"+regex+"'" +
+					" order by c.lastName");
+			users = (ArrayList<Utilisateur>) q.list();
+			return users;
+		}catch(Exception e){
+			return null;
+		}
+		
 	}
 }

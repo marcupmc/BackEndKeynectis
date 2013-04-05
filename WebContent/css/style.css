@@ -1,11 +1,19 @@
 @CHARSET "ISO-8859-1";
 
 @import url("bootstrap.css");
+@import url("bootstrap.min.css");
+@import url("bootstrap.responsive.min.css");
 @import url("bootstrap-responsive.css");
-body {
 
+body {
 	background-color: light-grey;
 	margin: 0px;
-	padding : 0px; 
-
+	padding: 0px;
+}
+/* Custom page CSS
+      -------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+.container {
+	width: auto;
+	max-width: 800px;
 }

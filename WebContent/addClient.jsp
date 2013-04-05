@@ -12,36 +12,42 @@
 		<h2>Ajouter un nouveau Client</h2>
 
 		<form class="form-horizontal" method="post" action="AddNewClient">
-			
+
 			<div class="control-group">
-				<label class="control-label" for="inputIdentifiant">Identifiant : </label>
+				<label class="control-label" for="inputIdentifiant">Identifiant
+					: </label>
 				<div class="controls">
-					<input type="text" id="inputIdentifiant" name="inputIdentifiant" placeholder="Identifiant" required="required">
+					<input type="text" id="inputIdentifiant" name="inputIdentifiant"
+						placeholder="Identifiant" required="required">
 				</div>
 			</div>
-			
+
 			<div class="control-group">
 				<label class="control-label" for="inputName">Nom : </label>
 				<div class="controls">
-					<input type="text" id="inputName"  name="inputName" placeholder="Nom" required="required">
+					<input type="text" id="inputName" name="inputName"
+						placeholder="Nom" required="required">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputFirstName">Prénom : </label>
 				<div class="controls">
-					<input type="text" id="inputFirstName" name="inputFirstName" placeholder="Prénom" required="required">
+					<input type="text" id="inputFirstName" name="inputFirstName"
+						placeholder="Prénom" required="required">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputEmail">Email : </label>
 				<div class="controls">
-					<input type="email" id="inputEmail" name="inputEmail" placeholder="Email" required="required">
+					<input type="email" id="inputEmail" name="inputEmail"
+						placeholder="Email" required="required">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputPhone">Telephone : </label>
 				<div class="controls">
-					<input type="text" id="inputPhone" name="inputPhone" placeholder="Telephone" required="required">
+					<input type="text" id="inputPhone" name="inputPhone"
+						placeholder="Telephone" required="required">
 				</div>
 			</div>
 
@@ -49,7 +55,7 @@
 				<label class="control-label" for="inputPassword">Mot de
 					passe : </label>
 				<div class="controls">
-					<input type="password" id="inputPassword"  name="inputPassword"
+					<input type="password" id="inputPassword" name="inputPassword"
 						placeholder="Mot de passe" required="required">
 				</div>
 			</div>
@@ -69,7 +75,7 @@
 				</div>
 			</div>
 		</form>
-
 	</div>
+
 </body>
 </html>

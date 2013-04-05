@@ -27,4 +27,34 @@
     <servlet-name>AddNewClient</servlet-name>
     <url-pattern>/AddNewClient</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FindClient</display-name>
+    <servlet-name>FindClient</servlet-name>
+    <servlet-class>servlets.FindClient</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindClient</servlet-name>
+    <url-pattern>/FindClient</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DetailsClient</display-name>
+    <servlet-name>DetailsClient</servlet-name>
+    <servlet-class>servlets.DetailsClient</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DetailsClient</servlet-name>
+    <url-pattern>/DetailsClient</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>AddDocument</display-name>
+    <servlet-name>AddDocument</servlet-name>
+    <servlet-class>servlets.AddDocument</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddDocument</servlet-name>
+    <url-pattern>/AddDocument</url-pattern>
+  </servlet-mapping>
 </web-app>
