@@ -79,6 +79,7 @@ public class DAOUtilisateur {
 
 			//mandatory to flush the data into the DB
 			tx.commit();
+			session.close();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return false;

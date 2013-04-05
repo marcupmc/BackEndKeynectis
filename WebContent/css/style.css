@@ -1,0 +1,11 @@
+@CHARSET "ISO-8859-1";
+
+@import url("bootstrap.css");
+@import url("bootstrap-responsive.css");
+body {
+
+	background-color: light-grey;
+	margin: 0px;
+	padding : 0px; 
+
+}

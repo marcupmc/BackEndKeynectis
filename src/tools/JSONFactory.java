@@ -35,9 +35,9 @@ public class JSONFactory {
 	public JSONObject makeUserJSON(Utilisateur user){
 		JSONObject toSend = new JSONObject();
 		try {
-			toSend.put("firstName", user.getFirstName());
-			toSend.put("lastName", user.getLastName());
-			toSend.put("email", user.getEmail());			
+//			toSend.put("firstName", user.getFirstName());
+//			toSend.put("lastName", user.getLastName());
+//			toSend.put("email", user.getEmail());			
 			toSend.put("pdf", this.getPDFInfo(user));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -52,7 +52,7 @@ public class JSONFactory {
 	 * @param user
 	 * @return make an array of json object which contains all the pdf info of the user
 	 */
-	private ArrayList<JSONObject> getPDFInfo(Utilisateur user){
+	public ArrayList<JSONObject> getPDFInfo(Utilisateur user){
 		ArrayList<JSONObject> toReturn = new ArrayList<JSONObject>();
 		for(DocumentPDF doc : user.getDocuments()){
 			JSONObject jsonToAdd = new JSONObject();
