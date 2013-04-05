@@ -6,6 +6,7 @@ import java.util.Set;
 public class Utilisateur {
 	
 	private long id;
+	private String identifiant;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -71,6 +72,14 @@ public class Utilisateur {
 
 	public void setDocuments(Set<DocumentPDF> documents) {
 		this.documents = documents;
+	}
+
+	public String getIdentifiant() {
+		return identifiant;
+	}
+
+	public void setIdentifiant(String identifiant) {
+		this.identifiant = identifiant;
 	}
 	
 

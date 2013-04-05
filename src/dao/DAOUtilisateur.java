@@ -1,5 +1,6 @@
 package dao;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -7,6 +8,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import tools.CryptoTool;
 
 import controller.Initialisator;
 import domain.DocumentPDF;
@@ -30,6 +33,7 @@ public class DAOUtilisateur {
 
 	/**
 	 * 
+	 * @param identifiant
 	 * @param firstName
 	 * @param lastName
 	 * @param email
@@ -38,7 +42,7 @@ public class DAOUtilisateur {
 	 * @param documents
 	 * @return true if the user has been add successully, and false if there was an error
 	 */
-	public boolean addUser(String firstName,String lastName,String email,String password, String phoneNumber,Set<DocumentPDF> documents){
+	public boolean addUser(String identifiant,String firstName,String lastName,String email,String password, String phoneNumber,Set<DocumentPDF> documents){
 		Session session = null;
 		try{
 			SessionFactory sessionFactory =
@@ -56,9 +60,17 @@ public class DAOUtilisateur {
 				doc.setOwner(user);
 
 			}
+			user.setIdentifiant(identifiant);
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
-			user.setPassword(password);
+			
+			//On crypte le mot de passe ici
+			try {
+				user.setPassword(CryptoTool.getEncodedPassword(password));
+			} catch (NoSuchAlgorithmException ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
+			}
 			user.setPhoneNumber(phoneNumber);
 
 			//save the contact into the DB
@@ -89,6 +101,34 @@ public class DAOUtilisateur {
 			//begin a transaction
 			org.hibernate.Transaction tx = session.beginTransaction();
 			Query q =session.createQuery("from Utilisateur as c where c.id = '"+id+"'");
+			users = (ArrayList<Utilisateur>) q.list();
+			tx.commit();
+			session.close();
+			if(users.size()==1)
+				return users.get(0);  
+			else
+				return null;
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @return the user with the identifiant "id". Return null if the user doesn't exist
+	 */
+	public Utilisateur getUserByIdentifiant(String id){
+		ArrayList<Utilisateur> users = new ArrayList<Utilisateur>();
+		Session session = null;
+		try{
+			SessionFactory sessionFactory =
+					new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			//begin a transaction
+			org.hibernate.Transaction tx = session.beginTransaction();
+			Query q =session.createQuery("from Utilisateur as c where c.identifiant = '"+id+"'");
 			users = (ArrayList<Utilisateur>) q.list();
 			tx.commit();
 			session.close();

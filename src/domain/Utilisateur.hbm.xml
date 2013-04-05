@@ -7,7 +7,9 @@
 			<column name="ID_UTILISATEUR" />
 			<generator class="increment" />
 		</id>
-
+		<property name="identifiant">
+			<column name="IDENTIFIANT" />
+		</property>
 		<property name="firstName">
 			<column name="FIRSTNAME" />
 		</property>

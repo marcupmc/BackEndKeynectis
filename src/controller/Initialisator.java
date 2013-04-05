@@ -59,7 +59,7 @@ public class Initialisator {
 //		doc2.setOwner(user1);
 		
 		// On fait appel au dao
-		return DAOUtilisateur.getInstance().addUser("Marc", "Gregoire", "marc.gregoire@gmail.com", "marcgregoire", "0102030405", documents);
+		return DAOUtilisateur.getInstance().addUser("MGregoire","Marc", "Gregoire", "marc.gregoire@gmail.com", "marcgregoire", "0102030405", documents);
 		
 		
 	}
