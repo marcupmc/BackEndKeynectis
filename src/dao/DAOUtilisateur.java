@@ -165,4 +165,28 @@ public class DAOUtilisateur {
 		}
 		
 	}
+
+	public boolean deleteUser(long idClient) {
+		// TODO Auto-generated method stub
+		if(idClient<=0)return false;
+		Session session=null;
+		try{
+			SessionFactory sessionFactory =
+					new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			//begin a transaction
+			org.hibernate.Transaction tx = session.beginTransaction();
+			
+			Utilisateur user = this.getUserById(idClient);
+			if(user==null)return false;
+			
+			session.delete(user);
+			tx.commit();
+			session.close();
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
 }

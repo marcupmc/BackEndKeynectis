@@ -15,5 +15,5 @@ body {
 /* Not required for template or sticky footer method. */
 .container {
 	width: auto;
-	max-width: 800px;
+	max-width: 900px;
 }

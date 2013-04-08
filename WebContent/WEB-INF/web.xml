@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>de.vogella.jersey.first</display-name>
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>administration.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>Jersey REST Service</servlet-name>
@@ -47,7 +47,7 @@
     <servlet-name>DetailsClient</servlet-name>
     <url-pattern>/DetailsClient</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>AddDocument</display-name>
     <servlet-name>AddDocument</servlet-name>
@@ -56,5 +56,25 @@
   <servlet-mapping>
     <servlet-name>AddDocument</servlet-name>
     <url-pattern>/AddDocument</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteDocument</display-name>
+    <servlet-name>DeleteDocument</servlet-name>
+    <servlet-class>servlets.DeleteDocument</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteDocument</servlet-name>
+    <url-pattern>/DeleteDocument</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>DeleteClient</display-name>
+    <servlet-name>DeleteClient</servlet-name>
+    <servlet-class>servlets.DeleteClient</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteClient</servlet-name>
+    <url-pattern>/DeleteClient</url-pattern>
   </servlet-mapping>
 </web-app>
