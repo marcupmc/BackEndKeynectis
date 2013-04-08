@@ -1,3 +1,4 @@
+<%@page import="tools.EncoderBase64"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -29,7 +30,20 @@
 			<li>Telephone : <%=client.getPhoneNumber()%></li>
 		</ul>
 		
-		<h4>Liste des documents</h4>
+		<div>
+			<%if(client.getSignature()==null){
+				%>
+				<h4>Aucune Signature Enregistrée</h4>
+			<% }else{
+			
+				byte[] decode = EncoderBase64.encodingBlobToByteArray(client.getSignature());
+				String chaine = EncoderBase64.byteArraytoStringBase64(decode);
+			%>
+				<img src="data:image/png;base64,<%=chaine%>"/>
+			<%} %>
+		</div>
+		
+		<h3>Liste des documents</h3>
 			<table class="table table-striped">
  				<tr>
  					<th>Nom du document</th>

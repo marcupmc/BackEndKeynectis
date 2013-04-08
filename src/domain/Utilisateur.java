@@ -1,5 +1,6 @@
 package domain;
 
+import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +14,8 @@ public class Utilisateur {
 	private String password;
 	private String phoneNumber; // A changer en une table telephone?
 	private Set<DocumentPDF> documents = new HashSet<DocumentPDF>();
+	private Blob signature;
+	
 	
 	public Utilisateur(){
 	
@@ -81,6 +84,18 @@ public class Utilisateur {
 	public void setIdentifiant(String identifiant) {
 		this.identifiant = identifiant;
 	}
+
+	public Blob getSignature() {
+		return signature;
+	}
+
+	public void setSignature(Blob signature) {
+		this.signature = signature;
+	}
+
+	
+
+	
 	
 
 }

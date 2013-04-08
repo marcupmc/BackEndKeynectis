@@ -1,14 +1,17 @@
 package dao;
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.engine.jdbc.BlobImplementer;
 
 import tools.CryptoTool;
 import domain.DocumentPDF;
@@ -62,6 +65,7 @@ public class DAOUtilisateur {
 			user.setIdentifiant(identifiant);
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
+			user.setSignature(null);
 
 			//On crypte le mot de passe ici
 			try {
@@ -181,6 +185,32 @@ public class DAOUtilisateur {
 			if(user==null)return false;
 			
 			session.delete(user);
+			tx.commit();
+			session.close();
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public boolean addSignature(String identifiant, byte[] signature){
+		if(identifiant==null || identifiant.length()==0||signature==null||signature.length==0)return false;
+		
+		Utilisateur user = this.getUserByIdentifiant(identifiant);
+		if(user==null)return false;
+		Session session=null;
+		try{
+			SessionFactory sessionFactory =
+					new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			//begin a transaction
+			org.hibernate.Transaction tx = session.beginTransaction();
+			
+			user.setSignature(Hibernate.createBlob(signature));
+			
+			session.update(user);
 			tx.commit();
 			session.close();
 		}catch(Exception e){
