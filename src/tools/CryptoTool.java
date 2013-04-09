@@ -5,6 +5,12 @@ import java.security.NoSuchAlgorithmException;
 
 public class CryptoTool {
 
+	/**
+	 * Hash a string into MD5 code
+	 * @param key
+	 * @return MD5 encoding of a string
+	 * @throws NoSuchAlgorithmException
+	 */
 	public static String getEncodedPassword(String key) throws NoSuchAlgorithmException {
 		byte[] uniqueKey = key.getBytes();
 		byte[] hash = null;

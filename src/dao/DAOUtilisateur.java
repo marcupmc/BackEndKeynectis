@@ -146,6 +146,11 @@ public class DAOUtilisateur {
 		}
 	}
 
+	/**
+	 * Find the users that match with the string in parameter
+	 * @param s
+	 * @return a list of users
+	 */
 	public ArrayList<Utilisateur> getUsersByRegex(String s)
 	{
 		ArrayList<Utilisateur> users = new ArrayList<Utilisateur>();
@@ -170,6 +175,11 @@ public class DAOUtilisateur {
 		
 	}
 
+	/**
+	 * Delete a user, and all his document because of the cascade
+	 * @param idClient
+	 * @return true if the user is deleted, false if not
+	 */
 	public boolean deleteUser(long idClient) {
 		// TODO Auto-generated method stub
 		if(idClient<=0)return false;
@@ -194,6 +204,12 @@ public class DAOUtilisateur {
 		return true;
 	}
 	
+	/**
+	 * Add a signature to a user
+	 * @param identifiant
+	 * @param signature
+	 * @return true if the signature has been added, false if not
+	 */
 	@SuppressWarnings("deprecation")
 	public boolean addSignature(String identifiant, byte[] signature){
 		if(identifiant==null || identifiant.length()==0||signature==null||signature.length==0)return false;
@@ -211,6 +227,39 @@ public class DAOUtilisateur {
 			user.setSignature(Hibernate.createBlob(signature));
 			
 			session.update(user);
+			tx.commit();
+			session.close();
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Change the parameter that define the certification of a document, and set it to True
+	 * @param identifiant
+	 * @param url
+	 * @return true if the document has been updated, false if not
+	 */
+	public boolean certifiedDocument(String identifiant, String url){
+		Utilisateur user = this.getUserByIdentifiant(identifiant);
+		
+		if(user==null)return false;
+		Session session = null;
+		try{
+			SessionFactory sessionFactory =
+					new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			//begin a transaction
+			org.hibernate.Transaction tx = session.beginTransaction();
+			for(DocumentPDF docs : user.getDocuments()){
+				if(docs.getUrl().equals(url))
+				{
+					docs.setCertified(true);
+					session.update(docs);
+				}
+			}
 			tx.commit();
 			session.close();
 		}catch(Exception e){

@@ -15,7 +15,11 @@ import domain.Utilisateur;
 @Path("/importation")
 public class ImportationPDF {
 
-	
+	/**
+	 * Find the pdf of a user from his "Identifiant"
+	 * @param formParam
+	 * @return a JSON with all the documentPDF informations
+	 */
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	public String getPDF(MultivaluedMap<String, String> formParam)

@@ -16,6 +16,11 @@ import dao.DAOUtilisateur;
 @Path("/signature")
 public class SaveSignature {
 
+	/**
+	 * Save a signature into the database from an id and the signature (base64)
+	 * @param formParam
+	 * @return "error" if there was a problem and "ok" if not
+	 */
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	public String saveSignature(MultivaluedMap<String, String> formParam)

@@ -17,16 +17,15 @@ import domain.Utilisateur;
 @Path("/authentification")
 public class Connexion {
 
+	/**
+	 * Check if the user is in the database and if the password is correct
+	 * @param formParam
+	 * @return a string to the device which called this service : "error" if there was an error during the treatment
+	 */
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	public String isAuthentified(MultivaluedMap<String, String> formParam)
 	{
-		//Initialisation de la base A ENLEVER !!
-//		System.out.println("[HIBERNATE] Initialisation de la base...");
-//		boolean isInitOk = Initialisator.getInstance().initBDD();
-//		if(isInitOk)System.out.println("[HIBERNATE] Base Initialisée");
-//		else System.err.println("[HIBERNATE] Erreur!!!");
-		
 		System.out.println(formParam.get("login").get(0) + " | "+formParam.get("password").get(0));
 		if(ControllerAuthentification.getInstance().isAuthentified(formParam.get("login").get(0), formParam.get("password").get(0))){
 			System.out.println("Authenfication reussie");
@@ -36,15 +35,5 @@ public class Connexion {
 			System.out.println("Authenfication echouée");
 			return "error";
 		}
-		// retourne ok si l utilisateur est dans la base, retourne ko sinon
-		//System.out.println("Connection Autorisée pour "+formParam.get("login"));
-
-		//Pour test
-//		JSONObject toReturn = new JSONObject();
-//		Utilisateur userToParse = DAOUtilisateur.getInstance().getUserById(1);
-//		if(userToParse!=null)
-//			toReturn=JSONFactory.getInstance().makeUserJSON(userToParse);
-//		System.out.println(toReturn);
-		//return toReturn.toString();
 	}
 }

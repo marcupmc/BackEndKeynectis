@@ -61,7 +61,11 @@ public class DAODocumentPDF {
 		return true;
 	}
 
-
+	/**
+	 * Delete a document by it id
+	 * @param idDocument
+	 * @return true if the document has been delete from db, false if not
+	 */
 	public boolean deleteDocument(long idDocument) {
 		// TODO Auto-generated method stub
 		if(idDocument<=0)return false;
@@ -86,7 +90,11 @@ public class DAODocumentPDF {
 		return true;
 	}
 
-
+	/**
+	 * Find a document by id
+	 * @param idDocument
+	 * @return the document with an id = idDocument, null if it doesn't exist
+	 */
 	public DocumentPDF getById(long idDocument) {
 		// TODO Auto-generated method stub
 
