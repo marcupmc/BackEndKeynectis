@@ -12,6 +12,8 @@ public class CryptoTool {
 	 * @throws NoSuchAlgorithmException
 	 */
 	public static String getEncodedPassword(String key) throws NoSuchAlgorithmException {
+		if(key==null||key.length()==0)return "";
+		
 		byte[] uniqueKey = key.getBytes();
 		byte[] hash = null;
 		hash = MessageDigest.getInstance("MD5").digest(uniqueKey);

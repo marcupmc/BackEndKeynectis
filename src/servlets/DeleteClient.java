@@ -33,7 +33,8 @@ public class DeleteClient extends HttpServlet {
 		long idClient = Long.parseLong(request.getParameter("idClient"));
 		DAOUtilisateur.getInstance().deleteUser(idClient);
 		
-		request.getRequestDispatcher("administration.jsp").forward(request, response);
+		//request.getRequestDispatcher("administration.jsp").forward(request, response);
+		response.sendRedirect("FindClient?recherche=");
 	}
 
 	/**

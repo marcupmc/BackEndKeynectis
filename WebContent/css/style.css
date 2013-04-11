@@ -6,9 +6,10 @@
 @import url("bootstrap-responsive.css");
 
 body {
-	background-color: light-grey;
+	
 	margin: 0px;
 	padding: 0px;
+	background-color: #f5f5f5;
 }
 /* Custom page CSS
       -------------------------------------------------- */
@@ -16,4 +17,9 @@ body {
 .container {
 	width: auto;
 	max-width: 900px;
+}
+
+#resultats{
+	
+		
 }

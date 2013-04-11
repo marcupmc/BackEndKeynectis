@@ -67,7 +67,7 @@
     <servlet-name>DeleteDocument</servlet-name>
     <url-pattern>/DeleteDocument</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>DeleteClient</display-name>
     <servlet-name>DeleteClient</servlet-name>
@@ -76,5 +76,25 @@
   <servlet-mapping>
     <servlet-name>DeleteClient</servlet-name>
     <url-pattern>/DeleteClient</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CertifierDocument</display-name>
+    <servlet-name>CertifierDocument</servlet-name>
+    <servlet-class>servlets.CertifierDocument</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CertifierDocument</servlet-name>
+    <url-pattern>/CertifierDocument</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>ResponseKeynectis</display-name>
+    <servlet-name>ResponseKeynectis</servlet-name>
+    <servlet-class>servlets.ResponseKeynectis</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResponseKeynectis</servlet-name>
+    <url-pattern>/ResponseKeynectis</url-pattern>
   </servlet-mapping>
 </web-app>

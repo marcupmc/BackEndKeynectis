@@ -1,9 +1,13 @@
 package services;
 
+import java.util.ArrayList;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MultivaluedMap;
+
+import controller.ControllerCertification;
 
 @Path("/certification")
 public class Certification {
@@ -12,12 +16,18 @@ public class Certification {
 	@Consumes("application/x-www-form-urlencoded")
 	public String certificationPDF(MultivaluedMap<String, String> formParam){
 		System.out.println("JE DEMANDE LA CERTIFICATION");
-		// Appeler un controlleur qui sera un bouchon
-		// pour certifier une liste de document d'un utilisateur
 		
-		//Recuperer l'identifiant puis la liste des urls
-		System.out.println(formParam.toString());
+		int nbDoc =Integer.parseInt(formParam.get("nbDoc").get(0));
+		if(nbDoc<=0)return "error";
 		
-		return "Hello";
+		String identifiant = formParam.get("identifiant").get(0);
+		if(identifiant==null||identifiant.length()==0)return "error";
+		ArrayList<String> urls = new ArrayList<String>();
+		for(int i = 0;i<nbDoc;i++){
+			urls.add(formParam.get("pdfs["+i+"][url]").get(0));
+		}
+		ControllerCertification.getInstance().certificationPDF(identifiant, urls);
+		
+		return "ok";
 	}
 }

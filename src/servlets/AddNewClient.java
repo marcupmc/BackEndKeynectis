@@ -71,7 +71,8 @@ public class AddNewClient extends HttpServlet {
 				messageErreur="error_add";
 		}
 		
-		request.getRequestDispatcher("addClient.jsp?msg="+messageErreur+"").forward(request, response);
+		//request.getRequestDispatcher("addClient.jsp?msg="+messageErreur+"").forward(request, response);
+		response.sendRedirect("FindClient?recherche=");
 	}
 
 }
