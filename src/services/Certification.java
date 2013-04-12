@@ -1,11 +1,17 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MultivaluedMap;
+
+import org.codehaus.jettison.json.JSONObject;
+
+import com.sun.jersey.api.core.HttpRequestContext;
+import com.sun.jersey.server.impl.model.method.dispatch.HttpReqResDispatchProvider;
 
 import controller.ControllerCertification;
 
@@ -26,8 +32,20 @@ public class Certification {
 		for(int i = 0;i<nbDoc;i++){
 			urls.add(formParam.get("pdfs["+i+"][url]").get(0));
 		}
-		ControllerCertification.getInstance().certificationPDF(identifiant, urls);
+		//ControllerCertification.getInstance().certificationPDF(identifiant, urls);
 		
-		return "ok";
+		//Initialisation des variables de chemin
+		 String urlRetour ="http://10.0.2.2:8080/TestRest/ResponseKeynectis"; 
+		String saveFile="temp_xml/";
+		String certFolder="CERT/";
+		
+		System.out.println("[TEST KEYNECTIS] On lance la certif");
+		HashMap<String, String> toReturn = ControllerCertification.getInstance().certificationPDF(
+				identifiant, urls.get(0), urlRetour,saveFile,certFolder);
+		
+		JSONObject json = new JSONObject(toReturn);
+		
+		//System.out.println("[TEST KEYNECTIS] Affichage du json : \n"+json.toString());
+		return json.toString();
 	}
 }

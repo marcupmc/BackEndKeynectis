@@ -48,7 +48,7 @@ public class ControllerCertification {
 	}
 
 	//TODO : Mettre les attributs dans un fichier de config pour parametrage
-	public HashMap<String, String>  certificationPDF(String identifiant, String url,String basePath,String saveFile,String certFolder){
+	public HashMap<String, String>  certificationPDF(String identifiant, String url,String urlRetour,String saveFile,String certFolder){
 		HashMap<String, String> toReturn =new HashMap<String, String>();
 
 		//------------------Depend de la Base ----------------------------------------
@@ -130,7 +130,8 @@ public class ControllerCertification {
 		//				+ request.getContextPath() + request.getServletPath();
 
 		//String returnUrl = basePath.substring(0, basePath.lastIndexOf("/"))+ "/demoPDFSMS/demo6p4.jsp";
-		String returnUrl = basePath.substring(0, basePath.lastIndexOf("/"))+"/ResponseKeynectis";
+		//String returnUrl = basePath.substring(0, basePath.lastIndexOf("/"))+"/ResponseKeynectis";
+		String returnUrl = urlRetour;
 		System.out.println("[TEST KEYNECTIS] url de retour : "+returnUrl);
 
 		String blob = "";
