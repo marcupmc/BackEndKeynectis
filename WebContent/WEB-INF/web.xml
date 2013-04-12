@@ -87,7 +87,7 @@
     <servlet-name>CertifierDocument</servlet-name>
     <url-pattern>/CertifierDocument</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>ResponseKeynectis</display-name>
     <servlet-name>ResponseKeynectis</servlet-name>
@@ -96,5 +96,25 @@
   <servlet-mapping>
     <servlet-name>ResponseKeynectis</servlet-name>
     <url-pattern>/ResponseKeynectis</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ClientAccueil</display-name>
+    <servlet-name>ClientAccueil</servlet-name>
+    <servlet-class>servlets.ClientAccueil</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ClientAccueil</servlet-name>
+    <url-pattern>/ClientAccueil</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>ClientAuthentification</display-name>
+    <servlet-name>ClientAuthentification</servlet-name>
+    <servlet-class>servlets.ClientAuthentification</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ClientAuthentification</servlet-name>
+    <url-pattern>/ClientAuthentification</url-pattern>
   </servlet-mapping>
 </web-app>

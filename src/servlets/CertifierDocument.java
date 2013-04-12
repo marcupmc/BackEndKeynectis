@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.Session;
+
 import controller.ControllerCertification;
 
 /**
@@ -51,9 +53,11 @@ public class CertifierDocument extends HttpServlet {
 		//System.out.println("blob : \n"+blob);
 		
 		request.setAttribute("blob", toReturn.get("blob"));
-		request.setAttribute("transNum", toReturn.get("transNum"));
-		request.setAttribute("CERT", certFolder);
-		request.setAttribute("OUT", saveFile);
+//		request.setAttribute("transNum", toReturn.get("transNum"));
+//		request.setAttribute("CERT", certFolder);
+//		request.setAttribute("OUT", saveFile);
+		
+		//request.getSession().setAttribute("toto", "toto");
 		
 		System.out.println("[TEST KEYNECTIS - Servelt] Envoi du blob dans l'attribut de la requete + redirection");
 		request.getRequestDispatcher("sendToKeynectis.jsp").forward(request, response);

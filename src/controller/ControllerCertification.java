@@ -59,6 +59,7 @@ public class ControllerCertification {
 
 		//--------------------------Variable parametrable en fonction du metier / fichier de config?--------
 		String pathCertificat = certFolder+"/demoqs_s.p12"; 
+		System.out.println("[TEST KEYNECTIS] Adresse certificat : "+pathCertificat);
 		String motPasse = "DemoQS";
 		//	String adresseXML="ressources/Test.pdf.xml";
 		String adresseXML="";
@@ -129,9 +130,9 @@ public class ControllerCertification {
 		//				+ request.getServerName() + ":" + request.getServerPort()
 		//				+ request.getContextPath() + request.getServletPath();
 
-		//String returnUrl = basePath.substring(0, basePath.lastIndexOf("/"))+ "/demoPDFSMS/demo6p4.jsp";
-		//String returnUrl = basePath.substring(0, basePath.lastIndexOf("/"))+"/ResponseKeynectis";
-		String returnUrl = urlRetour;
+		//String returnUrl = urlRetour.substring(0, urlRetour.lastIndexOf("/"))+ "/demoPDFSMS/demo6p4.jsp";
+		String returnUrl = urlRetour.substring(0, urlRetour.lastIndexOf("/"))+"/ResponseKeynectis";
+		//String returnUrl = urlRetour;
 		System.out.println("[TEST KEYNECTIS] url de retour : "+returnUrl);
 
 		String blob = "";

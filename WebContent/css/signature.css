@@ -1,0 +1,50 @@
+@CHARSET "ISO-8859-1";
+
+select {
+	padding: .5em;
+	margin: .5em;
+}
+
+#signatureparent {
+width: 600px; color : darkblue;
+	background-color: darkgrey;
+	/*max-width:600px;*/
+	padding: 20px;
+	color: darkblue;
+}
+/*This is the div within which the signature canvas is fitted*/
+#signature {
+	border: 2px solid black;
+	background-color: lightgrey;
+}
+/* Drawing the 'gripper' for touch-enabled devices */
+html.touch #content {
+	float: left;
+	width: 92%;
+}
+
+html.touch #scrollgrabber {
+	float: right;
+	width: 4%;
+	margin-right: 2%;
+	background-image:
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAFCAAAAACh79lDAAAAAXNSR0IArs4c6QAAABJJREFUCB1jmMmQxjCT4T/DfwAPLgOXlrt3IwAAAABJRU5ErkJggg==)
+}
+
+html.borderradius #scrollgrabber {
+	border-radius: 1em;
+}
+
+#myModal{
+	width: 800px;
+}
+
+#parametre{
+	text-align: right;
+	margin-right: 50px;
+	margin-bottom: 10px;
+}
+
+#deconnexion{
+	margin-top: -40px;
+}

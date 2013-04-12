@@ -22,7 +22,7 @@ public class Connexion {
 	 * @param formParam
 	 * @return a string to the device which called this service : "error" if there was an error during the treatment
 	 */
-	@POST
+	@POST 
 	@Consumes("application/x-www-form-urlencoded")
 	public String isAuthentified(MultivaluedMap<String, String> formParam)
 	{

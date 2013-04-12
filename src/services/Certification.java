@@ -42,10 +42,12 @@ public class Certification {
 		System.out.println("[TEST KEYNECTIS] On lance la certif");
 		HashMap<String, String> toReturn = ControllerCertification.getInstance().certificationPDF(
 				identifiant, urls.get(0), urlRetour,saveFile,certFolder);
+		String ret = toReturn.get("blob");
 		
-		JSONObject json = new JSONObject(toReturn);
+		return ret;
+	//	JSONObject json = new JSONObject(toReturn);
 		
 		//System.out.println("[TEST KEYNECTIS] Affichage du json : \n"+json.toString());
-		return json.toString();
+		//return json.toString();
 	}
 }
