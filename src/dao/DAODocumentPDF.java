@@ -10,37 +10,47 @@ import org.hibernate.cfg.Configuration;
 import domain.DocumentPDF;
 import domain.Utilisateur;
 
-public class DAODocumentPDF {
+public class DAODocumentPDF
+{
 
-	//SINGLETON
-	public static DAODocumentPDF getInstance() {
-		if (null == instance) { 
+	// SINGLETON
+	public static DAODocumentPDF getInstance()
+	{
+		if (null == instance)
+		{
 			instance = new DAODocumentPDF();
 		}
 		return instance;
 	}
 
-
-	private DAODocumentPDF() {
+	private DAODocumentPDF()
+	{
 	}
 
 	private static DAODocumentPDF instance;
 
 	/**
-	 * Save document for a client. The added document is not certified by default
+	 * Save document for a client. The added document is not certified by
+	 * default
+	 * 
 	 * @param idOwner
 	 * @param name
 	 * @param url
 	 * @return true if the document is added, false if not
 	 */
-	public boolean addDocument(long idOwner, String name, String url){
+	public boolean addDocument(long idOwner, String name, String url)
+	{
 		Utilisateur user = DAOUtilisateur.getInstance().getUserById(idOwner);
-		if(user==null)return false;
-		if(name==null||name.length()==0||url==null||url.length()==0)return false;
+		if (null == user)
+			return false;
+		if (null == name || 0 == name.length() || null == url
+				|| 0 == url.length())
+			return false;
 		Session session = null;
-		try{
-			SessionFactory sessionFactory =
-					new Configuration().configure().buildSessionFactory();
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure()
+					.buildSessionFactory();
 			session = sessionFactory.openSession();
 			org.hibernate.Transaction tx = session.beginTransaction();
 
@@ -50,10 +60,12 @@ public class DAODocumentPDF {
 			doc.setOwner(user);
 			doc.setCertified(false);
 
-			session.save(doc); 
+			session.save(doc);
 			tx.commit();
 			session.close();
-		}catch(Exception e){
+		}
+		catch (Exception e)
+		{
 			System.out.println(e.getMessage());
 			return false;
 		}
@@ -63,26 +75,33 @@ public class DAODocumentPDF {
 
 	/**
 	 * Delete a document by it id
+	 * 
 	 * @param idDocument
 	 * @return true if the document has been delete from db, false if not
 	 */
-	public boolean deleteDocument(long idDocument) {
+	public boolean deleteDocument(long idDocument)
+	{
 		// TODO Auto-generated method stub
-		if(idDocument<=0)return false;
+		if (0 >= idDocument)
+			return false;
 		Session session = null;
-		try{
-			SessionFactory sessionFactory =
-					new Configuration().configure().buildSessionFactory();
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure()
+					.buildSessionFactory();
 			session = sessionFactory.openSession();
 			org.hibernate.Transaction tx = session.beginTransaction();
 
 			DocumentPDF doc = DAODocumentPDF.getInstance().getById(idDocument);
-			if(doc==null)return false;
-			
+			if (null == doc)
+				return false;
+
 			session.delete(doc);
 			tx.commit();
 			session.close();
-		}catch(Exception e){
+		}
+		catch (Exception e)
+		{
 			System.out.println(e.getMessage());
 			return false;
 		}
@@ -92,30 +111,37 @@ public class DAODocumentPDF {
 
 	/**
 	 * Find a document by id
+	 * 
 	 * @param idDocument
 	 * @return the document with an id = idDocument, null if it doesn't exist
 	 */
-	public DocumentPDF getById(long idDocument) {
+	public DocumentPDF getById(long idDocument)
+	{
 		// TODO Auto-generated method stub
 
 		ArrayList<DocumentPDF> docs = new ArrayList<DocumentPDF>();
 		Session session = null;
-		try{
-			SessionFactory sessionFactory =
-					new Configuration().configure().buildSessionFactory();
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure()
+					.buildSessionFactory();
 			session = sessionFactory.openSession();
 			org.hibernate.Transaction tx = session.beginTransaction();
 
-			Query q =session.createQuery("from DocumentPDF as c where c.id = '"+idDocument+"'");
+			Query q = session
+					.createQuery("from DocumentPDF as c where c.id = '"
+							+ idDocument + "'");
 			docs = (ArrayList<DocumentPDF>) q.list();
 
 			tx.commit();
 			session.close();
-			if(docs.size()==1)
-				return docs.get(0);  
+			if (1 == docs.size())
+				return docs.get(0);
 			else
 				return null;
-		}catch(Exception e){
+		}
+		catch (Exception e)
+		{
 			System.out.println(e.getMessage());
 			return null;
 		}

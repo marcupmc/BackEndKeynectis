@@ -19,9 +19,11 @@
 		<h2>
 			Informations de :
 			<%=client.getFirstName()%>
-			<%=client.getLastName()%> <a href="administration.jsp" class="btn btn-info">Accueil</a></h2>
-			
-			
+			<%=client.getLastName()%>
+			<a href="administration.jsp" class="btn btn-info">Accueil</a>
+		</h2>
+
+
 		<ul>
 			<li>Nom : <%=client.getLastName()%></li>
 			<li>Prénom : <%=client.getFirstName()%></li>
@@ -29,50 +31,67 @@
 			<li>Email : <%=client.getEmail()%></li>
 			<li>Telephone : <%=client.getPhoneNumber()%></li>
 		</ul>
-		
+
 		<div>
-			<%if(client.getSignature()==null){
-				%>
-				<h4>Aucune Signature Enregistrée</h4>
-			<% }else{
-			
-				byte[] decode = EncoderBase64.encodingBlobToByteArray(client.getSignature());
-				String chaine = EncoderBase64.byteArraytoStringBase64(decode);
+			<%
+				if (client.getSignature() == null)
+				{
 			%>
-				<img src="data:image/png;base64,<%=chaine%>"/>
-			<%} %>
-		</div>
-		
-		<h3>Liste des documents</h3>
-			<table class="table table-striped">
- 				<tr>
- 					<th>Nom du document</th>
- 					<th>Est Certifié </th>
- 					<th></th>
- 				</tr>
- 				<%
-				for (DocumentPDF doc : client.getDocuments()) {
-				%>
-				<tr>
-					<td><a href="<%=doc.getUrl()%>"><%=doc.getName()%></a></td>
-					<td>
-						<%if(doc.isCertified()){ %>
-						Oui
-						<%}else{ %>
-						Non
-						<%} %>
-					</td>
-					<td><a href="DeleteDocument?idDocument=<%=doc.getId() %>&idClientDoc=<%=doc.getOwner().getId() %>" class="btn btn-small btn-danger">Supprimer</a></td>
-				</tr>
-				<%
+			<h4>Aucune Signature Enregistrée</h4>
+			<%
+				}
+				else
+				{
+
+					byte[] decode = EncoderBase64.encodingBlobToByteArray(client
+							.getSignature());
+					String chaine = EncoderBase64.byteArraytoStringBase64(decode);
+			%>
+			<img src="data:image/png;base64,<%=chaine%>" />
+			<%
 				}
 			%>
-			</table>
-		
+		</div>
+
+		<h3>Liste des documents</h3>
+		<table class="table table-striped">
+			<tr>
+				<th>Nom du document</th>
+				<th>Est Certifié</th>
+				<th></th>
+			</tr>
+			<%
+				for (DocumentPDF doc : client.getDocuments())
+				{
+			%>
+			<tr>
+				<td><a href="<%=doc.getUrl()%>"><%=doc.getName()%></a></td>
+				<td>
+					<%
+						if (doc.isCertified())
+							{
+					%> Oui <%
+						}
+							else
+							{
+					%> Non <%
+						}
+					%>
+				</td>
+				<td><a
+					href="DeleteDocument?idDocument=<%=doc.getId()%>&idClientDoc=<%=doc.getOwner().getId()%>"
+					class="btn btn-small btn-danger">Supprimer</a></td>
+			</tr>
+			<%
+				}
+			%>
+		</table>
+
 
 		<form method="post" action="AddDocument" id="addContactForm">
-			<input type="hidden" id="idClient" name="idClient" value="<%=client.getId() %>" />
-			<input type="hidden" id="nbDoc" name="nbDoc" value="1" />
+			<input type="hidden" id="idClient" name="idClient"
+				value="<%=client.getId()%>" /> <input type="hidden" id="nbDoc"
+				name="nbDoc" value="1" />
 			<div class="control-group" id="documentsClient">
 				<div id="t0">
 					<div class="controls">

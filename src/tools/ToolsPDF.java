@@ -12,10 +12,8 @@ import java.net.URLConnection;
 
 import org.bouncycastle.util.encoders.Base64;
 
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfAnnotation;
 import com.itextpdf.text.pdf.PdfFormField;
 import com.itextpdf.text.pdf.PdfName;
@@ -23,32 +21,37 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfString;
 
-
-public class ToolsPDF {
+public class ToolsPDF
+{
 
 	/**
-	 * Lit un fichier (PDF) et le sauvegarde encodé en Base64 dans un fichier XML
+	 * Lit un fichier (PDF) et le sauvegarde encodé en Base64 dans un fichier
+	 * XML
 	 * 
 	 */
-	public static String pdf2xml(String pdfFileName,String name, String pathServeur) throws IOException
+	public static String pdf2xml(String pdfFileName, String name,
+			String pathServeur) throws IOException
 	{
-		System.out.println("SAVE FILE : "+pathServeur);
+		System.out.println("SAVE FILE : " + pathServeur);
 		byte[] fileArray = getBytesFromFile(new File(pdfFileName));
-		
-		//URL ur = new URL(pdfFileName);
-		//byte[] fileArray  =getAsByteArray(ur);
+
+		// URL ur = new URL(pdfFileName);
+		// byte[] fileArray =getAsByteArray(ur);
 		if (fileArray != null)
 		{
-			String extension = ".xml";//or ".jpg" or anything
-			String filename = pathServeur+"/"+name+extension;
-			//String filename ="ressources/"+name+extension;
-			System.out.println("FileName : "+filename);
-			byte[] data = fileArray;//the byte array which i got from server
+			String extension = ".xml";// or ".jpg" or anything
+			String filename = pathServeur + "/" + name + extension;
+			// String filename ="ressources/"+name+extension;
+			System.out.println("FileName : " + filename);
+			//byte[] data = fileArray;// the byte array which i got from server
 
 			File f = new File(filename);
 
-			try {
-				byte[] beginTag = new String("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<docPDFb64>\n").getBytes();
+			try
+			{
+				byte[] beginTag = new String(
+						"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<docPDFb64>\n")
+						.getBytes();
 				byte[] endTag = new String("\n</docPDFb64>").getBytes();
 				OutputStream os = new FileOutputStream(filename);
 
@@ -86,6 +89,7 @@ public class ToolsPDF {
 
 		if (length > Integer.MAX_VALUE)
 		{
+			is.close();
 			throw new IOException("File is too large to process");
 		}
 
@@ -104,6 +108,7 @@ public class ToolsPDF {
 		// Ensure all the bytes have been read in
 		if (offset < bytes.length)
 		{
+			is.close();
 			throw new IOException("Could not completely read file "
 					+ file.getName());
 		}
@@ -112,7 +117,8 @@ public class ToolsPDF {
 		return bytes;
 	}
 
-	public static byte[] getAsByteArray(URL url) throws IOException {
+	public static byte[] getAsByteArray(URL url) throws IOException
+	{
 		URLConnection connection = url.openConnection();
 		// Since you get a URLConnection, use it to get the InputStream
 		InputStream in = connection.getInputStream();
@@ -123,50 +129,59 @@ public class ToolsPDF {
 		// bytes are written to the array, provide an accurate estimate of
 		// the ultimate size of the byte array
 		ByteArrayOutputStream tmpOut;
-		if (contentLength != -1) {
+		if (contentLength != -1)
+		{
 			tmpOut = new ByteArrayOutputStream(contentLength);
-		} else {
-			tmpOut = new ByteArrayOutputStream(16384); // Pick some appropriate size
+		}
+		else
+		{
+			tmpOut = new ByteArrayOutputStream(16384); // Pick some appropriate
+														// size
 		}
 
 		byte[] buf = new byte[512];
-		while (true) {
+		while (true)
+		{
 			int len = in.read(buf);
-			if (len == -1) {
+			if (len == -1)
+			{
 				break;
 			}
 			tmpOut.write(buf, 0, len);
 		}
 		in.close();
-		tmpOut.close(); // No effect, but good to do anyway to keep the metaphor alive
+		tmpOut.close(); // No effect, but good to do anyway to keep the metaphor
+						// alive
 
 		byte[] array = tmpOut.toByteArray();
 		return array;
 
-		//Lines below used to test if file is corrupt
-		//FileOutputStream fos = new FileOutputStream("C:\\abc.pdf");
-		//fos.write(array);
-		//fos.close();
+		// Lines below used to test if file is corrupt
+		// FileOutputStream fos = new FileOutputStream("C:\\abc.pdf");
+		// fos.write(array);
+		// fos.close();
 
-		//	    return ByteBuffer.wrap(array);
+		// return ByteBuffer.wrap(array);
 	}
-	
-	public static String createPDFDocToSign(String url ,String pathFolderout,String name) throws DocumentException, IOException
+
+	public static String createPDFDocToSign(String url, String pathFolderout,
+			String name) throws DocumentException, IOException
 	{
-		String outFile =  pathFolderout+"/"+name+".pdf";
+		String outFile = pathFolderout + "/" + name + ".pdf";
 
 		try
 		{
 			PdfReader pdf = new PdfReader(url);
-			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream( outFile
-					/*RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf"*/));
+			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
+			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
 			PdfFormField sig = PdfFormField.createSignature(stp.getWriter());
-			
-			sig.setWidget(new Rectangle(100, 100, 200,200), null);
-			
+
+			sig.setWidget(new Rectangle(100, 100, 200, 200), null);
+
 			sig.setFlags(PdfAnnotation.FLAGS_PRINT);
 			sig.put(PdfName.DA, new PdfString("/Helv 0 Tf 0 g"));
-			sig.setFieldName("Signature1"); //TODO A changer et rendre parametrable
+			sig.setFieldName("Signature1"); // TODO A changer et rendre
+											// parametrable
 			sig.setPage(1);
 			stp.addAnnotation(sig, 1);
 			stp.close();

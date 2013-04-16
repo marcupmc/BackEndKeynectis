@@ -12,9 +12,12 @@
 	<%@page import="java.util.ArrayList"%>
 	<%
 		ArrayList<Utilisateur> lcontact = new ArrayList<Utilisateur>();
-		if (request.getAttribute("liste") == null) {
+		if (request.getAttribute("liste") == null)
+		{
 
-		} else {
+		}
+		else
+		{
 			lcontact = (ArrayList<Utilisateur>) request
 					.getAttribute("liste");
 		}
@@ -26,10 +29,13 @@
 			<button type="submit" class="btn">Search</button>
 		</form>
 		<a class="btn btn-primary" href="addClient.jsp">Ajouter un client</a>
-		<a class="btn btn-info" href="CertifierDocument">Certifier un Document</a>
-		<div id="resultats"><br/>
+		<a class="btn btn-info" href="CertifierDocument">Certifier un
+			Document</a>
+		<div id="resultats">
+			<br />
 			<%
-				if (lcontact.size() > 0) {
+				if (lcontact.size() > 0)
+				{
 			%>
 			<table class="table table-striped">
 				<tr>
@@ -44,7 +50,8 @@
 
 				</tr>
 				<%
-					for (int i = 0; i < lcontact.size(); i++) {
+					for (int i = 0; i < lcontact.size(); i++)
+						{
 							Utilisateur c = lcontact.get(i);
 				%>
 				<tr>
@@ -53,10 +60,12 @@
 					<td><%=c.getLastName()%></td>
 					<td><%=c.getEmail()%></td>
 					<td><%=c.getPhoneNumber()%></td>
-					<td><%= c.getDocuments().size() %></td>
-					<td><a href="DetailsClient?id=<%= c.getId() %>" class="btn btn-small btn-info" type="buttons">Consulter
-							les informations</a></td>
-					<td><a href="DeleteClient?idClient=<%=c.getId() %>" class="btn btn-small btn-danger" type="button">Supprimer</a></td>
+					<td><%=c.getDocuments().size()%></td>
+					<td><a href="DetailsClient?id=<%=c.getId()%>"
+						class="btn btn-small btn-info" type="buttons">Consulter les
+							informations</a></td>
+					<td><a href="DeleteClient?idClient=<%=c.getId()%>"
+						class="btn btn-small btn-danger" type="button">Supprimer</a></td>
 				<tr>
 					<%
 						}
@@ -69,9 +78,9 @@
 		</div>
 
 	</div>
-	
-	
-	
+
+
+
 
 </body>
 </html>
