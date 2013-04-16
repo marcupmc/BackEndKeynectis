@@ -1,4 +1,4 @@
-
+ 
 <%
 	session.setAttribute("isLogged", new Object());
 
@@ -70,7 +70,7 @@
 	<script>
 function goHome()
 {
-	location.href="cadre.jsp";
+	location.href="cadre.jsp"; 
 }
 </script>
 	<%

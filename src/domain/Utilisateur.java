@@ -1,4 +1,4 @@
-package domain;
+package domain; 
 
 import java.sql.Blob;
 import java.util.HashSet;

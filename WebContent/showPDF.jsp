@@ -1,4 +1,4 @@
-<%@ page import="java.io.*"%>
+<%@ page import="java.io.*"%> 
 <%!
 /**
  * Retourne le contenu d'un fichier sous la forme d'un tableau de bytes

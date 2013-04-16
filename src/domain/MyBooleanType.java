@@ -4,7 +4,7 @@
  * @Dated: Jun 20, 2012
  **************/
 
-package domain;
+package domain; 
 
 import java.io.Serializable;
 import java.sql.PreparedStatement;

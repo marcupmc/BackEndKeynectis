@@ -14,7 +14,7 @@ public class ControllerAjoutClient
 	{
 		if (null == instance)
 		{ // Premier appel
-			instance = new ControllerAjoutClient();
+			instance = new ControllerAjoutClient(); 
 		}
 		return instance;
 	}

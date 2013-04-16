@@ -86,7 +86,7 @@ public class ResponseKeynectis extends HttpServlet
 			transNum = rti.getTransNum();
 			status = rti.getStatus();
 			
-			fos.close();
+			fos.close(); 
 
 			// String subDirectory =
 			// request.getServletPath().substring(1,request.getServletPath().lastIndexOf("/"));
