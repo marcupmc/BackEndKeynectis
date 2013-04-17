@@ -88,7 +88,7 @@ public class ControllerCertification {
 		System.out.println("[TEST KEYNECTIS] Fichier PDF avec signature Créé ! ");
 		try {
 			adresseXML = ToolsPDF.pdf2xml(urlPdfToEncode, document.getName(),saveFile);
-		} catch (IOException e) {
+		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
@@ -138,9 +138,9 @@ public class ControllerCertification {
 		//				+ request.getContextPath() + request.getServletPath();
 
 		//String returnUrl = urlRetour.substring(0, urlRetour.lastIndexOf("/"))+ "/demoPDFSMS/demo6p4.jsp";
-		//String returnUrl = urlRetour.substring(0, urlRetour.lastIndexOf("/"))+"/ResponseKeynectis";
+		String returnUrl = urlRetour.substring(0, urlRetour.lastIndexOf("/"))+"/ResponseKeynectis";
 		//String returnUrl = urlRetour;
-		String returnUrl="";  
+		//String returnUrl="";  
 		
 		System.out.println("[TEST KEYNECTIS] url de retour : "+returnUrl);
 

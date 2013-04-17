@@ -34,6 +34,12 @@ public class CertifierDocument extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		String identifiant = request.getParameter("identifiant");
+		String url = request.getParameter("url");
+
+		System.out.println("----------Identifiant : "+identifiant);
+		System.out.println("----------URL recue : "+url);
+
 		// TODO Auto-generated method stub
 		System.out.println("[TEST KEYNECTIS - Servelt] Début du TEST ");
 		System.out.println("adresse : "
@@ -50,9 +56,14 @@ public class CertifierDocument extends HttpServlet {
 		System.out
 		.println("[TEST KEYNECTIS - Servelt] Demande du blob appel a la certification ");
 
+		//		HashMap<String, String> toReturn = ControllerCertification
+		//				.getInstance().certificationPDF("MGregoire",
+		//						"http://www.marc-gregoire.fr/pdf/cv.pdf", basePath,
+		//						saveFile, certFolder);
+
 		HashMap<String, String> toReturn = ControllerCertification
-				.getInstance().certificationPDF("MGregoire",
-						"http://www.marc-gregoire.fr/pdf/cv.pdf", basePath,
+				.getInstance().certificationPDF(identifiant,
+						url, basePath,
 						saveFile, certFolder);
 
 		System.out.println("[TEST KEYNECTIS - Servelt] Recuperation du blob ");

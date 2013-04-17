@@ -50,7 +50,7 @@ public class ResponseKeynectis extends HttpServlet {
 		System.out.println("toto2 : "+request.getSession().getAttribute("toto")); 
 		String adresseCertificat = (String)request.getSession().getAttribute("CERT")+"/demoqs_c.p12";
 		String transNumInSession = (String)request.getSession().getAttribute("transNum");
-		String pdfOutPath = (String)request.getSession().getAttribute("OUT")+"/transNumInSession"+".pdf";
+		String pdfOutPath = (String)request.getSession().getAttribute("OUT")+"\\"+transNumInSession+".pdf";
 
 		System.out.println("Adresse Certificat : "+adresseCertificat);
 		System.out.println("Trans num session : "+transNumInSession);
@@ -90,8 +90,9 @@ public class ResponseKeynectis extends HttpServlet {
 		
 		//FIN AJOUT
 		
+		
 	//	String subDirectory = request.getServletPath().substring(1,request.getServletPath().lastIndexOf("/"));
-		String url = "index.jsp?pageDemo=demoPDFSMS/demo6p5.jsp&transNum="+transNum+"&status="+status+"&pdfOutPath="+pdfOutPath;
+		String url = "index.jsp?pageDemo=demoPDFSMS/demo6p5.jsp&transNum="+transNum+"&status="+status+"&pdfOutPath="+pdfOutPath.replaceAll("\\\\", "/");
 
 		response.sendRedirect(url);
 	}
