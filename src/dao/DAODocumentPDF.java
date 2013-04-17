@@ -121,4 +121,35 @@ public class DAODocumentPDF {
 		}
 	}
 
+	/**
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public DocumentPDF getByUrl(String url) {
+		// TODO Auto-generated method stub
+
+		ArrayList<DocumentPDF> docs = new ArrayList<DocumentPDF>();
+		Session session = null;
+		try{
+			SessionFactory sessionFactory =
+					new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+
+			Query q =session.createQuery("from DocumentPDF as c where c.url = '"+url+"'");
+			docs = (ArrayList<DocumentPDF>) q.list();
+
+			tx.commit();
+			session.close();
+			if(docs.size()==1)
+				return docs.get(0);  
+			else
+				return null;
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
 }

@@ -16,7 +16,7 @@ session.removeAttribute("hashBase64");
 	<meta Http-Equiv="Cache-Control" Content="no-cache">
 	<meta Http-Equiv="Pragma" Content="no-cache">
 	<meta Http-Equiv="Expires" Content="0">
-	<link rel="stylesheet" href="../css/style.css" type="text/css">
+	<link rel="stylesheet" href="../css/style2.css" type="text/css">
 <script>
   function Valider()
   {

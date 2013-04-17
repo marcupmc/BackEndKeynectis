@@ -5,6 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.imageio.spi.ServiceRegistry;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import tools.EncoderBase64;
 import tools.ToolsPDF;
 
@@ -49,6 +55,7 @@ public class ControllerCertification {
 
 	//TODO : Mettre les attributs dans un fichier de config pour parametrage
 	public HashMap<String, String>  certificationPDF(String identifiant, String url,String urlRetour,String saveFile,String certFolder){
+		 
 		HashMap<String, String> toReturn =new HashMap<String, String>();
 
 		//------------------Depend de la Base ----------------------------------------
@@ -131,8 +138,10 @@ public class ControllerCertification {
 		//				+ request.getContextPath() + request.getServletPath();
 
 		//String returnUrl = urlRetour.substring(0, urlRetour.lastIndexOf("/"))+ "/demoPDFSMS/demo6p4.jsp";
-		String returnUrl = urlRetour.substring(0, urlRetour.lastIndexOf("/"))+"/ResponseKeynectis";
+		//String returnUrl = urlRetour.substring(0, urlRetour.lastIndexOf("/"))+"/ResponseKeynectis";
 		//String returnUrl = urlRetour;
+		String returnUrl="";  
+		
 		System.out.println("[TEST KEYNECTIS] url de retour : "+returnUrl);
 
 		String blob = "";

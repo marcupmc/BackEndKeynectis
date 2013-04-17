@@ -15,6 +15,8 @@ import com.dictao.keynectis.quicksign.transid.ResponseTransId;
 import com.dictao.keynectis.quicksign.transid.SignBlobException;
 import com.itextpdf.text.log.SysoLogger;
 
+import dao.DAOUtilisateur;
+
 /**
  * Servlet implementation class ResponseKeynectis
  */
@@ -81,6 +83,13 @@ public class ResponseKeynectis extends HttpServlet {
 
 		fos.close();
 
+		//AJOUT
+		String identifiant=(String)request.getSession().getAttribute("identifiant");
+		String urlOriginale = (String)request.getSession().getAttribute("urlOriginale");
+		DAOUtilisateur.getInstance().certifiedDocument(identifiant,urlOriginale);
+		
+		//FIN AJOUT
+		
 	//	String subDirectory = request.getServletPath().substring(1,request.getServletPath().lastIndexOf("/"));
 		String url = "index.jsp?pageDemo=demoPDFSMS/demo6p5.jsp&transNum="+transNum+"&status="+status+"&pdfOutPath="+pdfOutPath;
 

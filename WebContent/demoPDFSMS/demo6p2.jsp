@@ -25,7 +25,7 @@ private static final String OUT = "Out";
 	<meta Http-Equiv="Cache-Control" Content="no-cache">
 	<meta Http-Equiv="Pragma" Content="no-cache">
 	<meta Http-Equiv="Expires" Content="0">
-	<link rel="stylesheet" href="../css/style.css" type="text/css">
+	<link rel="stylesheet" href="../css/style2.css" type="text/css">
 <script>
   function Valider()
   {
@@ -57,7 +57,7 @@ private static final String OUT = "Out";
 			<img src="../img/flecheDroite.jpg">
 		</td>
 		<td align="center" rowspan="2">
-<!-- 			<iframe width="100%" height="100%" src="demo6p3.jsp" frameborder="0"></iframe> -->
+			<iframe width="100%" height="100%" src="demo6p3.jsp" frameborder="0"></iframe>
 		</td>
 	</tr>
 	<tr>

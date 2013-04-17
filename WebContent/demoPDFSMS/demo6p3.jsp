@@ -148,7 +148,7 @@
 				rti.setName(prenom + " " + nom);
 				rti.setEmail(email);
 				rti.setAuthority(authority);
-				rti.setCuf(cuf);
+				//rti.setCuf(cuf);
 				rti.setReturnUrl(returnUrl);
 				rti.setFilePath(origMetierSign); // L'original métier signé en pj
 				rti.setTag(tag);
@@ -187,7 +187,7 @@
 <meta Http-Equiv="Cache-Control" Content="no-cache">
 <meta Http-Equiv="Pragma" Content="no-cache">
 <meta Http-Equiv="Expires" Content="0">
-<link rel="stylesheet" href="../css/style.css" type="text/css">
+<link rel="stylesheet" href="../css/style3.css" type="text/css">
 <script>
 	function go()
 	{
