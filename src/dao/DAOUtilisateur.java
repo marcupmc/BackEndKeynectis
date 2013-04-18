@@ -13,6 +13,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.engine.jdbc.BlobImplementer;
 
+import sun.jdbc.odbc.OdbcDef;
 import tools.CryptoTool;
 import domain.DocumentPDF;
 import domain.Utilisateur;
@@ -257,6 +258,41 @@ public class DAOUtilisateur {
 				if(docs.getUrl().equals(url))
 				{
 					docs.setCertified(true);
+					session.update(docs);
+				}
+			}
+			tx.commit();
+			session.close();
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Replace the url of a document by a new one
+	 * @param identifiant
+	 * @param oldUrl
+	 * @param newURl
+	 * @return
+	 */
+	public boolean changeUrlDocument(String identifiant, String oldUrl,String newURl){
+		Utilisateur user = this.getUserByIdentifiant(identifiant);
+		if(user==null)return false;
+		
+		if(oldUrl==null||oldUrl.length()==0||newURl==null||newURl.length()==0)return false;
+		Session session = null;
+		try{
+			SessionFactory sessionFactory =
+					new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			//begin a transaction
+			org.hibernate.Transaction tx = session.beginTransaction();
+			for(DocumentPDF docs : user.getDocuments()){
+				if(docs.getUrl().equals(oldUrl))
+				{
+					docs.setUrl(newURl);
 					session.update(docs);
 				}
 			}

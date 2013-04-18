@@ -16,8 +16,19 @@ public class Temporisation {
 	@Consumes("application/x-www-form-urlencoded")
 	public String tempo(MultivaluedMap<String, String> formParam){
 		System.out.println("------------ON va temporiser---------------");
-		if(DAODocumentPDF.getInstance().getByUrl("http://www.marc-gregoire.fr/pdf/cv.pdf").isCertified())
+		
+		String temp= formParam.toString().split("=")[0];
+		System.out.println(temp);
+		long idDocument = Long.parseLong(temp.substring(1));
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(DAODocumentPDF.getInstance().getById(idDocument).isCertified())
 			return "ok";
 		return "notyet";  
 	}
 }
+   

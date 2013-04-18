@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.Session;
 
 import controller.ControllerCertification;
+import dao.DAODocumentPDF;
+import domain.DocumentPDF;
 
 /**
  * Servlet implementation class CertifierDocument
@@ -35,7 +37,14 @@ public class CertifierDocument extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String identifiant = request.getParameter("identifiant");
-		String url = request.getParameter("url");
+		String tempID = request.getParameter("id");
+		System.out.println("-------------------- ID : "+tempID);
+		
+		long id = Long.parseLong(tempID);
+		
+		DocumentPDF docToCert  =DAODocumentPDF.getInstance().getById(id);
+		
+		String url = docToCert.getUrl();
 
 		System.out.println("----------Identifiant : "+identifiant);
 		System.out.println("----------URL recue : "+url);
@@ -52,7 +61,7 @@ public class CertifierDocument extends HttpServlet {
 		String saveFile = this.getServletContext().getRealPath("/temp_xml/");
 		String certFolder = this.getServletContext().getRealPath("/CERT/");
 		System.out.println("Path : " + basePath);
-
+  
 		System.out
 		.println("[TEST KEYNECTIS - Servelt] Demande du blob appel a la certification ");
 
@@ -74,9 +83,8 @@ public class CertifierDocument extends HttpServlet {
 		request.getSession().setAttribute("OUT", saveFile);
 
 		// ajout
-		request.getSession().setAttribute("identifiant", "MGregoire");
-		request.getSession().setAttribute("urlOriginale",
-				"http://www.marc-gregoire.fr/pdf/cv.pdf");
+		request.getSession().setAttribute("identifiant", identifiant);
+		request.getSession().setAttribute("id",tempID);
 		// fin ajout
 
 		System.out

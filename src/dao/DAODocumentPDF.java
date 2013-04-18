@@ -152,4 +152,49 @@ public class DAODocumentPDF {
 		}
 	}
 	
+	public boolean changeUrl(long id, String url){
+		if(url==null||url.length()==0)return false;
+		DocumentPDF doc = this.getById(id);
+		if(doc==null)return false;
+		Session session = null;
+		try{
+			SessionFactory sessionFactory =
+					new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+			
+			doc.setUrl(url);
+			session.update(doc);
+			tx.commit();
+			session.close();
+			
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean certifiedPDF(long id){
+		DocumentPDF doc = this.getById(id);
+		if(doc==null)return false;
+		Session session = null;
+		try{
+			SessionFactory sessionFactory =
+					new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+			
+			doc.setCertified(true);
+			session.update(doc);
+			tx.commit();
+			session.close();
+			
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
 }

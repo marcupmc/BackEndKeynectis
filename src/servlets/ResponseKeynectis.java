@@ -43,7 +43,7 @@ public class ResponseKeynectis extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("URL DE RETOUR : "+request.getRequestURL()+ "||"+request.getRequestedSessionId() );
+		//System.out.println("URL DE RETOUR : "+request.getRequestURL()+ "||"+request.getRequestedSessionId() );
 
 		String blob = (String)request.getParameter("blob");
 
@@ -60,7 +60,7 @@ public class ResponseKeynectis extends HttpServlet {
 		ResponseTransId rti = new ResponseTransId();
 		rti.setB64Blob(blob);
 
-		rti.setCipherCertFilePath(adresseCertificat, "DemoQS");
+		rti.setCipherCertFilePath(adresseCertificat, "DemoQS"); 
 		rti.setOutputStream(fos);
 		String transNum="";
 		int status=-1; 
@@ -85,15 +85,15 @@ public class ResponseKeynectis extends HttpServlet {
 
 		//AJOUT
 		String identifiant=(String)request.getSession().getAttribute("identifiant");
-		String urlOriginale = (String)request.getSession().getAttribute("urlOriginale");
-		DAOUtilisateur.getInstance().certifiedDocument(identifiant,urlOriginale);
+		String id = (String)request.getSession().getAttribute("id");
+		//DAOUtilisateur.getInstance().certifiedDocument(identifiant,urlOriginale);
 		
 		//FIN AJOUT
 		
 		
 	//	String subDirectory = request.getServletPath().substring(1,request.getServletPath().lastIndexOf("/"));
-		String url = "index.jsp?pageDemo=demoPDFSMS/demo6p5.jsp&transNum="+transNum+"&status="+status+"&pdfOutPath="+pdfOutPath.replaceAll("\\\\", "/");
-
+		//String url = "index.jsp?pageDemo=demoPDFSMS/demo6p5.jsp&transNum="+transNum+"&status="+status+"&pdfOutPath="+pdfOutPath.replaceAll("\\\\", "/");
+		String url  = "finCertification.jsp?identifiant="+identifiant+"&id="+id+"&urlnew="+pdfOutPath;
 		response.sendRedirect(url);
 	}
 

@@ -39,6 +39,7 @@ public class JSONFactory {
 			toSend.put("lastName", user.getLastName());
 			//			toSend.put("email", user.getEmail());			
 			toSend.put("pdf", this.getPDFInfo(user));
+			
 			if(user.getSignature()==null)
 				toSend.put("signature","null");
 			else
@@ -65,6 +66,7 @@ public class JSONFactory {
 		for(DocumentPDF doc : user.getDocuments()){
 			JSONObject jsonToAdd = new JSONObject();
 			try {
+				jsonToAdd.put("id",doc.getId()); 
 				jsonToAdd.put("name", doc.getName());
 				jsonToAdd.put("url", doc.getUrl());
 				jsonToAdd.put("isCertified",doc.isCertified());
