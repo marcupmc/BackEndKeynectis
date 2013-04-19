@@ -1,12 +1,18 @@
 package servlets;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import tools.ToolsFTP;
+import tools.ToolsPDF;
 
 import com.dictao.keynectis.quicksign.transid.CipherBlobException;
 import com.dictao.keynectis.quicksign.transid.DataNotSetException;
@@ -51,6 +57,8 @@ public class ResponseKeynectis extends HttpServlet {
 		String adresseCertificat = (String)request.getSession().getAttribute("CERT")+"/demoqs_c.p12";
 		String transNumInSession = (String)request.getSession().getAttribute("transNum");
 		String pdfOutPath = (String)request.getSession().getAttribute("OUT")+"\\"+transNumInSession+".pdf";
+		String temp = (String)request.getSession().getAttribute("temp");
+		String name = (String)request.getSession().getAttribute("name");
 
 		System.out.println("Adresse Certificat : "+adresseCertificat);
 		System.out.println("Trans num session : "+transNumInSession);
@@ -82,7 +90,22 @@ public class ResponseKeynectis extends HttpServlet {
 		}
 
 		fos.close();
-
+		
+		//Send to Serveur
+		
+		ToolsFTP.sendToServer(pdfOutPath, "ftp.marc-gregoire.fr", "www/Keynectis_Certified", "marcgreg", "nCcKMr7E");
+		
+		//A Changer
+		
+		File f = new File(pdfOutPath);
+		String filename  = f.getName();
+		f.delete();
+		
+		String newPath = "http://www.marc-gregoire.fr/Keynectis_Certified/"+filename;
+		
+		
+		
+		deleteTempfiles(temp, name);
 		//AJOUT
 		String identifiant=(String)request.getSession().getAttribute("identifiant");
 		String id = (String)request.getSession().getAttribute("id");
@@ -93,8 +116,18 @@ public class ResponseKeynectis extends HttpServlet {
 		
 	//	String subDirectory = request.getServletPath().substring(1,request.getServletPath().lastIndexOf("/"));
 		//String url = "index.jsp?pageDemo=demoPDFSMS/demo6p5.jsp&transNum="+transNum+"&status="+status+"&pdfOutPath="+pdfOutPath.replaceAll("\\\\", "/");
-		String url  = "finCertification.jsp?identifiant="+identifiant+"&id="+id+"&urlnew="+pdfOutPath;
+		String url  = "finCertification.jsp?identifiant="+identifiant+"&id="+id+"&urlnew="+newPath;
 		response.sendRedirect(url);
+	}
+	
+	private void deleteTempfiles(String url, String name){
+		File f1 = new File(url+"\\"+name+".pdf");
+		f1.delete();
+		File f2 = new File(url+"\\"+name+".xml");
+		f2.delete();
+		File f3  = new File(url+"\\"+name+".xml.dsig");
+		f3.delete();
+		
 	}
 
 }

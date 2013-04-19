@@ -32,6 +32,7 @@ public class FindClient extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		String req = request.getParameter("recherche");
 		
 		ArrayList<Utilisateur> luser = new ArrayList<Utilisateur>();

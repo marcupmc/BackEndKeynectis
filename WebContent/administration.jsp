@@ -54,8 +54,7 @@
 					<td><%=c.getEmail()%></td>
 					<td><%=c.getPhoneNumber()%></td>
 					<td><%= c.getDocuments().size() %></td>
-					<td><a href="DetailsClient?id=<%= c.getId() %>" class="btn btn-small btn-info" type="buttons">Consulter
-							les informations</a></td>
+					<td><a href="DetailsClient?id=<%= c.getId() %>" class="btn btn-small btn-info" type="buttons">Détails</a></td>
 					<td><a href="DeleteClient?idClient=<%=c.getId() %>" class="btn btn-small btn-danger" type="button">Supprimer</a></td>
 				<tr>
 					<%

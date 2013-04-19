@@ -81,6 +81,8 @@ public class CertifierDocument extends HttpServlet {
 		request.getSession().setAttribute("transNum", toReturn.get("transNum"));
 		request.getSession().setAttribute("CERT", certFolder);
 		request.getSession().setAttribute("OUT", saveFile);
+		request.getSession().setAttribute("name", docToCert.getName());
+		request.getSession().setAttribute("temp", saveFile);
 
 		// ajout
 		request.getSession().setAttribute("identifiant", identifiant);
