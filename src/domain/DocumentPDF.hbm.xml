@@ -26,6 +26,12 @@
 			<column name="SIGY" />
 		</property>
 		
+		<property name="heightSignature">
+			<column name="HEIGHTSIG" />
+		</property>
+		<property name="widthSignature">
+			<column name="WIDTHSIG" />
+		</property>
 	     <many-to-one name="owner" column="ID_UTILISATEUR" lazy="false" class="domain.Utilisateur"  unique="false" />
 		
 	</class>

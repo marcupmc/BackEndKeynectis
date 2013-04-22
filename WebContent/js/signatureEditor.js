@@ -10,6 +10,11 @@ function buildZone(){
 function fixeZone(){
 	var x = $("#draggable").offset().left;
 	var y = $("#draggable").offset().top;
+	var largeur = $("#draggable").width();
+	var hauteur = $("#draggable").height();
+	
+	
+	alert('largeur : '+largeur+'\n longueur : '+hauteur);
 	
 	$("#draggable").draggable("disable");
 	$("#valider").css("display","none");
@@ -18,6 +23,12 @@ function fixeZone(){
 	// set les input hidden
 	$("#valX").attr("value",x);
 	$("#valY").attr("value",y);
+	
+	$("#height").attr("value",hauteur);
+	$("#width").attr("value",largeur);
+	
+	alert('pdf hauteur : '+$("#pdfZone").height()+'\nlargeur : '+$("#pdfZone").width());
+	
 	$("#valPDFX").attr("value",$("#pdfZone").offset().left);
 	$("#valPDFY").attr("value",$("#pdfZone").offset().top);
 	

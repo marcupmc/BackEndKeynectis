@@ -198,7 +198,7 @@ public class DAODocumentPDF {
 		return true;
 	}
 	
-	public boolean setPosSignature(long id, int posx, int posy){
+	public boolean setPosSignature(long id, int posx, int posy,int width,int height){
 		DocumentPDF doc = this.getById(id);
 		if(doc==null)return false;
 		Session session = null;
@@ -210,6 +210,8 @@ public class DAODocumentPDF {
 			
 			doc.setSignatureX(posx);
 			doc.setSignatureY(posy);
+			doc.setHeightSignature(height);
+			doc.setWidthSignature(width);
 			session.update(doc);
 			tx.commit();
 			session.close();

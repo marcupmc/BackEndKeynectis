@@ -53,6 +53,15 @@
  				</tr>
  				<%
 				for (DocumentPDF doc : client.getDocuments()) {
+					boolean signable;
+					if(doc.getSignatureName().length()>0)
+						signable =true;
+					else{
+						if(doc.getSignatureX()==0 && doc.getSignatureY()==0)
+							signable=false;
+						else
+							signable=true;
+					}
 				%>
 				<tr>
 					<td><a href="<%=doc.getUrl()%>"><%=doc.getName()%></a></td>

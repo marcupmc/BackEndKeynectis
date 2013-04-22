@@ -18,12 +18,11 @@
 	height: 50px;
 	padding: 0.5em;
 	border: 1px solid black;
-	cursor: move;
-	
+	cursor: move;	
 }
 
 #save{
-	visibility: none;
+	display:none;
 }
 
 #pdfZone {
@@ -68,11 +67,13 @@
 		
 		<form action="AddSignaturePDF" method="POST">
 			<input type="hidden" id="id" name="id" value="<%=doc.getId() %>" />
+			<input type="hidden" id="height" name="height" />
+			<input type="hidden" id="width" name="width" />
 			<input type="hidden" id="valPDFX" name="valPDFX" />
 			<input type="hidden" id="valPDFY" name="valPDFY" />
 			<input type="hidden" id="valX" name="valX" />
 			<input type="hidden" id="valY" name="valY" />
-			<button class="btn btn-warning" type="submit" id="save">Enregistrer</button>
+			<button class="btn btn-primary" type="submit" id="save">Enregistrer</button>
 		</form>
 	</div>
 </body>

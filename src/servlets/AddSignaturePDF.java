@@ -44,10 +44,13 @@ public class AddSignaturePDF extends HttpServlet {
 		int sigX = Integer.parseInt(request.getParameter("valX").toString());
 		int sigY = Integer.parseInt(request.getParameter("valY").toString());
 		
+		int height = Integer.parseInt(request.getParameter("height").toString());
+		int width = Integer.parseInt(request.getParameter("width").toString());
+		
 		int realX  =sigX-pdfX;
 		int realY = sigY-pdfY;
 		
-		DAODocumentPDF.getInstance().setPosSignature(id, realX, realY);
+		DAODocumentPDF.getInstance().setPosSignature(id, realX, realY,width,height);
 		response.sendRedirect("DetailsClient?id="+id);
 		
 		

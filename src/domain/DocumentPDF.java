@@ -11,6 +11,8 @@ public class DocumentPDF  {
 	
 	private int signatureX;
 	private int signatureY;
+	private int heightSignature;
+	private int widthSignature;
 	
 	private Utilisateur owner;
 	
@@ -80,5 +82,21 @@ public class DocumentPDF  {
 
 	public void setSignatureY(int signatureY) {
 		this.signatureY = signatureY;
+	}
+
+	public int getHeightSignature() {
+		return heightSignature;
+	}
+
+	public void setHeightSignature(int heightSignature) {
+		this.heightSignature = heightSignature;
+	}
+
+	public int getWidthSignature() {
+		return widthSignature;
+	}
+
+	public void setWidthSignature(int widthSignature) {
+		this.widthSignature = widthSignature;
 	}
 }
