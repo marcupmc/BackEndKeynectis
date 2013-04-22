@@ -49,6 +49,7 @@ public class DAODocumentPDF {
 			doc.setUrl(url);
 			doc.setOwner(user);
 			doc.setCertified(false);
+			doc.setSignatureName(""); //TODO A modifier car peut être parametrable
 
 			session.save(doc); 
 			tx.commit();
@@ -186,6 +187,29 @@ public class DAODocumentPDF {
 			org.hibernate.Transaction tx = session.beginTransaction();
 			
 			doc.setCertified(true);
+			session.update(doc);
+			tx.commit();
+			session.close();
+			
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean setPosSignature(long id, int posx, int posy){
+		DocumentPDF doc = this.getById(id);
+		if(doc==null)return false;
+		Session session = null;
+		try{
+			SessionFactory sessionFactory =
+					new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+			
+			doc.setSignatureX(posx);
+			doc.setSignatureY(posy);
 			session.update(doc);
 			tx.commit();
 			session.close();

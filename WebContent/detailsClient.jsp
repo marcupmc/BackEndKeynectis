@@ -49,6 +49,7 @@
  					<th>Nom du document</th>
  					<th>Est Certifié </th>
  					<th></th>
+ 					<th></th>
  				</tr>
  				<%
 				for (DocumentPDF doc : client.getDocuments()) {
@@ -63,6 +64,7 @@
 						<%} %>
 					</td>
 					<td><a href="DeleteDocument?idDocument=<%=doc.getId() %>&idClientDoc=<%=doc.getOwner().getId() %>" class="btn btn-small btn-danger">Supprimer</a></td>
+					<td><a href="RedirectSignature?id=<%=doc.getId() %>" class="btn btn-small btn-info">Ajouter Signature</a></td>
 				</tr>
 				<%
 				}

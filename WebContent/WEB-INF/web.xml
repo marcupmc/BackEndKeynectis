@@ -107,7 +107,7 @@
     <servlet-name>ClientAccueil</servlet-name>
     <url-pattern>/ClientAccueil</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>ClientAuthentification</display-name>
     <servlet-name>ClientAuthentification</servlet-name>
@@ -116,5 +116,25 @@
   <servlet-mapping>
     <servlet-name>ClientAuthentification</servlet-name>
     <url-pattern>/ClientAuthentification</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RedirectSignature</display-name>
+    <servlet-name>RedirectSignature</servlet-name>
+    <servlet-class>servlets.RedirectSignature</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RedirectSignature</servlet-name>
+    <url-pattern>/RedirectSignature</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>AddSignaturePDF</display-name>
+    <servlet-name>AddSignaturePDF</servlet-name>
+    <servlet-class>servlets.AddSignaturePDF</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddSignaturePDF</servlet-name>
+    <url-pattern>/AddSignaturePDF</url-pattern>
   </servlet-mapping>
 </web-app>

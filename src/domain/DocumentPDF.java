@@ -7,6 +7,10 @@ public class DocumentPDF  {
 	private String name;
 	private String url;
 	private boolean certified;
+	private String signatureName;
+	
+	private int signatureX;
+	private int signatureY;
 	
 	private Utilisateur owner;
 	
@@ -52,5 +56,29 @@ public class DocumentPDF  {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getSignatureName() {
+		return signatureName;
+	}
+
+	public void setSignatureName(String signatureName) {
+		this.signatureName = signatureName;
+	}
+
+	public int getSignatureX() {
+		return signatureX;
+	}
+
+	public void setSignatureX(int signatureX) {
+		this.signatureX = signatureX;
+	}
+
+	public int getSignatureY() {
+		return signatureY;
+	}
+
+	public void setSignatureY(int signatureY) {
+		this.signatureY = signatureY;
 	}
 }

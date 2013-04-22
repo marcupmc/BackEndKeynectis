@@ -16,8 +16,17 @@
 	    <property name="certified" type="domain.MyBooleanType">
 			<column name="CERTIFIED" />
 		</property>
+		<property name="signatureName">
+			<column name="SIGNAME" />
+		</property>
+		<property name="signatureX">
+			<column name="SIGX" />
+		</property>
+		<property name="signatureY">
+			<column name="SIGY" />
+		</property>
 		
-	     <many-to-one name="owner" column="ID_UTILISATEUR" class="domain.Utilisateur"  unique="false" />
+	     <many-to-one name="owner" column="ID_UTILISATEUR" lazy="false" class="domain.Utilisateur"  unique="false" />
 		
 	</class>
 </hibernate-mapping>
