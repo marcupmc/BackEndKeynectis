@@ -162,7 +162,7 @@ public class ToolsPDF {
 					/*RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf"*/));
 			PdfFormField sig = PdfFormField.createSignature(stp.getWriter());
 
-			sig.setWidget(new Rectangle(1024-x, (768-y), (1024-x)+largeur,(768-y)+hauteur), null);
+			sig.setWidget(new Rectangle(x, (842-y), x+largeur,(842-y)+hauteur), null);
 			
 			
 			//sig.setWidget(new Rectangle(350, 400, 700,500), null);

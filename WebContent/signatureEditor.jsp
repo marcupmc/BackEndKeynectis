@@ -26,8 +26,8 @@
 }
 
 #pdfZone {
-	height: 1150px;
-	width: 805px;
+	height: 842px;
+	width: 596px;
 }
 </style>
 <script>
