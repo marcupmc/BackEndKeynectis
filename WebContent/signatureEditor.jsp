@@ -60,7 +60,7 @@
 			<p>Zone de Signature</p>
 		</div>
 		<div>
-			<embed id="pdfZone" src="http://www.marc-gregoire.fr/pdf/cv.pdf">
+			<embed id="pdfZone" src="<%=doc.getUrl()%>">
 		</div>
 		<button class="btn btn-info" onclick="fixeZone()">Définir</button>
 		<button class="btn btn-warning" onclick="reset()">Reset</button>

@@ -198,12 +198,10 @@ public class ToolsPDF {
 			for(String nom : names){
 				if(signame.equals(nom))return true;
 			}
-			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return false;
 	}
 
