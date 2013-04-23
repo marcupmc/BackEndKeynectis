@@ -20,7 +20,6 @@ function fixeZone(){
 	y=(y*842)/1132;
 	hauteur=(hauteur*842)/1132;
 	
-	alert('largeur : '+largeur+'\n longueur : '+hauteur);
 	
 	$("#draggable").draggable("disable");
 	$("#valider").css("display","none");
@@ -32,8 +31,6 @@ function fixeZone(){
 	
 	$("#height").attr("value",hauteur);
 	$("#width").attr("value",largeur);
-	
-	alert('pdf hauteur : '+$("#pdfZone").height()+'\nlargeur : '+$("#pdfZone").width());
 	
 	//Mettre 596 * 842
 	var pdfX  =($("#pdfZone").offset().left*596)/805;
