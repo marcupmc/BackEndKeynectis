@@ -151,7 +151,7 @@ public class ToolsPDF {
 		//	    return ByteBuffer.wrap(array);
 	}
 
-	public static String createPDFDocToSign(String url ,String pathFolderout,String name,int x, int y, int largeur, int hauteur) throws DocumentException, IOException
+	public static String createPDFDocToSign(String url ,String pathFolderout,String name,float x, float y, float largeur, float hauteur) throws DocumentException, IOException
 	{
 		String outFile =  pathFolderout+"/"+name+".pdf";
 

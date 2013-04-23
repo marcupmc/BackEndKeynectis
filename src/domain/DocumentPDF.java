@@ -9,10 +9,10 @@ public class DocumentPDF  {
 	private boolean certified;
 	private String signatureName;
 	
-	private int signatureX;
-	private int signatureY;
-	private int heightSignature;
-	private int widthSignature;
+	private float signatureX;
+	private float signatureY;
+	private float heightSignature;
+	private float widthSignature;
 	
 	private Utilisateur owner;
 	
@@ -68,35 +68,37 @@ public class DocumentPDF  {
 		this.signatureName = signatureName;
 	}
 
-	public int getSignatureX() {
+	public float getSignatureX() {
 		return signatureX;
 	}
 
-	public void setSignatureX(int signatureX) {
+	public void setSignatureX(float signatureX) {
 		this.signatureX = signatureX;
 	}
 
-	public int getSignatureY() {
+	public float getSignatureY() {
 		return signatureY;
 	}
 
-	public void setSignatureY(int signatureY) {
+	public void setSignatureY(float signatureY) {
 		this.signatureY = signatureY;
 	}
 
-	public int getHeightSignature() {
+	public float getHeightSignature() {
 		return heightSignature;
 	}
 
-	public void setHeightSignature(int heightSignature) {
+	public void setHeightSignature(float heightSignature) {
 		this.heightSignature = heightSignature;
 	}
 
-	public int getWidthSignature() {
+	public float getWidthSignature() {
 		return widthSignature;
 	}
 
-	public void setWidthSignature(int widthSignature) {
+	public void setWidthSignature(float widthSignature) {
 		this.widthSignature = widthSignature;
 	}
+
+
 }

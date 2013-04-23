@@ -38,17 +38,17 @@ public class AddSignaturePDF extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		long id = Long.parseLong(request.getParameter("id").toString());
-		int pdfX = Integer.parseInt(request.getParameter("valPDFX").toString());
-		int pdfY = Integer.parseInt(request.getParameter("valPDFY").toString());
+		float pdfX = Float.parseFloat(request.getParameter("valPDFX").toString());
+		float pdfY = Float.parseFloat(request.getParameter("valPDFY").toString());
 		
-		int sigX = Integer.parseInt(request.getParameter("valX").toString());
-		int sigY = Integer.parseInt(request.getParameter("valY").toString());
+		float sigX = Float.parseFloat(request.getParameter("valX").toString());
+		float sigY = Float.parseFloat(request.getParameter("valY").toString());
 		
-		int height = Integer.parseInt(request.getParameter("height").toString());
-		int width = Integer.parseInt(request.getParameter("width").toString());
+		float height = Float.parseFloat(request.getParameter("height").toString());
+		float width = Float.parseFloat(request.getParameter("width").toString());
 		
-		int realX  =sigX-pdfX;
-		int realY = sigY-pdfY;
+		float realX  =sigX-pdfX;
+		float realY = sigY-pdfY;
 		
 		DAODocumentPDF.getInstance().setPosSignature(id, realX, realY,width,height);
 		response.sendRedirect("DetailsClient?id="+id);
