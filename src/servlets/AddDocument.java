@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import tools.ToolsPDF;
+
 import dao.DAODocumentPDF;
 
 /**
@@ -42,21 +44,33 @@ public class AddDocument extends HttpServlet {
 		long idClient =Long.parseLong(request.getParameter("idClient"));
 		String nameDocument = request.getParameter("name0"); //A changer si on veut ajouter plusieurs fichiers en meme temps
 		String urlDocument = request.getParameter("url0");
+		String containsSign = request.getParameter("containsSign");
 
 		String msgErr = "";
 		//Verifier les entrees
 		boolean ok = false;
 		if(urlDocument==null||urlDocument.length()==0||nameDocument==null||nameDocument.length()==0)
-			request.setAttribute("msg", "bad_parameters");
+			msgErr= "bad_parameters";
 		else{
 			// Ajouter le document en appelant le DAO
-			if(DAODocumentPDF.getInstance().addDocument(idClient, nameDocument, urlDocument))
-				ok=true;
+			if(containsSign.equals("non")){
+				if(DAODocumentPDF.getInstance().addDocument(idClient, nameDocument, urlDocument))
+					msgErr = "ok";
+			}else{
+				//Checker le nom de la signature
+				String sigName  = request.getParameter("signame");
+				if(sigName==null||sigName.length()==0)msgErr="bad_signame";
+				else {
+					if(ToolsPDF.checkSignature(urlDocument, sigName)&&DAODocumentPDF.getInstance().addDocument(idClient, nameDocument, urlDocument,sigName))msgErr = "ok";
+					else msgErr="signame_err";
+				}
+				//On verifie son existence -> signame_Err
+			}
 		}
-		if(!ok)
-			request.setAttribute("msg", "error_add");
+//		if(!ok)
+			
 		//request.getRequestDispatcher("detailsClient.jsp").forward(request, response);
-		response.sendRedirect("DetailsClient?id="+idClient);
+		response.sendRedirect("DetailsClient?id="+idClient+"&msg="+msgErr);
 	}
 
 }

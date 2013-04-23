@@ -61,6 +61,43 @@ public class DAODocumentPDF {
 
 		return true;
 	}
+	
+	/**
+	 * Save document for a client. The added document is not certified by default
+	 * @param idOwner
+	 * @param name
+	 * @param url
+	 * @return true if the document is added, false if not
+	 */
+	public boolean addDocument(long idOwner, String name, String url,String sigName){
+		Utilisateur user = DAOUtilisateur.getInstance().getUserById(idOwner);
+		if(user==null)return false;
+		if(name==null||name.length()==0||url==null||url.length()==0)return false;
+		Session session = null;
+		try{
+			SessionFactory sessionFactory =
+					new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+
+			DocumentPDF doc = new DocumentPDF();
+			doc.setName(name);
+			doc.setUrl(url);
+			doc.setOwner(user);
+			doc.setCertified(false);
+			
+			doc.setSignatureName(sigName); //TODO A modifier car peut être parametrable
+
+			session.save(doc); 
+			tx.commit();
+			session.close();
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+
+		return true;
+	}
 
 	/**
 	 * Delete a document by it id
@@ -212,6 +249,7 @@ public class DAODocumentPDF {
 			doc.setSignatureY(posy);
 			doc.setHeightSignature(height);
 			doc.setWidthSignature(width);
+			doc.setSignatureName("signature"+id);
 			session.update(doc);
 			tx.commit();
 			session.close();

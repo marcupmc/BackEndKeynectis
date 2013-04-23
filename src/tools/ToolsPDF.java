@@ -9,13 +9,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.bouncycastle.util.encoders.Base64;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.AcroFields;
 import com.itextpdf.text.pdf.PdfAnnotation;
 import com.itextpdf.text.pdf.PdfFormField;
 import com.itextpdf.text.pdf.PdfName;
@@ -163,12 +166,7 @@ public class ToolsPDF {
 			PdfFormField sig = PdfFormField.createSignature(stp.getWriter());
 
 			sig.setWidget(new Rectangle(x, (842-y), x+largeur,(842-y)+hauteur), null);
-			
-			
-			//sig.setWidget(new Rectangle(350, 400, 700,500), null);
-			//sig.setWidget(new Rectangle(y+hauteur, x, y,x+largeur), null);
-			//sig.setWidget(new Rectangle(x, y+hauteur, x+largeur,y), null);
-			
+
 			sig.setFlags(PdfAnnotation.FLAGS_PRINT);
 			sig.put(PdfName.DA, new PdfString("/Helv 0 Tf 0 g"));
 			sig.setFieldName("Signature1"); //TODO A changer et rendre parametrable
@@ -184,6 +182,29 @@ public class ToolsPDF {
 		}
 
 		return outFile;
+	}
+
+	/**
+	 * Check if the signature zone "signame" exist in the pdf
+	 * @param url
+	 * @param signame
+	 * @return true if it exist, false if not
+	 */
+	public static boolean checkSignature(String url, String signame){
+		try {
+			PdfReader pdf = new PdfReader(url);
+			AcroFields af = pdf.getAcroFields();
+			ArrayList<String> names = af.getSignatureNames();
+			for(String nom : names){
+				if(signame.equals(nom))return true;
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 
 	/**
@@ -424,8 +445,8 @@ public class ToolsPDF {
 		result.put("CUF_ORG", "no");
 		result.put("PDF_SIGN_FIELD", defaultSignField);
 
-//		String outFile = PDF2Sign.substring(0, PDF2Sign.lastIndexOf("."))
-//				+ "_out.pdf";
+		//		String outFile = PDF2Sign.substring(0, PDF2Sign.lastIndexOf("."))
+		//				+ "_out.pdf";
 		String outFile = outPath + "/" + defaultSignField + ".pdf";
 
 		result.put("OUTFILE", outFile);

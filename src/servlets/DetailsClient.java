@@ -30,7 +30,13 @@ public class DetailsClient extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String msg  = (String)request.getParameter("msg");
+		if(msg!=null)
+			request.setAttribute("msg",msg);
+		
 		long idClient = Long.parseLong(request.getParameter("id"));
+		
+		
 		Utilisateur user  = DAOUtilisateur.getInstance().getUserById(idClient);
 		request.setAttribute("client", user);
 		request.getRequestDispatcher("detailsClient.jsp").forward(request, response);

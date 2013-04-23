@@ -71,8 +71,17 @@ public class AddNewClient extends HttpServlet {
 				messageErreur="error_add";
 		}
 		
+		String urlRetour="";
+		//Traitement des erreurs
+		if(messageErreur.equals("success")){
+			urlRetour="FindClient?recherche=";
+		}
+		else{
+			urlRetour = "addClient.jsp?error="+messageErreur;
+		}
+		
 		//request.getRequestDispatcher("addClient.jsp?msg="+messageErreur+"").forward(request, response);
-		response.sendRedirect("FindClient?recherche=");
+		response.sendRedirect(urlRetour);
 	}
 
 }

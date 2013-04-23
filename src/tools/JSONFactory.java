@@ -39,7 +39,7 @@ public class JSONFactory {
 			toSend.put("lastName", user.getLastName());
 			//			toSend.put("email", user.getEmail());			
 			toSend.put("pdf", this.getPDFInfo(user));
-			
+
 			if(user.getSignature()==null)
 				toSend.put("signature","null");
 			else
@@ -64,17 +64,20 @@ public class JSONFactory {
 	public ArrayList<JSONObject> getPDFInfo(Utilisateur user){
 		ArrayList<JSONObject> toReturn = new ArrayList<JSONObject>();
 		for(DocumentPDF doc : user.getDocuments()){
-			JSONObject jsonToAdd = new JSONObject();
-			try {
-				jsonToAdd.put("id",doc.getId()); 
-				jsonToAdd.put("name", doc.getName());
-				jsonToAdd.put("url", doc.getUrl());
-				jsonToAdd.put("isCertified",doc.isCertified());
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
+			if(doc.getSignatureName()!=null && doc.getSignatureName().length()>0){
+				JSONObject jsonToAdd = new JSONObject();
+				try {
+					jsonToAdd.put("id",doc.getId()); 
+					jsonToAdd.put("name", doc.getName());
+					jsonToAdd.put("url", doc.getUrl());
+					jsonToAdd.put("isCertified",doc.isCertified());
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				toReturn.add(jsonToAdd);
 			}
-			toReturn.add(jsonToAdd);			
 		}		
 		return toReturn;
 	}

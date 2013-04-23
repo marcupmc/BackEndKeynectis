@@ -26,7 +26,7 @@
 			<button type="submit" class="btn">Search</button>
 		</form>
 		<a class="btn btn-primary" href="addClient.jsp">Ajouter un client</a>
-		<a class="btn btn-info" href="CertifierDocument">Certifier un Document</a>
+<!-- 		<a class="btn btn-info" href="CertifierDocument">Certifier un Document</a> -->
 		<div id="resultats"><br/>
 			<%
 				if (lcontact.size() > 0) {

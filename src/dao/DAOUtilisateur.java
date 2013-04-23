@@ -169,6 +169,7 @@ public class DAOUtilisateur {
 					" or c.identifiant like '"+regex+"'" +
 					" order by c.lastName");
 			users = (ArrayList<Utilisateur>) q.list();
+			session.close();
 			return users;
 		}catch(Exception e){
 			return null;
