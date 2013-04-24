@@ -18,7 +18,7 @@
 			<h3>ADMINISTRATION DES DONNEES METIERS</h3>
 		</div>
 
-		<ul class="thumbnails" style="text-align: center;">
+		<ul class="thumbnails" id="todo" style="text-align: center;">
 			<li class="span3"><a href="#">
 					<div class="thumbnail">
 						<img style="width: 140px; height: 140px;" class="img-rounded"
