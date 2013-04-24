@@ -17,7 +17,11 @@ import com.sun.jersey.api.core.HttpRequestContext;
 import com.sun.jersey.server.impl.model.method.dispatch.HttpReqResDispatchProvider;
 
 import controller.ControllerCertification;
-
+/**
+ * {@link Deprecated}
+ * @author magregoi
+ *
+ */
 @Path("/certification")
 public class Certification {
 
@@ -35,11 +39,8 @@ public class Certification {
 		for(int i = 0;i<nbDoc;i++){
 			urls.add(formParam.get("pdfs["+i+"][url]").get(0));
 		}
-		//ControllerCertification.getInstance().certificationPDF(identifiant, urls);
 
-		//Initialisation des variables de chemin
 		String urlRetour ="http://10.0.2.2:8080/TestRest/ResponseKeynectis"; 
-		//String urlRetour ="file://android_asset/www/index.html";
 		String saveFile="temp_xml/";
 		String certFolder="CERT/";
 
@@ -49,9 +50,5 @@ public class Certification {
 		String ret = toReturn.get("blob");
 
 		return ret;
-		//	JSONObject json = new JSONObject(toReturn);
-
-		//System.out.println("[TEST KEYNECTIS] Affichage du json : \n"+json.toString());
-		//return json.toString();
 	}
 }

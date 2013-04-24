@@ -12,6 +12,11 @@ import dao.DAOUtilisateur;
 @Path("/temporisation")
 public class Temporisation {
 
+	/**
+	 * Check if the a document has been certified by the server, and pause during 5 sec
+	 * @param formParam
+	 * @return "ok" if the document has been certified, "notyet" if not
+	 */
 	@POST 
 	@Consumes("application/x-www-form-urlencoded")
 	public String tempo(MultivaluedMap<String, String> formParam){
@@ -23,7 +28,6 @@ public class Temporisation {
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(DAODocumentPDF.getInstance().getById(idDocument).isCertified())

@@ -1,31 +1,35 @@
+//----------------------------------------------------------------------------------------------------------------------------------
+//
+// Function used by the signatureEditor.jsp
+//
+//----------------------------------------------------------------------------------------------------------------------------------
+
+//Define the dimensions of the signature zone
 function buildZone(){
 	var largeur = $("#largeur").val();
 	var hauteur = $("#hauteur").val();
-	
 	$("#draggable").css("height",hauteur);
-	
 	$("#draggable").css("width",largeur);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------
+
+//Set the signature to be undraggable
 function fixeZone(){
 	var x = $("#draggable").offset().left;
 	var y = $("#draggable").offset().top;
 	var largeur = $("#draggable").width();
 	var hauteur = $("#draggable").height();
 	
-	//On resize pour prendre en compte les proportions réelles
 	x=(x*596)/805;
 	largeur = (largeur*596)/805;
-	
 	y=(y*842)/1132;
 	hauteur=(hauteur*842)/1132;
-	
 	
 	$("#draggable").draggable("disable");
 	$("#valider").css("display","none");
 	$("#save").css("display","inline");
 	
-	// set les input hidden
 	$("#valX").attr("value",x);
 	$("#valY").attr("value",y);
 	
@@ -37,10 +41,11 @@ function fixeZone(){
 	var pdfy  = ($("#pdfZone").offset().top*842)/1132;
 	$("#valPDFX").attr("value",pdfX);
 	$("#valPDFY").attr("value",pdfy);
-	
-	
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------
+
+//Make the signature zone draggable
 function reset(){
 	$("#save").css("display","none");
 	$("#draggable").draggable("enable");

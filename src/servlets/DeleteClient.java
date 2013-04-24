@@ -28,12 +28,8 @@ public class DeleteClient extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	
 		long idClient = Long.parseLong(request.getParameter("idClient"));
 		DAOUtilisateur.getInstance().deleteUser(idClient);
-		
-		//request.getRequestDispatcher("administration.jsp").forward(request, response);
 		response.sendRedirect("FindClient?recherche=");
 	}
 

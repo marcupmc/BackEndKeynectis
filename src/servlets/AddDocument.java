@@ -37,12 +37,9 @@ public class AddDocument extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-
 		//Reucuperer l'id qui est en champs caché du formulaire
 		long idClient =Long.parseLong(request.getParameter("idClient"));
-		String nameDocument = request.getParameter("name0"); //A changer si on veut ajouter plusieurs fichiers en meme temps
+		String nameDocument = request.getParameter("name0"); 
 		String urlDocument = request.getParameter("url0");
 		String containsSign = request.getParameter("containsSign");
 
@@ -64,12 +61,8 @@ public class AddDocument extends HttpServlet {
 					if(ToolsPDF.checkSignature(urlDocument, sigName)&&DAODocumentPDF.getInstance().addDocument(idClient, nameDocument, urlDocument,sigName))msgErr = "ok";
 					else msgErr="signame_err";
 				}
-				//On verifie son existence -> signame_Err
 			}
 		}
-//		if(!ok)
-			
-		//request.getRequestDispatcher("detailsClient.jsp").forward(request, response);
 		response.sendRedirect("DetailsClient?id="+idClient+"&msg="+msgErr);
 	}
 

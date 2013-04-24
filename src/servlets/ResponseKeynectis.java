@@ -49,11 +49,8 @@ public class ResponseKeynectis extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println("URL DE RETOUR : "+request.getRequestURL()+ "||"+request.getRequestedSessionId() );
 
 		String blob = (String)request.getParameter("blob");
-
-		System.out.println("toto2 : "+request.getSession().getAttribute("toto")); 
 		String adresseCertificat = (String)request.getSession().getAttribute("CERT")+"/demoqs_c.p12";
 		String transNumInSession = (String)request.getSession().getAttribute("transNum");
 		String pdfOutPath = (String)request.getSession().getAttribute("OUT")+"\\"+transNumInSession+".pdf";
@@ -76,50 +73,37 @@ public class ResponseKeynectis extends HttpServlet {
 			transNum = rti.getTransNum();
 			status = rti.getStatus();
 		} catch (DataNotSetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseBlobException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SignBlobException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (CipherBlobException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		fos.close();
 		
-		//Send to Serveur
-		
 		ToolsFTP.sendToServer(pdfOutPath, "ftp.marc-gregoire.fr", "www/Keynectis_Certified", "marcgreg", "nCcKMr7E");
-		
-		//A Changer
-		
 		File f = new File(pdfOutPath);
 		String filename  = f.getName();
 		f.delete();
 		
 		String newPath = "http://www.marc-gregoire.fr/Keynectis_Certified/"+filename;
 		
-		
-		
 		deleteTempfiles(temp, name);
-		//AJOUT
 		String identifiant=(String)request.getSession().getAttribute("identifiant");
 		String id = (String)request.getSession().getAttribute("id");
-		//DAOUtilisateur.getInstance().certifiedDocument(identifiant,urlOriginale);
 		
-		//FIN AJOUT
-		
-		
-	//	String subDirectory = request.getServletPath().substring(1,request.getServletPath().lastIndexOf("/"));
-		//String url = "index.jsp?pageDemo=demoPDFSMS/demo6p5.jsp&transNum="+transNum+"&status="+status+"&pdfOutPath="+pdfOutPath.replaceAll("\\\\", "/");
 		String url  = "finCertification.jsp?identifiant="+identifiant+"&id="+id+"&urlnew="+newPath;
 		response.sendRedirect(url);
 	}
 	
+	/**
+	 * Delete temporary files creates during the process of certification
+	 * @param url
+	 * @param name
+	 */
 	private void deleteTempfiles(String url, String name){
 		File f1 = new File(url+"\\"+name+".pdf");
 		f1.delete();

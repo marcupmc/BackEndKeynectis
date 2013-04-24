@@ -105,7 +105,6 @@ public class DAODocumentPDF {
 	 * @return true if the document has been delete from db, false if not
 	 */
 	public boolean deleteDocument(long idDocument) {
-		// TODO Auto-generated method stub
 		if(idDocument<=0)return false;
 		Session session = null;
 		try{
@@ -134,8 +133,6 @@ public class DAODocumentPDF {
 	 * @return the document with an id = idDocument, null if it doesn't exist
 	 */
 	public DocumentPDF getById(long idDocument) {
-		// TODO Auto-generated method stub
-
 		ArrayList<DocumentPDF> docs = new ArrayList<DocumentPDF>();
 		Session session = null;
 		try{
@@ -160,13 +157,11 @@ public class DAODocumentPDF {
 	}
 
 	/**
-	 * 
+	 * Find a document by it url
 	 * @param url
-	 * @return
+	 * @return the document if it exist, null if not
 	 */
 	public DocumentPDF getByUrl(String url) {
-		// TODO Auto-generated method stub
-
 		ArrayList<DocumentPDF> docs = new ArrayList<DocumentPDF>();
 		Session session = null;
 		try{
@@ -190,6 +185,12 @@ public class DAODocumentPDF {
 		}
 	}
 	
+	/**
+	 * Change the url of the document describes by its id
+	 * @param id
+	 * @param url
+	 * @return true if the url has been changed, false if not
+	 */
 	public boolean changeUrl(long id, String url){
 		if(url==null||url.length()==0)return false;
 		DocumentPDF doc = this.getById(id);
@@ -213,6 +214,11 @@ public class DAODocumentPDF {
 		return true;
 	}
 	
+	/**
+	 * Change the certified property of a document to true
+	 * @param id
+	 * @return true if the document is now certified, false if not
+	 */
 	public boolean certifiedPDF(long id){
 		DocumentPDF doc = this.getById(id);
 		if(doc==null)return false;
@@ -235,6 +241,15 @@ public class DAODocumentPDF {
 		return true;
 	}
 	
+	/**
+	 * Set the position of a signature in a document
+	 * @param id
+	 * @param posx
+	 * @param posy
+	 * @param width
+	 * @param height
+	 * @return true if the signature's has been saved, false if not
+	 */
 	public boolean setPosSignature(long id, float posx, float posy,float width,float height){
 		DocumentPDF doc = this.getById(id);
 		if(doc==null)return false;

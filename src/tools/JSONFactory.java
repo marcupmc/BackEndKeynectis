@@ -18,13 +18,9 @@ public class JSONFactory {
 		return instance;
 	}
 
-	/** Constructeur redéfini comme étant privé pour interdire
-	 * son appel et forcer à passer par la méthode <link
-	 */
 	private JSONFactory() {
 	}
 
-	/** L'instance statique */
 	private static JSONFactory instance;
 
 	/**
@@ -37,9 +33,7 @@ public class JSONFactory {
 		try {
 			toSend.put("firstName", user.getFirstName());
 			toSend.put("lastName", user.getLastName());
-			//			toSend.put("email", user.getEmail());			
 			toSend.put("pdf", this.getPDFInfo(user));
-
 			if(user.getSignature()==null)
 				toSend.put("signature","null");
 			else
@@ -49,15 +43,14 @@ public class JSONFactory {
 				toSend.put("signature", chaine);
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return toSend;
 	}
 
 	/**
-	 * 
+	 * Make a JSONObject array from the documents of a user. This arrays 
+	 * describe only the documents that are "signable"
 	 * @param user
 	 * @return make an array of json object which contains all the pdf info of the user
 	 */
@@ -73,7 +66,6 @@ public class JSONFactory {
 					jsonToAdd.put("url", doc.getUrl());
 					jsonToAdd.put("isCertified",doc.isCertified());
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				toReturn.add(jsonToAdd);

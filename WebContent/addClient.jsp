@@ -9,24 +9,33 @@
 </head>
 <body>
 	<div class="container">
-		<h2>Ajouter un nouveau Client <a href="administration.jsp" class="btn btn-info">Accueil</a></h2>
-		
-		<% String msg  = (String)request.getParameter("error");
-			if(msg!=null){
-				String message="";
-				if(msg.equals("error_add"))
-					message="Erreur lors de l'ajout du client dans la base de données";
-				else if(msg.equals("empty_field"))
-					message="Veuillez remplir tous les champs";
-				else if(msg.equals("missmatch_pwd"))
+		<h2>
+			Ajouter un nouveau Client <a href="administration.jsp"
+				class="btn btn-info">Accueil</a>
+		</h2>
+
+		<!-- 		Zone réservée aux messages d'erreurs -->
+		<%
+			String msg = (String) request.getParameter("error");
+			if (msg != null) {
+				String message = "";
+				if (msg.equals("error_add"))
+					message = "Erreur lors de l'ajout du client dans la base de données";
+				else if (msg.equals("empty_field"))
+					message = "Veuillez remplir tous les champs";
+				else if (msg.equals("missmatch_pwd"))
 					message = "Les mots de passes doivent être identiques";
-			%>
-				<div class="alert alert-block alert-error fade in">Erreur : <%= message %></div>
-			<%
-			}
-		
 		%>
-	
+		<div class="alert alert-block alert-error fade in">
+			Erreur :
+			<%=message%></div>
+		<%
+			}
+		%>
+		<!-- 		Fin de la zone des messages d'erreurs -->
+
+
+		<!-- 		Formulaire d'ajout d'un client -->
 		<form class="form-horizontal" method="post" action="AddNewClient">
 
 			<div class="control-group">
@@ -91,6 +100,8 @@
 				</div>
 			</div>
 		</form>
+		<!-- 		Fin du formulaire d'ajout d'un client -->
+
 	</div>
 
 </body>

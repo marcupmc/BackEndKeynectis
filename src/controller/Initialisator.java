@@ -7,11 +7,16 @@ import dao.DAOUtilisateur;
 import domain.DocumentPDF;
 import domain.Utilisateur;
 
+/**
+ * {@link Deprecated}
+ * @author magregoi
+ *
+ */
 public class Initialisator {
 
 	//SINGLETON
 	public static Initialisator getInstance() {
-		if (null == instance) { // Premier appel
+		if (null == instance) { 
 			instance = new Initialisator();
 		}
 		return instance;
@@ -21,10 +26,8 @@ public class Initialisator {
 	private Initialisator() {
 	}
 
-	/** L'instance statique */
 	private static Initialisator instance;
 	
-	// Faire ici une méthode qui initialise la BDD
 	public boolean initBDD(){
 		// On cree les documents
 		
@@ -45,20 +48,6 @@ public class Initialisator {
 		documents.add(doc1);
 		documents.add(doc2);
 		
-//		// On cree un Utilisateur
-//		Utilisateur user1 = new Utilisateur();
-//		user1.setEmail("marc.gregoire@gmail.com");
-//		user1.setFirstName("Marc");
-//		user1.setLastName("Gregoire");
-//		user1.setPassword("marcgregoire");
-//		user1.setPhoneNumber("0102030405");
-//		user1.setDocuments(documents);
-//		
-//		// On affecte le owner de chaque doc
-//		doc1.setOwner(user1);
-//		doc2.setOwner(user1);
-		
-		// On fait appel au dao
 		return DAOUtilisateur.getInstance().addUser("MGregoire","Marc", "Gregoire", "marc.gregoire@gmail.com", "marcgregoire", "0102030405", documents);
 		
 		

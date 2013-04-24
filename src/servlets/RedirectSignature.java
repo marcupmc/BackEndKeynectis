@@ -29,14 +29,10 @@ public class RedirectSignature extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		long id  = Long.parseLong(request.getParameter("id"));
 		DocumentPDF doc = DAODocumentPDF.getInstance().getById(id);
-		
 		request.setAttribute("doc", doc);
-		
 		request.getRequestDispatcher("signatureEditor.jsp").forward(request, response);
-		
 	}
 
 	/**

@@ -35,6 +35,5 @@ public class SaveSignature {
 		if(identifiant==null || identifiant.length()==0||imageSignature==null||imageSignature.length()==0)return "error";
 		if(DAOUtilisateur.getInstance().addSignature(identifiant, decodedBytes))return "ok";
 		else return "error";
-		//detailler plus les messages d'erreur?
 	}
 }

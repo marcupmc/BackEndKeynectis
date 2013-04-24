@@ -22,7 +22,7 @@ public class DAOUtilisateur {
 
 	//SINGLETON
 	public static DAOUtilisateur getInstance() {
-		if (null == instance) { // Premier appel
+		if (null == instance) { 
 			instance = new DAOUtilisateur();
 		}
 		return instance;
@@ -31,7 +31,7 @@ public class DAOUtilisateur {
 	private DAOUtilisateur() {
 	}
 
-	/** L'instance statique */
+	
 	private static DAOUtilisateur instance;
 
 	/**
@@ -51,9 +51,7 @@ public class DAOUtilisateur {
 			SessionFactory sessionFactory =
 					new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
-			//begin a transaction
 			org.hibernate.Transaction tx = session.beginTransaction();
-			//create a contact and save it into the DB
 
 			Utilisateur user = new Utilisateur();
 			user.setEmail(email);
@@ -68,20 +66,13 @@ public class DAOUtilisateur {
 			user.setLastName(lastName);
 			user.setSignature(null);
 
-			//On crypte le mot de passe ici
 			try {
 				user.setPassword(CryptoTool.getEncodedPassword(password));
 			} catch (NoSuchAlgorithmException ex) {
-				// TODO Auto-generated catch block
 				ex.printStackTrace();
 			}
 			user.setPhoneNumber(phoneNumber);
-
-			//save the contact into the DB
-			session.save(user); // or session.persist(contact);
-			//if you modify one of its properties, no need to save it again
-
-			//mandatory to flush the data into the DB
+			session.save(user); 
 			tx.commit();
 			session.close();
 		}catch(Exception e){
@@ -92,7 +83,7 @@ public class DAOUtilisateur {
 	}
 
 	/**
-	 * 
+	 * Find a user by his id
 	 * @param id
 	 * @return the user with the id "id". Return null if the user doesn't exist
 	 */
@@ -103,7 +94,6 @@ public class DAOUtilisateur {
 			SessionFactory sessionFactory =
 					new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
-			//begin a transaction
 			org.hibernate.Transaction tx = session.beginTransaction();
 			Query q =session.createQuery("from Utilisateur as c where c.id = '"+id+"'");
 			users = (ArrayList<Utilisateur>) q.list();
@@ -120,7 +110,7 @@ public class DAOUtilisateur {
 	}
 
 	/**
-	 * 
+	 * Find a user by his identifiant
 	 * @param id
 	 * @return the user with the identifiant "id". Return null if the user doesn't exist
 	 */
@@ -131,7 +121,6 @@ public class DAOUtilisateur {
 			SessionFactory sessionFactory =
 					new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
-			//begin a transaction
 			org.hibernate.Transaction tx = session.beginTransaction();
 			Query q =session.createQuery("from Utilisateur as c where c.identifiant = '"+id+"'");
 			users = (ArrayList<Utilisateur>) q.list();
@@ -161,7 +150,6 @@ public class DAOUtilisateur {
 			SessionFactory sessionFactory =
 					new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
-			//begin a transaction
 			org.hibernate.Transaction tx = session.beginTransaction();
 			Query q =session.createQuery("from Utilisateur as c where c.lastName like '"+regex+"'" +
 					" or c.firstName like '"+regex+"' " +
@@ -190,7 +178,6 @@ public class DAOUtilisateur {
 			SessionFactory sessionFactory =
 					new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
-			//begin a transaction
 			org.hibernate.Transaction tx = session.beginTransaction();
 			
 			Utilisateur user = this.getUserById(idClient);
@@ -223,7 +210,6 @@ public class DAOUtilisateur {
 			SessionFactory sessionFactory =
 					new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
-			//begin a transaction
 			org.hibernate.Transaction tx = session.beginTransaction();
 			
 			user.setSignature(Hibernate.createBlob(signature));
@@ -253,7 +239,6 @@ public class DAOUtilisateur {
 			SessionFactory sessionFactory =
 					new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
-			//begin a transaction
 			org.hibernate.Transaction tx = session.beginTransaction();
 			for(DocumentPDF docs : user.getDocuments()){
 				if(docs.getUrl().equals(url))
@@ -288,7 +273,6 @@ public class DAOUtilisateur {
 			SessionFactory sessionFactory =
 					new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
-			//begin a transaction
 			org.hibernate.Transaction tx = session.beginTransaction();
 			for(DocumentPDF docs : user.getDocuments()){
 				if(docs.getUrl().equals(oldUrl))

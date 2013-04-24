@@ -29,24 +29,26 @@ import com.itextpdf.text.pdf.PdfString;
 
 public class ToolsPDF {
 
+
 	/**
-	 * Lit un fichier (PDF) et le sauvegarde encodé en Base64 dans un fichier XML
-	 * 
+	 * Read a pdf file and save it in Base64 in a xml file
+	 * @param pdfFileName
+	 * @param name
+	 * @param pathServeur
+	 * @return the path of the xml file
+	 * @throws IOException
 	 */
 	public static String pdf2xml(String pdfFileName,String name, String pathServeur) throws IOException
 	{
 		System.out.println("SAVE FILE : "+pathServeur);
 		byte[] fileArray = getBytesFromFile(new File(pdfFileName));
 
-		//URL ur = new URL(pdfFileName);
-		//byte[] fileArray  =getAsByteArray(ur);
 		if (fileArray != null)
 		{
-			String extension = ".xml";//or ".jpg" or anything
+			String extension = ".xml";
 			String filename = pathServeur+"/"+name+extension;
-			//String filename ="ressources/"+name+extension;
 			System.out.println("FileName : "+filename);
-			byte[] data = fileArray;//the byte array which i got from server
+			byte[] data = fileArray;
 
 			File f = new File(filename);
 
@@ -70,21 +72,20 @@ public class ToolsPDF {
 				e.printStackTrace();
 				return "";
 			}
-
 		}
 		return "";
 	}
 
+	
 	/**
-	 * Retourne le contenu d'un fichier sous la forme d'un tableau de bytes
-	 * 
+	 * Get the bytes from a file
+	 * @param file
+	 * @return bytes array representing the file
+	 * @throws IOException
 	 */
 	public static byte[] getBytesFromFile(File file) throws IOException
 	{
-
 		InputStream is = new FileInputStream(file);
-
-		// Get the size of the file
 		long length = file.length();
 
 		if (length > Integer.MAX_VALUE)
@@ -92,10 +93,8 @@ public class ToolsPDF {
 			throw new IOException("File is too large to process");
 		}
 
-		// Create the byte array to hold the data
 		byte[] bytes = new byte[(int) length];
 
-		// Read in the bytes
 		int offset = 0;
 		int numRead = 0;
 		while ((offset < bytes.length)
@@ -103,8 +102,6 @@ public class ToolsPDF {
 		{
 			offset += numRead;
 		}
-
-		// Ensure all the bytes have been read in
 		if (offset < bytes.length)
 		{
 			throw new IOException("Could not completely read file "
@@ -115,21 +112,22 @@ public class ToolsPDF {
 		return bytes;
 	}
 
+	/**
+	 * Get the bytes of files from an url
+	 * @param url
+	 * @return bytes array that the file contains
+	 * @throws IOException
+	 */
 	public static byte[] getAsByteArray(URL url) throws IOException {
 		URLConnection connection = url.openConnection();
-		// Since you get a URLConnection, use it to get the InputStream
 		InputStream in = connection.getInputStream();
-		// Now that the InputStream is open, get the content length
 		int contentLength = connection.getContentLength();
 
-		// To avoid having to resize the array over and over and over as
-		// bytes are written to the array, provide an accurate estimate of
-		// the ultimate size of the byte array
 		ByteArrayOutputStream tmpOut;
 		if (contentLength != -1) {
 			tmpOut = new ByteArrayOutputStream(contentLength);
 		} else {
-			tmpOut = new ByteArrayOutputStream(16384); // Pick some appropriate size
+			tmpOut = new ByteArrayOutputStream(16384); 
 		}
 
 		byte[] buf = new byte[512];
@@ -141,35 +139,39 @@ public class ToolsPDF {
 			tmpOut.write(buf, 0, len);
 		}
 		in.close();
-		tmpOut.close(); // No effect, but good to do anyway to keep the metaphor alive
+		tmpOut.close();
 
 		byte[] array = tmpOut.toByteArray();
 		return array;
-
-		//Lines below used to test if file is corrupt
-		//FileOutputStream fos = new FileOutputStream("C:\\abc.pdf");
-		//fos.write(array);
-		//fos.close();
-
-		//	    return ByteBuffer.wrap(array);
 	}
 
+	/**
+	 * Create a signature zone into a pdf 
+	 * @param url
+	 * @param pathFolderout
+	 * @param name
+	 * @param x
+	 * @param y
+	 * @param largeur
+	 * @param hauteur
+	 * @return the path of the new pdf 
+	 * @throws DocumentException
+	 * @throws IOException
+	 */
 	public static String createPDFDocToSign(String url ,String pathFolderout,String name,float x, float y, float largeur, float hauteur) throws DocumentException, IOException
 	{
 		String outFile =  pathFolderout+"/"+name+".pdf";
-
 		try
 		{
 			PdfReader pdf = new PdfReader(url);
-			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream( outFile
-					/*RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf"*/));
+			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream( outFile));
 			PdfFormField sig = PdfFormField.createSignature(stp.getWriter());
 
 			sig.setWidget(new Rectangle(x, (842-y), x+largeur,(842-y)+hauteur), null);
 
 			sig.setFlags(PdfAnnotation.FLAGS_PRINT);
 			sig.put(PdfName.DA, new PdfString("/Helv 0 Tf 0 g"));
-			sig.setFieldName("Signature1"); //TODO A changer et rendre parametrable
+			sig.setFieldName("Signature1"); 
 			sig.setPage(1);
 			stp.addAnnotation(sig, 1);
 			stp.close();

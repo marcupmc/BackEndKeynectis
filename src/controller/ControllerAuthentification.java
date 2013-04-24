@@ -10,19 +10,16 @@ public class ControllerAuthentification {
 
 	//SINGLETON
 	public static ControllerAuthentification getInstance() {
-		if (null == instance) { // Premier appel
+		if (null == instance) { 
 			instance = new ControllerAuthentification();
 		}
 		return instance;
 	}
 
-	/** Constructeur redéfini comme étant privé pour interdire
-	 * son appel et forcer à passer par la méthode <link
-	 */
+	
 	private ControllerAuthentification() {
 	}
 
-	/** L'instance statique */
 	private static ControllerAuthentification instance;
 
 	

@@ -1,3 +1,13 @@
+//----------------------------------------------------------------------------------------------------------------------------------
+//
+// Used by detailsClient.jsp
+//
+//----------------------------------------------------------------------------------------------------------------------------------
+
+
+//----------------------------------------------------------------------------------------------------------------------------------
+
+//Create an input text for the signature name
 function signOUI(){
 	$("#champsAjout").empty();
 	$("#champsAjout").append("<label  class=\"control-label\" for=\"signame\">Nom de la signature : </label>" +
@@ -6,6 +16,7 @@ function signOUI(){
 	$("#containsSign").val("oui");
 }
 
+//Hide the input text for the signature name
 function signNON(){
 	$("#champsAjout").empty();
 	$("#containsSign").val("non");

@@ -34,25 +34,15 @@ public class CertifierDocument extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		
 		String identifiant = request.getParameter("identifiant");
 		String tempID = request.getParameter("id");
-		System.out.println("-------------------- ID : "+tempID);
-		
 		long id = Long.parseLong(tempID);
-		
 		DocumentPDF docToCert  =DAODocumentPDF.getInstance().getById(id);
-		
 		String url = docToCert.getUrl();
-
-		System.out.println("----------Identifiant : "+identifiant);
-		System.out.println("----------URL recue : "+url);
-
-		// TODO Auto-generated method stub
+		
 		System.out.println("[TEST KEYNECTIS - Servelt] Début du TEST ");
-		System.out.println("adresse : "
-				+ this.getServletContext().getRealPath("/temp_xml"));
 
 		String basePath = request.getScheme() + "://" + request.getServerName()
 				+ ":" + request.getServerPort() + request.getContextPath()
@@ -62,18 +52,9 @@ public class CertifierDocument extends HttpServlet {
 		String certFolder = this.getServletContext().getRealPath("/CERT/");
 		System.out.println("Path : " + basePath);
   
-		System.out
-		.println("[TEST KEYNECTIS - Servelt] Demande du blob appel a la certification ");
+		System.out.println("[TEST KEYNECTIS - Servelt] Demande du blob appel a la certification ");
 
-		//		HashMap<String, String> toReturn = ControllerCertification
-		//				.getInstance().certificationPDF("MGregoire",
-		//						"http://www.marc-gregoire.fr/pdf/cv.pdf", basePath,
-		//						saveFile, certFolder);
-
-		HashMap<String, String> toReturn = ControllerCertification
-				.getInstance().certificationPDF(identifiant,
-						url, basePath,
-						saveFile, certFolder);
+		HashMap<String, String> toReturn = ControllerCertification.getInstance().certificationPDF(identifiant,url, basePath,saveFile, certFolder);
 
 		System.out.println("[TEST KEYNECTIS - Servelt] Recuperation du blob ");
 
@@ -84,13 +65,11 @@ public class CertifierDocument extends HttpServlet {
 		request.getSession().setAttribute("name", docToCert.getName());
 		request.getSession().setAttribute("temp", saveFile);
 
-		// ajout
 		request.getSession().setAttribute("identifiant", identifiant);
 		request.getSession().setAttribute("id",tempID);
-		// fin ajout
 
-		System.out
-		.println("[TEST KEYNECTIS - Servelt] Envoi du blob dans l'attribut de la requete + redirection");
+		System.out.println("[TEST KEYNECTIS - Servelt] Envoi du blob dans l'attribut de la requete + redirection");
+		
 		request.getRequestDispatcher("sendToKeynectis.jsp").forward(request,
 				response);
 	}
@@ -101,7 +80,6 @@ public class CertifierDocument extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }

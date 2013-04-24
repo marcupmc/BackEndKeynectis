@@ -31,14 +31,9 @@ public class FindClient extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 		String req = request.getParameter("recherche");
-		
 		ArrayList<Utilisateur> luser = new ArrayList<Utilisateur>();
-		
 		luser.addAll(DAOUtilisateur.getInstance().getUsersByRegex(req));
-		
 		request.setAttribute("liste", luser);
 		request.getRequestDispatcher("administration.jsp").forward(request, response);
 	}

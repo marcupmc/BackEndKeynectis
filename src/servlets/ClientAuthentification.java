@@ -37,10 +37,8 @@ public class ClientAuthentification extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
-
 
 		if(ControllerAuthentification.getInstance().isAuthentified(login, password)){
 			Utilisateur user  = DAOUtilisateur.getInstance().getUserByIdentifiant(login);
@@ -49,7 +47,6 @@ public class ClientAuthentification extends HttpServlet {
 		}
 		else
 			System.out.println("Echec de l'authentification");
-		
 		
 		request.getRequestDispatcher("home_client.jsp").forward(request, response);
 

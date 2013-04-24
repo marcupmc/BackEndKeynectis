@@ -35,8 +35,6 @@ public class AddNewClient extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//Ici il faut checker les entrées 
 		String firstname =  request.getParameter("inputFirstName");
 		String lastname = request.getParameter("inputName");
 		String email = request.getParameter("inputEmail");
@@ -44,7 +42,6 @@ public class AddNewClient extends HttpServlet {
 		String password = request.getParameter("inputPassword");
 		String confirm = request.getParameter("inputConfirm");
 		String identifiant = request.getParameter("inputIdentifiant");
-
 		String messageErreur = "";
 
 		if(firstname==null || firstname.length()== 0 ||
@@ -55,32 +52,24 @@ public class AddNewClient extends HttpServlet {
 				confirm == null || confirm.length()==0 ||
 				identifiant == null || identifiant.length()==0 
 				) 
-			// A remplacer par une redirection vers une page d'erreur
 		{
 			messageErreur="empty_field";
 		}
 		else
 		{
-			if(!password.equals(confirm)) messageErreur="missmatch_pwd";//Renvoyer vers une page d'erreur
-			//et ajouter le nouveau Client dans la base
-			// EN faisant appel a un controlleur qui va verifier la coherence des entrees
+			if(!password.equals(confirm)) messageErreur="missmatch_pwd";
 			else if(ControllerAjoutClient.getInstance().addClientInDB(identifiant, lastname, firstname, email, telephone, password))
 				messageErreur="success";
 			else
-				//envoyer vers une page d erreur
 				messageErreur="error_add";
 		}
-		
 		String urlRetour="";
-		//Traitement des erreurs
 		if(messageErreur.equals("success")){
 			urlRetour="FindClient?recherche=";
 		}
 		else{
 			urlRetour = "addClient.jsp?error="+messageErreur;
 		}
-		
-		//request.getRequestDispatcher("addClient.jsp?msg="+messageErreur+"").forward(request, response);
 		response.sendRedirect(urlRetour);
 	}
 
