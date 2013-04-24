@@ -13,9 +13,9 @@
 	padding-left: 28pt;
 	background-color: transparent;
 	text-align: left;
-	color: blue;
+/* 	color: blue; */
+	color:rgb(0, 136, 204);
 	border-bottom-color: gray;
 	border-bottom-style: solid;
 	padding-top: 5pt;
-	margin-bottom: 20pt;
 }

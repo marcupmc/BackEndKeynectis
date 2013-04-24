@@ -13,13 +13,15 @@
 	<%@page import="domain.Utilisateur"%>
 	<%@page import="java.util.ArrayList"%>
 	<%
+		boolean affichetab;
 		ArrayList<Utilisateur> lcontact = new ArrayList<Utilisateur>();
 		if (request.getAttribute("liste") == null)
 		{
-
+			affichetab=false;
 		}
 		else
 		{
+			affichetab=true;
 			lcontact = (ArrayList<Utilisateur>) request
 					.getAttribute("liste");
 		}
@@ -35,21 +37,24 @@
 						<button type="submit" class="btn">Search</button>
 					</form>
 				</div>
+				<a class="btn btn-primary" href="addClient.jsp">Ajouter un client</a>
 			</div>
 		</div>
 		
 		
 		<div class="row-fluid">
-		<div class="span12">
-			<div class="row-fluid">				
+<!-- 		<div class="span12"> -->
+<!-- 			<div class="row-fluid">				 -->
 				
-					<a class="btn btn-primary" href="addClient.jsp">Ajouter un client</a>
+<!-- 					<a class="btn btn-primary" href="addClient.jsp">Ajouter un client</a> -->
 						
-			</div>			
-		</div>
+<!-- 			</div>			 -->
+<!-- 		</div> -->
 	</div>
 	
-	<div class="underTitle"><h4>LISTE DES CLIENTS</h4></div>
+	<%if(affichetab){ %>
+	<div class="underTitle"><h3>LISTE DES CLIENTS</h3></div>
+	<%} %>
 		
 		
 		

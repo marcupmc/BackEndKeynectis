@@ -9,7 +9,6 @@
 </head>
 <body>
 	<div class="container">
-<<<<<<< HEAD
 		<h2>
 			Ajouter un nouveau Client <a href="administration.jsp"
 				class="btn btn-info">Accueil</a>
