@@ -24,7 +24,7 @@
 			Informations de :
 			<%=client.getFirstName()%>
 			<%=client.getLastName()%>
-			<a href="administration.jsp" class="btn btn-info">Accueil</a>
+			<a href="adminHome.jsp" class="btn btn-info">Accueil</a>
 		</h2>
 		<%
 			if (msg != null) {

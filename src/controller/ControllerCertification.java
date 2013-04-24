@@ -79,8 +79,8 @@ public class ControllerCertification {
 		System.out.println("[TEST KEYNECTIS] Debut PDF avec signature");
 
 		try {
-			urlPdfToEncode=ToolsPDF.createPDFDocToSign(document.getUrl(),saveFile,document.getName(),document.getSignatureX(),document.getSignatureY(),document.getWidthSignature(),document.getHeightSignature());
-//			urlPdfToEncode = ToolsPDF.preparePDFDocument(document.getUrl(),null,null,document.getSignatureX(),document.getSignatureY(),document.getHeightSignature(),document.getWidthSignature(),saveFile).get("OUTFILE");
+		//	urlPdfToEncode=ToolsPDF.createPDFDocToSign(document.getUrl(),saveFile,document.getName(),document.getSignatureX(),document.getSignatureY(),document.getWidthSignature(),document.getHeightSignature());
+			urlPdfToEncode = ToolsPDF.preparePDFDocument(document.getUrl(),null,null,document.getSignatureX(),document.getSignatureY(),document.getHeightSignature(),document.getWidthSignature(),saveFile, document.getName()).get("OUTFILE");
 		} catch (DocumentException e1) {
 			e1.printStackTrace(); 
 		} catch (IOException e1) {

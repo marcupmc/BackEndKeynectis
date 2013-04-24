@@ -26,8 +26,8 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfString;
 
-
-public class ToolsPDF {
+public class ToolsPDF
+{
 
 
 	/**
@@ -38,10 +38,12 @@ public class ToolsPDF {
 	 * @return the path of the xml file
 	 * @throws IOException
 	 */
-	public static String pdf2xml(String pdfFileName,String name, String pathServeur) throws IOException
+	public static String pdf2xml(String pdfFileName, String name,
+			String pathServeur) throws IOException
 	{
-		System.out.println("SAVE FILE : "+pathServeur);
+		System.out.println("SAVE FILE : " + pathServeur);
 		byte[] fileArray = getBytesFromFile(new File(pdfFileName));
+
 
 		if (fileArray != null)
 		{
@@ -49,11 +51,13 @@ public class ToolsPDF {
 			String filename = pathServeur+"/"+name+extension;
 			System.out.println("FileName : "+filename);
 			byte[] data = fileArray;
-
 			File f = new File(filename);
 
-			try {
-				byte[] beginTag = new String("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<docPDFb64>\n").getBytes();
+			try
+			{
+				byte[] beginTag = new String(
+						"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<docPDFb64>\n")
+						.getBytes();
 				byte[] endTag = new String("\n</docPDFb64>").getBytes();
 				OutputStream os = new FileOutputStream(filename);
 
@@ -119,30 +123,40 @@ public class ToolsPDF {
 	 * @throws IOException
 	 */
 	public static byte[] getAsByteArray(URL url) throws IOException {
+
 		URLConnection connection = url.openConnection();
 		InputStream in = connection.getInputStream();
 		int contentLength = connection.getContentLength();
 
 		ByteArrayOutputStream tmpOut;
-		if (contentLength != -1) {
+		if (contentLength != -1)
+		{
 			tmpOut = new ByteArrayOutputStream(contentLength);
-		} else {
-			tmpOut = new ByteArrayOutputStream(16384); 
+
+		}
+		else
+		{
+			tmpOut = new ByteArrayOutputStream(16384); // Pick some appropriate
 		}
 
 		byte[] buf = new byte[512];
-		while (true) {
+		while (true)
+		{
 			int len = in.read(buf);
-			if (len == -1) {
+			if (len == -1)
+			{
 				break;
 			}
 			tmpOut.write(buf, 0, len);
 		}
 		in.close();
-		tmpOut.close();
+		tmpOut.close(); // No effect, but good to do anyway to keep the metaphor
+						// alive
 
 		byte[] array = tmpOut.toByteArray();
 		return array;
+
+	
 	}
 
 	/**
@@ -159,19 +173,24 @@ public class ToolsPDF {
 	 * @throws IOException
 	 */
 	public static String createPDFDocToSign(String url ,String pathFolderout,String name,float x, float y, float largeur, float hauteur) throws DocumentException, IOException
+
 	{
 		String outFile =  pathFolderout+"/"+name+".pdf";
+
 		try
 		{
 			PdfReader pdf = new PdfReader(url);
 			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream( outFile));
+
 			PdfFormField sig = PdfFormField.createSignature(stp.getWriter());
 
-			sig.setWidget(new Rectangle(x, (842-y), x+largeur,(842-y)+hauteur), null);
+			sig.setWidget(new Rectangle(x, (842 - y), x + largeur, (842 - y)
+					+ hauteur), null);
 
 			sig.setFlags(PdfAnnotation.FLAGS_PRINT);
 			sig.put(PdfName.DA, new PdfString("/Helv 0 Tf 0 g"));
 			sig.setFieldName("Signature1"); 
+
 			sig.setPage(1);
 			stp.addAnnotation(sig, 1);
 			stp.close();
@@ -188,19 +207,26 @@ public class ToolsPDF {
 
 	/**
 	 * Check if the signature zone "signame" exist in the pdf
+	 * 
 	 * @param url
 	 * @param signame
 	 * @return true if it exist, false if not
 	 */
-	public static boolean checkSignature(String url, String signame){
-		try {
+	public static boolean checkSignature(String url, String signame)
+	{
+		try
+		{
 			PdfReader pdf = new PdfReader(url);
 			AcroFields af = pdf.getAcroFields();
 			ArrayList<String> names = af.getSignatureNames();
-			for(String nom : names){
-				if(signame.equals(nom))return true;
+			for (String nom : names)
+			{
+				if (signame.equals(nom))
+					return true;
 			}
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -227,8 +253,8 @@ public class ToolsPDF {
 	 */
 	public static HashMap<String, String> preparePDFDocument(String PDF2Sign,
 			String DataMetier, String CufOrg, String PDFSignField)
-					throws DocumentException, IOException
-					{
+			throws DocumentException, IOException
+	{
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		/**
@@ -254,7 +280,7 @@ public class ToolsPDF {
 		{
 			PdfReader pdf = new PdfReader(PDF2Sign);
 			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
-					/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
 
 			/**
 			 * §PARAMETRAGE DE LA ZONE DE SIGNATURE§ *
@@ -263,7 +289,7 @@ public class ToolsPDF {
 			if (null != stp.getSignatureAppearance().getFieldName())
 			{
 				if (null != PDFSignField) // Case where there is an embedded pdf
-					// signature field
+											// signature field
 				{
 					if (stp.getSignatureAppearance().getFieldName() == PDFSignField)
 					{
@@ -303,8 +329,10 @@ public class ToolsPDF {
 		if (null != CufOrg)
 			result.put("CUF_ORG", CufOrg);
 
+		System.out.println(outFile);
+
 		return result;
-					}
+	}
 
 	/**
 	 * Prepare a PDF document for the signature process
@@ -329,7 +357,7 @@ public class ToolsPDF {
 	public static HashMap<String, String> preparePDFDocument(String PDF2Sign,
 			String DataMetier, String CufOrg, String PDFSignField,
 			String OutPath) throws DocumentException, IOException
-			{
+	{
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		/**
@@ -354,7 +382,7 @@ public class ToolsPDF {
 		{
 			PdfReader pdf = new PdfReader(PDF2Sign);
 			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
-					/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
 
 			/**
 			 * §PARAMETRAGE DE LA ZONE DE SIGNATURE§ *
@@ -363,7 +391,7 @@ public class ToolsPDF {
 			if (null != stp.getSignatureAppearance().getFieldName())
 			{
 				if (null != PDFSignField) // Case where there is an embedded pdf
-					// signature field
+											// signature field
 				{
 					if (stp.getSignatureAppearance().getFieldName() == PDFSignField)
 					{
@@ -403,8 +431,10 @@ public class ToolsPDF {
 		if (null != CufOrg)
 			result.put("CUF_ORG", CufOrg);
 
+		System.out.println(outFile);
+
 		return result;
-			}
+	}
 
 	/**
 	 * Prepare a PDF document with the given position of the signature field,
@@ -430,8 +460,8 @@ public class ToolsPDF {
 	 */
 	public static HashMap<String, String> preparePDFDocument(String PDF2Sign,
 			String DataMetier, String CufOrg, float x, float y, float height,
-			float width,String outPath) throws DocumentException, IOException
-			{
+			float width) throws DocumentException, IOException
+	{
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		/**
@@ -445,9 +475,8 @@ public class ToolsPDF {
 		result.put("CUF_ORG", "no");
 		result.put("PDF_SIGN_FIELD", defaultSignField);
 
-		//		String outFile = PDF2Sign.substring(0, PDF2Sign.lastIndexOf("."))
-		//				+ "_out.pdf";
-		String outFile = outPath + "/" + defaultSignField + ".pdf";
+		String outFile = PDF2Sign.substring(0, PDF2Sign.lastIndexOf("."))
+				+ "_out.pdf";
 
 		result.put("OUTFILE", outFile);
 
@@ -457,7 +486,7 @@ public class ToolsPDF {
 		{
 			PdfReader pdf = new PdfReader(PDF2Sign);
 			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
-					/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
 
 			/**
 			 * §PARAMETRAGE DE LA ZONE DE SIGNATURE§ *
@@ -486,8 +515,194 @@ public class ToolsPDF {
 		if (null != CufOrg)
 			result.put("CUF_ORG", CufOrg);
 
+		System.out.println(outFile);
+
 		return result;
-			}
+	}
+
+	/**
+	 * Prepare a PDF document with the given position of the signature field,
+	 * for the signature process
+	 * 
+	 * @param PDF2Sign
+	 *            : the url of the PDF document to prepare
+	 * @param DataMetier
+	 *            : the tag parameter DATA_METIER; set by default to
+	 *            "PDFDocument"
+	 * @param CufOrg
+	 *            : the tag parameter CUF_ORG; set by default to "no"
+	 * @param x
+	 *            : the x position of the origin of the signature field
+	 * @param y
+	 *            : the y position of the origin of the signature field
+	 * @param height
+	 *            : the height of the signature field
+	 * @param width
+	 *            : the width of the signature field
+	 * @param OutPath
+	 *            : the path to the output directory
+	 * @return a HashMap containing the DataMetier tag, the CufOrg tag, the name
+	 *         of the signature field and the path of the prepared document
+	 * 
+	 * 
+	 * 
+	 * @throws DocumentException
+	 * @throws IOException
+	 */
+	public static HashMap<String, String> preparePDFDocument(String PDF2Sign,
+			String DataMetier, String CufOrg, float x, float y, float height,
+			float width, String OutPath) throws DocumentException, IOException
+	{
+		HashMap<String, String> result = new HashMap<String, String>();
+
+		/**
+		 * §DEFINITION DES PARAMETRES PAR DEFAUT§ *
+		 * **/
+		String defaultMetier = "PDFDocument";
+		String defaultSignField = PDF2Sign.substring(
+				PDF2Sign.lastIndexOf("/") + 1, PDF2Sign.lastIndexOf("."));
+
+		result.put("DATA_METIER", defaultMetier);
+		result.put("CUF_ORG", "no");
+		result.put("PDF_SIGN_FIELD", defaultSignField);
+
+		String outFile = OutPath + "/" + defaultSignField + ".pdf";
+
+		result.put("OUTFILE", outFile);
+
+		/** *§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§* **/
+
+		try
+		{
+			PdfReader pdf = new PdfReader(PDF2Sign);
+			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
+			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+
+			/**
+			 * §PARAMETRAGE DE LA ZONE DE SIGNATURE§ *
+			 * **/
+
+			PdfFormField sig = PdfFormField.createSignature(stp.getWriter());
+			sig.setWidget(new Rectangle(x, y, width, height), null);
+			sig.setFlags(PdfAnnotation.FLAGS_PRINT);
+			sig.put(PdfName.DA, new PdfString("/Helv 0 Tf 0 g"));
+			// sig.setFieldName(defaultSignField);
+			sig.setFieldName("Signature1");
+			sig.setPage(1);
+			stp.addAnnotation(sig, 1);
+			stp.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+
+		/** *§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§* **/
+
+		result.put("PDF_FILE_NAME", outFile);
+		if (null != DataMetier)
+			result.put("DATA_METIER", DataMetier);
+		if (null != CufOrg)
+			result.put("CUF_ORG", CufOrg);
+
+		System.out.println(outFile);
+
+		return result;
+	}
+
+	/**
+	 * Prepare a PDF document with the given position of the signature field,
+	 * for the signature process
+	 * 
+	 * @param PDF2Sign
+	 *            : the url of the PDF document to prepare
+	 * @param DataMetier
+	 *            : the tag parameter DATA_METIER; set by default to
+	 *            "PDFDocument"
+	 * @param CufOrg
+	 *            : the tag parameter CUF_ORG; set by default to "no"
+	 * @param x
+	 *            : the x position of the origin of the signature field
+	 * @param y
+	 *            : the y position of the origin of the signature field
+	 * @param height
+	 *            : the height of the signature field
+	 * @param width
+	 *            : the width of the signature field
+	 * @param OutPath
+	 *            : the path to the output directory
+	 * @param name
+	 *            : the name of the output file
+	 * @return a HashMap containing the DataMetier tag, the CufOrg tag, the name
+	 *         of the signature field and the path of the prepared document
+	 * @throws DocumentException
+	 * @throws IOException
+	 */
+	public static HashMap<String, String> preparePDFDocument(String PDF2Sign,
+			String DataMetier, String CufOrg, float x, float y, float height,
+			float width, String OutPath, String name) throws DocumentException,
+			IOException
+	{
+		HashMap<String, String> result = new HashMap<String, String>();
+
+		/**
+		 * §DEFINITION DES PARAMETRES PAR DEFAUT§ *
+		 * **/
+		String defaultMetier = "PDFDocument";
+		/*
+		 * String defaultSignField = PDF2Sign.substring(
+		 * PDF2Sign.lastIndexOf("/") + 1, PDF2Sign.lastIndexOf("."));
+		 */
+
+		result.put("DATA_METIER", defaultMetier);
+		result.put("CUF_ORG", "no");
+		result.put("PDF_SIGN_FIELD", name);
+
+		String outFile = OutPath + "/" + name + ".pdf";
+
+		result.put("OUTFILE", outFile);
+
+		/** *§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§* **/
+
+		try
+		{
+			PdfReader pdf = new PdfReader(PDF2Sign);
+			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
+			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+
+			/**
+			 * §PARAMETRAGE DE LA ZONE DE SIGNATURE§ *
+			 * **/
+
+			PdfFormField sig = PdfFormField.createSignature(stp.getWriter());
+			sig.setWidget(new Rectangle(x, y, width, height), null);
+			sig.setFlags(PdfAnnotation.FLAGS_PRINT);
+			sig.put(PdfName.DA, new PdfString("/Helv 0 Tf 0 g"));
+			// sig.setFieldName(defaultSignField);
+			sig.setFieldName("Signature1");
+			sig.setPage(1);
+			stp.addAnnotation(sig, 1);
+			stp.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+
+		/** *§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§* **/
+
+		result.put("PDF_FILE_NAME", outFile);
+		if (null != DataMetier)
+			result.put("DATA_METIER", DataMetier);
+		if (null != CufOrg)
+			result.put("CUF_ORG", CufOrg);
+
+		System.out.println(outFile);
+
+		return result;
+	}
 
 	/**
 	 * Prepare a PDF document with a list of signature fields for the signature
@@ -505,11 +720,13 @@ public class ToolsPDF {
 	 *            field name as the document will be inserted
 	 * @return a HashMap containing the DataMetier tag, the CufOrg tag, the name
 	 *         of the signature field and the path of the prepared document
+	 * @throws DocumentException
+	 * @throws IOException
 	 */
 	public static HashMap<String, String> preparePDFDocument(String PDF2Sign,
 			String DataMetier, String CufOrg, List<String> PDFSignFields)
-					throws DocumentException, IOException
-					{
+			throws DocumentException, IOException
+	{
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		/**
@@ -536,7 +753,7 @@ public class ToolsPDF {
 		{
 			PdfReader pdf = new PdfReader(PDF2Sign);
 			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
-					/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
 
 			/**
 			 * §PARAMETRAGE DES ZONES DE SIGNATURE§ *
@@ -551,15 +768,15 @@ public class ToolsPDF {
 			{
 				cpt++;
 				if (null != stp.getSignatureAppearance().getFieldName()) // !!!
-					// Certainement
-					// pas
-					// bon!!!
-					// Récupère
-					// une
-					// seule
-					// zone
-					// à
-					// priori
+																			// Certainement
+																			// pas
+																			// bon!!!
+																			// Récupère
+																			// une
+																			// seule
+																			// zone
+																			// à
+																			// priori
 				{
 					if (null != PDFSignField)
 					{
@@ -612,7 +829,140 @@ public class ToolsPDF {
 		if (null != CufOrg)
 			result.put("CUF_ORG", CufOrg);
 
+		System.out.println(outFile);
+
 		return result;
+	}
+
+	/**
+	 * Prepare a PDF document with a list of signature fields for the signature
+	 * process
+	 * 
+	 * @param PDF2Sign
+	 *            : the PDF document to prepare
+	 * @param DataMetier
+	 *            : the tag parameter DATA_METIER; set by default to
+	 *            "PDFDocument"
+	 * @param CufOrg
+	 *            : the tag parameter CUF_ORG; set by default to "no"
+	 * @param PDFSignFields
+	 *            : a list of the inserted Signature fields; if null, a single
+	 *            field name as the document will be inserted
+	 * @param OutPath
+	 *            : the path to the output directory
+	 * @return a HashMap containing the DataMetier tag, the CufOrg tag, the name
+	 *         of the signature field and the path of the prepared document
+	 * @throws DocumentException
+	 * @throws IOException
+	 */
+	public static HashMap<String, String> preparePDFDocument(String PDF2Sign,
+			String DataMetier, String CufOrg, List<String> PDFSignFields,
+			String OutPath) throws DocumentException, IOException
+	{
+		HashMap<String, String> result = new HashMap<String, String>();
+
+		/**
+		 * §DEFINITION DES PARAMETRES PAR DEFAUT§ *
+		 * **/
+		String defaultMetier = "PDFDocument";
+		String defaultSignField = PDF2Sign.substring(
+				PDF2Sign.lastIndexOf("/") + 1, PDF2Sign.lastIndexOf("."));
+
+		result.put("DATA_METIER", defaultMetier);
+		result.put("CUF_ORG", "no");
+		result.put("PDF_SIGN_FIELD", defaultSignField);
+
+		String outFile = OutPath + "/" + defaultSignField + ".pdf";
+
+		result.put("OUTFILE", outFile);
+
+		/** *§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§* **/
+
+		String signField = null;
+
+		try
+		{
+			PdfReader pdf = new PdfReader(PDF2Sign);
+			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
+			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+
+			/**
+			 * §PARAMETRAGE DES ZONES DE SIGNATURE§ *
+			 * **/
+
+			// Problème: comment récupérer l'ensemble des noms de signature
+			// fields un à un???
+
+			int cpt = 0, size = PDFSignFields.size();
+
+			for (String PDFSignField : PDFSignFields)
+			{
+				cpt++;
+				if (null != stp.getSignatureAppearance().getFieldName()) // !!!
+																			// Certainement
+																			// pas
+																			// bon!!!
+																			// Récupère
+																			// une
+																			// seule
+																			// zone
+																			// à
+																			// priori
+				{
+					if (null != PDFSignField)
+					{
+						if (stp.getSignatureAppearance().getFieldName() == PDFSignField)
+						{
+							PDFSignField = stp.getSignatureAppearance()
+									.getFieldName();
+							signField += PDFSignField;
+							// result.put("PDF_SIGN_FIELD", PDFSignField + ":");
+						}
 					}
+				}
+				else
+				{
+					PdfFormField sig = PdfFormField.createSignature(stp
+							.getWriter());
+					sig.setWidget(new Rectangle(100, 100, 200, 200), null);
+					sig.setFlags(PdfAnnotation.FLAGS_PRINT);
+					sig.put(PdfName.DA, new PdfString("/Helv 0 Tf 0 g"));
+					if (null != PDFSignField)
+					{
+						sig.setFieldName(PDFSignField);
+						signField += PDFSignField;
+					}
+					else
+					{
+						sig.setFieldName(defaultSignField + cpt);
+						signField += defaultSignField + cpt;
+					}
+					sig.setPage(1);
+					stp.addAnnotation(sig, 1);
+				}
+
+				if (size != cpt)
+					signField += ": ";
+			}
+			stp.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+
+		result.put("PDF_SIGN_FIELD", signField);
+
+		result.put("PDF_FILE_NAME", outFile);
+		if (null != DataMetier)
+			result.put("DATA_METIER", DataMetier);
+		if (null != CufOrg)
+			result.put("CUF_ORG", CufOrg);
+
+		System.out.println(outFile);
+
+		return result;
+	}
 
 }

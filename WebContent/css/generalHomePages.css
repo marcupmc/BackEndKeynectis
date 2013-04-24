@@ -1,0 +1,34 @@
+@CHARSET "ISO-8859-1";
+
+@import url("style.css");
+
+.underTitle {
+	border-bottom:thin;
+	margin: auto;
+	padding-left: 28pt;
+	background-color: transparent;
+	text-align: left;
+	color: blue;
+	border-bottom-color: gray;
+	border-bottom-style: solid;
+	padding-top: 5pt;
+} 
+
+.icones{
+	margin: auto;
+	padding-right: 50pt;
+	padding-left: 28pt;
+	padding-top: 10pt;
+	width: 100%;
+}
+
+.btn-primary{
+	
+	background-image: linear-gradient(to bottom, #39B7CD, #39B7CD);
+}
+
+.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.btn-primary.disabled,.btn-primary[disabled]
+	{	
+	background-color: #39B7CD;	
+}
+

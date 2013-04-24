@@ -9,6 +9,7 @@
 </head>
 <body>
 	<div class="container">
+<<<<<<< HEAD
 		<h2>
 			Ajouter un nouveau Client <a href="administration.jsp"
 				class="btn btn-info">Accueil</a>
@@ -24,6 +25,7 @@
 				else if (msg.equals("empty_field"))
 					message = "Veuillez remplir tous les champs";
 				else if (msg.equals("missmatch_pwd"))
+
 					message = "Les mots de passes doivent être identiques";
 		%>
 		<div class="alert alert-block alert-error fade in">

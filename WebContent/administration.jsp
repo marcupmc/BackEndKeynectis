@@ -6,26 +6,54 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Gestion des clients</title>
 <link rel="stylesheet" href="css/style.css" />
-</head>
+<link rel="stylesheet" href="css/style3.css" />
+
+</head> 
 <body>
 	<%@page import="domain.Utilisateur"%>
 	<%@page import="java.util.ArrayList"%>
 	<%
 		ArrayList<Utilisateur> lcontact = new ArrayList<Utilisateur>();
-		if (request.getAttribute("liste") == null) {
+		if (request.getAttribute("liste") == null)
+		{
 
-		} else {
+		}
+		else
+		{
 			lcontact = (ArrayList<Utilisateur>) request
 					.getAttribute("liste");
 		}
 	%>
 	<div class="container">
-		<h2>Gérer vos Clients</h2>
-		<form class="form-search" method="get" action="FindClient">
-			<input type="text" name="recherche" class="input-medium search-query">
-			<button type="submit" class="btn">Search</button>
-		</form>
-		<a class="btn btn-primary" href="addClient.jsp">Ajouter un client</a>
+		<div class="row-fluid">
+			<div class="span12">
+				<h2>Gérer vos Clients <a href="adminHome.jsp" class="btn btn-info">Accueil</a></h2>
+				
+				<div class="rightAlign">
+					<form class="form-search" method="get" action="FindClient">
+						<input type="text" name="recherche" class="input-medium search-query">
+						<button type="submit" class="btn">Search</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="row-fluid">
+		<div class="span12">
+			<div class="row-fluid">				
+				
+					<a class="btn btn-primary" href="addClient.jsp">Ajouter un client</a>
+						
+			</div>			
+		</div>
+	</div>
+	
+	<div class="underTitle"><h4>LISTE DES CLIENTS</h4></div>
+		
+		
+		
+		
 <!-- 		<a class="btn btn-info" href="CertifierDocument">Certifier un Document</a> -->
 		<div id="resultats"><br/>
 			<%
