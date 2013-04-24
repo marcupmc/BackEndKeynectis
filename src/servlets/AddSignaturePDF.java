@@ -37,6 +37,7 @@ public class AddSignaturePDF extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		long idClient  = Long.parseLong(request.getParameter("idOwner").toString());
 		long id = Long.parseLong(request.getParameter("id").toString());
 		float pdfX = Float.parseFloat(request.getParameter("valPDFX").toString());
 		float pdfY = Float.parseFloat(request.getParameter("valPDFY").toString());
@@ -51,7 +52,7 @@ public class AddSignaturePDF extends HttpServlet {
 		float realY = sigY-pdfY;
 		
 		DAODocumentPDF.getInstance().setPosSignature(id, realX, realY,width,height);
-		response.sendRedirect("DetailsClient?id="+id);
+		response.sendRedirect("DetailsClient?id="+idClient);
 		
 		
 		

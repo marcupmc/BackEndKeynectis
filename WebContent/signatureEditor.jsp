@@ -66,6 +66,7 @@
 		<button class="btn btn-warning" onclick="reset()">Reset</button>
 		
 		<form action="AddSignaturePDF" method="POST">
+			<input type="hidden" id="idOwner" name="idOwner" value="<%=doc.getOwner().getId() %>" />
 			<input type="hidden" id="id" name="id" value="<%=doc.getId() %>" />
 			<input type="hidden" id="height" name="height" />
 			<input type="hidden" id="width" name="width" />
