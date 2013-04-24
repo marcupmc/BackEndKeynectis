@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div class="container">
-		<h2>Ajouter un nouveau Client <a href="administration.jsp" class="btn btn-info">Accueil</a></h2>
+		<h2>Ajouter un nouveau Client <a href="adminHome.jsp" class="btn btn-info">Accueil</a></h2>
 		
 		<% String msg  = (String)request.getParameter("error");
 			if(msg!=null){

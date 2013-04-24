@@ -1,0 +1,21 @@
+@CHARSET "ISO-8859-1";
+
+@import url("generalHomePages.css");
+
+.rightAlign{
+	float: right;
+}
+
+
+.underTitle {
+	border-bottom:thin;
+	margin: auto;
+	padding-left: 28pt;
+	background-color: transparent;
+	text-align: left;
+	color: blue;
+	border-bottom-color: gray;
+	border-bottom-style: solid;
+	padding-top: 5pt;
+	margin-bottom: 20pt;
+}

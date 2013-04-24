@@ -9,7 +9,7 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script src="js/signatureEditor.js"></script>
-<title>Insert title here</title>
+<title>Edition de la signature</title>
 <style>
 #draggable {
 	margin-top: 10px;
