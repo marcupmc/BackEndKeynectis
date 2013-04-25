@@ -1,10 +1,15 @@
 package tools;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 
+import javax.imageio.ImageIO;
+
 import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 public class EncoderBase64 {
 
@@ -55,4 +60,27 @@ public class EncoderBase64 {
 		}
 		return decodedBytes;
 	}
+	
+	 /**
+     * Encode image to string
+     * @param image The image to encode
+     * @return encoded string
+     */
+    public static String encodeToString(BufferedImage image) {
+        String imageString = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        try {
+            ImageIO.write(image, "jpg", bos);
+            byte[] imageBytes = bos.toByteArray();
+
+            BASE64Encoder encoder = new BASE64Encoder();
+            imageString = encoder.encode(imageBytes);
+
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return imageString;
+    }
 }

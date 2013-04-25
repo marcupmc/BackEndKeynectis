@@ -1,20 +1,32 @@
 package tools;
 
+
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
+import org.apache.pdfbox.PDFToImage;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
 import org.bouncycastle.util.encoders.Base64;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Rectangle;
@@ -40,7 +52,7 @@ public class ToolsPDF
 	 */
 	public static String pdf2xml(String pdfFileName, String name,
 			String pathServeur) throws IOException
-	{
+			{
 		System.out.println("SAVE FILE : " + pathServeur);
 		byte[] fileArray = getBytesFromFile(new File(pdfFileName));
 
@@ -57,7 +69,7 @@ public class ToolsPDF
 			{
 				byte[] beginTag = new String(
 						"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<docPDFb64>\n")
-						.getBytes();
+				.getBytes();
 				byte[] endTag = new String("\n</docPDFb64>").getBytes();
 				OutputStream os = new FileOutputStream(filename);
 
@@ -78,9 +90,9 @@ public class ToolsPDF
 			}
 		}
 		return "";
-	}
+			}
 
-	
+
 	/**
 	 * Get the bytes from a file
 	 * @param file
@@ -151,12 +163,12 @@ public class ToolsPDF
 		}
 		in.close();
 		tmpOut.close(); // No effect, but good to do anyway to keep the metaphor
-						// alive
+		// alive
 
 		byte[] array = tmpOut.toByteArray();
 		return array;
 
-	
+
 	}
 
 	/**
@@ -233,6 +245,54 @@ public class ToolsPDF
 		return false;
 	}
 
+	public static JSONObject getInfosPDF(String url, int numPage){
+		JSONObject json = new JSONObject();
+		try {
+			json.put("image", getImageFromPDFPage(url, numPage));
+			json.put("nbPages", getNbPageofPDF(url));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return json;
+	}
+
+	public static int getNbPageofPDF(String url){
+		try {
+			PDDocument doc = PDDocument.load(new URL(url));
+			return  doc.getDocumentCatalog().getAllPages().size();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	public static String getImageFromPDFPage(String url,int numPage){
+		try {
+			PDDocument doc = PDDocument.load(new URL(url));
+			PDPage page = (PDPage) doc.getDocumentCatalog().getAllPages().get(numPage);
+			BufferedImage im = page.convertToImage();
+			return EncoderBase64.encodeToString(im);
+			
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "";
+	}
+
+	
+
 	/**
 	 * Prepare a PDF document for the signature process
 	 * 
@@ -253,8 +313,8 @@ public class ToolsPDF
 	 */
 	public static HashMap<String, String> preparePDFDocument(String PDF2Sign,
 			String DataMetier, String CufOrg, String PDFSignField)
-			throws DocumentException, IOException
-	{
+					throws DocumentException, IOException
+					{
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		/**
@@ -280,7 +340,7 @@ public class ToolsPDF
 		{
 			PdfReader pdf = new PdfReader(PDF2Sign);
 			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
-			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+					/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
 
 			/**
 			 * §PARAMETRAGE DE LA ZONE DE SIGNATURE§ *
@@ -289,7 +349,7 @@ public class ToolsPDF
 			if (null != stp.getSignatureAppearance().getFieldName())
 			{
 				if (null != PDFSignField) // Case where there is an embedded pdf
-											// signature field
+					// signature field
 				{
 					if (stp.getSignatureAppearance().getFieldName() == PDFSignField)
 					{
@@ -332,7 +392,7 @@ public class ToolsPDF
 		System.out.println(outFile);
 
 		return result;
-	}
+					}
 
 	/**
 	 * Prepare a PDF document for the signature process
@@ -357,7 +417,7 @@ public class ToolsPDF
 	public static HashMap<String, String> preparePDFDocument(String PDF2Sign,
 			String DataMetier, String CufOrg, String PDFSignField,
 			String OutPath) throws DocumentException, IOException
-	{
+			{
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		/**
@@ -382,7 +442,7 @@ public class ToolsPDF
 		{
 			PdfReader pdf = new PdfReader(PDF2Sign);
 			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
-			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+					/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
 
 			/**
 			 * §PARAMETRAGE DE LA ZONE DE SIGNATURE§ *
@@ -391,7 +451,7 @@ public class ToolsPDF
 			if (null != stp.getSignatureAppearance().getFieldName())
 			{
 				if (null != PDFSignField) // Case where there is an embedded pdf
-											// signature field
+					// signature field
 				{
 					if (stp.getSignatureAppearance().getFieldName() == PDFSignField)
 					{
@@ -434,7 +494,7 @@ public class ToolsPDF
 		System.out.println(outFile);
 
 		return result;
-	}
+			}
 
 	/**
 	 * Prepare a PDF document with the given position of the signature field,
@@ -461,7 +521,7 @@ public class ToolsPDF
 	public static HashMap<String, String> preparePDFDocument(String PDF2Sign,
 			String DataMetier, String CufOrg, float x, float y, float height,
 			float width) throws DocumentException, IOException
-	{
+			{
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		/**
@@ -486,7 +546,7 @@ public class ToolsPDF
 		{
 			PdfReader pdf = new PdfReader(PDF2Sign);
 			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
-			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+					/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
 
 			/**
 			 * §PARAMETRAGE DE LA ZONE DE SIGNATURE§ *
@@ -518,7 +578,7 @@ public class ToolsPDF
 		System.out.println(outFile);
 
 		return result;
-	}
+			}
 
 	/**
 	 * Prepare a PDF document with the given position of the signature field,
@@ -552,7 +612,7 @@ public class ToolsPDF
 	public static HashMap<String, String> preparePDFDocument(String PDF2Sign,
 			String DataMetier, String CufOrg, float x, float y, float height,
 			float width, String OutPath) throws DocumentException, IOException
-	{
+			{
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		/**
@@ -576,7 +636,7 @@ public class ToolsPDF
 		{
 			PdfReader pdf = new PdfReader(PDF2Sign);
 			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
-			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+					/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
 
 			/**
 			 * §PARAMETRAGE DE LA ZONE DE SIGNATURE§ *
@@ -609,7 +669,7 @@ public class ToolsPDF
 		System.out.println(outFile);
 
 		return result;
-	}
+			}
 
 	/**
 	 * Prepare a PDF document with the given position of the signature field,
@@ -643,7 +703,7 @@ public class ToolsPDF
 			String DataMetier, String CufOrg, float x, float y, float height,
 			float width, String OutPath, String name) throws DocumentException,
 			IOException
-	{
+			{
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		/**
@@ -669,7 +729,7 @@ public class ToolsPDF
 		{
 			PdfReader pdf = new PdfReader(PDF2Sign);
 			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
-			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+					/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
 
 			/**
 			 * §PARAMETRAGE DE LA ZONE DE SIGNATURE§ *
@@ -702,7 +762,7 @@ public class ToolsPDF
 		System.out.println(outFile);
 
 		return result;
-	}
+			}
 
 	/**
 	 * Prepare a PDF document with a list of signature fields for the signature
@@ -725,8 +785,8 @@ public class ToolsPDF
 	 */
 	public static HashMap<String, String> preparePDFDocument(String PDF2Sign,
 			String DataMetier, String CufOrg, List<String> PDFSignFields)
-			throws DocumentException, IOException
-	{
+					throws DocumentException, IOException
+					{
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		/**
@@ -753,7 +813,7 @@ public class ToolsPDF
 		{
 			PdfReader pdf = new PdfReader(PDF2Sign);
 			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
-			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+					/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
 
 			/**
 			 * §PARAMETRAGE DES ZONES DE SIGNATURE§ *
@@ -768,15 +828,15 @@ public class ToolsPDF
 			{
 				cpt++;
 				if (null != stp.getSignatureAppearance().getFieldName()) // !!!
-																			// Certainement
-																			// pas
-																			// bon!!!
-																			// Récupère
-																			// une
-																			// seule
-																			// zone
-																			// à
-																			// priori
+					// Certainement
+					// pas
+					// bon!!!
+					// Récupère
+					// une
+					// seule
+					// zone
+					// à
+					// priori
 				{
 					if (null != PDFSignField)
 					{
@@ -832,7 +892,7 @@ public class ToolsPDF
 		System.out.println(outFile);
 
 		return result;
-	}
+					}
 
 	/**
 	 * Prepare a PDF document with a list of signature fields for the signature
@@ -858,7 +918,7 @@ public class ToolsPDF
 	public static HashMap<String, String> preparePDFDocument(String PDF2Sign,
 			String DataMetier, String CufOrg, List<String> PDFSignFields,
 			String OutPath) throws DocumentException, IOException
-	{
+			{
 		HashMap<String, String> result = new HashMap<String, String>();
 
 		/**
@@ -884,7 +944,7 @@ public class ToolsPDF
 		{
 			PdfReader pdf = new PdfReader(PDF2Sign);
 			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile
-			/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
+					/* RESULT.substring(0, RESULT.lastIndexOf("/")) + "/out.pdf" */));
 
 			/**
 			 * §PARAMETRAGE DES ZONES DE SIGNATURE§ *
@@ -899,15 +959,15 @@ public class ToolsPDF
 			{
 				cpt++;
 				if (null != stp.getSignatureAppearance().getFieldName()) // !!!
-																			// Certainement
-																			// pas
-																			// bon!!!
-																			// Récupère
-																			// une
-																			// seule
-																			// zone
-																			// à
-																			// priori
+					// Certainement
+					// pas
+					// bon!!!
+					// Récupère
+					// une
+					// seule
+					// zone
+					// à
+					// priori
 				{
 					if (null != PDFSignField)
 					{
@@ -963,6 +1023,6 @@ public class ToolsPDF
 		System.out.println(outFile);
 
 		return result;
-	}
+			}
 
 }

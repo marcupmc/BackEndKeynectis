@@ -15,7 +15,7 @@
 
 		<h2>ADMINISTRATION DE LA SESSION METIER</h2>
 		<div class="underTitle">
-			<h3>ADMINISTRATION DES DONNEES METIERS</h3>
+			<h3>ADMINISTRATION DU SERVEUR METIER</h3>
 		</div>
 
 		<ul class="thumbnails" id="todo" style="text-align: center;">
