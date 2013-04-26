@@ -261,7 +261,9 @@ public class ToolsPDF
 	public static int getNbPageofPDF(String url){
 		try {
 			PDDocument doc = PDDocument.load(new URL(url));
-			return  doc.getDocumentCatalog().getAllPages().size();
+			int nb =doc.getDocumentCatalog().getAllPages().size();
+			doc.close();
+			return  nb;
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -269,7 +271,7 @@ public class ToolsPDF
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		 
 		return 0;
 	}
 
@@ -278,6 +280,7 @@ public class ToolsPDF
 			PDDocument doc = PDDocument.load(new URL(url));
 			PDPage page = (PDPage) doc.getDocumentCatalog().getAllPages().get(numPage);
 			BufferedImage im = page.convertToImage();
+			doc.close();
 			return EncoderBase64.encodeToString(im);
 			
 		} catch (MalformedURLException e) {

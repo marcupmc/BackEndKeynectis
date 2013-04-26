@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script src="js/signatureEditor.js"></script>
@@ -33,6 +35,7 @@
 <script>
 	$(function() {
 		$("#draggable").draggable();
+		$("#draggable").resizable();
 	});
 </script>
 </head>
@@ -50,11 +53,11 @@
 			<li>Propriétaire : <%=doc.getOwner().getFirstName()%> <%=doc.getOwner().getLastName()%></li>
 		</ul>
 
-		<label for="hauteur">Hauteur (en pixel) : <input type="number"
-			id="hauteur"></label> <label for="largeur">Largeur (en pixel)
-			: <input type="number" id="largeur">
-		</label>
-		<button class="btn btn-success" id="valider" onclick="buildZone()">Valider</button>
+<!-- 		<label for="hauteur">Hauteur (en pixel) : <input type="number" -->
+<!-- 			id="hauteur"></label> <label for="largeur">Largeur (en pixel) -->
+<!-- 			: <input type="number" id="largeur"> -->
+<!-- 		</label> -->
+<!-- 		<button class="btn btn-success" id="valider" onclick="buildZone()">Valider</button> -->
 
 		<div id="draggable" class="ui-widget-content">
 			<p>Zone de Signature</p>

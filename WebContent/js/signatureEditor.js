@@ -27,6 +27,7 @@ function fixeZone(){
 	hauteur=(hauteur*842)/1132;
 	
 	$("#draggable").draggable("disable");
+	$("#draggable").resizable('destroy');
 	$("#valider").css("display","none");
 	$("#save").css("display","inline");
 	
