@@ -109,7 +109,11 @@ public class ControllerCertification {
 		return null;
 	}
 	
-	// A CHANGER : passer des parametre ou une adresse d'un xml contenant les parametres
+	/**
+	 * Build the tag from a document
+	 * @param doc
+	 * @return a string that contains the tag
+	 */
 	private String tagFactory(DocumentPDF doc){
 		byte[] decode = EncoderBase64.encodingBlobToByteArray(doc.getOwner().getSignature());
 		String signatureBase64 = EncoderBase64.byteArraytoStringBase64(decode);
@@ -155,7 +159,15 @@ public class ControllerCertification {
 		return tag;
 	}
 	
-	//IDEM 
+	/**
+	 * Build the request TransID
+	 * @param origMetierSign
+	 * @param urlRetour
+	 * @param doc
+	 * @param certFolder
+	 * @param tag
+	 * @return a request TransID
+	 */
 	private RequestTransId rtiFactory(String origMetierSign,String urlRetour,DocumentPDF doc,String certFolder,String tag){
 		
 		Utilisateur user = doc.getOwner();
@@ -202,6 +214,13 @@ public class ControllerCertification {
 		return rti;
 	}
 
+	/**
+	 * Build the original file from an xml path, certificates and password
+	 * @param adresseXML
+	 * @param pathCertificat
+	 * @param motPasse
+	 * @return a string that contains the file
+	 */
 	private String originMetierFactorty(String adresseXML,String pathCertificat,String motPasse){
 		String origMetierSign="";
 		try {
@@ -217,6 +236,12 @@ public class ControllerCertification {
 		return origMetierSign;
 	}
 	
+	/**
+	 * Encode and insert signatures field from a document
+	 * @param saveFile
+	 * @param document
+	 * @return the path of the encoding file (.xml)
+	 */
 	private String encodingAndSignatureZoneFactory(String saveFile,DocumentPDF document){
 		System.out.println("[TEST KEYNECTIS] Debut PDF avec signature");
 		String urlPdfToEncode="";
