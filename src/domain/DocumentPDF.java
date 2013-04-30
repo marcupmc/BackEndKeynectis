@@ -1,5 +1,8 @@
 package domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class DocumentPDF  {
 
 	//nom, Adresse, bool Authent
@@ -7,12 +10,9 @@ public class DocumentPDF  {
 	private String name;
 	private String url;
 	private boolean certified;
-	private String signatureName;
 	
-	private float signatureX;
-	private float signatureY;
-	private float heightSignature;
-	private float widthSignature;
+	
+	private Set<Signature> signatures = new HashSet<Signature>();
 	
 	private Utilisateur owner;
 	
@@ -60,44 +60,12 @@ public class DocumentPDF  {
 		this.id = id;
 	}
 
-	public String getSignatureName() {
-		return signatureName;
+	public Set<Signature> getSignatures() {
+		return signatures;
 	}
 
-	public void setSignatureName(String signatureName) {
-		this.signatureName = signatureName;
-	}
-
-	public float getSignatureX() {
-		return signatureX;
-	}
-
-	public void setSignatureX(float signatureX) {
-		this.signatureX = signatureX;
-	}
-
-	public float getSignatureY() {
-		return signatureY;
-	}
-
-	public void setSignatureY(float signatureY) {
-		this.signatureY = signatureY;
-	}
-
-	public float getHeightSignature() {
-		return heightSignature;
-	}
-
-	public void setHeightSignature(float heightSignature) {
-		this.heightSignature = heightSignature;
-	}
-
-	public float getWidthSignature() {
-		return widthSignature;
-	}
-
-	public void setWidthSignature(float widthSignature) {
-		this.widthSignature = widthSignature;
+	public void setSignatures(Set<Signature> signatures) {
+		this.signatures = signatures;
 	}
 
 

@@ -32,7 +32,8 @@ public class RedirectSignature extends HttpServlet {
 		long id  = Long.parseLong(request.getParameter("id"));
 		DocumentPDF doc = DAODocumentPDF.getInstance().getById(id);
 		request.setAttribute("doc", doc);
-		request.getRequestDispatcher("signatureEditor.jsp").forward(request, response);
+		//request.getRequestDispatcher("signatureEditor.jsp").forward(request, response);
+		request.getRequestDispatcher("pdfReader.jsp").forward(request, response);
 	}
 
 	/**

@@ -58,7 +58,7 @@ public class JSONFactory {
 		ArrayList<JSONObject> toReturn = new ArrayList<JSONObject>();
 		for(DocumentPDF doc : user.getDocuments()){
 
-			if(doc.getSignatureName()!=null && doc.getSignatureName().length()>0){
+			if(doc.getSignatures().size()>0){
 				JSONObject jsonToAdd = new JSONObject();
 				try {
 					jsonToAdd.put("id",doc.getId()); 

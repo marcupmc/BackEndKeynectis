@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -8,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import domain.DocumentPDF;
+import domain.Signature;
 import domain.Utilisateur;
 
 public class DAODocumentPDF {
@@ -49,11 +51,11 @@ public class DAODocumentPDF {
 			doc.setUrl(url);
 			doc.setOwner(user);
 			doc.setCertified(false);
-			doc.setSignatureName(""); //TODO A modifier car peut être parametrable
-
+			
 			session.save(doc); 
 			tx.commit();
 			session.close();
+			sessionFactory.close();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return false;
@@ -86,11 +88,12 @@ public class DAODocumentPDF {
 			doc.setOwner(user);
 			doc.setCertified(false);
 			
-			doc.setSignatureName(sigName); //TODO A modifier car peut être parametrable
+			//doc.setSignatureName(sigName); //TODO A modifier car peut être parametrable
 
 			session.save(doc); 
 			tx.commit();
 			session.close();
+			sessionFactory.close();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return false;
@@ -119,6 +122,7 @@ public class DAODocumentPDF {
 			session.delete(doc);
 			tx.commit();
 			session.close();
+			sessionFactory.close();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return false;
@@ -146,6 +150,7 @@ public class DAODocumentPDF {
 
 			tx.commit();
 			session.close();
+			sessionFactory.close();
 			if(docs.size()==1)
 				return docs.get(0);  
 			else
@@ -175,6 +180,7 @@ public class DAODocumentPDF {
 
 			tx.commit();
 			session.close();
+			sessionFactory.close();
 			if(docs.size()==1)
 				return docs.get(0);  
 			else
@@ -206,7 +212,7 @@ public class DAODocumentPDF {
 			session.update(doc);
 			tx.commit();
 			session.close();
-			
+			sessionFactory.close();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return false;
@@ -233,7 +239,7 @@ public class DAODocumentPDF {
 			session.update(doc);
 			tx.commit();
 			session.close();
-			
+			sessionFactory.close();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return false;
@@ -250,7 +256,7 @@ public class DAODocumentPDF {
 	 * @param height
 	 * @return true if the signature's has been saved, false if not
 	 */
-	public boolean setPosSignature(long id, float posx, float posy,float width,float height){
+	public boolean setPosSignature(long id, float posx, float posy,float width,float height,int numPage,String sigName){
 		DocumentPDF doc = this.getById(id);
 		if(doc==null)return false;
 		Session session = null;
@@ -260,15 +266,20 @@ public class DAODocumentPDF {
 			session = sessionFactory.openSession();
 			org.hibernate.Transaction tx = session.beginTransaction();
 			
-			doc.setSignatureX(posx);
-			doc.setSignatureY(posy);
-			doc.setHeightSignature(height);
-			doc.setWidthSignature(width);
-			doc.setSignatureName("signature"+id);
-			session.update(doc);
+			Signature signature = new Signature();
+			
+			signature.setSignatureX(posx);
+			signature.setSignatureY(posy);
+			signature.setHeightSignature(height);
+			signature.setWidthSignature(width);
+			signature.setName(sigName);
+			signature.setPageNumber(numPage);
+			signature.setDocument(doc);
+			
+			session.save(signature);
 			tx.commit();
 			session.close();
-			
+			sessionFactory.close();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return false;

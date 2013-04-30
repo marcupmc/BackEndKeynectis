@@ -88,8 +88,7 @@
 			<%
 				for (DocumentPDF doc : client.getDocuments()) {
 					boolean signable;
-					if (doc.getSignatureName() != null
-							&& doc.getSignatureName().length() > 0)
+					if (doc.getSignatures().size()>0)
 						signable = true;
 					else {
 						signable = false;

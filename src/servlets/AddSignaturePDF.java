@@ -51,7 +51,7 @@ public class AddSignaturePDF extends HttpServlet {
 		float realX  =sigX-pdfX;
 		float realY = sigY-pdfY; 
 		
-		DAODocumentPDF.getInstance().setPosSignature(id, realX, realY,width,height);
+		DAODocumentPDF.getInstance().setPosSignature(id, realX, realY, width, height, 1, "signTEST");
 		response.sendRedirect("DetailsClient?id="+idClient);
 		
 		

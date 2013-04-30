@@ -12,7 +12,7 @@ public class Utilisateur {
 	private String lastName;
 	private String email;
 	private String password;
-	private String phoneNumber; // A changer en une table telephone?
+	private String phoneNumber; 
 	private Set<DocumentPDF> documents = new HashSet<DocumentPDF>();
 	private Blob signature;
 	

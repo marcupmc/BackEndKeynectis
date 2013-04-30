@@ -1,3 +1,4 @@
+<%@page import="domain.DocumentPDF"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -45,11 +46,22 @@
 #loader{
 	display: none;
 }
+
+#saveSignatures{
+	display:none;
+}
 </style>
 
 </head>
 <body>
+	<%
+			DocumentPDF doc = (DocumentPDF) request.getAttribute("doc");
+		%>
+		<input type="hidden" value="<%=doc.getUrl() %>" id="url"/>
+		<input type="hidden" value="<%=doc.getId()%>" id="idDoc"/>
+		<input type="hidden" value="<%=doc.getOwner().getId() %>" id="idOwner"/>
 	<div class="container">
+	
 		<h3>Lecteur PDF</h3>
 		<button onclick="previousPage()" id="previous" class="btn btn-primary">
 			<i class="icon-backward icon-white"></i>
@@ -77,7 +89,12 @@
 					<ul id="listeSignatures">
 					</ul>
 
-					<div id="signatures"></div>
+					<div id="signatures">
+					
+					</div>
+					<button class="btn btn-success" onclick="saveSignatures()" id="saveSignatures">
+					Enregistrer les signatures
+					</button>
 				</td>
 			</tr>
 

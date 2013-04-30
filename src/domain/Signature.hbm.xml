@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="domain.Signature" table="SIGNATURE">
+		<id name="id">
+			<column name="ID_SIGNATURE" />
+			<generator class="increment" />
+		</id>
+
+		<property name="name">
+			<column name="SIGNAME" />
+		</property>
+		<property name="signatureX">
+			<column name="SIGX" />
+		</property>
+		<property name="signatureY">
+			<column name="SIGY" />
+		</property>
+
+		<property name="heightSignature">
+			<column name="HEIGHTSIG" />
+		</property>
+		<property name="widthSignature">
+			<column name="WIDTHSIG" />
+		</property>
+
+		<property name="pageNumber">
+			<column name="PAGE" />
+		</property>
+
+		<many-to-one name="document" column="ID_DOCUMENT" lazy="false"
+			class="domain.DocumentPDF" unique="false" />
+
+	</class>
+</hibernate-mapping>

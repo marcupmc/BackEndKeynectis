@@ -20,6 +20,7 @@ import com.itextpdf.text.DocumentException;
 
 import dao.DAOUtilisateur;
 import domain.DocumentPDF;
+import domain.Signature;
 import domain.Utilisateur;
 
 public class ControllerCertification {
@@ -60,59 +61,17 @@ public class ControllerCertification {
 	 * @return HashMap that contains the blob and the num of the transaction
 	 */
 	public HashMap<String, String>  certificationPDF(String identifiant, String url,String urlRetour,String saveFile,String certFolder){
-		//TODO : Mettre les attributs dans un fichier de config pour parametrage
 		HashMap<String, String> toReturn =new HashMap<String, String>();
-
 		//------------------Depend de la Base ----------------------------------------
-		System.out.println("[TEST KEYNECTIS] Debut de la certification");
-
 		Utilisateur user = DAOUtilisateur.getInstance().getUserByIdentifiant(identifiant);
 		DocumentPDF document = getDocumentOfUserByUrl(user, url);
-
 		//--------------------------Variable parametrable en fonction du metier / fichier de config?--------
 		String pathCertificat = certFolder+"/demoqs_s.p12"; 
-		System.out.println("[TEST KEYNECTIS] Adresse certificat : "+pathCertificat);
 		String motPasse = "DemoQS";
-		String adresseXML="";
-		String urlPdfToEncode="";
-
-		System.out.println("[TEST KEYNECTIS] Debut PDF avec signature");
-
-		try {
-			urlPdfToEncode=ToolsPDF.createPDFDocToSign(document.getUrl(),saveFile,document.getName(),document.getSignatureX(),document.getSignatureY(),document.getWidthSignature(),document.getHeightSignature());
-		//	urlPdfToEncode = ToolsPDF.preparePDFDocument(document.getUrl(),null,null,document.getSignatureX(),document.getSignatureY(),document.getHeightSignature(),document.getWidthSignature(),saveFile, document.getName()).get("OUTFILE");
-		} catch (DocumentException e1) {
-			e1.printStackTrace(); 
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		System.out.println("[TEST KEYNECTIS] Fichier PDF avec signature Créé ! ");
-		try {
-			adresseXML = ToolsPDF.pdf2xml(urlPdfToEncode, document.getName(),saveFile);
-		} catch (IOException e) { 
-			e.printStackTrace();
-			return null;
-		}
-		if(adresseXML.equals(""))return null;
-		System.out.println("[TEST KEYNECTIS] Fichier XML du PDF Créé ! ");
-
+		String adresseXML=encodingAndSignatureZoneFactory(saveFile, document);
 		//-------------------------Creation du certificat de signature metier-----------------------
-		System.out.println("[TEST KEYNECTIS] Debut de la signature");
-		String origMetierSign="";
-		try {
-			origMetierSign = com.dictao.keynectis.quicksign.transid.Util.signXmlFileDsig(
-					adresseXML,
-					pathCertificat, 
-					motPasse);
-		} catch (QuickSignException e) {
-			e.printStackTrace();
-			return null;
-		}
-		if(origMetierSign.equals(""))return null;
-		System.out.println("[TEST KEYNECTIS] Fin de la signature");
-
+		String origMetierSign=originMetierFactorty(adresseXML, pathCertificat, motPasse);
 		//----------------------Calcul du Hash -----------------------------------------------------
-		System.out.println("[TEST KEYNECTIS] Debut du calcul du HASH");
 		String hashBase64="";
 		try {
 			hashBase64 = com.dictao.keynectis.quicksign.transid.Util.getB64Hash(origMetierSign);
@@ -121,39 +80,62 @@ public class ControllerCertification {
 			return null;
 		}
 		if(hashBase64.equals(""))return null;
-		System.out.println("[TEST KEYNECTIS] Fin du calcul du HASH");
-
-		//---------------------Informations Utilisateur-----------------------------------------------
-		String nom = user.getLastName();
-		String prenom = user.getFirstName();
-		String email = user.getEmail();
-		String authority = "KWS_INTEGRATION_CDS";
-		System.out.println("[TEST KEYNECTIS] Debut de la génération du CUF");
-		String cuf = String.valueOf(1000 + (new java.util.Random()).nextInt(8999));
-		System.out.println("[TEST KEYNECTIS] Fin du calcul du HASH");
-		String returnUrl = urlRetour.substring(0, urlRetour.lastIndexOf("/"))+"/ResponseKeynectis";
-		System.out.println("[TEST KEYNECTIS] url de retour : "+returnUrl);
 		String blob = "";
 		String transNum = "";
-		BufferedReader br = null;
-		String ligne = "";
-		String tag = "";
-		System.out.println("[TEST KEYNECTIS] Debut de l'encodage de la signature");
-		byte[] decode = EncoderBase64.encodingBlobToByteArray(user.getSignature());
-		String signatureBase64 = EncoderBase64.byteArraytoStringBase64(decode);
-		System.out.println("[TEST KEYNECTIS] Valeur signature : \n"+signatureBase64);
-		System.out.println("[TEST KEYNECTIS] Fin encodage de la signature");
+		String tag = this.tagFactory(document);
+		RequestTransId rti = rtiFactory(origMetierSign, urlRetour, document, certFolder, tag);
+		try {
+			transNum = rti.getTransNum();
+			blob = rti.getB64Blob();
+		} catch (QuickSignException qse) {
+			return null;
+		}
+		toReturn.put("blob", blob);
+		toReturn.put("transNum", transNum);
 
-		//-----------------------------DEFINITION DU TAG---------------------------------------------------------
-		System.out.println("[TEST KEYNECTIS] Debut de la définition du TAG");
+		return toReturn;
+	}
+
+	/**
+	 * Find the document of a user by its url
+	 * @param user
+	 * @param url
+	 * @return the document if it has been found or null if not
+	 */
+	private DocumentPDF getDocumentOfUserByUrl(Utilisateur user,String url){
+		for (DocumentPDF doc : user.getDocuments()){
+			if(doc.getUrl().equals(url))return doc;
+		}
+		return null;
+	}
+	
+	// A CHANGER : passer des parametre ou une adresse d'un xml contenant les parametres
+	private String tagFactory(DocumentPDF doc){
+		byte[] decode = EncoderBase64.encodingBlobToByteArray(doc.getOwner().getSignature());
+		String signatureBase64 = EncoderBase64.byteArraytoStringBase64(decode);
 		
+		String tag="";
 		tag += "DATA_METIER=contrat\n";
 		tag += "CUF_ORG=no\n";
 		tag += "TYPE=38\n";
+//		tag += "TYPE=36\n";
+//		tag += "TYPE=39\n";
+//		tag += "TYPE=31\n";
 		tag += "VISU=docPDFb64\n";
 		//tag += "PDF_VERIFY_FIELDS=Signature1\n";
 		//tag += "PDF_SIGN_FIELD=Signature2\n";
-		tag += "PDF_SIGN_FIELD=Signature1\n";
+		
+		String sigNames="";
+		int cpt=0;
+		for(Signature s : doc.getSignatures()){
+			sigNames+=s.getName();
+			if(cpt<doc.getSignatures().size()-1)
+				sigNames+=":";
+			cpt++;
+		}
+		System.out.println("------------ Signatures : "+sigNames);
+		tag += "PDF_SIGN_FIELD="+sigNames+"\n";
+		
 		//tag += "PDF_REASON=Test avec image\n"; //Motif de la signature: Conseillé mais facultatif
 		//tag += "PDF_LOCATION=Capgemini France | Paris, Rue de Lyon\n"; //Lieu de la signature: Conseillé mais facultatif
 		//tag += "PDF_CONTACT=01.49.67.44.11\n"; //Coordonnées du signataire: Conseillé mais facultatif
@@ -169,8 +151,25 @@ public class ControllerCertification {
 		//				+ cuf + ". "
 		//				+ " Keynectis vous remercie de votre confiance.\n";
 
-		System.out.println("[TEST KEYNECTIS] Fin de la définition du TAG");
-
+		
+		return tag;
+	}
+	
+	//IDEM 
+	private RequestTransId rtiFactory(String origMetierSign,String urlRetour,DocumentPDF doc,String certFolder,String tag){
+		
+		Utilisateur user = doc.getOwner();
+		
+		
+		String authority = "KWS_INTEGRATION_CDS";
+		System.out.println("[TEST KEYNECTIS] Debut de la génération du CUF");
+		String cuf = String.valueOf(1000 + (new java.util.Random()).nextInt(8999));
+		System.out.println("[TEST KEYNECTIS] Fin du calcul du HASH");
+		String returnUrl = urlRetour.substring(0, urlRetour.lastIndexOf("/"))+"/ResponseKeynectis";
+		System.out.println("[TEST KEYNECTIS] url de retour : "+returnUrl);
+		
+//		BufferedReader br = null;
+//		String ligne = "";
 		//--------------------------DEFINTION DE TRANSID--------------------------------------
 		System.out.println("[TEST KEYNECTIS] Debut de la définition de TRANSID");
 
@@ -192,36 +191,56 @@ public class ControllerCertification {
 		}
 		rti.setSignCertFilePath(path_certificat_signature_blob, mot_de_passe_certificat_blob);
 		rti.setCipherCertFilePath(path_certificat_chiffrement_blob);
-		rti.setName(prenom + " " + nom);
-		rti.setEmail(email);
+		rti.setName(user.getFirstName() + " " + user.getLastName());
+		rti.setEmail(user.getEmail());
+		
 		rti.setAuthority(authority);
 		rti.setReturnUrl(returnUrl);
 		rti.setFilePath(origMetierSign); 
 		rti.setTag(tag);
-		try {
-			transNum = rti.getTransNum();
-			blob = rti.getB64Blob();
-		} catch (QuickSignException qse) {
-			return null;
-		}
-		System.out.println("[TEST KEYNECTIS] Fin de la définition de TRANSID");
-
-		toReturn.put("blob", blob);
-		toReturn.put("transNum", transNum);
-
-		return toReturn;
+		
+		return rti;
 	}
 
-	/**
-	 * Find the document of a user by its url
-	 * @param user
-	 * @param url
-	 * @return the document if it has been found or null if not
-	 */
-	private DocumentPDF getDocumentOfUserByUrl(Utilisateur user,String url){
-		for (DocumentPDF doc : user.getDocuments()){
-			if(doc.getUrl().equals(url))return doc;
+	private String originMetierFactorty(String adresseXML,String pathCertificat,String motPasse){
+		String origMetierSign="";
+		try {
+			origMetierSign = com.dictao.keynectis.quicksign.transid.Util.signXmlFileDsig(
+					adresseXML,
+					pathCertificat, 
+					motPasse);
+		} catch (QuickSignException e) {
+			e.printStackTrace();
+			return null;
 		}
-		return null;
+		if(origMetierSign.equals(""))return null;
+		return origMetierSign;
+	}
+	
+	private String encodingAndSignatureZoneFactory(String saveFile,DocumentPDF document){
+		System.out.println("[TEST KEYNECTIS] Debut PDF avec signature");
+		String urlPdfToEncode="";
+		try {
+			urlPdfToEncode=ToolsPDF.createPDFDocToSign(saveFile,document);
+			
+			//urlPdfToEncode=ToolsPDF.createPDFDocToSignOLD(document.getUrl(),saveFile,document.getName(),65,55,37,111);
+		
+			//	urlPdfToEncode = ToolsPDF.preparePDFDocument(document.getUrl(),null,null,document.getSignatureX(),document.getSignatureY(),document.getHeightSignature(),document.getWidthSignature(),saveFile, document.getName()).get("OUTFILE");
+		} catch (DocumentException e1) {
+			e1.printStackTrace(); 
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		System.out.println("[TEST KEYNECTIS] Fichier PDF avec signature Créé ! ");
+		String adresseXML="";
+		try {
+			adresseXML = ToolsPDF.pdf2xml(urlPdfToEncode, document.getName(),saveFile);
+		} catch (IOException e) { 
+			e.printStackTrace();
+			return null;
+		}
+		if(adresseXML.equals(""))return null;
+		System.out.println("[TEST KEYNECTIS] Fichier XML du PDF Créé ! ");
+		return adresseXML;
 	}
 }

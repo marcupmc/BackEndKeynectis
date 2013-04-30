@@ -18,6 +18,6 @@
 		<!-- mapping files/lien vers les fichiers de mapping -->
 		<mapping resource="domain/Utilisateur.hbm.xml" />
 		<mapping resource="domain/DocumentPDF.hbm.xml" /> 
-
+		<mapping resource="domain/Signature.hbm.xml" /> 
 	</session-factory>
 </hibernate-configuration>

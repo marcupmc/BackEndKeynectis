@@ -28,6 +28,7 @@ import org.bouncycastle.util.encoders.Base64;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
+import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.AcroFields;
@@ -37,6 +38,9 @@ import com.itextpdf.text.pdf.PdfName;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfString;
+
+import domain.DocumentPDF;
+import domain.Signature;
 
 public class ToolsPDF
 {
@@ -184,7 +188,45 @@ public class ToolsPDF
 	 * @throws DocumentException
 	 * @throws IOException
 	 */
-	public static String createPDFDocToSign(String url ,String pathFolderout,String name,float x, float y, float largeur, float hauteur) throws DocumentException, IOException
+	public static String createPDFDocToSign(String pathFolderout,DocumentPDF document) throws DocumentException, IOException
+	{
+		String outFile =  pathFolderout+"/"+document.getName()+".pdf";
+		try
+		{
+			PdfReader pdf = new PdfReader(document.getUrl());
+			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream( outFile));
+
+			for(Signature signature : document.getSignatures() ){
+
+				PdfFormField sig = PdfFormField.createSignature(stp.getWriter());
+
+				sig.setWidget(new Rectangle(signature.getSignatureX(), 
+						(842 - signature.getSignatureY()), 
+						signature.getSignatureX() + signature.getWidthSignature(), 
+						(842 - signature.getSignatureY())+ signature.getHeightSignature()), null);
+
+				sig.setFlags(PdfAnnotation.FLAGS_PRINT);
+				sig.put(PdfName.DA, new PdfString("/Helv 0 Tf 0 g"));
+				sig.setFieldName(signature.getName()); 
+
+				sig.setPage(signature.getPageNumber());
+
+				stp.addAnnotation(sig, signature.getPageNumber());
+			}
+			stp.close();
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+
+		return outFile;
+	}
+	
+	
+	public static String createPDFDocToSignOLD(String url ,String pathFolderout,String name,float x, float y, float largeur, float hauteur) throws DocumentException, IOException
 
 	{
 		String outFile =  pathFolderout+"/"+name+".pdf";
@@ -216,6 +258,7 @@ public class ToolsPDF
 
 		return outFile;
 	}
+	
 
 	/**
 	 * Check if the signature zone "signame" exist in the pdf
@@ -271,7 +314,7 @@ public class ToolsPDF
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 
+
 		return 0;
 	}
 
@@ -282,7 +325,7 @@ public class ToolsPDF
 			BufferedImage im = page.convertToImage();
 			doc.close();
 			return EncoderBase64.encodeToString(im);
-			
+
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -290,11 +333,11 @@ public class ToolsPDF
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return "";
 	}
 
-	
+
 
 	/**
 	 * Prepare a PDF document for the signature process

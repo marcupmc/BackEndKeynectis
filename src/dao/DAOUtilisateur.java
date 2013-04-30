@@ -75,6 +75,7 @@ public class DAOUtilisateur {
 			session.save(user); 
 			tx.commit();
 			session.close();
+			sessionFactory.close();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return false;
@@ -99,6 +100,7 @@ public class DAOUtilisateur {
 			users = (ArrayList<Utilisateur>) q.list();
 			tx.commit();
 			session.close();
+			sessionFactory.close();
 			if(users.size()==1)
 				return users.get(0);  
 			else
@@ -126,6 +128,7 @@ public class DAOUtilisateur {
 			users = (ArrayList<Utilisateur>) q.list();
 			tx.commit();
 			session.close();
+			sessionFactory.close();
 			if(users.size()==1)
 				return users.get(0);  
 			else
@@ -158,6 +161,7 @@ public class DAOUtilisateur {
 					" order by c.lastName");
 			users = (ArrayList<Utilisateur>) q.list();
 			session.close();
+			sessionFactory.close();
 			return users;
 		}catch(Exception e){
 			return null;
@@ -186,6 +190,7 @@ public class DAOUtilisateur {
 			session.delete(user);
 			tx.commit();
 			session.close();
+			sessionFactory.close();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return false;
@@ -217,6 +222,7 @@ public class DAOUtilisateur {
 			session.update(user);
 			tx.commit();
 			session.close();
+			sessionFactory.close();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return false;
@@ -249,6 +255,7 @@ public class DAOUtilisateur {
 			}
 			tx.commit();
 			session.close();
+			sessionFactory.close();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return false;
@@ -283,6 +290,7 @@ public class DAOUtilisateur {
 			}
 			tx.commit();
 			session.close();
+			sessionFactory.close();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return false;

@@ -137,7 +137,7 @@
     <servlet-name>AddSignaturePDF</servlet-name>
     <url-pattern>/AddSignaturePDF</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>InfosPDF</display-name>
     <servlet-name>InfosPDF</servlet-name>
@@ -146,5 +146,15 @@
   <servlet-mapping>
     <servlet-name>InfosPDF</servlet-name>
     <url-pattern>/InfosPDF</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>SaveSignatures</display-name>
+    <servlet-name>SaveSignatures</servlet-name>
+    <servlet-class>servlets.SaveSignatures</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaveSignatures</servlet-name>
+    <url-pattern>/SaveSignatures</url-pattern>
   </servlet-mapping>
 </web-app>
