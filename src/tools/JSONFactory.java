@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
+import dao.DAODocumentPDF;
 import domain.DocumentPDF;
 import domain.Utilisateur;
 
@@ -56,7 +57,9 @@ public class JSONFactory {
 	 */
 	public ArrayList<JSONObject> getPDFInfo(Utilisateur user){
 		ArrayList<JSONObject> toReturn = new ArrayList<JSONObject>();
-		for(DocumentPDF doc : user.getDocuments()){
+		ArrayList<DocumentPDF>documents = DAODocumentPDF.getInstance().getDocumentsByOwnerOrderByAlphaBet(user.getId());
+		
+		for(DocumentPDF doc : documents){
 
 			if(doc.getSignatures().size()>0){
 				JSONObject jsonToAdd = new JSONObject();

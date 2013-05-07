@@ -51,7 +51,7 @@ public class DAODocumentPDF {
 			doc.setUrl(url);
 			doc.setOwner(user);
 			doc.setCertified(false);
-			
+
 			session.save(doc); 
 			tx.commit();
 			session.close();
@@ -63,7 +63,7 @@ public class DAODocumentPDF {
 
 		return true;
 	}
-	
+
 	/**
 	 * Save document for a client. The added document is not certified by default
 	 * @param idOwner
@@ -87,7 +87,7 @@ public class DAODocumentPDF {
 			doc.setUrl(url);
 			doc.setOwner(user);
 			doc.setCertified(false);
-			
+
 			//doc.setSignatureName(sigName); //TODO A modifier car peut être parametrable
 
 			session.save(doc); 
@@ -118,7 +118,7 @@ public class DAODocumentPDF {
 
 			DocumentPDF doc = DAODocumentPDF.getInstance().getById(idDocument);
 			if(doc==null)return false;
-			
+
 			session.delete(doc);
 			tx.commit();
 			session.close();
@@ -190,7 +190,7 @@ public class DAODocumentPDF {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Change the url of the document describes by its id
 	 * @param id
@@ -207,7 +207,7 @@ public class DAODocumentPDF {
 					new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
 			org.hibernate.Transaction tx = session.beginTransaction();
-			
+
 			doc.setUrl(url);
 			session.update(doc);
 			tx.commit();
@@ -219,7 +219,7 @@ public class DAODocumentPDF {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Change the certified property of a document to true
 	 * @param id
@@ -234,7 +234,7 @@ public class DAODocumentPDF {
 					new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
 			org.hibernate.Transaction tx = session.beginTransaction();
-			
+
 			doc.setCertified(true);
 			session.update(doc);
 			tx.commit();
@@ -246,7 +246,7 @@ public class DAODocumentPDF {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Set the position of a signature in a document
 	 * @param id
@@ -265,9 +265,9 @@ public class DAODocumentPDF {
 					new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
 			org.hibernate.Transaction tx = session.beginTransaction();
-			
+
 			Signature signature = new Signature();
-			
+
 			signature.setSignatureX(posx);
 			signature.setSignatureY(posy);
 			signature.setHeightSignature(height);
@@ -275,7 +275,7 @@ public class DAODocumentPDF {
 			signature.setName(sigName);
 			signature.setPageNumber(numPage);
 			signature.setDocument(doc);
-			
+
 			session.save(signature);
 			tx.commit();
 			session.close();
@@ -286,5 +286,34 @@ public class DAODocumentPDF {
 		}
 		return true;
 	}
-	
+
+	/**
+	 * Find a document by id
+	 * @param idDocument
+	 * @return the document with an id = idDocument, null if it doesn't exist
+	 */
+	public ArrayList<DocumentPDF> getDocumentsByOwnerOrderByAlphaBet(long idOwner) {
+		ArrayList<DocumentPDF> docs = new ArrayList<DocumentPDF>();
+		Session session = null;
+		try{
+			SessionFactory sessionFactory =
+					new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+
+			Query q =session.createQuery("from DocumentPDF as c where c.owner.id = '"+idOwner+"' order by c.name");
+			docs = (ArrayList<DocumentPDF>) q.list();
+
+			tx.commit();
+			session.close();
+			sessionFactory.close();
+
+			return docs;
+
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
 }

@@ -138,7 +138,7 @@ function fixer(){
 	var largeur = $("#sign"+nbSignature).width();
 	var hauteur = $("#sign"+nbSignature).height();
 
-	if(x>=minX && x+largeur<=maxX && y>=minY && y+hauteur<= maxY ){
+//	if(x>=minX && x+largeur<=maxX && y>=minY && y+hauteur<= maxY ){
 		var signature = new Signature(nbSignature, x, y,largeur, hauteur,numPage);
 		signatures.push(signature);
 
@@ -152,8 +152,8 @@ function fixer(){
 		$("#fixer").css("display","none");
 		$("#createSignature").css("display","inline");
 		nbSignature++;
-	}else
-		alert("Veuillez positionner la signature sur le document");
+//	}else
+//		alert("Veuillez positionner la signature sur le document");
 	
 }
 
