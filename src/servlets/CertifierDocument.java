@@ -47,10 +47,10 @@ public class CertifierDocument extends HttpServlet {
 		String basePath = request.getScheme() + "://" + request.getServerName()
 				+ ":" + request.getServerPort() + request.getContextPath()
 				+ request.getServletPath();
-
+  
 		String saveFile = this.getServletContext().getRealPath("/temp_xml/");
 		String certFolder = this.getServletContext().getRealPath("/CERT/");
-		System.out.println("Path : " + basePath);
+		System.out.println("Path : " + basePath); 
   
 		System.out.println("[TEST KEYNECTIS - Servelt] Demande du blob appel a la certification ");
 

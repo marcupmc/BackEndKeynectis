@@ -23,16 +23,17 @@ public class Temporisation {
 		System.out.println("------------ON va temporiser---------------");
 		
 		String temp= formParam.toString().split("=")[0];
-		System.out.println(temp);
-		long idDocument = Long.parseLong(temp.substring(1));
+		long idDocument = Long.parseLong(temp.substring(1)); 
+		System.out.println(idDocument);
 		try {
 			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		} catch (InterruptedException e) {    
+			System.out.println("erreur : "+e.getMessage());
 		}
-		if(DAODocumentPDF.getInstance().getById(idDocument).isCertified())
+		if(DAODocumentPDF.getInstance().getById(idDocument).isCertified()){
 			return "ok";
+		}    
 		return "notyet";  
-	}
+	}  
 }
    

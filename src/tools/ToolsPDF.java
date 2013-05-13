@@ -129,6 +129,7 @@ public class ToolsPDF
 		}
 
 		is.close();
+	
 		return bytes;
 	}
 
@@ -141,9 +142,10 @@ public class ToolsPDF
 	public static byte[] getAsByteArray(URL url) throws IOException {
 
 		URLConnection connection = url.openConnection();
+		connection.setConnectTimeout(10000);
 		InputStream in = connection.getInputStream();
 		int contentLength = connection.getContentLength();
-
+ 
 		ByteArrayOutputStream tmpOut;
 		if (contentLength != -1)
 		{
@@ -165,9 +167,12 @@ public class ToolsPDF
 			}
 			tmpOut.write(buf, 0, len);
 		}
+		
 		in.close();
+		tmpOut.flush();
 		tmpOut.close(); // No effect, but good to do anyway to keep the metaphor
 		// alive
+		
 
 		byte[] array = tmpOut.toByteArray();
 		return array;
@@ -306,6 +311,7 @@ public class ToolsPDF
 			PDDocument doc = PDDocument.load(new URL(url));
 			int nb =doc.getDocumentCatalog().getAllPages().size();
 			doc.close();
+			doc=null;
 			return  nb;
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -320,10 +326,13 @@ public class ToolsPDF
 
 	public static String getImageFromPDFPage(String url,int numPage){
 		try {
-			PDDocument doc = PDDocument.load(new URL(url));
+			
+			PDDocument doc = PDDocument.load(new URL(url),true);
 			PDPage page = (PDPage) doc.getDocumentCatalog().getAllPages().get(numPage);
 			BufferedImage im = page.convertToImage();
+			
 			doc.close();
+			doc=null;
 			return EncoderBase64.encodeToString(im);
 
 		} catch (MalformedURLException e) {
