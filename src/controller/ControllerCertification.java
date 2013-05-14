@@ -68,7 +68,9 @@ public class ControllerCertification {
 		//--------------------------Variable parametrable en fonction du metier / fichier de config?--------
 		String pathCertificat = certFolder+"/demoqs_s.p12"; 
 		String motPasse = "DemoQS";
-		String adresseXML=encodingAndSignatureZoneFactory(saveFile, document);
+		
+		byte[] decode= EncoderBase64.encodingBlobToByteArray(user.getSignature());
+		String adresseXML=encodingAndSignatureZoneFactory(saveFile, document,decode);
 		//-------------------------Creation du certificat de signature metier-----------------------
 		String origMetierSign=originMetierFactorty(adresseXML, pathCertificat, motPasse);
 		//----------------------Calcul du Hash -----------------------------------------------------
@@ -82,7 +84,7 @@ public class ControllerCertification {
 		if(hashBase64.equals(""))return null;
 		String blob = "";
 		String transNum = "";
-		String tag = this.tagFactory(document);
+		String tag = this.tagFactory(document,decode);
 		RequestTransId rti = rtiFactory(origMetierSign, urlRetour, document, certFolder, tag);
 		try {
 			transNum = rti.getTransNum();
@@ -114,10 +116,10 @@ public class ControllerCertification {
 	 * @param doc
 	 * @return a string that contains the tag
 	 */
-	private String tagFactory(DocumentPDF doc){
-		byte[] decode = EncoderBase64.encodingBlobToByteArray(doc.getOwner().getSignature());
+	private String tagFactory(DocumentPDF doc,byte[] decode){
+		//decode = EncoderBase64.encodingBlobToByteArray(doc.getOwner().getSignature());
 		String signatureBase64 = EncoderBase64.byteArraytoStringBase64(decode);
-		
+		 
 		String tag="";
 		tag += "DATA_METIER=contrat\n";
 		tag += "CUF_ORG=no\n";
@@ -132,9 +134,9 @@ public class ControllerCertification {
 		String sigNames="";
 		int cpt=0;
 		for(Signature s : doc.getSignatures()){
-			sigNames+=s.getName();
-			if(cpt<doc.getSignatures().size()-1)
-				sigNames+=":";
+//			sigNames+=s.getName();
+			if(cpt==0)
+				sigNames+=s.getName();
 			cpt++;
 		}
 		System.out.println("------------ Signatures : "+sigNames);
@@ -242,11 +244,11 @@ public class ControllerCertification {
 	 * @param document
 	 * @return the path of the encoding file (.xml)
 	 */
-	private String encodingAndSignatureZoneFactory(String saveFile,DocumentPDF document){
+	private String encodingAndSignatureZoneFactory(String saveFile,DocumentPDF document,byte[] decode){
 		System.out.println("[TEST KEYNECTIS] Debut PDF avec signature");
 		String urlPdfToEncode="";
 		try {
-			urlPdfToEncode=ToolsPDF.createPDFDocToSign(saveFile,document);
+			urlPdfToEncode=ToolsPDF.createPDFDocToSign(saveFile,document,decode);
 			
 			//urlPdfToEncode=ToolsPDF.createPDFDocToSignOLD(document.getUrl(),saveFile,document.getName(),65,55,37,111);
 		

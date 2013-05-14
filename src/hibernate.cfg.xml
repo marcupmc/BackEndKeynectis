@@ -10,6 +10,9 @@
 		<property name="hibernate.connection.password">admin</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<!-- ici on configure le comportement lors du lancement d'hibernate -->
+
+		<property name="hibernate.jdbc.batch_size">0</property>
+		<property name="hibernate.jdbc.use_streams_for_binary">true</property>
 		<!-- valeur = update i..e si les tables de la base n'existent pas elles 
 			sont crees, sinon elles sont MAJ, la valeur =create i.e. creation à chaque 
 			lancement -->
@@ -17,7 +20,7 @@
 		<property name="hbm2ddl.auto">update</property>
 		<!-- mapping files/lien vers les fichiers de mapping -->
 		<mapping resource="domain/Utilisateur.hbm.xml" />
-		<mapping resource="domain/DocumentPDF.hbm.xml" /> 
-		<mapping resource="domain/Signature.hbm.xml" /> 
+		<mapping resource="domain/DocumentPDF.hbm.xml" />
+		<mapping resource="domain/Signature.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
