@@ -147,7 +147,7 @@
     <servlet-name>InfosPDF</servlet-name>
     <url-pattern>/InfosPDF</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>SaveSignatures</display-name>
     <servlet-name>SaveSignatures</servlet-name>
@@ -156,5 +156,15 @@
   <servlet-mapping>
     <servlet-name>SaveSignatures</servlet-name>
     <url-pattern>/SaveSignatures</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ShowLogs</display-name>
+    <servlet-name>ShowLogs</servlet-name>
+    <servlet-class>servlets.ShowLogs</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowLogs</servlet-name>
+    <url-pattern>/ShowLogs</url-pattern>
   </servlet-mapping>
 </web-app>

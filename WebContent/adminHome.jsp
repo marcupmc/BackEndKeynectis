@@ -18,7 +18,7 @@
 			<h3>ADMINISTRATION DU SERVEUR METIER</h3>
 		</div>
 
-		<ul class="thumbnails" id="todo" style="text-align: center;">
+		<ul class="thumbnails"  style="text-align: center;">
 			<li class="span3"><a href="#">
 					<div class="thumbnail">
 						<img style="width: 140px; height: 140px;" class="img-rounded"
@@ -38,62 +38,22 @@
 						</div>
 					</div>
 			</a></li>
+			
+			<li class="span3"><a href="ShowLogs">
+					<div class="thumbnail">
+						<img style="width: 140px; height: 140px;" class="img-rounded"
+							alt="stylo" src="img/logs.png">
+						<div class="caption">
+							<h3>Logs</h3>
+						</div>
+					</div>
+			</a></li>
 		</ul>
 
-
-		<!-- 	<div class="text-info"><h3>ADMINISTRATION DES DONNEES METIERS</h3></div> -->
-
-		<!-- 	<div class="row-fluid"> -->
-		<!-- 		<div class="span12"> -->
-		<!-- 			<div class="row-fluid"> -->
-		<!-- 				<div class="span2"> -->
-		<!-- 					<div class="icones"> -->
-		<!-- 						<a class="btn btn-primary" href="#"> -->
-		<!-- 							<img class="img-rounded" alt="Image Fichier de configuration" src="img/icone_fichier_config.png"> -->
-		<!-- 							Configuration -->
-		<!-- 						</a> -->
-		<!-- 					</div> -->
-		<!-- 				</div> -->
-
-		<!-- 				<div class="span2"> -->
-		<!-- 					<div class="icones"> -->
-		<!-- 						<a class="btn btn-primary" href="#"> -->
-		<!-- 							<img class="img-rounded" alt="Image Signature Métier" src="img/signature_papier.png"> -->
-		<!-- 							Signature -->
-		<!-- 						</a> -->
-		<!-- 					</div> -->
-		<!-- 				</div> -->
-		<!-- 			</div>			 -->
-		<!-- 		</div> -->
-		<!-- 	</div> -->
 
 		<div class="underTitle">
 			<h3>ADMINISTRATION DES CLIENTS</h3>
 		</div>
-
-		<!-- 		<div class="row-fluid"> -->
-		<!-- 			<div class="span12"> -->
-		<!-- 				<div class="row-fluid"> -->
-		<!-- 					<div class="span2"> -->
-		<!-- 						<div class="icones"> -->
-		<!-- 							<a class="btn btn-primary" href="addClient.jsp"> <img -->
-		<!-- 								class="img-rounded" alt="Image Fichier de configuration" -->
-		<!-- 								src="img/ajout_client.png"> Ajout -->
-		<!-- 							</a> -->
-		<!-- 						</div> -->
-		<!-- 					</div> -->
-
-		<!-- 					<div class="span2"> -->
-		<!-- 						<div class="icones"> -->
-		<!-- 							<a class="btn btn-primary" href="administration.jsp"> <img -->
-		<!-- 								class="img-rounded" alt="Image Signature Métier" -->
-		<!-- 								src="img/gestion_clients.png"> Gestion -->
-		<!-- 							</a> -->
-		<!-- 						</div> -->
-		<!-- 					</div> -->
-		<!-- 				</div> -->
-		<!-- 			</div> -->
-		<!-- 		</div> -->
 
 		<ul class="thumbnails" style="text-align: center;">
 			<li class="span3"><a href="addClient.jsp">

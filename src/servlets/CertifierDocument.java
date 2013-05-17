@@ -13,7 +13,10 @@ import org.apache.catalina.Session;
 
 import controller.ControllerCertification;
 import dao.DAODocumentPDF;
+import dao.DAOLog;
+import dao.DAOUtilisateur;
 import domain.DocumentPDF;
+import domain.TypeLog;
 
 /**
  * Servlet implementation class CertifierDocument
@@ -37,6 +40,9 @@ public class CertifierDocument extends HttpServlet {
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		
 		String identifiant = request.getParameter("identifiant");
+		
+		DAOLog.getInstance().addLog(TypeLog.DEMANDE_SIGNATURE,request.getServerName(),identifiant);
+		
 		String tempID = request.getParameter("id");
 		long id = Long.parseLong(tempID);
 		DocumentPDF docToCert  =DAODocumentPDF.getInstance().getById(id);

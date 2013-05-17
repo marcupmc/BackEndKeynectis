@@ -14,6 +14,9 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import dao.DAODocumentPDF;
+import dao.DAOLog;
+import dao.DAOUtilisateur;
+import domain.TypeLog;
 
 /**
  * Servlet implementation class SaveSignatures
@@ -70,6 +73,7 @@ public class SaveSignatures extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		DAOLog.getInstance().addLog(TypeLog.AJOUT_SIGNATURE, request.getServerName(), DAODocumentPDF.getInstance().getById(idDoc).getOwner().getIdentifiant());
 		response.getWriter().write("success");
 	}
 

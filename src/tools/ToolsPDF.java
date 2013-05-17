@@ -200,7 +200,8 @@ public class ToolsPDF
 	 * @throws DocumentException
 	 * @throws IOException
 	 */
-	public static String createPDFDocToSign(String pathFolderout,DocumentPDF document,byte[] decode) throws DocumentException, IOException
+	public static String createPDFDocToSign(String pathFolderout,
+DocumentPDF document,byte[] decode) throws DocumentException, IOException
 	{	
 		Signature first=null;
 		ArrayList<Signature> listeImg  = new ArrayList<Signature>();
@@ -251,6 +252,12 @@ public class ToolsPDF
 		return outFile;
 	} 
 
+	/**
+	 * Add a signature zone into a PDF
+	 * @param stp
+	 * @param signature
+	 * @param user
+	 */
 	public static void addSignature(PdfStamper stp,Signature signature,Utilisateur user) {
 
 		PdfFormField sig = PdfFormField.createSignature(stp.getWriter());
@@ -269,6 +276,12 @@ public class ToolsPDF
 		stp.addAnnotation(sig, signature.getPageNumber());
 	}
 
+	/**
+	 * Add the picture of the signature into the PDF
+	 * @param stp
+	 * @param signature
+	 * @param bits
+	 */
 	public static void addPicture(PdfStamper stp,Signature signature,byte[] bits ){
 		PdfContentByte content = stp.getOverContent(signature.getPageNumber());
 		Image img;
@@ -294,7 +307,8 @@ public class ToolsPDF
 	}
 
 
-	public static String createPDFDocToSignOLD(String url ,String pathFolderout,String name,float x, float y, float largeur, float hauteur) throws DocumentException, IOException
+	public static String createPDFDocToSignOLD(String url ,String pathFolderout,
+String name,float x, float y, float largeur, float hauteur) throws DocumentException, IOException
 
 	{
 		String outFile =  pathFolderout+"/"+name+".pdf";

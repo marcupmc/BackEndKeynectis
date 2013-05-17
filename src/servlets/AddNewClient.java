@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.ControllerAjoutClient;
+import dao.DAOLog;
+import domain.TypeLog;
 
 /**
  * Servlet implementation class AddNewClient
@@ -65,6 +67,7 @@ public class AddNewClient extends HttpServlet {
 		}
 		String urlRetour="";
 		if(messageErreur.equals("success")){
+			DAOLog.getInstance().addLog(TypeLog.AJOUT_CLIENT, request.getServerName(), identifiant);
 			urlRetour="FindClient?recherche=";
 		}
 		else{

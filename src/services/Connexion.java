@@ -11,7 +11,9 @@ import tools.JSONFactory;
 
 import controller.ControllerAuthentification;
 import controller.Initialisator;
+import dao.DAOLog;
 import dao.DAOUtilisateur;
+import domain.TypeLog;
 import domain.Utilisateur;
 
 @Path("/authentification")
@@ -29,10 +31,16 @@ public class Connexion {
 		System.out.println(formParam.get("login").get(0) + " | "+formParam.get("password").get(0));
 		if(ControllerAuthentification.getInstance().isAuthentified(formParam.get("login").get(0), formParam.get("password").get(0))){
 			System.out.println("Authenfication reussie");
+			
+			//LOG
+			DAOLog.getInstance().addLog(TypeLog.CONNEXION, formParam.get("ipClient").get(0), formParam.get("login").get(0));
+			
 			return formParam.get("login").get(0);		
 		}
 		else{
 			System.out.println("Authenfication echouée");
+			//LOG
+			DAOLog.getInstance().addLog(TypeLog.CONNEXION_FAILED, formParam.get("ipClient").get(0), formParam.get("login").get(0));
 			return "error";
 		}
 	}

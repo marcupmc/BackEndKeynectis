@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.DAOLog;
 import dao.DAOUtilisateur;
+import domain.TypeLog;
 
 /**
  * Servlet implementation class DeleteClient
@@ -29,6 +31,7 @@ public class DeleteClient extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long idClient = Long.parseLong(request.getParameter("idClient"));
+		DAOLog.getInstance().addLog(TypeLog.SUPPRESSION_CLIENT, request.getServerName(), DAOUtilisateur.getInstance().getUserById(idClient).getIdentifiant());
 		DAOUtilisateur.getInstance().deleteUser(idClient);
 		response.sendRedirect("FindClient?recherche=");
 	}

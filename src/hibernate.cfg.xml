@@ -22,5 +22,6 @@
 		<mapping resource="domain/Utilisateur.hbm.xml" />
 		<mapping resource="domain/DocumentPDF.hbm.xml" />
 		<mapping resource="domain/Signature.hbm.xml" />
+		<mapping resource="domain/Log.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

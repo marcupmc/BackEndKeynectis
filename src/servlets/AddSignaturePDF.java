@@ -7,7 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.Session;
+
 import dao.DAODocumentPDF;
+import dao.DAOLog;
+import dao.DAOUtilisateur;
+import domain.TypeLog;
 
 /**
  * Servlet implementation class AddSignaturePDF
@@ -52,6 +57,7 @@ public class AddSignaturePDF extends HttpServlet {
 		float realY = sigY-pdfY; 
 		
 		DAODocumentPDF.getInstance().setPosSignature(id, realX, realY, width, height, 1, "signTEST");
+		
 		response.sendRedirect("DetailsClient?id="+idClient);
 		
 		

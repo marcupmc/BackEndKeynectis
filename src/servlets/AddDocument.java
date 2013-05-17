@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import tools.ToolsPDF;
 
 import dao.DAODocumentPDF;
+import dao.DAOLog;
+import dao.DAOUtilisateur;
+import domain.TypeLog;
 
 /**
  * Servlet implementation class AddDocument
@@ -52,6 +55,8 @@ public class AddDocument extends HttpServlet {
 			// Ajouter le document en appelant le DAO
 			if(containsSign.equals("non")){
 				if(DAODocumentPDF.getInstance().addDocument(idClient, nameDocument, urlDocument))
+					DAOLog.getInstance().addLog(TypeLog.AJOUT_DOCUMENT, request.getServerName(), DAOUtilisateur.getInstance().getUserById(idClient).getIdentifiant());
+				
 					msgErr = "ok";
 			}else{
 				//Checker le nom de la signature

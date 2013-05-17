@@ -32,7 +32,8 @@ public class ControllerAjoutClient {
 		 * @param password
 		 * @return true if the client was add, false if not
 		 */
-		public boolean addClientInDB(String identifiant, String nom,String prenom,String email,String telephone,String password){
+		public boolean addClientInDB(String identifiant, String nom,String prenom,
+				String email,String telephone,String password){
 			//Verifier les entrées
 			if(nom==null || nom.length()== 0 ||
 					prenom==null || prenom.length()==0 ||
