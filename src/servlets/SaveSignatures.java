@@ -1,14 +1,13 @@
 package servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.util.JsonParserDelegate;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -19,28 +18,37 @@ import dao.DAODocumentPDF;
  * Servlet implementation class SaveSignatures
  */
 @WebServlet("/SaveSignatures")
-public class SaveSignatures extends HttpServlet {
+public class SaveSignatures extends HttpServlet
+{
+
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SaveSignatures() {
+	public SaveSignatures()
+	{
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException
+	{
 		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException
+	{
 		// TODO Auto-generated method stub
 		long idDoc = Long.parseLong(request.getParameter("idDoc"));
 
@@ -50,22 +58,29 @@ public class SaveSignatures extends HttpServlet {
 		float pdfX = Float.parseFloat(request.getParameter("pdfX"));
 		float pdfY = Float.parseFloat(request.getParameter("pdfY"));
 
-		String json =  request.getParameter("jsondata");
+		String json = request.getParameter("jsondata");
 
-		JSONArray list  =null;
-		try {
-			//signatures = new JSON
+		JSONArray list = null;
+		try
+		{
+			// signatures = new JSON
 			list = new JSONArray(json);
 
-		} catch (JSONException e) {
+		}
+		catch (JSONException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for(int i=0;i<list.length();i++){
-			try {
-				JSONObject jobj =list.getJSONObject(i);
-				saveSignatureFromJSON(idDoc, jobj,dimX,dimY,pdfX,pdfY);
-			} catch (JSONException e) {
+		for (int i = 0; i < list.length(); i++)
+		{
+			try
+			{
+				JSONObject jobj = list.getJSONObject(i);
+				saveSignatureFromJSON(idDoc, jobj, dimX, dimY, pdfX, pdfY);
+			}
+			catch (JSONException e)
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -73,46 +88,58 @@ public class SaveSignatures extends HttpServlet {
 		response.getWriter().write("success");
 	}
 
-	private boolean saveSignatureFromJSON(long idDoc,JSONObject jobj,float dimX,float dimY,float pdfX,float pdfY){
-		try {
-//			float tempX = (Float.parseFloat(jobj.get("posx").toString()))-pdfX;
-//			float tempY = (Float.parseFloat(jobj.get("posy").toString()))-pdfY;
-//			
-//			double tempX = (Double.parseDouble(jobj.get("posx").toString()))-pdfX;
-//			double tempY = (Double.parseDouble(jobj.get("posy").toString()))-pdfY;
-//
-//			float realX = (float) ((tempX*596)/dimX);
-//			float realY = (float) ((tempY*842)/dimY);
-//
-//			float realLargeur =( Float.parseFloat(jobj.get("largeur").toString())*596)/dimX;
-//			float realHauteur =( Float.parseFloat(jobj.get("hauteur").toString())*842)/dimY;
-			
-			//En dure
-			float tempX = (Float.parseFloat(jobj.get("posx").toString()))-343;
-			float tempY = (Float.parseFloat(jobj.get("posy").toString()))-50;//-91;
+	private boolean saveSignatureFromJSON(long idDoc, JSONObject jobj,
+			float dimX, float dimY, float pdfX, float pdfY)
+	{
+		try
+		{
+			// float tempX =
+			// (Float.parseFloat(jobj.get("posx").toString()))-pdfX;
+			// float tempY =
+			// (Float.parseFloat(jobj.get("posy").toString()))-pdfY;
+			//
+			// double tempX =
+			// (Double.parseDouble(jobj.get("posx").toString()))-pdfX;
+			// double tempY =
+			// (Double.parseDouble(jobj.get("posy").toString()))-pdfY;
+			//
+			// float realX = (float) ((tempX*596)/dimX);
+			// float realY = (float) ((tempY*842)/dimY);
+			//
+			// float realLargeur =(
+			// Float.parseFloat(jobj.get("largeur").toString())*596)/dimX;
+			// float realHauteur =(
+			// Float.parseFloat(jobj.get("hauteur").toString())*842)/dimY;
 
-			float realX = (float) ((tempX*596)/600);
-			float realY = (float) ((tempY*842)/800);
+			// En dure
+			float tempX = (Float.parseFloat(jobj.get("posx").toString())) - 343;
+			float tempY = (Float.parseFloat(jobj.get("posy").toString())) - 50;// -91;
 
-			float realLargeur =( Float.parseFloat(jobj.get("largeur").toString())*596)/600;
-			float realHauteur =( Float.parseFloat(jobj.get("hauteur").toString())*842)/800;
-			
-			
-			System.out.println("tempX : "+tempX+" | tempY : "+tempY+"\n" +
-					"realX : "+realX+" | realY : "+realY+"\n" +
-							"realLargeur : "+realLargeur+" | realHauteur : "+realHauteur);
+			float realX = (float) ((tempX * 596) / 600);
+			float realY = (float) ((tempY * 842) / 800);
 
-			return DAODocumentPDF.getInstance().setPosSignature(idDoc, 
-					realX,
-					realY,
-					realLargeur, 
-					realHauteur,
-					Integer.parseInt(jobj.get("num").toString())+1,
+			float realLargeur = (Float.parseFloat(jobj.get("largeur")
+					.toString()) * 596) / 600;
+			float realHauteur = (Float.parseFloat(jobj.get("hauteur")
+					.toString()) * 842) / 800;
+
+			System.out.println("tempX : " + tempX + " | tempY : " + tempY
+					+ "\n" + "realX : " + realX + " | realY : " + realY + "\n"
+					+ "realLargeur : " + realLargeur + " | realHauteur : "
+					+ realHauteur);
+
+			return DAODocumentPDF.getInstance().setPosSignature(idDoc, realX,
+					realY, realLargeur, realHauteur,
+					Integer.parseInt(jobj.get("num").toString()) + 1,
 					jobj.get("nom").toString());
-		} catch (NumberFormatException e1) {
+		}
+		catch (NumberFormatException e1)
+		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (JSONException e1) {
+		}
+		catch (JSONException e1)
+		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}

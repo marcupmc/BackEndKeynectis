@@ -9,10 +9,12 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPConnectionClosedException;
 
-public class ToolsFTP {
+public class ToolsFTP
+{
 
 	/**
 	 * Send a file to a server by FTP
+	 * 
 	 * @param url
 	 * @param ftpServerAddress
 	 * @param pathDirServer
@@ -20,17 +22,23 @@ public class ToolsFTP {
 	 * @param password
 	 * @return true if the files has been uploaded, false if not
 	 */
-	public static boolean sendToServer (String url,String ftpServerAddress,String pathDirServer,String userName,String password){
+	public static boolean sendToServer(String url, String ftpServerAddress,
+			String pathDirServer, String userName, String password)
+	{
 		FTPClient client = new FTPClient();
 		FileInputStream fis = null;
 		boolean result = true;
-		try {
+		try
+		{
 			client.connect(ftpServerAddress);
 			result = client.login(userName, password);
 
-			if (result == true) {
+			if (result == true)
+			{
 				System.out.println("Successfully logged in!");
-			} else {
+			}
+			else
+			{
 				System.out.println("Login Fail!");
 				return false;
 			}
@@ -38,29 +46,45 @@ public class ToolsFTP {
 			client.changeWorkingDirectory(pathDirServer);
 
 			File file = new File(url);
-			String testName = file.getName(); 
+			String testName = file.getName();
 			fis = new FileInputStream(file);
 
 			result = client.storeFile(testName, fis);
 
-			if (result == true) {
+			if (result == true)
+			{
 				System.out.println("File is uploaded successfully");
-			} else {
+			}
+			else
+			{
 				System.out.println("File uploading failed");
 			}
 			client.logout();
-		} catch (FTPConnectionClosedException e) {
+		}
+		catch (FTPConnectionClosedException e)
+		{
 			e.printStackTrace();
-		} catch (SocketException e) {
+		}
+		catch (SocketException e)
+		{
 			e.printStackTrace();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
-		} finally {
-			try {
+		}
+		finally
+		{
+			try
+			{
 				client.disconnect();
-			} catch (FTPConnectionClosedException e) {
+			}
+			catch (FTPConnectionClosedException e)
+			{
 				System.out.println(e);
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				e.printStackTrace();
 			}
 		}

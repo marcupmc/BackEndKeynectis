@@ -147,7 +147,7 @@
     <servlet-name>InfosPDF</servlet-name>
     <url-pattern>/InfosPDF</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>SaveSignatures</display-name>
     <servlet-name>SaveSignatures</servlet-name>
@@ -156,5 +156,16 @@
   <servlet-mapping>
     <servlet-name>SaveSignatures</servlet-name>
     <url-pattern>/SaveSignatures</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>ConfigBackEndConstants</display-name>
+    <servlet-name>ConfigBackEndConstants</servlet-name>
+    <servlet-class>servlets.ConfigBackEndConstants</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfigBackEndConstants</servlet-name>
+    <url-pattern>/ConfigBackEndConstants</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -25,10 +25,10 @@
 		<property name="phoneNumber">
 			<column name="PHONENUMBER" />
 		</property>
-		<property name="signature" >
-		    <column name="SIGNATURE" sql-type="BLOB"/>
+		<property name="signature">
+			<column name="SIGNATURE" sql-type="BLOB" />
 		</property>
-		
+
 		<set name="documents" inverse="true" lazy="false" cascade="all">
 			<key column="ID_UTILISATEUR" />
 			<one-to-many class="domain.DocumentPDF" />

@@ -19,7 +19,7 @@
 		</div>
 
 		<ul class="thumbnails" id="todo" style="text-align: center;">
-			<li class="span3"><a href="#">
+			<li class="span3"><a href="parametrage.jsp">
 					<div class="thumbnail">
 						<img style="width: 140px; height: 140px;" class="img-rounded"
 							alt="Image Fichier de configuration" src="img/tools.png">

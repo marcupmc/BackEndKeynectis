@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="domain.DocumentPDF" table="DOCUMENTPDF">
-	    <id name="id">
+		<id name="id">
 			<column name="ID_DOCUMENT" />
 			<generator class="increment" />
 		</id>
@@ -13,17 +13,18 @@
 		<property name="url">
 			<column name="URL" />
 		</property>
-	    <property name="certified" type="domain.MyBooleanType">
+		<property name="certified" type="domain.MyBooleanType">
 			<column name="CERTIFIED" />
 		</property>
-		
-		
-	     <many-to-one name="owner" column="ID_UTILISATEUR" lazy="false" class="domain.Utilisateur"  unique="false" />
-		
+
+
+		<many-to-one name="owner" column="ID_UTILISATEUR" lazy="false"
+			class="domain.Utilisateur" unique="false" />
+
 		<set name="signatures" inverse="true" lazy="false" cascade="all">
 			<key column="ID_DOCUMENT" />
 			<one-to-many class="domain.Signature" />
 		</set>
-		
+
 	</class>
 </hibernate-mapping>
