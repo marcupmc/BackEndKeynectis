@@ -1,28 +1,28 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.DAODocumentPDF;
 import dao.DAOLog;
-import dao.DAOUtilisateur;
-import domain.TypeLog;
+import domain.Log;
 
 /**
- * Servlet implementation class DeleteDocument
+ * Servlet implementation class ShowLogs
  */
-@WebServlet("/DeleteDocument")
-public class DeleteDocument extends HttpServlet {
+@WebServlet("/ShowLogs")
+public class ShowLogs extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**   
+    /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteDocument() {
+    public ShowLogs() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +31,10 @@ public class DeleteDocument extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		long idClient = Long.parseLong(request.getParameter("idClientDoc"));
-		long idDocument = Long.parseLong(request.getParameter("idDocument"));
-		
-		DAOLog.getInstance().addLog(TypeLog.SUPPRESSION_DOCUMENT, request.getServerName(), DAOUtilisateur.getInstance().getUserById(idClient).getIdentifiant());
-		
-		DAODocumentPDF.getInstance().deleteDocument(idDocument);
-		response.sendRedirect("DetailsClient?id="+idClient);
+		// TODO Auto-generated method stub
+				ArrayList<Log> logs = DAOLog.getInstance().getAllLogs();
+				request.setAttribute("liste_logs",logs);
+				request.getRequestDispatcher("log.jsp").forward(request, response);
 	}
 
 	/**
