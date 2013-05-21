@@ -33,6 +33,7 @@ public class UtilisateurListener implements LoadEventListener, DeleteEventListen
 	@Override
 	public void onSaveOrUpdate(SaveOrUpdateEvent arg0)
 			throws HibernateException {
+		
 //		if(arg0.equals(obj))
 		// TODO Auto-generated method stub
 		
