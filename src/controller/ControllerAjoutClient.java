@@ -19,6 +19,7 @@ public class ControllerAjoutClient
 		return instance;
 	}
 
+
 	private ControllerAjoutClient()
 	{
 	}
@@ -56,5 +57,6 @@ public class ControllerAjoutClient
 		return DAOUtilisateur.getInstance().addUser(identifiant, prenom, nom,
 				email, password, telephone, documents);
 	}
+
 
 }

@@ -8,8 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+
 import controller.ControllerAjoutClient;
-import dao.DAOLog;
+import domain.Log;
 import domain.TypeLog;
 
 /**
@@ -81,6 +86,14 @@ public class AddNewClient extends HttpServlet
 		String urlRetour = "";
 		if (messageErreur.equals("success"))
 		{
+			final Marker marker = MarkerFactory.getMarker(TypeLog.AJOUT_CLIENT
+					.toString());
+			final Logger logger = LoggerFactory.getLogger(AddDocument.class);
+			Log l = new Log();
+			l.setIdentifiant_client(identifiant);
+			l.setIpadresse(request.getServerName());
+			logger.info(marker, "Ajout nouveau client", l);
+
 			urlRetour = "FindClient?recherche=";
 
 		}

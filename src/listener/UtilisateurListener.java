@@ -10,32 +10,39 @@ import org.hibernate.event.LoadEventListener;
 import org.hibernate.event.SaveOrUpdateEvent;
 import org.hibernate.event.SaveOrUpdateEventListener;
 
-public class UtilisateurListener implements LoadEventListener, DeleteEventListener,SaveOrUpdateEventListener {
+public class UtilisateurListener implements LoadEventListener,
+		DeleteEventListener, SaveOrUpdateEventListener
+{
 
 	@Override
-	public void onLoad(LoadEvent arg0, LoadType arg1) throws HibernateException {
+	public void onLoad(LoadEvent arg0, LoadType arg1) throws HibernateException
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void onDelete(DeleteEvent arg0) throws HibernateException {
+	public void onDelete(DeleteEvent arg0) throws HibernateException
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void onDelete(DeleteEvent arg0, Set arg1) throws HibernateException {
+	public void onDelete(DeleteEvent arg0, Set arg1) throws HibernateException
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onSaveOrUpdate(SaveOrUpdateEvent arg0)
-			throws HibernateException {
-//		if(arg0.equals(obj))
+			throws HibernateException
+	{
+
+		// if(arg0.equals(obj))
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

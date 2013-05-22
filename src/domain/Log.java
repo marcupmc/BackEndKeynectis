@@ -10,6 +10,7 @@ public class Log
 	private Date date;
 	private String ipadresse;
 	private String identifiant_client;
+	private EventType eventype;
 
 	public Log()
 	{
@@ -64,5 +65,16 @@ public class Log
 	public void setIdentifiant_client(String identifiant_client)
 	{
 		this.identifiant_client = identifiant_client;
+	}
+
+	public EventType getEventype()
+	{
+		return eventype;
+	}
+
+	public void setEventype(EventType eventype)
+	{
+		this.eventype = eventype;
+
 	}
 }

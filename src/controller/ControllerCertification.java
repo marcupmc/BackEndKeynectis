@@ -122,12 +122,12 @@ public class ControllerCertification
 		String blob = "";
 		String transNum = "";
 
+
 		String tag = this.tagFactory(document);
 		RequestTransId rti = rtiFactory(origMetierSign, urlRetour, document,
 				certFolder, tag);
 		try
 		{
-
 			transNum = rti.getTransNum();
 			blob = rti.getB64Blob();
 		}
@@ -262,8 +262,11 @@ public class ControllerCertification
 			if (cpt == 0)
 				sigNames += s.getName();
 
+
 			cpt++;
 		}
+
+
 
 		System.out.println("------------ Signatures : " + sigNames);
 		tag += "PDF_SIGN_FIELD=" + sigNames + "\n";
@@ -290,6 +293,7 @@ public class ControllerCertification
 		// + cuf + ". "
 		// + " Keynectis vous remercie de votre confiance.\n";
 
+
 		return tag;
 	}
 
@@ -303,11 +307,9 @@ public class ControllerCertification
 	 * @param tag
 	 * @return a request TransID
 	 */
-
 	private RequestTransId rtiFactory(String origMetierSign, String urlRetour,
 			DocumentPDF doc, String certFolder, String tag)
 	{
-
 		Utilisateur user = doc.getOwner();
 
 		String authority = "KWS_INTEGRATION_CDS";
@@ -326,6 +328,7 @@ public class ControllerCertification
 		// TRANSID--------------------------------------
 		System.out
 				.println("[TEST KEYNECTIS] Debut de la définition de TRANSID");
+
 
 		String identifiant_application_metier = "ZZDEMAV1";
 		String identifiant_application_serveur_metier = "DEMO";
@@ -462,7 +465,6 @@ public class ControllerCertification
 	 * @param decode
 	 * @return the path of the encoding file (.xml)
 	 */
-
 	private String encodingAndSignatureZoneFactory(String saveFile,
 			DocumentPDF document, byte[] decode)
 	{
@@ -472,7 +474,7 @@ public class ControllerCertification
 		String urlPdfToEncode = "";
 		try
 		{
-			urlPdfToEncode = ToolsPDF.createPDFDocToSign(saveFile, document);
+			urlPdfToEncode = ToolsPDF.createPDFDocToSign(saveFile, document, decode);
 
 			// urlPdfToEncode=ToolsPDF.createPDFDocToSignOLD(document.getUrl(),saveFile,document.getName(),65,55,37,111);
 
@@ -482,7 +484,6 @@ public class ControllerCertification
 		}
 		catch (DocumentException e1)
 		{
-
 			e1.printStackTrace();
 		}
 		catch (IOException e1)

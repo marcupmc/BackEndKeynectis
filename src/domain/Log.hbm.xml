@@ -21,5 +21,9 @@
 		<property name="identifiant_client">
 			<column name="ID_CLIENT" />
 		</property>
+		<property name="eventype">
+			<column name="EVENT" />
+		</property>
+
 	</class>
 </hibernate-mapping>

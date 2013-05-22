@@ -9,11 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+
 import controller.ControllerCertification;
 import dao.DAODocumentPDF;
-import dao.DAOLog;
-import dao.DAOUtilisateur;
 import domain.DocumentPDF;
+import domain.Log;
 import domain.TypeLog;
 
 /**
@@ -44,8 +48,13 @@ public class CertifierDocument extends HttpServlet
 
 		String identifiant = request.getParameter("identifiant");
 
-		DAOLog.getInstance().addLog(TypeLog.DEMANDE_SIGNATURE,
-				request.getServerName(), identifiant);
+		final Marker marker = MarkerFactory.getMarker(TypeLog.DEMANDE_SIGNATURE
+				.toString());
+		final Logger logger = LoggerFactory.getLogger(AddDocument.class);
+		Log l = new Log();
+		l.setIdentifiant_client(identifiant);
+		l.setIpadresse(request.getServerName());
+		logger.info(marker, "Demande de signature", l);
 
 		String tempID = request.getParameter("id");
 		long id = Long.parseLong(tempID);

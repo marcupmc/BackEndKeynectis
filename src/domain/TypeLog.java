@@ -11,4 +11,6 @@ public enum TypeLog
 	AJOUT_DOCUMENT, // OK
 	SUPPRESSION_DOCUMENT, // OK
 	AJOUT_SIGNATURE // OK
+	// Codes d'errerur dans la requete
+
 }

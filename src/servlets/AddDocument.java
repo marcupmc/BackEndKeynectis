@@ -8,10 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+
 import tools.ToolsPDF;
 import dao.DAODocumentPDF;
-import dao.DAOLog;
 import dao.DAOUtilisateur;
+import domain.Log;
 import domain.TypeLog;
 
 /**
@@ -23,6 +28,10 @@ public class AddDocument extends HttpServlet
 
 	private static final long serialVersionUID = 1L;
 
+	final Marker marker = MarkerFactory.getMarker(TypeLog.AJOUT_DOCUMENT
+			.toString());
+	final Logger logger = LoggerFactory.getLogger(AddDocument.class);
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -30,6 +39,7 @@ public class AddDocument extends HttpServlet
 	{
 		super();
 		// TODO Auto-generated constructor stub
+
 	}
 
 	/**
@@ -50,6 +60,7 @@ public class AddDocument extends HttpServlet
 			HttpServletResponse response) throws ServletException, IOException
 	{
 		// Reucuperer l'id qui est en champs caché du formulaire
+
 		long idClient = Long.parseLong(request.getParameter("idClient"));
 		String nameDocument = request.getParameter("name0");
 		String urlDocument = request.getParameter("url0");
@@ -64,13 +75,18 @@ public class AddDocument extends HttpServlet
 		else
 		{
 			// Ajouter le document en appelant le DAO
-
 			if (containsSign.equals("non"))
 			{
 				if (DAODocumentPDF.getInstance().addDocument(idClient,
 						nameDocument, urlDocument))
-
+				{
+					Log log = new Log();
+					log.setIpadresse(request.getServerName());
+					log.setIdentifiant_client(DAOUtilisateur.getInstance()
+							.getUserById(idClient).getIdentifiant());
+					logger.info(marker, "ajout d'un document", log);
 					msgErr = "ok";
+				}
 			}
 			else
 			{
