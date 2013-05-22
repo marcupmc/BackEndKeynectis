@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.ControllerParameter;
+import domain.AuthorityParameters;
 
 /**
  * Servlet implementation class ConfigBackEnd
@@ -48,14 +49,36 @@ public class ConfigBackEndConstants extends HttpServlet
 		// TODO Auto-generated method stub
 		String authority = request.getParameter("authority");
 
+		AuthorityParameters autho = null;
+
 		ControllerParameter controller = ControllerParameter.getInstance();
 
 		String saveFile = this.getServletContext().getRealPath("/temp_xml/");
+		String certFolder = this.getServletContext().getRealPath("/CERT/");
+		String tempFolder = this.getServletContext().getRealPath("/temp_xml/");
 
 		System.out.println("Authority = " + authority + "\n saveFile = "
 				+ saveFile);
 
-		if (("KEYNECTIS KWS").equals(authority))
+		String CertPath = request.getParameter("CertPath");
+		if ((null == CertPath) || (" ".equals(CertPath)))
+		{
+			CertPath = certFolder; // request.getParameter("CertPath");
+		}
+
+		String TempPath = request.getParameter("TempPath");
+		if ((null == TempPath) || (" ".equals(TempPath)))
+		{
+			TempPath = tempFolder; // request.getParameter("TempPath");
+		}
+
+		String SavePath = request.getParameter("SavePath");
+		if ((null == SavePath) || (" ".equals(SavePath)))
+		{
+			SavePath = saveFile; // request.getParameter("SavePath");
+		}
+
+		if (("KWS_INTEGRATION_CDS").equals(authority))
 		{
 			String certMetier = request.getParameter("certMetier");
 			String mdpMetier = request.getParameter("mdpMetier");
@@ -72,23 +95,23 @@ public class ConfigBackEndConstants extends HttpServlet
 			String loginPDFCert = request.getParameter("loginPDFCert");
 			String mdpPDFCert = request.getParameter("mdpPDFCert");
 
-			controller.validateParameters(certMetier, mdpMetier, idAppMetier,
-					idServMetier, idOrgMetier, certSign, mdpCert, certChiff,
-					certDecipher, mdpDecipher, servPDFCert, pathPDFCert,
-					loginPDFCert, mdpPDFCert, saveFile);
+			autho = controller.validateParameters(CertPath, TempPath, SavePath,
+					certMetier, mdpMetier, idAppMetier, idServMetier,
+					idOrgMetier, certSign, mdpCert, certChiff, certDecipher,
+					mdpDecipher, servPDFCert, pathPDFCert, loginPDFCert,
+					mdpPDFCert);
 
 		}
-
-		if (("DICTAO").equals(authority))
+		else if (("DICTAO").equals(authority))
 		{
-			String CertPath = request.getParameter("CertPath");
-			String TempPath = request.getParameter("TempPath");
-			String SavePath = request.getParameter("SavePath");
 
-			controller.validateParameters(CertPath, TempPath, SavePath,
-					saveFile);
+			autho = controller.validateParameters(CertPath, TempPath, SavePath);
 
 		}
+
+		request.setAttribute("authorityParameter", autho);
+		request.getRequestDispatcher("parametrage.jsp").forward(request,
+				response);
 
 		// String password = request.getParameter("password");
 
@@ -104,5 +127,4 @@ public class ConfigBackEndConstants extends HttpServlet
 		// request.getRequestDispatcher("home_client.jsp").forward(request,
 		// response);
 	}
-
 }

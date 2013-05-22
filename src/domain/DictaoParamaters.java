@@ -44,6 +44,7 @@ public class DictaoParamaters extends AuthorityParameters
 	public DictaoParamaters(String certPath, String tempPath, String savePath)
 	{
 		super();
+		authority = "DICTAO";
 		CertPath = certPath;
 		TempPath = tempPath;
 		SavePath = savePath;
@@ -53,64 +54,43 @@ public class DictaoParamaters extends AuthorityParameters
 	/**
 	 * @return the certPath
 	 */
-	public String getCertPath()
-	{
-		return CertPath;
-	}
-
-	/**
+	/*
+	 * public String getCertPath() { return CertPath; }
+	 *//**
 	 * @param certPath
 	 *            the certPath to set
 	 */
-	public void setCertPath(String certPath)
-	{
-		CertPath = certPath;
-	}
-
-	/**
+	/*
+	 * public void setCertPath(String certPath) { CertPath = certPath; }
+	 *//**
 	 * @return the tempPath
 	 */
-	public String getTempPath()
-	{
-		return TempPath;
-	}
-
-	/**
+	/*
+	 * public String getTempPath() { return TempPath; }
+	 *//**
 	 * @param tempPath
 	 *            : the tempPath to set
 	 */
-	public void setTempPath(String tempPath)
-	{
-		TempPath = tempPath;
-	}
-
-	/**
+	/*
+	 * public void setTempPath(String tempPath) { TempPath = tempPath; }
+	 *//**
 	 * @return the savePath
 	 */
-	public String getSavePath()
-	{
-		return SavePath;
-	}
-
-	/**
+	/*
+	 * public String getSavePath() { return SavePath; }
+	 *//**
 	 * @param savePath
 	 *            : the savePath to set
 	 */
-	public void setSavePath(String savePath)
-	{
-		SavePath = savePath;
-	}
-
 	/*
+	 * public void setSavePath(String savePath) { SavePath = savePath; }
+	 * 
+	 * 
 	 * (non-Javadoc)
 	 * 
 	 * @see domain.AuthorityParameters#getType()
+	 * 
+	 * @Override public int getType() { // TODO Auto-generated method stub
+	 * return type; }
 	 */
-	@Override
-	public int getType()
-	{
-		// TODO Auto-generated method stub
-		return type;
-	}
-
 }

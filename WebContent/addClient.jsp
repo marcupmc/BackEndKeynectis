@@ -17,7 +17,8 @@
 		<!-- 		Zone réservée aux messages d'erreurs -->
 		<%
 			String msg = (String) request.getParameter("error");
-			if (msg != null) {
+			if (msg != null)
+			{
 				String message = "";
 				if (msg.equals("error_add"))
 					message = "Erreur lors de l'ajout du client dans la base de données";

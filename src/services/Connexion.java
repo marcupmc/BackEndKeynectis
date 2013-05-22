@@ -6,6 +6,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MultivaluedMap;
 
 import controller.ControllerAuthentification;
+import dao.DAOLog;
+import domain.TypeLog;
+
 
 @Path("/authentification")
 public class Connexion
@@ -29,11 +32,19 @@ public class Connexion
 						formParam.get("password").get(0)))
 		{
 			System.out.println("Authenfication reussie");
-			return formParam.get("login").get(0);
+
+			
+			//LOG
+			DAOLog.getInstance().addLog(TypeLog.CONNEXION, formParam.get("ipClient").get(0), formParam.get("login").get(0));
+			
+			return formParam.get("login").get(0);		
+
 		}
 		else
 		{
 			System.out.println("Authenfication echouée");
+			//LOG
+			DAOLog.getInstance().addLog(TypeLog.CONNEXION_FAILED, formParam.get("ipClient").get(0), formParam.get("login").get(0));
 			return "error";
 		}
 	}

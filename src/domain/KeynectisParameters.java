@@ -23,10 +23,10 @@ public class KeynectisParameters extends AuthorityParameters
 	private String idAppMetier = "ZZDEMAV1";
 	private String idServMetier = "DEMO";
 	private String idOrgMetier = "PDFSMS";
-	private String certSign = "CERT/demoqs_i.p12";
+	private String certSign = "demoqs_i.p12";
 	private String mdpCert = "DEMOQS";
-	private String certChiff = "CERT/certQSkeyncryp.cer";
-	private String certDecipher = "CERT/demoqs_c.p12";
+	private String certChiff = "certQSkeyncryp.cer";
+	private String certDecipher = "demoqs_c.p12";
 	private String mdpDecipher = "DEMOQS";
 	private String servPDFCert = "ftp.marc-gregoire.fr";
 	private String pathPDFCert = "www/Keynectis_Certified";
@@ -41,22 +41,39 @@ public class KeynectisParameters extends AuthorityParameters
 		super();
 		// TODO Auto-generated constructor stub
 		type = 1;
-		authority = "KEYNECTIS KWS";
+		authority = "KWS_INTEGRATION_CDS";
 	}
 
 	/**
 	 * Create the parameters objet for the KWS certificate authority
 	 * 
-	 * @param certMetier: the certificate file to sign the original file as the organism owner
-	 * @param mdpMetier: the password of the previous certificate
-	 * @param idAppMetier: the id of the company web application (8 characters max, the 2 first given by KEYNECTIS)
-	 * @param idServMetier: the id of the company server (8 characters max)
-	 * @param idOrgMetier: the id of the customer company (14 characters max)
-	 * @param certSign: the client certificate file to sign the package before sending it the KWS 
-	 * @param mdpCert: the password of the previous certificate
-	 * @param certChiff: the certificate file to cipher the package to send to KWS
-	 * @param certDecipher: the certificate file to decipher the package received from KWS
-	 * @param mdpDecipher: the password of the previous certificate	 
+	 * @param certMetier
+	 *            : the certificate file to sign the original file as the
+	 *            organism owner
+	 * @param mdpMetier
+	 *            : the password of the certificate file to sign the original
+	 *            file as the organism owner
+	 * @param idAppMetier
+	 *            : the id of the company web application (8 characters max, the
+	 *            2 first given by KEYNECTIS)
+	 * @param idServMetier
+	 *            : the id of the company server (8 characters max)
+	 * @param idOrgMetier
+	 *            : the id of the customer company (14 characters max)
+	 * @param certSign
+	 *            : the client certificate file to sign the package before
+	 *            sending it the KWS
+	 * @param mdpCert
+	 *            : the password of the client certificate file to sign the
+	 *            package before sending it the KWS
+	 * @param certChiff
+	 *            : the certificate file to cipher the package to send to KWS
+	 * @param certDecipher
+	 *            : the certificate file to decipher the package received from
+	 *            KWS
+	 * @param mdpDecipher
+	 *            : the password of the certificate file to decipher the package
+	 *            received from KWS
 	 * @param pathPDFCert
 	 *            : Le répertoire local de stockage des fichier certifiés
 	 */
@@ -78,26 +95,47 @@ public class KeynectisParameters extends AuthorityParameters
 		this.mdpDecipher = mdpDecipher;
 		this.pathPDFCert = pathPDFCert;
 		type = 1;
-		authority = "KEYNECTIS KWS";
+		authority = "KWS_INTEGRATION_CDS";
 	}
 
 	/**
-	 * Create the parameters objet for the KWS certificate authority 
+	 * Create the parameters objet for the KWS certificate authority
 	 * 
-	 * @param certMetier: the certificate file to sign the original file as the organism owner
-	 * @param mdpMetier: the password of the previous certificate
-	 * @param idAppMetier: the id of the company web application (8 characters max, the 2 first given by KEYNECTIS)
-	 * @param idServMetier: the id of the company server (8 characters max)
-	 * @param idOrgMetier: the id of the customer company (14 characters max)
-	 * @param certSign: the client certificate file to sign the package before sending it the KWS 
-	 * @param mdpCert: the password of the previous certificate
-	 * @param certChiff: the certificate file to cipher the package to send to KWS
-	 * @param certDecipher: the certificate file to decipher the package received from KWS
-	 * @param mdpDecipher: the password of the previous certificate
-	 * @param servPDFCert: the url of the sever where to save the certified documents 
-	 * @param pathPDFCert: the directory of the certified document on the server
-	 * @param loginPDFCert: the login to access the server
-	 * @param mdpPDFCert: the password to access the server
+	 * @param certMetier
+	 *            : the certificate file to sign the original file as the
+	 *            organism owner
+	 * @param mdpMetier
+	 *            : the password of the certificate file to sign the original
+	 *            file as the organism owner
+	 * @param idAppMetier
+	 *            : the id of the company web application (8 characters max, the
+	 *            2 first given by KEYNECTIS)
+	 * @param idServMetier
+	 *            : the id of the company server (8 characters max)
+	 * @param idOrgMetier
+	 *            : the id of the customer company (14 characters max)
+	 * @param certSign
+	 *            : the client certificate file to sign the package before
+	 *            sending it the KWS
+	 * @param mdpCert
+	 *            : the password of the client certificate file to sign the
+	 *            package before sending it the KWS
+	 * @param certChiff
+	 *            : the certificate file to cipher the package to send to KWS
+	 * @param certDecipher
+	 *            : the certificate file to decipher the package received from
+	 *            KWS
+	 * @param mdpDecipher
+	 *            : the password of the certificate file to decipher the package
+	 *            received from KWS
+	 * @param servPDFCert
+	 *            : the url of the sever where to save the certified documents
+	 * @param pathPDFCert
+	 *            : the directory of the certified document on the server
+	 * @param loginPDFCert
+	 *            : the login to access the server
+	 * @param mdpPDFCert
+	 *            : the password to access the server
 	 */
 	public KeynectisParameters(String certMetier, String mdpMetier,
 			String idAppMetier, String idServMetier, String idOrgMetier,
@@ -121,11 +159,12 @@ public class KeynectisParameters extends AuthorityParameters
 		this.loginPDFCert = loginPDFCert;
 		this.mdpPDFCert = mdpPDFCert;
 		type = 1;
-		authority = "KEYNECTIS KWS";
+		authority = "KWS_INTEGRATION_CDS";
 	}
 
 	/**
-	 * @return the servPDFCert
+	 * @return the servPDFCert : the url of the sever where to save the
+	 *         certified documents
 	 */
 	public String getServPDFCert()
 	{
@@ -142,7 +181,7 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @return the loginPDFCert
+	 * @return the loginPDFCert : the login to access the server
 	 */
 	public String getLoginPDFCert()
 	{
@@ -159,7 +198,7 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @return the mdpPDFCert
+	 * @return the mdpPDFCert : the password to access the server
 	 */
 	public String getMdpPDFCert()
 	{
@@ -176,7 +215,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @return the certMetier
+	 * @return the certMetier : the certificate file to sign the original file
+	 *         as the organism owner
 	 */
 	public String getCertMetier()
 	{
@@ -184,8 +224,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @param certMetier:
-	 *            the certMetier to set
+	 * @param certMetier
+	 *            : the certMetier to set
 	 */
 	public void setCertMetier(String certMetier)
 	{
@@ -193,7 +233,7 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @return the mdpMetier
+	 * @return the mdpMetier : the password of the previous certificate
 	 */
 	public String getMdpMetier()
 	{
@@ -201,8 +241,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @param mdpMetier:
-	 *            the mdpMetier to set
+	 * @param mdpMetier
+	 *            : the mdpMetier to set
 	 */
 	public void setMdpMetier(String mdpMetier)
 	{
@@ -210,7 +250,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @return the idAppMetier
+	 * @return the idAppMetier : the id of the company web application (8
+	 *         characters max, the 2 first given by KEYNECTIS)
 	 */
 	public String getIdAppMetier()
 	{
@@ -218,8 +259,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @param idAppMetier:
-	 *            the idAppMetier to set
+	 * @param idAppMetier
+	 *            : the idAppMetier to set
 	 */
 	public void setIdAppMetier(String idAppMetier)
 	{
@@ -227,7 +268,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @return the idServMetier
+	 * @return the idServMetier : the id of the company server (8 characters
+	 *         max)
 	 */
 	public String getIdServMetier()
 	{
@@ -235,8 +277,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @param idServMetier:
-	 *            the idServMetier to set
+	 * @param idServMetier
+	 *            : the idServMetier to set
 	 */
 	public void setIdServMetier(String idServMetier)
 	{
@@ -244,7 +286,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @return the idOrgMetier
+	 * @return the idOrgMetier : the id of the customer company (14 characters
+	 *         max)
 	 */
 	public String getIdOrgMetier()
 	{
@@ -252,8 +295,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @param idOrgMetier:
-	 *            the idOrgMetier to set
+	 * @param idOrgMetier
+	 *            : the idOrgMetier to set
 	 */
 	public void setIdOrgMetier(String idOrgMetier)
 	{
@@ -261,7 +304,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @return the certSign
+	 * @return the certSign : the client certificate file to sign the package
+	 *         before sending it the KWS
 	 */
 	public String getCertSign()
 	{
@@ -269,8 +313,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @param certSign:
-	 *            the certSign to set
+	 * @param certSign
+	 *            : the certSign to set
 	 */
 	public void setCertSign(String certSign)
 	{
@@ -278,7 +322,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @return the mdpCert
+	 * @return the mdpCert : the password of the client certificate file to sign
+	 *         the package before sending it the KWS
 	 */
 	public String getMdpCert()
 	{
@@ -286,8 +331,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @param mdpCert:
-	 *            the mdpCert to set
+	 * @param mdpCert
+	 *            : the mdpCert to set
 	 */
 	public void setMdpCert(String mdpCert)
 	{
@@ -295,7 +340,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @return the certChiff
+	 * @return the certChiff : the certificate file to cipher the package to
+	 *         send to KWS
 	 */
 	public String getCertChiff()
 	{
@@ -303,8 +349,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @param certChiff:
-	 *            the certChiff to set
+	 * @param certChiff
+	 *            : the certChiff to set
 	 */
 	public void setCertChiff(String certChiff)
 	{
@@ -312,7 +358,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @return the certDecipher
+	 * @return the certDecipher : the certificate file to decipher the package
+	 *         received from KWS
 	 */
 	public String getCertDecipher()
 	{
@@ -320,8 +367,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @param certDecipher:
-	 *            the certDecipher to set
+	 * @param certDecipher
+	 *            : the certDecipher to set
 	 */
 	public void setCertDecipher(String certDecipher)
 	{
@@ -329,7 +376,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @return the mdpDecipher
+	 * @return the mdpDecipher : the password of the certificate file to
+	 *         decipher the package received from KWS
 	 */
 	public String getMdpDecipher()
 	{
@@ -337,8 +385,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @param mdpDecipher:
-	 *            the mdpDecipher to set
+	 * @param mdpDecipher
+	 *            : the mdpDecipher to set
 	 */
 	public void setMdpDecipher(String mdpDecipher)
 	{
@@ -346,7 +394,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @return the pathPDFCert
+	 * @return the pathPDFCert : the directory of the certified document on the
+	 *         server
 	 */
 	public String getPathPDFCert()
 	{
@@ -354,8 +403,8 @@ public class KeynectisParameters extends AuthorityParameters
 	}
 
 	/**
-	 * @param pathPDFCert:
-	 *            the pathPDFCert to set
+	 * @param pathPDFCert
+	 *            : the pathPDFCert to set
 	 */
 	public void setPathPDFCert(String pathPDFCert)
 	{

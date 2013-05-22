@@ -27,14 +27,18 @@
 			<a href="adminHome.jsp" class="btn btn-info">Accueil</a>
 		</h2>
 		<%
-			if (msg != null) {
+			if (msg != null)
+			{
 				String message = "";
-				if (msg.equals("ok")) {
+				if (msg.equals("ok"))
+				{
 		%>
 		<div class="alert alert-block alert-success fade in">Le document
 			a été ajouté avec succès !</div>
 		<%
-			} else {
+			}
+				else
+				{
 					if (msg.equals("bad_parameters"))
 						message = "Veuillez remplir tous les champs du formulaires.";
 					else if (msg.equals("bad_signame"))
@@ -60,11 +64,14 @@
 
 		<div>
 			<%
-				if (client.getSignature() == null) {
+				if (client.getSignature() == null)
+				{
 			%>
 			<h4>Aucune Signature Enregistrée</h4>
 			<%
-				} else {
+				}
+				else
+				{
 
 					byte[] decode = EncoderBase64.encodingBlobToByteArray(client
 							.getSignature());
@@ -86,20 +93,25 @@
 				<th></th>
 			</tr>
 			<%
-				for (DocumentPDF doc : client.getDocuments()) {
+				for (DocumentPDF doc : client.getDocuments())
+				{
 					boolean signable;
-					if (doc.getSignatures().size()>0)
+					if (doc.getSignatures().size() > 0)
 						signable = true;
-					else {
+					else
+					{
 						signable = false;
 					}
 			%>
 
 			<%
-				if (signable){
+				if (signable)
+					{
 			%><tr class="alert alert-block alert-success">
 				<%
-				}else {
+					}
+						else
+						{
 				%>
 			
 			<tr class="alert alert-block alert-error">
@@ -110,18 +122,24 @@
 				<td><a href="<%=doc.getUrl()%>"><%=doc.getName()%></a></td>
 				<td>
 					<%
-						if (doc.isCertified()) {
+						if (doc.isCertified())
+							{
 					%> Oui <%
-						} else {
+						}
+							else
+							{
 					%> Non <%
 						}
 					%>
 				</td>
 				<td>
 					<%
-						if (signable) {
+						if (signable)
+							{
 					%> Oui <%
-						} else {
+						}
+							else
+							{
 					%> Non <%
 						}
 					%>
@@ -131,7 +149,8 @@
 					class="btn btn-small btn-danger">Supprimer</a></td>
 				<td>
 					<%
-						if (!signable) {
+						if (!signable)
+							{
 					%> <a href="RedirectSignature?id=<%=doc.getId()%>"
 					class="btn btn-small btn-info">Ajouter Signature</a> <%
  	}

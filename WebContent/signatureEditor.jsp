@@ -20,11 +20,11 @@
 	height: 50px;
 	padding: 0.5em;
 	border: 1px solid black;
-	cursor: move;	
+	cursor: move;
 }
 
-#save{
-	display:none;
+#save {
+	display: none;
 }
 
 #pdfZone {
@@ -53,11 +53,11 @@
 			<li>Propriétaire : <%=doc.getOwner().getFirstName()%> <%=doc.getOwner().getLastName()%></li>
 		</ul>
 
-<!-- 		<label for="hauteur">Hauteur (en pixel) : <input type="number" -->
-<!-- 			id="hauteur"></label> <label for="largeur">Largeur (en pixel) -->
-<!-- 			: <input type="number" id="largeur"> -->
-<!-- 		</label> -->
-<!-- 		<button class="btn btn-success" id="valider" onclick="buildZone()">Valider</button> -->
+		<!-- 		<label for="hauteur">Hauteur (en pixel) : <input type="number" -->
+		<!-- 			id="hauteur"></label> <label for="largeur">Largeur (en pixel) -->
+		<!-- 			: <input type="number" id="largeur"> -->
+		<!-- 		</label> -->
+		<!-- 		<button class="btn btn-success" id="valider" onclick="buildZone()">Valider</button> -->
 
 		<div id="draggable" class="ui-widget-content">
 			<p>Zone de Signature</p>
@@ -67,16 +67,16 @@
 		</div>
 		<button class="btn btn-info" onclick="fixeZone()">Définir</button>
 		<button class="btn btn-warning" onclick="reset()">Reset</button>
-		
+
 		<form action="AddSignaturePDF" method="POST">
-			<input type="hidden" id="idOwner" name="idOwner" value="<%=doc.getOwner().getId() %>" />
-			<input type="hidden" id="id" name="id" value="<%=doc.getId() %>" />
-			<input type="hidden" id="height" name="height" />
-			<input type="hidden" id="width" name="width" />
-			<input type="hidden" id="valPDFX" name="valPDFX" />
-			<input type="hidden" id="valPDFY" name="valPDFY" />
-			<input type="hidden" id="valX" name="valX" />
-			<input type="hidden" id="valY" name="valY" />
+			<input type="hidden" id="idOwner" name="idOwner"
+				value="<%=doc.getOwner().getId()%>" /> <input type="hidden"
+				id="id" name="id" value="<%=doc.getId()%>" /> <input type="hidden"
+				id="height" name="height" /> <input type="hidden" id="width"
+				name="width" /> <input type="hidden" id="valPDFX" name="valPDFX" />
+			<input type="hidden" id="valPDFY" name="valPDFY" /> <input
+				type="hidden" id="valX" name="valX" /> <input type="hidden"
+				id="valY" name="valY" />
 			<button class="btn btn-primary" type="submit" id="save">Enregistrer</button>
 		</form>
 	</div>

@@ -48,27 +48,35 @@
 				<th>Sélection</th>
 			</tr>
 			<%
-				for (DocumentPDF doc : client.getDocuments()) {
-				%>
-				<tr>
-					<td><a href="<%=doc.getUrl()%>"><%=doc.getName()%></a></td>
-					<td>
-						<%if(doc.isCertified()){ %>
-						Oui
-						<%}else{ %>
-						Non
-						<%} %>
-					</td>
-					<td><a href="DeleteDocument?idDocument=<%=doc.getId() %>&idClientDoc=<%=doc.getOwner().getId() %>" class="btn btn-small btn-danger">Supprimer</a></td>
-				</tr>
-				<%
+				for (DocumentPDF doc : client.getDocuments())
+				{
+			%>
+			<tr>
+				<td><a href="<%=doc.getUrl()%>"><%=doc.getName()%></a></td>
+				<td>
+					<%
+						if (doc.isCertified())
+							{
+					%> Oui <%
+						}
+							else
+							{
+					%> Non <%
+						}
+					%>
+				</td>
+				<td><a
+					href="DeleteDocument?idDocument=<%=doc.getId()%>&idClientDoc=<%=doc.getOwner().getId()%>"
+					class="btn btn-small btn-danger">Supprimer</a></td>
+			</tr>
+			<%
 				}
 			%>
 		</table>
 		<button type="submit" class="btn btn-success" id="certifier">Certifier
 			la sélection</button>
 	</form>
-	
+
 	<div>
 		<p>Votre Signature :</p>
 		<div id="displayarea">

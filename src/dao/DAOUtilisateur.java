@@ -45,10 +45,12 @@ public class DAOUtilisateur
 	 * @return true if the user has been add successully, and false if there was
 	 *         an error
 	 */
+
 	public boolean addUser(String identifiant, String firstName,
 			String lastName, String email, String password, String phoneNumber,
 			Set<DocumentPDF> documents)
 	{
+
 		Session session = null;
 		try
 		{

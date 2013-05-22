@@ -12,13 +12,23 @@
 <script type="text/javascript">
 	$(function() {
 		$("#nextTab").click(function() {
+			/* $("#const").attr("class", "tab-pane active");
+			document.getElementById("const").setAttribute("class", "tab-pane active"); */
+			/* document.getElementById("tabConst").setAttribute("class", "active");
+			document.getElementById("tabAuth").setAttribute("class", ""); */
+			$("#tabConst").attr("class", "active");
+			$("#tabAuth").attr("class", "");
 			var sel = $('#authority').val();
 			switch (sel) {
 			case "1":
-				$("#constInner").load("paramConstKEY.jsp");
+				/* $("#constInner").load("paramConstKEY.jsp"); */
+				$("#comment").load("commentKEY.jsp");
+				$("#configForm").load("formKEY.jsp");
 				break;
 			case "2":
-				$("#constInner").load("paramConstDICTAO.jsp");
+				/* $("#constInner").load("paramConstDICTAO.jsp"); */
+				$("#comment").load("commentDICTAO.jsp");
+				$("#configForm").load("formDICTAO.jsp");
 				break;
 			}
 		});
@@ -26,6 +36,10 @@
 
 	$(function() {
 		$("#authority").change(function() {
+			/* $("#const").attr('class', 'tab-pane active');
+			document.getElementById("const").setAttribute("class", "tab-pane active"); */
+			/* $("#tabConst").attr("class", "active");
+			$("#tabAuth").attr("class", ""); */
 			var sel = $('#authority').val();
 			switch (sel) {
 			case "1":
@@ -38,6 +52,21 @@
 		});
 	});
 </script>
+
+<%
+	if (request.getAttribute("authorityParameter") != null) {
+%>
+<script>
+	$(function() {
+		$("#tabConst").attr("class", "");
+		$("#tabAuth").attr("class", "");
+		$("#tabTypes").attr("class", "active");
+	});
+</script>
+<%
+	}
+%>
+
 
 <title>Parametrage du serveur</title>
 </head>
@@ -73,13 +102,12 @@
 									<div class="pull-left">
 										<div class="well">
 											<p>
-												<b>Autorité de certification</b><br>
-												<br> Cette page sert à paramétrer l'autorité de
-												certification. Vous avez le choix entre une liste exhaustive
-												d'autorités de certification.<br> Ce choix définira par
-												la suite les autres paramètres à configurer.<br>
-												Choisissez donc une autorité de certification avant de
-												continuer.
+												<b>Autorité de certification</b><br> <br> Cette
+												page sert à paramétrer l'autorité de certification. Vous
+												avez le choix entre une liste exhaustive d'autorités de
+												certification.<br> Ce choix définira par la suite les
+												autres paramètres à configurer.<br> Choisissez donc une
+												autorité de certification avant de continuer.
 
 											</p>
 										</div>
@@ -121,7 +149,28 @@
 					<!-- ************************ Onglet de paramétrage des constantes de certification ************************ -->
 
 					<div class="tab-pane" id="const">
-						<div id="constInner"></div>
+						<div id="constInner">
+
+							<div class="container-fluid">
+								<div class="row-fluid">
+									<div class="span4">
+										<div class="pull-left">
+											<div class="well" id="comment"></div>
+										</div>
+									</div>
+									<div class="span8">
+										<div class="well">
+
+											<form id="configForm" class="form-horizontal"
+												action="ConfigBackEndConstants" method="post"></form>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
 
 					</div>
 
@@ -132,8 +181,7 @@
 						<div class="pull-left">
 							<div class="well">
 								<p>
-									Explications de la section<br>
-									<br>
+									Explications de la section<br> <br>
 								</p>
 							</div>
 						</div>

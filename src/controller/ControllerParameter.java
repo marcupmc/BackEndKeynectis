@@ -32,7 +32,8 @@ public class ControllerParameter
 	private static ControllerParameter instance;
 
 	/**
-	 * Check the parameters of the html KEYNECTIS form and create the corresponding xml file
+	 * Check the parameters of the html KEYNECTIS form and create the
+	 * corresponding xml file
 	 * 
 	 * @param CertPath
 	 *            : the directory where are stored the certificates used by the
@@ -44,76 +45,117 @@ public class ControllerParameter
 	 *            : the directory where are saved the certified files
 	 * @param savefile
 	 *            : the directory where to save the xml file
-	 * @return false if any of the parameters is null
+	 * @return the AuthorityParameters object created if succeeded, else null
 	 */
-	public boolean validateParameters(String CertPath, String TempPath,
-			String SavePath, String savefile)
+	public AuthorityParameters validateParameters(String CertPath,
+			String TempPath, String SavePath)
 	{
-		boolean valid = true;
+		AuthorityParameters autho = null;
 		if (null == CertPath || null == TempPath || null == SavePath)
 		{
-			valid = false;
+			autho = null;
 		}
 		else
-			manageXML(new DictaoParamaters(CertPath, TempPath, SavePath),
-					savefile);
+		{
+			autho = new DictaoParamaters(CertPath, TempPath, SavePath);
+			autho = manageXML(autho, SavePath);
+		}
 
-		return valid;
+		return autho;
 	}
 
 	/**
-	 * Check the parameters of the html KEYNECTIS form and create the corresponding xml file
+	 * Check the parameters of the html KEYNECTIS form and create the
+	 * corresponding xml file
 	 * 
-	 * @param certMetier: the certificate file to sign the original file as the organism owner
-	 * @param mdpMetier: the password of the previous certificate
-	 * @param idAppMetier: the id of the company web application (8 characters max, the 2 first given by KEYNECTIS)
-	 * @param idServMetier: the id of the company server (8 characters max)
-	 * @param idOrgMetier: the id of the customer company (14 characters max)
-	 * @param certSign: the client certificate file to sign the package before sending it the KWS 
-	 * @param mdpCert: the password of the previous certificate
-	 * @param certChiff: the certificate file to cipher the package to send to KWS
-	 * @param certDecipher: the certificate file to decipher the package received from KWS
-	 * @param mdpDecipher: the password of the previous certificate
-	 * @param servPDFCert: the url of the sever where to save the certified documents 
-	 * @param pathPDFCert: the directory of the certified document on the server
-	 * @param loginPDFCert: the login to access the server
-	 * @param mdpPDFCert: the password to access the server
-	 * @param savefile: the local directory where to save the xml file
-	 * @return false if any of the parameters is null
+	 * @param certMetier
+	 *            : the certificate file to sign the original file as the
+	 *            organism owner
+	 * @param mdpMetier
+	 *            : the password of the previous certificate
+	 * @param idAppMetier
+	 *            : the id of the company web application (8 characters max, the
+	 *            2 first given by KEYNECTIS)
+	 * @param idServMetier
+	 *            : the id of the company server (8 characters max)
+	 * @param idOrgMetier
+	 *            : the id of the customer company (14 characters max)
+	 * @param certSign
+	 *            : the client certificate file to sign the package before
+	 *            sending it the KWS
+	 * @param mdpCert
+	 *            : the password of the previous certificate
+	 * @param certChiff
+	 *            : the certificate file to cipher the package to send to KWS
+	 * @param certDecipher
+	 *            : the certificate file to decipher the package received from
+	 *            KWS
+	 * @param mdpDecipher
+	 *            : the password of the previous certificate
+	 * @param servPDFCert
+	 *            : the url of the sever where to save the certified documents
+	 * @param pathPDFCert
+	 *            : the directory of the certified document on the server
+	 * @param loginPDFCert
+	 *            : the login to access the server
+	 * @param mdpPDFCert
+	 *            : the password to access the server
+	 * @param savefile
+	 *            : the local directory where to save the xml file
+	 * @return the AuthorityParameters object created if succeeded, else null
 	 */
-	public boolean validateParameters(String certMetier, String mdpMetier,
-			String idAppMetier, String idServMetier, String idOrgMetier,
-			String certSign, String mdpCert, String certChiff,
-			String certDecipher, String mdpDecipher, String servPDFCert,
-			String pathPDFCert, String loginPDFCert, String mdpPDFCert,
-			String savefile)
+	public AuthorityParameters validateParameters(String CertPath,
+			String TempPath, String SavePath, String certMetier,
+			String mdpMetier, String idAppMetier, String idServMetier,
+			String idOrgMetier, String certSign, String mdpCert,
+			String certChiff, String certDecipher, String mdpDecipher,
+			String servPDFCert, String pathPDFCert, String loginPDFCert,
+			String mdpPDFCert)
 	{
-		boolean valid = true;
-		if (null == certMetier || null == mdpMetier || null == idAppMetier
-				|| null == idServMetier || null == idOrgMetier
-				|| null == certSign || null == mdpCert || null == certChiff
-				|| null == certDecipher || null == mdpDecipher
-				|| null == servPDFCert || null == pathPDFCert
+		AuthorityParameters autho = null;
+		if (/* null == CertPath || null == TempPath || null == SavePath || */null == certMetier
+				|| null == mdpMetier
+				|| null == idAppMetier
+				|| null == idServMetier
+				|| null == idOrgMetier
+				|| null == certSign
+				|| null == mdpCert
+				|| null == certChiff
+				|| null == certDecipher
+				|| null == mdpDecipher
+				|| null == servPDFCert
+				|| null == pathPDFCert
 				|| null == loginPDFCert || null == mdpPDFCert)
 		{
-			valid = false;
+			autho = null;
 		}
 		else
-			manageXML(new KeynectisParameters(certMetier, mdpMetier,
-					idAppMetier, idServMetier, idOrgMetier, certSign, mdpCert,
-					certChiff, certDecipher, mdpDecipher, servPDFCert,
-					pathPDFCert, loginPDFCert, mdpPDFCert), savefile);
+		{
+			autho = new KeynectisParameters(certMetier, mdpMetier, idAppMetier,
+					idServMetier, idOrgMetier, certSign, mdpCert, certChiff,
+					certDecipher, mdpDecipher, servPDFCert, pathPDFCert,
+					loginPDFCert, mdpPDFCert);
+			autho = manageXML(autho, SavePath);
+		}
 
-		return valid;
+		return autho;
 	}
 
 	/**
 	 * Create the xml file by calling a Tool XML factory
-	 * @param parameters: the AuthorityParameters object containing the form data
-	 * @param savePath: the directory where to save the xml file
+	 * 
+	 * @param parameters
+	 *            : the AuthorityParameters object containing the form data
+	 * @param savePath
+	 *            : the directory where to save the xml file
+	 * @return the AuthorityParameters object created if succeeded, else null
 	 */
-	private void manageXML(AuthorityParameters parameters, String savePath)
+	private AuthorityParameters manageXML(AuthorityParameters parameters,
+			String savePath)
 	{
-		ToolsXML.createXMLFile(parameters, savePath);
+		if (ToolsXML.createXMLFile(parameters, savePath))
+			return parameters;
+		else
+			return null;
 	}
 }

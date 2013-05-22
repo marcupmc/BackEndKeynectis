@@ -24,6 +24,7 @@ public class SaveSignature
 	{
 		String identifiant = formParam.get("idClient").get(0);
 		String imageSignature = formParam.get("imgSignature").get(0);
+
 		System.out.println("Identifiant : " + identifiant);
 		System.out.println("Signature Base 64 : " + imageSignature);
 
@@ -38,5 +39,6 @@ public class SaveSignature
 			return "ok";
 		else
 			return "error";
+
 	}
 }

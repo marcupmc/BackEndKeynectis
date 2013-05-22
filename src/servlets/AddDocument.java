@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import tools.ToolsPDF;
 import dao.DAODocumentPDF;
+import dao.DAOLog;
+import dao.DAOUtilisateur;
+import domain.TypeLog;
 
 /**
  * Servlet implementation class AddDocument
@@ -54,17 +57,19 @@ public class AddDocument extends HttpServlet
 
 		String msgErr = "";
 		// Verifier les entrees
-		//boolean ok = false;
+		// boolean ok = false;
 		if (urlDocument == null || urlDocument.length() == 0
 				|| nameDocument == null || nameDocument.length() == 0)
 			msgErr = "bad_parameters";
 		else
 		{
 			// Ajouter le document en appelant le DAO
+
 			if (containsSign.equals("non"))
 			{
 				if (DAODocumentPDF.getInstance().addDocument(idClient,
 						nameDocument, urlDocument))
+
 					msgErr = "ok";
 			}
 			else

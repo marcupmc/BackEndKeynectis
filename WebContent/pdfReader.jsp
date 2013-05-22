@@ -43,25 +43,25 @@
 	display: none;
 }
 
-#loader{
+#loader {
 	display: none;
 }
 
-#saveSignatures{
-	display:none;
+#saveSignatures {
+	display: none;
 }
 </style>
 
 </head>
 <body>
 	<%
-			DocumentPDF doc = (DocumentPDF) request.getAttribute("doc");
-		%>
-		<input type="hidden" value="<%=doc.getUrl() %>" id="url"/>
-		<input type="hidden" value="<%=doc.getId()%>" id="idDoc"/>
-		<input type="hidden" value="<%=doc.getOwner().getId() %>" id="idOwner"/>
+		DocumentPDF doc = (DocumentPDF) request.getAttribute("doc");
+	%>
+	<input type="hidden" value="<%=doc.getUrl()%>" id="url" />
+	<input type="hidden" value="<%=doc.getId()%>" id="idDoc" />
+	<input type="hidden" value="<%=doc.getOwner().getId()%>" id="idOwner" />
 	<div class="container">
-	
+
 		<h3>Lecteur PDF</h3>
 		<button onclick="previousPage()" id="previous" class="btn btn-primary">
 			<i class="icon-backward icon-white"></i>
@@ -78,8 +78,7 @@
 			<tr>
 				<td>
 					<div id="pdfreader">
-						<img src="img/loader.gif" id="loader"/>
-						<img src="" id="imagePDF" />
+						<img src="img/loader.gif" id="loader" /> <img src="" id="imagePDF" />
 					</div>
 
 				</td>
@@ -89,12 +88,9 @@
 					<ul id="listeSignatures">
 					</ul>
 
-					<div id="signatures">
-					
-					</div>
-					<button class="btn btn-success" onclick="saveSignatures()" id="saveSignatures">
-					Enregistrer les signatures
-					</button>
+					<div id="signatures"></div>
+					<button class="btn btn-success" onclick="saveSignatures()"
+						id="saveSignatures">Enregistrer les signatures</button>
 				</td>
 			</tr>
 

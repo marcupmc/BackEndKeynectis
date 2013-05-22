@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <script>
 	function go() {
-		
+
 		document.getElementById("myForm").submit();
 	}
 </script>
@@ -16,8 +16,12 @@
 	<%
 		String blob = (String) request.getAttribute("blob");
 	%>
-	<script type="text/javascript">alert('Blob \n'+<%=blob%>);</script>
-	
+	<script type="text/javascript">
+		alert('Blob \n' +
+	<%=blob%>
+		);
+	</script>
+
 	<form id="myForm" method="POST"
 		action="https://keynectis.kwebsign.net/QS/Page1V2">
 		<input type="hidden" name="appid" value="ZZDEMAV1"> <input

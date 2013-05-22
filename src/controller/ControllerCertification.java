@@ -1,23 +1,30 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import tools.EncoderBase64;
 import tools.ToolsPDF;
+import tools.ToolsXML;
 
 import com.dictao.keynectis.quicksign.transid.QuickSignException;
 import com.dictao.keynectis.quicksign.transid.RequestTransId;
 import com.itextpdf.text.DocumentException;
 
 import dao.DAOUtilisateur;
+import domain.AuthorityParameters;
 import domain.DocumentPDF;
+import domain.KeynectisParameters;
 import domain.Signature;
 import domain.Utilisateur;
 
 public class ControllerCertification
 {
+
+	private AuthorityParameters autho = null;
+	private String xmlParametersFile = "D:\\Users\\dtadmi\\Downloads\\Compressed\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\TestRest\\temp_xml\\parameters.xml";
 
 	// SINGLETON
 	public static ControllerCertification getInstance()
@@ -31,6 +38,18 @@ public class ControllerCertification
 
 	private ControllerCertification()
 	{
+		try
+		{
+			if ((new File(xmlParametersFile)).exists())
+			{
+				autho = ToolsXML.readConfig(xmlParametersFile);
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
 	}
 
 	private static ControllerCertification instance;
@@ -75,7 +94,11 @@ public class ControllerCertification
 		// / fichier de config?--------
 		String pathCertificat = certFolder + "/demoqs_s.p12";
 		String motPasse = "DemoQS";
-		String adresseXML = encodingAndSignatureZoneFactory(saveFile, document);
+
+		byte[] decode = EncoderBase64.encodingBlobToByteArray(user
+				.getSignature());
+		String adresseXML = encodingAndSignatureZoneFactory(saveFile, document,
+				decode);
 		// -------------------------Creation du certificat de signature
 		// metier-----------------------
 		String origMetierSign = originMetierFactorty(adresseXML,
@@ -90,6 +113,7 @@ public class ControllerCertification
 		}
 		catch (QuickSignException e)
 		{
+
 			e.printStackTrace();
 			return null;
 		}
@@ -97,11 +121,80 @@ public class ControllerCertification
 			return null;
 		String blob = "";
 		String transNum = "";
+
 		String tag = this.tagFactory(document);
 		RequestTransId rti = rtiFactory(origMetierSign, urlRetour, document,
 				certFolder, tag);
 		try
 		{
+
+			transNum = rti.getTransNum();
+			blob = rti.getB64Blob();
+		}
+		catch (QuickSignException qse)
+		{
+			return null;
+		}
+		toReturn.put("blob", blob);
+		toReturn.put("transNum", transNum);
+
+		return toReturn;
+	}
+
+	public HashMap<String, String> certificationPDFFromXml(String identifiant,
+			String url, String urlRetour)
+	{
+		HashMap<String, String> toReturn = new HashMap<String, String>();
+		// ------------------Depend de la Base
+		// ----------------------------------------
+		Utilisateur user = DAOUtilisateur.getInstance().getUserByIdentifiant(
+				identifiant);
+		DocumentPDF document = getDocumentOfUserByUrl(user, url);
+		// --------------------------Variable parametrable en fonction du metier
+		// / fichier de config?--------
+		String pathCertificat = ((KeynectisParameters) autho).getCertPath()
+				+ "/" + ((KeynectisParameters) autho).getCertMetier(); // certFolder
+		// +
+		// "/demoqs_s.p12";
+		String motPasse = ((KeynectisParameters) autho).getMdpMetier(); // "DemoQS";
+
+		byte[] decode = EncoderBase64.encodingBlobToByteArray(user
+				.getSignature());
+		String adresseXML = encodingAndSignatureZoneFactory(
+				((KeynectisParameters) autho).getSavePath(), document, decode);
+		// -------------------------Creation du certificat de signature
+		// metier-----------------------
+		String origMetierSign = originMetierFactorty(adresseXML,
+				pathCertificat, motPasse);
+		// ----------------------Calcul du Hash
+		// -----------------------------------------------------
+		String hashBase64 = "";
+		try
+		{
+			hashBase64 = com.dictao.keynectis.quicksign.transid.Util
+					.getB64Hash(origMetierSign);
+		}
+		catch (QuickSignException e)
+		{
+
+			e.printStackTrace();
+			return null;
+		}
+		if (hashBase64.equals(""))
+			return null;
+		String blob = "";
+		String transNum = "";
+
+		String tag = this.tagFactory(document);
+		RequestTransId rti = rtiFactoryFromXml(origMetierSign, urlRetour,
+				document, tag); // (origMetierSign, urlRetour,
+								// document,
+								// ((KeynectisParameters)
+								// autho).getCertPath(),
+								// tag);
+		try
+		{
+
 			transNum = rti.getTransNum();
 			blob = rti.getB64Blob();
 		}
@@ -138,20 +231,26 @@ public class ControllerCertification
 	 * @param doc
 	 * @return a string that contains the tag
 	 */
+
 	private String tagFactory(DocumentPDF doc)
 	{
 		byte[] decode = EncoderBase64.encodingBlobToByteArray(doc.getOwner()
 				.getSignature());
+
 		String signatureBase64 = EncoderBase64.byteArraytoStringBase64(decode);
 
 		String tag = "";
+
 		tag += "DATA_METIER=contrat\n";
 		tag += "CUF_ORG=no\n";
 		tag += "TYPE=38\n";
+
 		// tag += "TYPE=36\n";
 		// tag += "TYPE=39\n";
 		// tag += "TYPE=31\n";
+
 		tag += "VISU=docPDFb64\n";
+
 		// tag += "PDF_VERIFY_FIELDS=Signature1\n";
 		// tag += "PDF_SIGN_FIELD=Signature2\n";
 
@@ -159,11 +258,13 @@ public class ControllerCertification
 		int cpt = 0;
 		for (Signature s : doc.getSignatures())
 		{
-			sigNames += s.getName();
-			if (cpt < doc.getSignatures().size() - 1)
-				sigNames += ":";
+			// sigNames+=s.getName();
+			if (cpt == 0)
+				sigNames += s.getName();
+
 			cpt++;
 		}
+
 		System.out.println("------------ Signatures : " + sigNames);
 		tag += "PDF_SIGN_FIELD=" + sigNames + "\n";
 
@@ -202,6 +303,7 @@ public class ControllerCertification
 	 * @param tag
 	 * @return a request TransID
 	 */
+
 	private RequestTransId rtiFactory(String origMetierSign, String urlRetour,
 			DocumentPDF doc, String certFolder, String tag)
 	{
@@ -210,9 +312,10 @@ public class ControllerCertification
 
 		String authority = "KWS_INTEGRATION_CDS";
 		System.out.println("[TEST KEYNECTIS] Debut de la génération du CUF");
-//		String cuf = String.valueOf(1000 + (new java.util.Random())
-//				.nextInt(8999));
+		// String cuf = String.valueOf(1000 + (new java.util.Random())
+		// .nextInt(8999));
 		System.out.println("[TEST KEYNECTIS] Fin du calcul du HASH");
+
 		String returnUrl = urlRetour.substring(0, urlRetour.lastIndexOf("/"))
 				+ "/ResponseKeynectis";
 		System.out.println("[TEST KEYNECTIS] url de retour : " + returnUrl);
@@ -231,6 +334,73 @@ public class ControllerCertification
 		String mot_de_passe_certificat_blob = "DemoQS";
 		String path_certificat_chiffrement_blob = certFolder
 				+ "/certQSkeyncryp.cer";
+		RequestTransId rti = null;
+		try
+		{
+			rti = new RequestTransId(identifiant_application_metier,
+					identifiant_application_serveur_metier,
+					identifiant_organisme_application_metier);
+		}
+		catch (QuickSignException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		rti.setSignCertFilePath(path_certificat_signature_blob,
+				mot_de_passe_certificat_blob);
+		rti.setCipherCertFilePath(path_certificat_chiffrement_blob);
+		rti.setName(user.getFirstName() + " " + user.getLastName());
+		rti.setEmail(user.getEmail());
+
+		rti.setAuthority(authority);
+		rti.setReturnUrl(returnUrl);
+		rti.setFilePath(origMetierSign);
+		rti.setTag(tag);
+
+		return rti;
+	}
+
+	private RequestTransId rtiFactoryFromXml(String origMetierSign,
+			String urlRetour, DocumentPDF doc, String tag)
+	{
+
+		Utilisateur user = doc.getOwner();
+
+		String authority = ((KeynectisParameters) autho).getAuthority(); // "KWS_INTEGRATION_CDS";
+		System.out.println("[TEST KEYNECTIS] Debut de la génération du CUF");
+		// String cuf = String.valueOf(1000 + (new java.util.Random())
+		// .nextInt(8999));
+		System.out.println("[TEST KEYNECTIS] Fin du calcul du HASH");
+
+		String returnUrl = urlRetour.substring(0, urlRetour.lastIndexOf("/"))
+				+ "/ResponseKeynectis";
+		System.out.println("[TEST KEYNECTIS] url de retour : " + returnUrl);
+
+		// BufferedReader br = null;
+		// String ligne = "";
+		// --------------------------DEFINTION DE
+		// TRANSID--------------------------------------
+		System.out
+				.println("[TEST KEYNECTIS] Debut de la définition de TRANSID");
+
+		String identifiant_application_metier = ((KeynectisParameters) autho)
+				.getIdAppMetier(); // "ZZDEMAV1";
+		String identifiant_application_serveur_metier = ((KeynectisParameters) autho)
+				.getIdServMetier(); // "DEMO";
+		String identifiant_organisme_application_metier = ((KeynectisParameters) autho)
+				.getIdOrgMetier(); // "PDFSMS";
+		String path_certificat_signature_blob = ((KeynectisParameters) autho)
+				.getCertPath()
+				+ "/"
+				+ ((KeynectisParameters) autho).getCertSign(); // certFolder +
+																// "/demoqs_i.p12";
+		String mot_de_passe_certificat_blob = ((KeynectisParameters) autho)
+				.getMdpCert(); // "DemoQS";
+		String path_certificat_chiffrement_blob = ((KeynectisParameters) autho)
+				.getCertPath()
+				+ "/"
+				+ ((KeynectisParameters) autho).getCertChiff(); // certFolder +
+																// "/certQSkeyncryp.cer";
 		RequestTransId rti = null;
 		try
 		{
@@ -289,12 +459,16 @@ public class ControllerCertification
 	 * 
 	 * @param saveFile
 	 * @param document
+	 * @param decode
 	 * @return the path of the encoding file (.xml)
 	 */
+
 	private String encodingAndSignatureZoneFactory(String saveFile,
-			DocumentPDF document)
+			DocumentPDF document, byte[] decode)
 	{
+
 		System.out.println("[TEST KEYNECTIS] Debut PDF avec signature");
+
 		String urlPdfToEncode = "";
 		try
 		{
@@ -308,6 +482,7 @@ public class ControllerCertification
 		}
 		catch (DocumentException e1)
 		{
+
 			e1.printStackTrace();
 		}
 		catch (IOException e1)

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.ControllerAjoutClient;
+import dao.DAOLog;
+import domain.TypeLog;
 
 /**
  * Servlet implementation class AddNewClient
@@ -75,10 +77,12 @@ public class AddNewClient extends HttpServlet
 			else
 				messageErreur = "error_add";
 		}
+
 		String urlRetour = "";
 		if (messageErreur.equals("success"))
 		{
 			urlRetour = "FindClient?recherche=";
+
 		}
 		else
 		{

@@ -21,10 +21,13 @@ import org.bouncycastle.util.encoders.Base64;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.AcroFields;
 import com.itextpdf.text.pdf.PdfAnnotation;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfFormField;
 import com.itextpdf.text.pdf.PdfName;
 import com.itextpdf.text.pdf.PdfReader;
@@ -33,6 +36,7 @@ import com.itextpdf.text.pdf.PdfString;
 
 import domain.DocumentPDF;
 import domain.Signature;
+import domain.Utilisateur;
 
 public class ToolsPDF
 {
@@ -57,7 +61,7 @@ public class ToolsPDF
 			String extension = ".xml";
 			String filename = pathServeur + "/" + name + extension;
 			System.out.println("FileName : " + filename);
-//			byte[] data = fileArray;
+			// byte[] data = fileArray;
 			File f = new File(filename);
 
 			try
@@ -173,6 +177,72 @@ public class ToolsPDF
 
 	}
 
+	public static String createPDFDocToSign(String pathFolderout,
+
+	DocumentPDF document) throws DocumentException, IOException
+	{
+		Signature first = null;
+
+		byte[] decode = new byte[1024];
+
+		ArrayList<Signature> listeImg = new ArrayList<Signature>();
+		int i = 0;
+		for (Signature signature : document.getSignatures())
+		{
+			if (i == 0)
+				first = signature;
+			else
+				listeImg.add(signature);
+			i++;
+		}
+
+		String outFile = "";
+		if (listeImg.size() == 0)
+		{
+			outFile = pathFolderout + "/" + document.getName() + ".pdf";
+		}
+		else
+			outFile = pathFolderout + "/" + document.getName() + "Temp.pdf";
+
+		try
+		{
+			PdfReader pdf = new PdfReader(document.getUrl());
+
+			FileOutputStream out = new FileOutputStream(outFile);
+			PdfStamper stp = new PdfStamper(pdf, out);
+			addSignature(stp, first, document.getOwner());
+
+			stp.close();
+			out.flush();
+			out.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+
+		if (listeImg.size() > 0)
+		{
+			PdfReader pdf2 = new PdfReader(outFile);
+
+			String outFile2 = pathFolderout + "/" + document.getName() + ".pdf";
+			FileOutputStream out2 = new FileOutputStream(outFile2);
+			PdfStamper stp2 = new PdfStamper(pdf2, out2);
+			// byte[] bits = EncoderBase64.encodingBlobToByteArray
+			// (document.getOwner().getSignature());
+			for (Signature sigs : listeImg)
+				addPicture(stp2, sigs, decode);
+			stp2.close();
+			out2.flush();
+			out2.close();
+			File f1 = new File(outFile);
+			f1.delete();
+			outFile = outFile2;
+		}
+		return outFile;
+	}
+
 	/**
 	 * Create a signature zone into a pdf
 	 * 
@@ -188,38 +258,40 @@ public class ToolsPDF
 	 * @throws IOException
 	 */
 	public static String createPDFDocToSign(String pathFolderout,
-			DocumentPDF document) throws DocumentException, IOException
+
+	DocumentPDF document, byte[] decode) throws DocumentException, IOException
 	{
-		String outFile = pathFolderout + "/" + document.getName() + ".pdf";
+		Signature first = null;
+		ArrayList<Signature> listeImg = new ArrayList<Signature>();
+		int i = 0;
+		for (Signature signature : document.getSignatures())
+		{
+			if (i == 0)
+				first = signature;
+			else
+				listeImg.add(signature);
+			i++;
+		}
+
+		String outFile = "";
+		if (listeImg.size() == 0)
+		{
+			outFile = pathFolderout + "/" + document.getName() + ".pdf";
+		}
+		else
+			outFile = pathFolderout + "/" + document.getName() + "Temp.pdf";
+
 		try
 		{
 			PdfReader pdf = new PdfReader(document.getUrl());
-			PdfStamper stp = new PdfStamper(pdf, new FileOutputStream(outFile));
 
-			for (Signature signature : document.getSignatures())
-			{
+			FileOutputStream out = new FileOutputStream(outFile);
+			PdfStamper stp = new PdfStamper(pdf, out);
+			addSignature(stp, first, document.getOwner());
 
-				PdfFormField sig = PdfFormField
-						.createSignature(stp.getWriter());
-
-				sig.setWidget(
-						new Rectangle(signature.getSignatureX(),
-								(842 - signature.getSignatureY()), signature
-										.getSignatureX()
-										+ signature.getWidthSignature(),
-								(842 - signature.getSignatureY())
-										+ signature.getHeightSignature()), null);
-
-				sig.setFlags(PdfAnnotation.FLAGS_PRINT);
-				sig.put(PdfName.DA, new PdfString("/Helv 0 Tf 0 g"));
-				sig.setFieldName(signature.getName());
-
-				sig.setPage(signature.getPageNumber());
-
-				stp.addAnnotation(sig, signature.getPageNumber());
-			}
 			stp.close();
-
+			out.flush();
+			out.close();
 		}
 		catch (Exception e)
 		{
@@ -227,7 +299,98 @@ public class ToolsPDF
 			System.out.println(e.getMessage());
 		}
 
+		if (listeImg.size() > 0)
+		{
+			PdfReader pdf2 = new PdfReader(outFile);
+
+			String outFile2 = pathFolderout + "/" + document.getName() + ".pdf";
+			FileOutputStream out2 = new FileOutputStream(outFile2);
+			PdfStamper stp2 = new PdfStamper(pdf2, out2);
+			// byte[] bits = EncoderBase64.encodingBlobToByteArray
+			// (document.getOwner().getSignature());
+			for (Signature sigs : listeImg)
+				addPicture(stp2, sigs, decode);
+			stp2.close();
+			out2.flush();
+			out2.close();
+			File f1 = new File(outFile);
+			f1.delete();
+			outFile = outFile2;
+		}
 		return outFile;
+	}
+
+	/**
+	 * Add a signature zone into a PDF
+	 * 
+	 * @param stp
+	 * @param signature
+	 * @param user
+	 */
+	public static void addSignature(PdfStamper stp, Signature signature,
+			Utilisateur user)
+	{
+
+		PdfFormField sig = PdfFormField.createSignature(stp.getWriter());
+
+		sig.setWidget(
+				new Rectangle(signature.getSignatureX(), (842 - signature
+						.getSignatureY()), signature.getSignatureX()
+						+ signature.getWidthSignature(), (842 - signature
+						.getSignatureY()) + signature.getHeightSignature()),
+				null);
+
+		sig.setFlags(PdfAnnotation.FLAGS_PRINT);
+		sig.put(PdfName.DA, new PdfString("/Helv 0 Tf 0 g"));
+		sig.setFieldName(signature.getName());
+
+		sig.setPage(signature.getPageNumber());
+
+		stp.addAnnotation(sig, signature.getPageNumber());
+	}
+
+	/**
+	 * Add the picture of the signature into the PDF
+	 * 
+	 * @param stp
+	 * @param signature
+	 * @param bits
+	 */
+	public static void addPicture(PdfStamper stp, Signature signature,
+			byte[] bits)
+	{
+		PdfContentByte content = stp.getOverContent(signature.getPageNumber());
+		Image img;
+		try
+		{
+			img = Image.getInstance(bits);
+			img.setAbsolutePosition(signature.getSignatureX(),
+					842 - signature.getSignatureY());
+			img.scaleAbsolute(signature.getWidthSignature(),
+					signature.getHeightSignature());
+			content.addImage(img);
+		}
+		catch (BadElementException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (MalformedURLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (DocumentException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public static String createPDFDocToSignOLD(String url,
@@ -342,9 +505,11 @@ public class ToolsPDF
 			PDDocument doc = PDDocument.load(new URL(url), true);
 			PDPage page = (PDPage) doc.getDocumentCatalog().getAllPages()
 					.get(numPage);
+
 			BufferedImage im = page.convertToImage();
 
 			doc.close();
+
 			doc = null;
 			return EncoderBase64.encodeToString(im);
 
