@@ -7,12 +7,19 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MultivaluedMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+
+import servlets.AddDocument;
 import sun.misc.BASE64Decoder;
 import tools.EncoderBase64;
 
 import controller.ControllerAuthentification;
 import dao.DAOLog;
 import dao.DAOUtilisateur;
+import domain.Log;
 import domain.TypeLog;
 
 @Path("/signature")
@@ -38,7 +45,13 @@ public class SaveSignature {
 		if(identifiant==null || identifiant.length()==0||imageSignature==null||imageSignature.length()==0)return "error";
 		if(DAOUtilisateur.getInstance().addSignature(identifiant, decodedBytes)){
 			
-			DAOLog.getInstance().addLog(TypeLog.CHANGEMENT_SIGNATURE, ipClient, identifiant);
+			final Marker marker = MarkerFactory.getMarker(TypeLog.CHANGEMENT_SIGNATURE.toString());
+			final Logger logger = LoggerFactory.getLogger(AddDocument.class);
+			Log l = new Log();
+			l.setIdentifiant_client( identifiant);
+			l.setIpadresse(ipClient);
+			logger.info(marker, "Changement de signature", l);
+			
 			return "ok";
 			}
 		else return "error";

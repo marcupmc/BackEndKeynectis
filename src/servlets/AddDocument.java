@@ -74,7 +74,6 @@ public class AddDocument extends HttpServlet {
 					log.setIpadresse( request.getServerName());
 					log.setIdentifiant_client( DAOUtilisateur.getInstance().getUserById(idClient).getIdentifiant());
 					logger.info(marker,"ajout d'un document",log);
-//					DAOLog.getInstance().addLog(TypeLog.AJOUT_DOCUMENT, request.getServerName(), DAOUtilisateur.getInstance().getUserById(idClient).getIdentifiant());
 					msgErr = "ok";
 					}
 			}else{

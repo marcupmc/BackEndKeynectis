@@ -7,9 +7,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+
 import dao.DAODocumentPDF;
 import dao.DAOLog;
 import dao.DAOUtilisateur;
+import domain.Log;
 import domain.TypeLog;
 
 /**
@@ -31,10 +37,18 @@ public class DeleteDocument extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		long idClient = Long.parseLong(request.getParameter("idClientDoc"));
 		long idDocument = Long.parseLong(request.getParameter("idDocument"));
 		
-		DAOLog.getInstance().addLog(TypeLog.SUPPRESSION_DOCUMENT, request.getServerName(), DAOUtilisateur.getInstance().getUserById(idClient).getIdentifiant());
+		final Marker marker = MarkerFactory.getMarker(TypeLog.SUPPRESSION_DOCUMENT.toString());
+		final Logger logger = LoggerFactory.getLogger(AddDocument.class);
+		Log l = new Log();
+		l.setIdentifiant_client(DAOUtilisateur.getInstance().getUserById(idClient).getIdentifiant());
+		l.setIpadresse(request.getServerName());
+		logger.info(marker, "Document supprime", l);
+		
 		
 		DAODocumentPDF.getInstance().deleteDocument(idDocument);
 		response.sendRedirect("DetailsClient?id="+idClient);

@@ -12,10 +12,15 @@ import org.codehaus.jackson.util.JsonParserDelegate;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 
 import dao.DAODocumentPDF;
 import dao.DAOLog;
 import dao.DAOUtilisateur;
+import domain.Log;
 import domain.TypeLog;
 
 /**
@@ -73,7 +78,13 @@ public class SaveSignatures extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		DAOLog.getInstance().addLog(TypeLog.AJOUT_SIGNATURE, request.getServerName(), DAODocumentPDF.getInstance().getById(idDoc).getOwner().getIdentifiant());
+		final Marker marker = MarkerFactory.getMarker(TypeLog.AJOUT_SIGNATURE.toString());
+		final Logger logger = LoggerFactory.getLogger(AddDocument.class);
+		Log l = new Log();
+		l.setIdentifiant_client(DAODocumentPDF.getInstance().getById(idDoc).getOwner().getIdentifiant());
+		l.setIpadresse(request.getServerName());
+		logger.info(marker, "Ajout d'une zone de signature", l);
+		
 		response.getWriter().write("success");
 	}
 
