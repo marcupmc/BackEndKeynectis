@@ -112,6 +112,7 @@ public class ControllerParameter
 			String servPDFCert, String pathPDFCert, String loginPDFCert,
 			String mdpPDFCert)
 	{
+		String errMess="";
 		AuthorityParameters autho = null;
 		if (/* null == CertPath || null == TempPath || null == SavePath || */null == certMetier
 				|| null == mdpMetier
@@ -128,6 +129,7 @@ public class ControllerParameter
 				|| null == loginPDFCert || null == mdpPDFCert)
 		{
 			autho = null;
+			errMess = "Error";
 		}
 		else
 		{
@@ -136,6 +138,7 @@ public class ControllerParameter
 					certDecipher, mdpDecipher, servPDFCert, pathPDFCert,
 					loginPDFCert, mdpPDFCert);
 			autho = manageXML(autho, SavePath, CertPath);
+			errMess = "Success";
 		}
 
 		return autho;

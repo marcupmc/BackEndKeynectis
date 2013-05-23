@@ -1,5 +1,5 @@
 
-<script src="js/validateAuthorityConstForm.js" type="text/javascript"></script>
+<!-- <script src="js/validateAuthorityConstForm.js" type="text/javascript"></script> -->
 
 <div class="control-group">
 	<label class="control-label" for="CertAuth">Autorité de
