@@ -513,10 +513,12 @@ public class ToolsXML
 		catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
+			autho=null;
 		}
 		catch (XMLStreamException e)
 		{
 			e.printStackTrace();
+			autho=null;
 		}
 		return autho;
 	}

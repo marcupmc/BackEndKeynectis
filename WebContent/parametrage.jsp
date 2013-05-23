@@ -66,6 +66,8 @@
 		$("#tabConst").attr("class", "");
 		$("#tabAuth").attr("class", "");
 		$("#tabTypes").attr("class", "active");
+		$("#types").attr("class", "tab-pane active");
+		$("#auth").attr("class", "tab-pane");
 	});
 </script>
 <%

@@ -107,33 +107,40 @@ public class ResponseKeynectis extends HttpServlet
 
 		fos.close();
 
-		/*
-		 * ToolsFTP.sendToServer(pdfOutPath, "ftp.marc-gregoire.fr",
-		 * "www/Keynectis_Certified", "marcgreg", "nCcKMr7E");
-		 */
-		ToolsFTP.sendToServer(pdfOutPath,
-				((KeynectisParameters) autho).getServPDFCert(),
-				((KeynectisParameters) autho).getPathPDFCert(),
-				((KeynectisParameters) autho).getLoginPDFCert(),
-				((KeynectisParameters) autho).getMdpPDFCert());
+		if (null == autho)
+		{
+			ToolsFTP.sendToServer(pdfOutPath, "ftp.marc-gregoire.fr",
+					"www/Keynectis_Certified", "marcgreg", "nCcKMr7E");
+		}
+		else
+		{
+			ToolsFTP.sendToServer(pdfOutPath,
+					((KeynectisParameters) autho).getServPDFCert(),
+					((KeynectisParameters) autho).getPathPDFCert(),
+					((KeynectisParameters) autho).getLoginPDFCert(),
+					((KeynectisParameters) autho).getMdpPDFCert());
+		}
+
 		File f = new File(pdfOutPath);
 		String filename = f.getName();
 		f.delete();
 
-		/*
-		 * String newPath = "http://www.marc-gregoire.fr/Keynectis_Certified/" +
-		 * filename;
-		 */
-		String newPath = "http://www."
-				+ ((KeynectisParameters) autho).getServPDFCert().substring(
-						((KeynectisParameters) autho).getServPDFCert().indexOf(
-								"."))
-				+ ((KeynectisParameters) autho).getPathPDFCert().substring(
-						((KeynectisParameters) autho).getPathPDFCert().indexOf(
-								"w"))
-				/* "http://www.marc-gregoire.fr/Keynectis_Certified/" */
-				+filename;
-		
+		String newPath = "http://www.marc-gregoire.fr/Keynectis_Certified/"
+				+ filename;
+
+		if (null != autho)
+		{
+			newPath = "http://www."
+					+ ((KeynectisParameters) autho).getServPDFCert().substring(
+							((KeynectisParameters) autho).getServPDFCert()
+									.indexOf("."))
+					+ ((KeynectisParameters) autho).getPathPDFCert().substring(
+							((KeynectisParameters) autho).getPathPDFCert()
+									.indexOf("w"))
+					/* "http://www.marc-gregoire.fr/Keynectis_Certified/" */
+					+ filename;
+		}
+
 		System.out.println(newPath);
 
 		deleteTempfiles(temp, name);

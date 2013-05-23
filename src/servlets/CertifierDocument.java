@@ -75,18 +75,26 @@ public class CertifierDocument extends HttpServlet
 		System.out
 				.println("[TEST KEYNECTIS - Servelt] Demande du blob appel a la certification ");
 
-		/*
-		 * HashMap<String, String> toReturn = ControllerCertification
-		 * .getInstance().certificationPDF(identifiant, url, basePath, saveFile,
-		 * certFolder);
-		 */
-
-		HashMap<String, String> toReturn = ControllerCertification
-				.getInstance().certificationPDFFromXml(identifiant, url,
-						basePath, saveFile);
-
 		AuthorityParameters autho = ControllerCertification.getInstance()
 				.getAutho();
+		
+		HashMap<String, String> toReturn = null;
+		
+		if (null == autho)
+		{
+
+			toReturn = ControllerCertification
+					.getInstance().certificationPDF(identifiant, url, basePath,
+							saveFile, certFolder);
+
+		}
+		else
+		{
+			toReturn = ControllerCertification
+					.getInstance().certificationPDFFromXml(identifiant, url,
+							basePath, saveFile);
+
+		}
 
 		System.out.println("[TEST KEYNECTIS - Servelt] Recuperation du blob ");
 
