@@ -58,7 +58,7 @@ public class ControllerParameter
 		else
 		{
 			autho = new DictaoParamaters(CertPath, TempPath, SavePath);
-			autho = manageXML(autho, SavePath);
+			autho = manageXML(autho, SavePath, CertPath);
 		}
 
 		return autho;
@@ -135,7 +135,7 @@ public class ControllerParameter
 					idServMetier, idOrgMetier, certSign, mdpCert, certChiff,
 					certDecipher, mdpDecipher, servPDFCert, pathPDFCert,
 					loginPDFCert, mdpPDFCert);
-			autho = manageXML(autho, SavePath);
+			autho = manageXML(autho, SavePath, CertPath);
 		}
 
 		return autho;
@@ -151,9 +151,9 @@ public class ControllerParameter
 	 * @return the AuthorityParameters object created if succeeded, else null
 	 */
 	private AuthorityParameters manageXML(AuthorityParameters parameters,
-			String savePath)
+			String savePath, String certFolder)
 	{
-		if (ToolsXML.createXMLFile(parameters, savePath))
+		if (ToolsXML.createXMLFile(parameters, savePath, certFolder))
 			return parameters;
 		else
 			return null;

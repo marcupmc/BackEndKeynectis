@@ -111,7 +111,7 @@ public class ControllerCertification
 		String blob = "";
 		String transNum = "";
 
-		String tag = this.tagFactory(document);
+		String tag = this.tagFactory(document,decode);
 		RequestTransId rti = rtiFactory(origMetierSign, urlRetour, document,
 				certFolder, tag);
 		try
@@ -146,6 +146,8 @@ public class ControllerCertification
 			System.out.println("ControllerCertification: Exception\n"
 					+ "certificationPDFFromXML: " + e.getMessage());
 		}
+		
+		System.out.println("CertFolder: " + ((KeynectisParameters) autho).getCertPath());
 
 		HashMap<String, String> toReturn = new HashMap<String, String>();
 		// ------------------Depend de la Base
@@ -188,7 +190,7 @@ public class ControllerCertification
 		String blob = "";
 		String transNum = "";
 
-		String tag = this.tagFactory(document);
+		String tag = this.tagFactory(document,decode);
 		RequestTransId rti = rtiFactoryFromXml(origMetierSign, urlRetour,
 				document, tag); // (origMetierSign, urlRetour,
 								// document,
@@ -235,10 +237,10 @@ public class ControllerCertification
 	 * @return a string that contains the tag
 	 */
 
-	private String tagFactory(DocumentPDF doc)
+	private String tagFactory(DocumentPDF doc,byte[] decode)
 	{
-		byte[] decode = EncoderBase64.encodingBlobToByteArray(doc.getOwner()
-				.getSignature());
+//		byte[] decode = EncoderBase64.encodingBlobToByteArray(doc.getOwner()
+//				.getSignature());
 
 		String signatureBase64 = EncoderBase64.byteArraytoStringBase64(decode);
 

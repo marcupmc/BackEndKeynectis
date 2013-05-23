@@ -214,6 +214,11 @@ public class ToolsPDF
 		}
 		else
 			outFile = pathFolderout + "/" + document.getName() + "Temp.pdf";
+		
+		System.out.println("ToolsPDF: CreatePDFDocToSign\n pathFolderOut:"+pathFolderout+"end");
+		System.out.println("\n");
+		System.out.println("ToolsPDF: CreatePDFDocToSign\n outFile:"+outFile);
+		
 		try
 		{
 			PdfReader pdf = new PdfReader(document.getUrl());

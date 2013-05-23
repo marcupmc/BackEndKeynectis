@@ -81,7 +81,7 @@ public class ToolsXML
 	 *            : the directory where to save the xml file
 	 */
 	public static boolean createXMLFile(AuthorityParameters parameters,
-			String savePath)
+			String savePath, String certFolder)
 	{
 		boolean created = false;
 
@@ -128,17 +128,26 @@ public class ToolsXML
 
 					// CertPath elements
 					Element CertPath = doc.createElement(CERTPATH);
-					CertPath.appendChild(doc.createTextNode(param.getCertPath()));
+					if((null != param.getCertPath()) && (""!=param.getCertPath()))
+						CertPath.appendChild(doc.createTextNode(param.getCertPath()));
+					else 
+						CertPath.appendChild(doc.createTextNode(certFolder));
 					authority.appendChild(CertPath);
 
 					// TempPath elements
 					Element TempPath = doc.createElement(TEMPPATH);
-					TempPath.appendChild(doc.createTextNode(param.getTempPath()));
+					if((null != param.getTempPath()) && (""!=param.getTempPath()))
+						TempPath.appendChild(doc.createTextNode(param.getTempPath()));
+					else 
+						TempPath.appendChild(doc.createTextNode(savePath));					
 					authority.appendChild(TempPath);
 
 					// SavePath elements
 					Element SavePath = doc.createElement(SAVEPATH);
-					SavePath.appendChild(doc.createTextNode(param.getSavePath()));
+					if((null != param.getSavePath()) && (""!=param.getSavePath()))
+						SavePath.appendChild(doc.createTextNode(param.getSavePath()));
+					else 
+						SavePath.appendChild(doc.createTextNode(savePath));
 					authority.appendChild(SavePath);
 
 					// certMetier elements
