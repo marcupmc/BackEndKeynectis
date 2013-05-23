@@ -120,35 +120,38 @@
 						<th>Type</th>
 						<th>Adresse IP</th>
 						<th>Identifiant</th>
+						<th>Infos</th>
+
 					</tr>
 				</thead>
 				<tbody>
 					<%
-						for (int i = 0; i < liste_logs.size(); i++)
-						{
-							Log log = liste_logs.get(i);
-							switch(log.getType()){
-							case CONNEXION :
-								connexion_reussie++;
-								Calendar cal =  Calendar.getInstance();
-								cal.setTime(log.getDate());
-// 																				Date temp = new Date(cal.get(Calendar.YEAR),
-// 																						cal.get(Calendar.MONTH),
-// 																						cal.get(Calendar.DATE),
-// 																						cal.get(Calendar.HOUR_OF_DAY),0);
-								Date temp = log.getDate();
-								temp.setMinutes(0);
-								temp.setSeconds(0);
-								if(map.containsKey(temp))
-									map.put(temp, map.get(temp) + 1);
-								else
-									map.put(temp, 1);
-							break;
-							
-							case CONNEXION_FAILED:
-								connexion_echouee++;
-								break;								
-						}
+					
+					ArrayList<String> ips = new ArrayList<String>();
+						for (int i = 0; i < liste_logs.size(); i++) {
+																											Log log = liste_logs.get(i);
+																											switch(log.getType()){
+																											case CONNEXION :
+																												ips.add(log.getIpadresse());
+																												connexion_reussie++;
+																												Calendar cal =  Calendar.getInstance();
+																												cal.setTime(log.getDate());
+										// 																				Date temp = new Date(cal.get(Calendar.YEAR),
+										// 																						cal.get(Calendar.MONTH),
+										// 																						cal.get(Calendar.DATE),
+										// 																						cal.get(Calendar.HOUR_OF_DAY),0);
+																												Date temp = log.getDate();
+																												temp.setMinutes(0);
+																												temp.setSeconds(0);
+																												if(map.containsKey(temp))
+																													map.put(temp, map.get(temp) + 1);
+																												else
+																													map.put(temp, 1);
+																											break;
+																		case CONNEXION_FAILED:
+																			connexion_echouee++;
+																			break;
+																		}
 					%>
 					<tr>
 						<td><%=log.getId()%></td>
@@ -156,12 +159,15 @@
 						<td><%=log.getType().name()%></td>
 						<td><%=log.getIpadresse()%></td>
 						<td><%=log.getIdentifiant_client()%></td>
+						<td>
+						<%if(log.getEventype()!=null){ %>
+						<%=log.getEventype().name() %><% } %></td>
 					</tr>
 					<%
 						}
-									Map<Date, Integer> treeMap = new TreeMap<Date, Integer>(map);
-									
-									System.out.println("map : "+treeMap.toString());
+												Map<Date, Integer> treeMap = new TreeMap<Date, Integer>(map);
+												
+												System.out.println("map : "+treeMap.toString());
 					%>
 				</tbody>
 			</table>
@@ -175,12 +181,12 @@
 		<div id="graphs"
 			style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 		<div id="chart_div" style="width: 900px; height: 500px;"></div>
-
+		<div id="chart_div2" style="width: 900px; height: 500px;"></div>
 		<script type="text/javascript">
-			var dates = []
 		<%String tmpDates="";
 				String tmpNbConnexion="";
 				int i =0;
+				%>var dates = [];<%
 				for(Date mapKey : treeMap.keySet()){
 					Calendar cal2 =  Calendar.getInstance();
 					cal2.setTime(mapKey);
@@ -189,7 +195,8 @@
 					if(i<map.size()-1){
 						tmpNbConnexion+=",";
 					}
-					i++;%>
+					i++;
+					%>
 			dates.push(new Date(
 		<%=cal2.get(Calendar.YEAR)%>
 			,
@@ -203,11 +210,13 @@
 			var nbConnexion = [
 		<%=tmpNbConnexion%>
 			];
+			
 		</script>
 	</div>
-
+	<script type='text/javascript' src='https://www.google.com/jsapi'></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script src="js/graphique.js"></script>
+
 	<script type="text/javascript">
 		google.load("visualization", "1.0", {
 			packages : [ "corechart" ]
@@ -215,9 +224,24 @@
 		google.load('visualization', '1', {
 			'packages' : [ 'annotatedtimeline' ]
 		});
+		google.load('visualization', '1', {
+			'packages' : [ 'geochart' ]
+		});
 		google.setOnLoadCallback(drawChart);
 		google.setOnLoadCallback(drawChart2);
+		
+		
+		<%
+		for(int j=0;j<ips.size();j++){
+			%>
+			//initCities(<%=ips.get(i)%>);
+			<%
+		}
+		%>
+		google.setOnLoadCallback(drawMarkersMap);
 	</script>
 
 </body>
 </html>
+
+
