@@ -16,6 +16,7 @@ import org.slf4j.MarkerFactory;
 
 import controller.ControllerCertification;
 import dao.DAODocumentPDF;
+import domain.AuthorityParameters;
 import domain.DocumentPDF;
 import domain.Log;
 import domain.TypeLog;
@@ -82,7 +83,9 @@ public class CertifierDocument extends HttpServlet
 
 		HashMap<String, String> toReturn = ControllerCertification
 				.getInstance().certificationPDFFromXml(identifiant, url,
-						basePath);
+						basePath, saveFile);
+		
+		AuthorityParameters autho = ControllerCertification.getInstance().getAutho();
 
 		System.out.println("[TEST KEYNECTIS - Servelt] Recuperation du blob ");
 
@@ -95,6 +98,8 @@ public class CertifierDocument extends HttpServlet
 
 		request.getSession().setAttribute("identifiant", identifiant);
 		request.getSession().setAttribute("id", tempID);
+		
+		request.getSession().setAttribute("authority", autho);
 
 		System.out
 				.println("[TEST KEYNECTIS - Servelt] Envoi du blob dans l'attribut de la requete + redirection");

@@ -61,21 +61,23 @@ public class ConfigBackEndConstants extends HttpServlet
 				+ saveFile);
 
 		String CertPath = request.getParameter("CertPath");
-		if ((null == CertPath) || (" ".equals(CertPath)))
+		if ((null == CertPath) || ("".equals(CertPath)))
 		{
 			CertPath = certFolder; // request.getParameter("CertPath");
 		}
 
 		String TempPath = request.getParameter("TempPath");
-		if ((null == TempPath) || (" ".equals(TempPath)))
+		if ((null == TempPath) || ("".equals(TempPath)))
 		{
 			TempPath = tempFolder; // request.getParameter("TempPath");
 		}
 
 		String SavePath = request.getParameter("SavePath");
-		if ((null == SavePath) || (" ".equals(SavePath)))
+		System.out.println("1:"+SavePath);
+		if ((null == SavePath) || ("".equals(SavePath)))
 		{
 			SavePath = saveFile; // request.getParameter("SavePath");
+			System.out.println("2:"+SavePath);
 		}
 
 		if (("KWS_INTEGRATION_CDS").equals(authority))

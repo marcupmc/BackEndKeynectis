@@ -18,6 +18,9 @@ import com.dictao.keynectis.quicksign.transid.ParseBlobException;
 import com.dictao.keynectis.quicksign.transid.ResponseTransId;
 import com.dictao.keynectis.quicksign.transid.SignBlobException;
 
+import domain.AuthorityParameters;
+import domain.KeynectisParameters;
+
 /**
  * Servlet implementation class ResponseKeynectis
  */
@@ -53,6 +56,9 @@ public class ResponseKeynectis extends HttpServlet
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
 	{
+
+		AuthorityParameters autho = (AuthorityParameters) request.getSession()
+				.getAttribute("authority");
 
 		String blob = (String) request.getParameter("blob");
 		String adresseCertificat = (String) request.getSession().getAttribute(
@@ -101,14 +107,34 @@ public class ResponseKeynectis extends HttpServlet
 
 		fos.close();
 
-		ToolsFTP.sendToServer(pdfOutPath, "ftp.marc-gregoire.fr",
-				"www/Keynectis_Certified", "marcgreg", "nCcKMr7E");
+		/*
+		 * ToolsFTP.sendToServer(pdfOutPath, "ftp.marc-gregoire.fr",
+		 * "www/Keynectis_Certified", "marcgreg", "nCcKMr7E");
+		 */
+		ToolsFTP.sendToServer(pdfOutPath,
+				((KeynectisParameters) autho).getServPDFCert(),
+				((KeynectisParameters) autho).getPathPDFCert(),
+				((KeynectisParameters) autho).getLoginPDFCert(),
+				((KeynectisParameters) autho).getMdpPDFCert());
 		File f = new File(pdfOutPath);
 		String filename = f.getName();
 		f.delete();
 
-		String newPath = "http://www.marc-gregoire.fr/Keynectis_Certified/"
-				+ filename;
+		/*
+		 * String newPath = "http://www.marc-gregoire.fr/Keynectis_Certified/" +
+		 * filename;
+		 */
+		String newPath = "http://www."
+				+ ((KeynectisParameters) autho).getServPDFCert().substring(
+						((KeynectisParameters) autho).getServPDFCert().indexOf(
+								"."))
+				+ ((KeynectisParameters) autho).getPathPDFCert().substring(
+						((KeynectisParameters) autho).getPathPDFCert().indexOf(
+								"w"))
+				/* "http://www.marc-gregoire.fr/Keynectis_Certified/" */
+				+filename;
+		
+		System.out.println(newPath);
 
 		deleteTempfiles(temp, name);
 		String identifiant = (String) request.getSession().getAttribute(

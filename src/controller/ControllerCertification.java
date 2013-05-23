@@ -24,7 +24,7 @@ public class ControllerCertification
 {
 
 	private AuthorityParameters autho = null;
-	private String xmlParametersFile = "D:\\Users\\dtadmi\\Downloads\\Compressed\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\TestRest\\temp_xml\\parameters.xml";
+	private String xmlParametersFile = /* "D:\\Users\\dtadmi\\Downloads\\Compressed\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\TestRest\\temp_xml */"\\parameters.xml";
 
 	// SINGLETON
 	public static ControllerCertification getInstance()
@@ -38,17 +38,6 @@ public class ControllerCertification
 
 	private ControllerCertification()
 	{
-		try
-		{
-			if ((new File(xmlParametersFile)).exists())
-			{
-				autho = ToolsXML.readConfig(xmlParametersFile);
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
 
 	}
 
@@ -122,7 +111,6 @@ public class ControllerCertification
 		String blob = "";
 		String transNum = "";
 
-
 		String tag = this.tagFactory(document);
 		RequestTransId rti = rtiFactory(origMetierSign, urlRetour, document,
 				certFolder, tag);
@@ -142,8 +130,23 @@ public class ControllerCertification
 	}
 
 	public HashMap<String, String> certificationPDFFromXml(String identifiant,
-			String url, String urlRetour)
+			String url, String urlRetour, String parameterPath)
 	{
+
+		try
+		{
+			if ((new File(parameterPath + xmlParametersFile)).exists())
+			{
+				autho = ToolsXML.readConfig(parameterPath + xmlParametersFile);
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("ControllerCertification: Exception\n"
+					+ "certificationPDFFromXML: " + e.getMessage());
+		}
+
 		HashMap<String, String> toReturn = new HashMap<String, String>();
 		// ------------------Depend de la Base
 		// ----------------------------------------
@@ -262,11 +265,8 @@ public class ControllerCertification
 			if (cpt == 0)
 				sigNames += s.getName();
 
-
 			cpt++;
 		}
-
-
 
 		System.out.println("------------ Signatures : " + sigNames);
 		tag += "PDF_SIGN_FIELD=" + sigNames + "\n";
@@ -292,7 +292,6 @@ public class ControllerCertification
 		// + ";smsBody=Bonjour. Voici votre code de signature : "
 		// + cuf + ". "
 		// + " Keynectis vous remercie de votre confiance.\n";
-
 
 		return tag;
 	}
@@ -328,7 +327,6 @@ public class ControllerCertification
 		// TRANSID--------------------------------------
 		System.out
 				.println("[TEST KEYNECTIS] Debut de la définition de TRANSID");
-
 
 		String identifiant_application_metier = "ZZDEMAV1";
 		String identifiant_application_serveur_metier = "DEMO";
@@ -474,7 +472,8 @@ public class ControllerCertification
 		String urlPdfToEncode = "";
 		try
 		{
-			urlPdfToEncode = ToolsPDF.createPDFDocToSign(saveFile, document, decode);
+			urlPdfToEncode = ToolsPDF.createPDFDocToSign(saveFile, document,
+					decode);
 
 			// urlPdfToEncode=ToolsPDF.createPDFDocToSignOLD(document.getUrl(),saveFile,document.getName(),65,55,37,111);
 
@@ -508,4 +507,15 @@ public class ControllerCertification
 		System.out.println("[TEST KEYNECTIS] Fichier XML du PDF Créé ! ");
 		return adresseXML;
 	}
+
+	
+	/**
+	 * @return the autho
+	 */
+	public AuthorityParameters getAutho()
+	{
+		return autho;
+	}
+	
+	
 }

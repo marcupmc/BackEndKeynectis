@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/style3.css" />
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="js/jquery-1.9.1.js"></script>
 <script src="js/bootstrap.js"></script>
@@ -73,7 +74,16 @@
 <body>
 
 	<div class="container">
-		<h2>Configuration du serveur Métier</h2>
+		<div class="row-fluid">
+			<div class="span12">
+				<h2>
+					Configuration du serveur Métier
+					<div class="rightAlign">
+						<a href="adminHome.jsp" class="btn btn-info">Accueil</a>
+					</div>
+				</h2>
+			</div>
+		</div>
 
 		<div class="params" id="loginModal">
 			<div class="well">
