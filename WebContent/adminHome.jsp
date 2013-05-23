@@ -18,7 +18,7 @@
 			<h3>ADMINISTRATION DU SERVEUR METIER</h3>
 		</div>
 
-		<ul class="thumbnails" id="todo" style="text-align: center;">
+		<ul class="thumbnails" style="text-align: center;">
 			<li class="span3"><a href="parametrage.jsp">
 
 					<div class="thumbnail">
