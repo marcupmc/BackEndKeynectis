@@ -18,6 +18,8 @@ public class MyFirstFilter  extends Filter<ILoggingEvent> {
 		Log l = (Log)arg0.getArgumentArray()[0];
 		TypeLog typeToSave  = null;
 		EventType eventType = null;
+		String longitude = "";
+		String latitude ="";
 		if(typeName.equals("CONNEXION_FAILED"))
 		{
 			typeToSave=TypeLog.CONNEXION_FAILED;
@@ -27,6 +29,8 @@ public class MyFirstFilter  extends Filter<ILoggingEvent> {
 		{
 			typeToSave=TypeLog.CONNEXION;
 			eventType=EventType.USER;
+			longitude=l.getLongitude();
+			latitude=l.getLatitude();
 		}
 		else if(typeName.equals("DECONNEXION"))
 		{
@@ -68,7 +72,7 @@ public class MyFirstFilter  extends Filter<ILoggingEvent> {
 			typeToSave=TypeLog.AJOUT_SIGNATURE;
 			eventType=EventType.ADMIN;
 		}
-		DAOLog.getInstance().addLog(typeToSave, l.getIpadresse(),l.getIdentifiant_client(),eventType);
+		DAOLog.getInstance().addLog(typeToSave, l.getIpadresse(),l.getIdentifiant_client(),eventType,longitude,latitude);
 		
 		//TODO : A changer
 		return null;
