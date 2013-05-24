@@ -147,7 +147,7 @@ public class ControllerCertification
 					+ "certificationPDFFromXML: " + e.getMessage());
 		}
 		
-		System.out.println("CertFolder: " + ((KeynectisParameters) autho).getCertPath());
+		//System.out.println("CertFolder: " + ((KeynectisParameters) autho).getCertPath());
 
 		HashMap<String, String> toReturn = new HashMap<String, String>();
 		// ------------------Depend de la Base
@@ -155,6 +155,8 @@ public class ControllerCertification
 		Utilisateur user = DAOUtilisateur.getInstance().getUserByIdentifiant(
 				identifiant);
 		DocumentPDF document = getDocumentOfUserByUrl(user, url);
+		
+		
 		// --------------------------Variable parametrable en fonction du metier
 		// / fichier de config?--------
 		String pathCertificat = ((KeynectisParameters) autho).getCertPath()
@@ -167,6 +169,8 @@ public class ControllerCertification
 				.getSignature());
 		String adresseXML = encodingAndSignatureZoneFactory(
 				((KeynectisParameters) autho).getSavePath(), document, decode);
+		
+		
 		// -------------------------Creation du certificat de signature
 		// metier-----------------------
 		String origMetierSign = originMetierFactorty(adresseXML,
