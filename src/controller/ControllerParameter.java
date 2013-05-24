@@ -112,24 +112,37 @@ public class ControllerParameter
 			String servPDFCert, String pathPDFCert, String loginPDFCert,
 			String mdpPDFCert)
 	{
-		String errMess="";
 		AuthorityParameters autho = null;
-		if (/* null == CertPath || null == TempPath || null == SavePath || */null == certMetier
-				|| null == mdpMetier
-				|| null == idAppMetier
-				|| null == idServMetier
-				|| null == idOrgMetier
-				|| null == certSign
-				|| null == mdpCert
-				|| null == certChiff
-				|| null == certDecipher
-				|| null == mdpDecipher
-				|| null == servPDFCert
-				|| null == pathPDFCert
-				|| null == loginPDFCert || null == mdpPDFCert)
+		if (/* null == CertPath || null == TempPath || null == SavePath || */(null == certMetier || ""
+				.equals(certMetier))
+				|| (null == mdpMetier|| ""
+						.equals(mdpMetier))
+				|| (null == idAppMetier || ""
+						.equals(idAppMetier))
+				|| (null == idServMetier || ""
+						.equals(idServMetier))
+				|| (null == idOrgMetier || ""
+						.equals(idOrgMetier))
+				|| (null == certSign || ""
+						.equals(certSign))
+				|| (null == mdpCert || ""
+						.equals(mdpCert))
+				|| (null == certChiff || ""
+						.equals(certChiff))
+				|| (null == certDecipher || ""
+						.equals(certDecipher))
+				|| (null == mdpDecipher || ""
+						.equals(mdpDecipher))
+				|| (null == servPDFCert || ""
+						.equals(servPDFCert))
+				|| (null == pathPDFCert || ""
+						.equals(pathPDFCert))
+				|| (null == loginPDFCert || ""
+						.equals(loginPDFCert))
+				|| (null == mdpPDFCert || ""
+						.equals(mdpPDFCert)))
 		{
 			autho = null;
-			errMess = "Error";
 		}
 		else
 		{
@@ -138,7 +151,6 @@ public class ControllerParameter
 					certDecipher, mdpDecipher, servPDFCert, pathPDFCert,
 					loginPDFCert, mdpPDFCert);
 			autho = manageXML(autho, SavePath, CertPath);
-			errMess = "Success";
 		}
 
 		return autho;

@@ -80,7 +80,11 @@ public class CertifierDocument extends HttpServlet
 		
 		HashMap<String, String> toReturn = null;
 		
-		if (null == autho)
+		toReturn = ControllerCertification
+				.getInstance().certificationPDF(identifiant, url, basePath,
+						saveFile, certFolder, saveFile);
+		
+		/*if (null == autho)
 		{
 
 			toReturn = ControllerCertification
@@ -94,7 +98,7 @@ public class CertifierDocument extends HttpServlet
 					.getInstance().certificationPDFFromXml(identifiant, url,
 							basePath, saveFile);
 
-		}
+		}*/
 
 		System.out.println("[TEST KEYNECTIS - Servelt] Recuperation du blob ");
 

@@ -1,5 +1,6 @@
 package servlets;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -73,15 +74,16 @@ public class ConfigBackEndConstants extends HttpServlet
 		}
 
 		String SavePath = request.getParameter("SavePath");
-		System.out.println("1:"+SavePath);
+		// System.out.println("1:" + SavePath);
 		if ((null == SavePath) || ("".equals(SavePath)))
 		{
 			SavePath = saveFile; // request.getParameter("SavePath");
-			System.out.println("2:"+SavePath);
+			// System.out.println("2:" + SavePath);
 		}
 
 		String errMess = "";
-		
+		String messType = "";
+
 		if (("KWS_INTEGRATION_CDS").equals(authority))
 		{
 			String certMetier = request.getParameter("certMetier");
@@ -104,29 +106,62 @@ public class ConfigBackEndConstants extends HttpServlet
 					idOrgMetier, certSign, mdpCert, certChiff, certDecipher,
 					mdpDecipher, servPDFCert, pathPDFCert, loginPDFCert,
 					mdpPDFCert);
-			
-			if(autho==null)
+
+			if (null == autho)
+			{
 				errMess = "error";
+				messType = "null";
+				request.setAttribute("authorityParameter", autho);
+				request.getRequestDispatcher(
+						"parametrage.jsp?error=" + errMess + "&messType="
+								+ messType).forward(request, response);
+			}
 			else
-				errMess = "succes";
-			
-			request.setAttribute("authorityParameter", autho);
-			request.getRequestDispatcher("parametrage.jsp?error="+errMess).forward(request,
-					response);
+			{
+
+				if (!(new File(CertPath + "\\" + certMetier)).exists())
+				{
+					errMess = "error";
+					messType = "certMetier";
+				}
+				else if (!(new File(CertPath + "\\" + certSign)).exists())
+				{
+					errMess = "error";
+					messType = "certSign";
+				}
+				else if (!(new File(CertPath + "\\" + certChiff)).exists())
+				{
+					errMess = "error";
+					messType = "certChiff";
+				}
+				else if (!(new File(CertPath + "\\" + certDecipher)).exists())
+				{
+					errMess = "error";
+					messType = "certDecipher";
+				}
+				else
+				{
+					errMess = "success";
+					messType = "KWS";
+				}
+
+				request.setAttribute("authorityParameter", autho);
+				request.getRequestDispatcher(
+						"parametrage.jsp?error=" + errMess + "&messType="
+								+ messType).forward(request, response);
+			}
 
 		}
 		else if (("DICTAO").equals(authority))
 		{
 
 			autho = controller.validateParameters(CertPath, TempPath, SavePath);
-			
+
 			request.setAttribute("authorityParameter", autho);
 			request.getRequestDispatcher("adminHome.jsp").forward(request,
 					response);
 
 		}
-
-		
 
 		// String password = request.getParameter("password");
 
