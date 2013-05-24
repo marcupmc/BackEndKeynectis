@@ -80,6 +80,8 @@ public class ConfigBackEndConstants extends HttpServlet
 			System.out.println("2:"+SavePath);
 		}
 
+		String errMess = "";
+		
 		if (("KWS_INTEGRATION_CDS").equals(authority))
 		{
 			String certMetier = request.getParameter("certMetier");
@@ -102,18 +104,29 @@ public class ConfigBackEndConstants extends HttpServlet
 					idOrgMetier, certSign, mdpCert, certChiff, certDecipher,
 					mdpDecipher, servPDFCert, pathPDFCert, loginPDFCert,
 					mdpPDFCert);
+			
+			if(autho==null)
+				errMess = "error";
+			else
+				errMess = "succes";
+			
+			request.setAttribute("authorityParameter", autho);
+			request.getRequestDispatcher("parametrage.jsp?error="+errMess).forward(request,
+					response);
 
 		}
 		else if (("DICTAO").equals(authority))
 		{
 
 			autho = controller.validateParameters(CertPath, TempPath, SavePath);
+			
+			request.setAttribute("authorityParameter", autho);
+			request.getRequestDispatcher("adminHome.jsp").forward(request,
+					response);
 
 		}
 
-		request.setAttribute("authorityParameter", autho);
-		request.getRequestDispatcher("parametrage.jsp").forward(request,
-				response);
+		
 
 		// String password = request.getParameter("password");
 
