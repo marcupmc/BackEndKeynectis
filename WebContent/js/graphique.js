@@ -17,13 +17,14 @@ function getConnexionsPerHour(){
 				var data = new google.visualization.DataTable();
 				data.addColumn('datetime', 'Date');
 				data.addColumn('number', 'Nombre de Connexions : ');
-
+				
 				var JSONConnexion  = $.parseJSON(msg);
+
 				$.each(JSONConnexion, function(key, value){
 					data.addRow([new Date(key), value]);
 				});
 				var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
-				chart.draw(data, {displayZoomButtons: false,min:-1});
+				chart.draw(data, {displayZoomButtons: false,min:0});
 			}
 		}
 	});
@@ -119,20 +120,16 @@ function drawChart4() {
 			else{
 				var data = new google.visualization.DataTable();
 				data.addColumn('datetime', 'Date');
-				data.addColumn('number', 'Nombre de nouveaux clients : ');
+				data.addColumn('number', 'Fréquence des erreurs : ');
 
 				var JSONConnexion  = $.parseJSON(msg);
 				$.each(JSONConnexion, function(key, value){
 					data.addRow([new Date(key), value]);
 				});
 
-				var options = {
-						title: 'Nombre d\'ajout de client par jour',
-						hAxis: {title: 'Jours', titleTextStyle: {color: 'red'}}};
-
-
-				var chart = new google.visualization.ColumnChart(document.getElementById('errorBar'));
-				chart.draw(data, options);
+				
+				var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('errorBar'));
+				chart.draw(data, {displayZoomButtons: false,min:0,colors:["red"]});
 
 			}
 		}

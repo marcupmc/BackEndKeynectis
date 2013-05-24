@@ -98,15 +98,17 @@
 	<%@page import="java.util.ArrayList"%>
 	<%
 		ArrayList<Log> liste_logs = (ArrayList<Log>) request
-			.getAttribute("liste_logs");
-			
-			int connexion_reussie = 0;
-			int connexion_echouee=0;
-			HashMap<Date,Integer> map = new HashMap<Date,Integer>();
+		.getAttribute("liste_logs");
+		
+		int connexion_reussie = 0;
+		int connexion_echouee=0;
+		HashMap<Date,Integer> map = new HashMap<Date,Integer>();
 	%>
 
 	<div class="containerLog">
-		<h2>Liste des logs</h2>
+		<h2>
+			Liste des logs <a href="adminHome.jsp" class="btn btn-info">Accueil</a>
+		</h2>
 
 		<div class="alert alert-block alert-info fade in">Cette section
 			regroupe des informations sur des évènements dont le serveur a eu
@@ -128,7 +130,7 @@
 				<tbody>
 					<%
 						for (int i = 0; i < liste_logs.size(); i++) {
-														Log log = liste_logs.get(i);
+																	Log log = liste_logs.get(i);
 					%>
 					<tr>
 						<td><%=log.getId()%></td>
@@ -154,10 +156,11 @@
 
 		<h2>Graphiques</h2>
 		<table id="tableCharts">
-		<tr>
+			<tr>
+				<td><div id="errorBar" style="width: 750px; height: 400px;"></div></td>
 				<td><div id="errorPie"
 						style="width: 750px; height: 400px; margin: 0 auto"></div></td>
-				<td><div id="errorBar" style="width: 750px; height: 400px;"></div></td>
+
 			</tr>
 			<tr>
 				<td><div id="graphs"
@@ -166,7 +169,8 @@
 			</tr>
 			<tr id="carte">
 				<td colspan="2">
-					<div id="chart_div2" style="width: 1400px; padding-left:25px; height: 500px;"></div>
+					<div id="chart_div2"
+						style="width: 1400px; padding-left: 25px; height: 500px;"></div>
 				</td>
 			</tr>
 		</table>

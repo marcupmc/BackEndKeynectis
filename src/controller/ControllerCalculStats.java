@@ -62,7 +62,7 @@ public class ControllerCalculStats {
 			}
 			
 			for(Entry<Date, Integer> e :treeMap.entrySet()){
-				json.put( e.getKey().toString(),e.getValue());
+				json.put( e.getKey().toGMTString(),e.getValue());
 			}
 
 
@@ -70,7 +70,8 @@ public class ControllerCalculStats {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		
 		return json;
 	}
 
@@ -105,13 +106,13 @@ public class ControllerCalculStats {
 	
 	public JSONObject getErrorPerDay(){
 		JSONObject json = new JSONObject();
-		ArrayList<Log> logConnexion = DAOLog.getInstance().getLogPerType(TypeLog.CONNEXION);
+		ArrayList<Log> logConnexion = DAOLog.getInstance().getLogPerEventType(EventType.ADMIN);//TODO: A changer
 		Map<Date, Integer> treeMap = new TreeMap<Date, Integer>();
 
 		for(Log l :logConnexion)
 		{
 			Date temp = l.getDate();
-			temp.setHours(1);
+			//temp.setHours(1);
 			temp.setMinutes(0);
 			temp.setSeconds(0);
 			if(treeMap.containsKey(temp))treeMap.put(temp, treeMap.get(temp) + 1);
@@ -127,12 +128,12 @@ public class ControllerCalculStats {
 				}
 				Calendar cal = Calendar.getInstance(); // creates calendar
 				cal.setTime(itDate); // sets calendar time/date
-				cal.add(Calendar.DATE, 1); // adds one day
+				cal.add(Calendar.HOUR_OF_DAY, 1); // adds one day
 				itDate = cal.getTime(); // returns new date object, one hour in the future
 			}
 			
 			for(Entry<Date, Integer> e :treeMap.entrySet()){
-				json.put( e.getKey().toString(),e.getValue());
+				json.put( e.getKey().toGMTString(),e.getValue());
 			}
 
 

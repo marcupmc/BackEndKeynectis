@@ -16,9 +16,7 @@ public class Statistiques {
 	@Consumes("application/x-www-form-urlencoded")
 	public String getConnexionsPerHour()
 	{
-		String toSend =ControllerCalculStats.getInstance().getConnexionPerHour().toString();
-		System.out.println("TOSEND : "+toSend);
-		return toSend;
+		return ControllerCalculStats.getInstance().getConnexionPerHour().toString();
 	}
 	
 	@GET
