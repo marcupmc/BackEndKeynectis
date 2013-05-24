@@ -19,6 +19,10 @@
 			document.getElementById("tabAuth").setAttribute("class", ""); */
 			$("#tabConst").attr("class", "active");
 			$("#tabAuth").attr("class", "");
+			
+			$("#tabConst").show();
+			//$("#tabTypes").show();
+			
 			var sel = $('#authority').val();
 			switch (sel) {
 			case "1":
@@ -62,6 +66,8 @@
 		$("#tabConst").attr("class", "");
 		$("#tabAuth").attr("class", "");
 		$("#tabTypes").attr("class", "active");
+		$("#types").attr("class", "tab-pane active");
+		$("#auth").attr("class", "tab-pane");
 	});
 </script>
 <%
@@ -99,8 +105,44 @@
 							de certification</a></li>
 
 				</ul>
+				<%
+					if (request.getAttribute("authorityParameter") == null) {
+				%>
+				<script type="text/javascript">
+					
+					$("#tabConst").hide();
+					$("#tabTypes").hide();
+					
+				</script>
+				
+				<%
+					}
+				%>
 
 				<div class="tab-content">
+				
+				
+				<!-- 		Zone réservée aux messages d'erreurs -->
+				<%-- <%
+					String msg = (String) request.getParameter("error");
+					if (msg != null)
+					{
+						String message = "";
+						if (msg.equals("error_add"))
+							message = "Erreur lors de l'ajout du client dans la base de données";
+						else if (msg.equals("empty_field"))
+							message = "Veuillez remplir tous les champs";
+						else if (msg.equals("missmatch_pwd"))
+		
+							message = "Les mots de passes doivent être identiques";
+				%>
+				<div class="alert alert-block alert-error fade in">
+					Erreur :
+					<%=message%></div>
+				<%
+					}
+				%> --%>
+				<!-- 		Fin de la zone des messages d'erreurs -->
 
 					<!-- ************************ Onglet de paramétrage de l'autorité de certification ************************ -->
 
