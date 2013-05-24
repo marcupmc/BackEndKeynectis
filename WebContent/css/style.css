@@ -57,13 +57,13 @@ body {
 }
 
 #tableCharts td{
-	padding-left: 25px;
-	width : 750px;
+/* 	padding-left: 25px; */
+/* 	width : 750px; */
 	background-color: white;
 }
 
 #tableCharts td:last-child{
-	width : 750px;
+/* 	width : 750px; */
 /* 	padding-left: 0px; */
 /* 	padding-right: 25px; */
 }

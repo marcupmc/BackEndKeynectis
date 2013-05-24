@@ -8,6 +8,16 @@ import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
 
+import org.eclipse.jdt.internal.compiler.ast.ThisReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+
+import controller.ControllerCertification;
+import domain.Log;
+import domain.TypeLog;
+
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -22,6 +32,11 @@ public class EncoderBase64
 	 */
 	public static byte[] encodingBlobToByteArray(Blob b)
 	{
+		final Marker marker = MarkerFactory.getMarker(TypeLog.ERROR_DECODING_BLOB_SIGNATURE.toString());
+		final Logger logger = LoggerFactory.getLogger(EncoderBase64.class);
+		Log l = new Log();
+		l.setIdentifiant_client("");
+		l.setIpadresse(EncoderBase64.class.getName());
 
 		Blob blob = b;
 
@@ -35,6 +50,7 @@ public class EncoderBase64
 		}
 		catch (SQLException e)
 		{
+			logger.info(marker, "Erreur de décodage du blob de la signature", l);
 			e.printStackTrace();
 			return null;
 		}

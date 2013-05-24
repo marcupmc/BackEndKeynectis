@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+
+import tools.EncoderBase64;
 import tools.ToolsFTP;
 
 import com.dictao.keynectis.quicksign.transid.CipherBlobException;
@@ -20,6 +26,8 @@ import com.dictao.keynectis.quicksign.transid.SignBlobException;
 
 import domain.AuthorityParameters;
 import domain.KeynectisParameters;
+import domain.Log;
+import domain.TypeLog;
 
 /**
  * Servlet implementation class ResponseKeynectis
@@ -56,7 +64,16 @@ public class ResponseKeynectis extends HttpServlet
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
 	{
-
+		String identifiant = (String) request.getSession().getAttribute("identifiant");
+		
+		final Marker marker1 = MarkerFactory.getMarker(TypeLog.SIGNATURE_REUSSIE.toString());
+		final Marker marker2 = MarkerFactory.getMarker(TypeLog.ERROR_KEYNECTIS_KWEBSIGN.toString());
+		final Logger logger = LoggerFactory.getLogger(EncoderBase64.class);
+		
+		Log l = new Log();
+		l.setIdentifiant_client(identifiant);
+		l.setIpadresse(request.getServerName());
+		
 		AuthorityParameters autho = (AuthorityParameters) request.getSession()
 				.getAttribute("authority");
 
@@ -87,21 +104,30 @@ public class ResponseKeynectis extends HttpServlet
 		{
 			transNum = rti.getTransNum();
 			status = rti.getStatus();
+			if (status==1)
+			{
+				logger.info(marker1, "Signature reussie ", l);
+			}else
+				logger.info(marker2, "Erreur de emise par Keynectis ", l);
 		}
 		catch (DataNotSetException e)
 		{
+			logger.info(marker2, "Erreur de lecture du blob", l);
 			e.printStackTrace();
 		}
 		catch (ParseBlobException e)
 		{
+			logger.info(marker2, "Erreur de lecture du blob", l);
 			e.printStackTrace();
 		}
 		catch (SignBlobException e)
 		{
+			logger.info(marker2, "Erreur de lecture du blob", l);
 			e.printStackTrace();
 		}
 		catch (CipherBlobException e)
 		{
+			logger.info(marker2, "Erreur de lecture du blob", l);
 			e.printStackTrace();
 		}
 
@@ -144,8 +170,7 @@ public class ResponseKeynectis extends HttpServlet
 		System.out.println(newPath);
 
 		deleteTempfiles(temp, name);
-		String identifiant = (String) request.getSession().getAttribute(
-				"identifiant");
+		
 		String id = (String) request.getSession().getAttribute("id");
 
 		String url = "finCertification.jsp?identifiant=" + identifiant + "&id="

@@ -162,7 +162,7 @@
 			<tr>
 				<td><div id="graphs"
 						style="width: 750px; height: 400px; margin: 0 auto"></div></td>
-				<td><div id="chart_div" style="width: 750px; height: 400px;"></div></td>
+				<td><div id="chart_div" style="width: 600px; height: 400px;"></div></td>
 			</tr>
 			<tr id="carte">
 				<td colspan="2">
