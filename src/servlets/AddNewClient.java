@@ -88,7 +88,7 @@ public class AddNewClient extends HttpServlet
 		{
 			final Marker marker = MarkerFactory.getMarker(TypeLog.AJOUT_CLIENT
 					.toString());
-			final Logger logger = LoggerFactory.getLogger(AddDocument.class);
+			final Logger logger = LoggerFactory.getLogger(AddNewClient.class);
 			Log l = new Log();
 			l.setIdentifiant_client(identifiant);
 			l.setIpadresse(request.getServerName());

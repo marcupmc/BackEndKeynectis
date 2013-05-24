@@ -98,15 +98,18 @@
 	<%@page import="java.util.ArrayList"%>
 	<%
 		ArrayList<Log> liste_logs = (ArrayList<Log>) request
-			.getAttribute("liste_logs");
-			
-			int connexion_reussie = 0;
-			int connexion_echouee=0;
-			HashMap<Date,Integer> map = new HashMap<Date,Integer>();
+		.getAttribute("liste_logs");
+		
+		int connexion_reussie = 0;
+		int connexion_echouee=0;
+		HashMap<Date,Integer> map = new HashMap<Date,Integer>();
 	%>
 
-	<div class="container">
-		<h2>Liste des logs</h2>
+	<div class="containerLog">
+		<h2>
+			Liste des logs <a href="adminHome.jsp" class="btn btn-info">Accueil</a>
+		</h2>
+
 		<div class="alert alert-block alert-info fade in">Cette section
 			regroupe des informations sur des évènements dont le serveur a eu
 			connaissance</div>
@@ -120,38 +123,14 @@
 						<th>Type</th>
 						<th>Adresse IP</th>
 						<th>Identifiant</th>
-						<th>Infos</th>
+						<th>Emetteur</th>
 
 					</tr>
 				</thead>
 				<tbody>
 					<%
-					
-					ArrayList<String> ips = new ArrayList<String>();
 						for (int i = 0; i < liste_logs.size(); i++) {
-																											Log log = liste_logs.get(i);
-																											switch(log.getType()){
-																											case CONNEXION :
-																												ips.add(log.getIpadresse());
-																												connexion_reussie++;
-																												Calendar cal =  Calendar.getInstance();
-																												cal.setTime(log.getDate());
-										// 																				Date temp = new Date(cal.get(Calendar.YEAR),
-										// 																						cal.get(Calendar.MONTH),
-										// 																						cal.get(Calendar.DATE),
-										// 																						cal.get(Calendar.HOUR_OF_DAY),0);
-																												Date temp = log.getDate();
-																												temp.setMinutes(0);
-																												temp.setSeconds(0);
-																												if(map.containsKey(temp))
-																													map.put(temp, map.get(temp) + 1);
-																												else
-																													map.put(temp, 1);
-																											break;
-																		case CONNEXION_FAILED:
-																			connexion_echouee++;
-																			break;
-																		}
+																	Log log = liste_logs.get(i);
 					%>
 					<tr>
 						<td><%=log.getId()%></td>
@@ -160,63 +139,52 @@
 						<td><%=log.getIpadresse()%></td>
 						<td><%=log.getIdentifiant_client()%></td>
 						<td>
-						<%if(log.getEventype()!=null){ %>
-						<%=log.getEventype().name() %><% } %></td>
+							<%
+								if(log.getEventype()!=null){
+							%> <%=log.getEventype().name()%> <%
+ 	}
+ %>
+						</td>
 					</tr>
 					<%
 						}
-												Map<Date, Integer> treeMap = new TreeMap<Date, Integer>(map);
-												
-												System.out.println("map : "+treeMap.toString());
 					%>
 				</tbody>
 			</table>
 		</div>
 
-		<!-- 		ZONE DE STATS -->
-		<input type="hidden" id="connexion_reussie"
-			value="<%=connexion_reussie%>" /> <input type="hidden"
-			id="connexion_echouee" value="<%=connexion_echouee%>" />
+
 		<h2>Graphiques</h2>
-		<div id="graphs"
-			style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-		<div id="chart_div" style="width: 900px; height: 500px;"></div>
-		<div id="chart_div2" style="width: 900px; height: 500px;"></div>
+		<table id="tableCharts">
+			<tr>
+				<td><div id="errorBar" style="width: 750px; height: 400px;"></div></td>
+				<td><div id="errorPie"
+						style="width: 750px; height: 400px; margin: 0 auto"></div></td>
+
+			</tr>
+			<tr>
+				<td><div id="graphs"
+						style="width: 750px; height: 400px; margin: 0 auto"></div></td>
+				<td><div id="chart_div" style="width: 600px; height: 400px;"></div></td>
+			</tr>
+			<tr id="carte">
+				<td colspan="2">
+					<div id="chart_div2"
+						style="width: 1400px; padding-left: 25px; height: 500px;"></div>
+				</td>
+			</tr>
+		</table>
+
+
 		<script type="text/javascript">
-		<%String tmpDates="";
-				String tmpNbConnexion="";
-				int i =0;
-				%>var dates = [];<%
-				for(Date mapKey : treeMap.keySet()){
-					Calendar cal2 =  Calendar.getInstance();
-					cal2.setTime(mapKey);
-					System.out.println("cal2: "+cal2.get(Calendar.DATE));
-					tmpNbConnexion+=+treeMap.get(mapKey);
-					if(i<map.size()-1){
-						tmpNbConnexion+=",";
-					}
-					i++;
-					%>
-			dates.push(new Date(
-		<%=cal2.get(Calendar.YEAR)%>
-			,
-		<%=cal2.get(Calendar.MONTH)%>
-			,
-		<%=cal2.get(Calendar.DATE)%>
-			,
-		<%=cal2.get(Calendar.HOUR_OF_DAY)%>
-			, 0, 0));
-		<%}%>
-			var nbConnexion = [
-		<%=tmpNbConnexion%>
-			];
 			
 		</script>
 	</div>
 	<script type='text/javascript' src='https://www.google.com/jsapi'></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script src="js/graphique.js"></script>
-
+	<script
+		src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 	<script type="text/javascript">
 		google.load("visualization", "1.0", {
 			packages : [ "corechart" ]
@@ -229,15 +197,8 @@
 		});
 		google.setOnLoadCallback(drawChart);
 		google.setOnLoadCallback(drawChart2);
-		
-		
-		<%
-		for(int j=0;j<ips.size();j++){
-			%>
-			//initCities(<%=ips.get(i)%>);
-			<%
-		}
-		%>
+		google.setOnLoadCallback(drawChart3);
+		google.setOnLoadCallback(drawChart4);
 		google.setOnLoadCallback(drawMarkersMap);
 	</script>
 

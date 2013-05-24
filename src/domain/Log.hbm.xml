@@ -24,6 +24,12 @@
 		<property name="eventype">
 			<column name="EVENT" />
 		</property>
+		<property name="latitude">
+			<column name="LATITUDE" />
+		</property>
+		<property name="longitude">
+			<column name="LONGITUDE" />
+		</property>
 
 	</class>
 </hibernate-mapping>

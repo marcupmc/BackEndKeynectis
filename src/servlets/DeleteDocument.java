@@ -50,7 +50,7 @@ public class DeleteDocument extends HttpServlet
 
 		final Marker marker = MarkerFactory
 				.getMarker(TypeLog.SUPPRESSION_DOCUMENT.toString());
-		final Logger logger = LoggerFactory.getLogger(AddDocument.class);
+		final Logger logger = LoggerFactory.getLogger(DeleteDocument.class);
 		Log l = new Log();
 		l.setIdentifiant_client(DAOUtilisateur.getInstance()
 				.getUserById(idClient).getIdentifiant());

@@ -5,6 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+
+import servlets.AddDocument;
 import tools.EncoderBase64;
 import tools.ToolsPDF;
 import tools.ToolsXML;
@@ -17,7 +23,9 @@ import dao.DAOUtilisateur;
 import domain.AuthorityParameters;
 import domain.DocumentPDF;
 import domain.KeynectisParameters;
+import domain.Log;
 import domain.Signature;
+import domain.TypeLog;
 import domain.Utilisateur;
 
 public class ControllerCertification
@@ -26,6 +34,20 @@ public class ControllerCertification
 	private AuthorityParameters autho = null;
 	private String xmlParametersFile = /* "D:\\Users\\dtadmi\\Downloads\\Compressed\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\TestRest\\temp_xml */"\\parameters.xml";
 
+	
+	final Marker marker1 = MarkerFactory.getMarker(TypeLog.ERREUR_LECTURE_CONFIGURATION.toString());
+	final Marker marker2 = MarkerFactory.getMarker(TypeLog.ERREUR_HASHBASE64.toString());
+	final Marker marker3 = MarkerFactory.getMarker(TypeLog.ERREUR_GETBLOB.toString());
+	final Marker marker4 = MarkerFactory.getMarker(TypeLog.ERROR_RTIFACTORY.toString());
+	final Marker marker5 = MarkerFactory.getMarker(TypeLog.ERROR_ORIGINAL_METIER_FACTORY.toString());
+	final Marker marker6 = MarkerFactory.getMarker(TypeLog.ERROR_ENCODING_PDF_SIGZONE.toString());
+	final Marker marker7 = MarkerFactory.getMarker(TypeLog.ERROR_PDF2XML.toString());
+	
+	
+	
+	final Logger logger = LoggerFactory.getLogger(ControllerCertification.class);
+	Log l;
+	
 	// SINGLETON
 	public static ControllerCertification getInstance()
 	{
@@ -45,6 +67,7 @@ public class ControllerCertification
 
 	public boolean certificationPDF(String identifiant, ArrayList<String> urls)
 	{
+				
 		if (identifiant == null || identifiant.length() == 0)
 			return false;
 		if (urls == null || urls.size() == 0)
@@ -153,11 +176,17 @@ public class ControllerCertification
 			String url, String urlRetour, String parameterPath)
 	{
 
+			l = new Log();
+			l.setIdentifiant_client(identifiant);
+			l.setIpadresse(url);
+			
 		try
 		{
 			if ((new File(parameterPath + xmlParametersFile)).exists())
 			{
 				autho = ToolsXML.readConfig(parameterPath + xmlParametersFile);
+				//ICI LOG
+				logger.info(marker1, "Erreur de lecture des configurations", l);
 			}
 		}
 		catch (Exception e)
@@ -201,6 +230,7 @@ public class ControllerCertification
 		{
 			hashBase64 = com.dictao.keynectis.quicksign.transid.Util
 					.getB64Hash(origMetierSign);
+			logger.info(marker2, "Erreur de construction du hashBase64", l);
 		}
 		catch (QuickSignException e)
 		{
@@ -228,6 +258,7 @@ public class ControllerCertification
 		}
 		catch (QuickSignException qse)
 		{
+			logger.info(marker3, "Erreur de récupération du blob", l);
 			return null;
 		}
 		toReturn.put("blob", blob);
@@ -369,6 +400,7 @@ public class ControllerCertification
 		}
 		catch (QuickSignException e)
 		{
+			logger.info(marker4, "Erreur de construction du rti", l);
 			e.printStackTrace();
 			return null;
 		}
@@ -436,6 +468,7 @@ public class ControllerCertification
 		}
 		catch (QuickSignException e)
 		{
+			logger.info(marker4, "Erreur de construction du rti", l);
 			e.printStackTrace();
 			return null;
 		}
@@ -472,6 +505,7 @@ public class ControllerCertification
 		}
 		catch (QuickSignException e)
 		{
+			logger.info(marker5, "Erreur de construction de l'original metier", l);
 			e.printStackTrace();
 			return null;
 		}
@@ -508,10 +542,12 @@ public class ControllerCertification
 		}
 		catch (DocumentException e1)
 		{
+			logger.info(marker6, "Erreur d'encodage du pdf avec la zone de signature", l);
 			e1.printStackTrace();
 		}
 		catch (IOException e1)
 		{
+			logger.info(marker6, "Erreur d'encodage du pdf avec la zone de signature", l);
 			e1.printStackTrace();
 		}
 		System.out
@@ -524,6 +560,7 @@ public class ControllerCertification
 		}
 		catch (IOException e)
 		{
+			logger.info(marker7, "Erreur de transformation du pdf en xml", l);
 			e.printStackTrace();
 			return null;
 		}

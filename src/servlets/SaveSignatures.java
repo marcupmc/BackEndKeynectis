@@ -94,7 +94,7 @@ public class SaveSignatures extends HttpServlet
 
 		final Marker marker = MarkerFactory.getMarker(TypeLog.AJOUT_SIGNATURE
 				.toString());
-		final Logger logger = LoggerFactory.getLogger(AddDocument.class);
+		final Logger logger = LoggerFactory.getLogger(SaveSignatures.class);
 		Log l = new Log();
 		l.setIdentifiant_client(DAODocumentPDF.getInstance().getById(idDoc)
 				.getOwner().getIdentifiant());

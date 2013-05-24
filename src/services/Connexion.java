@@ -46,8 +46,13 @@ public class Connexion
 
 		final Logger logger = LoggerFactory.getLogger(AddDocument.class);
 		Log l = new Log();
+		 
+				
 		l.setIdentifiant_client(formParam.get("login").get(0));
 		l.setIpadresse(formParam.get("ipClient").get(0));
+		l.setLatitude(formParam.get("latitude").get(0));
+		l.setLongitude(formParam.get("longitude").get(0));
+		
 		System.out.println(formParam.get("login").get(0) + " | "
 				+ formParam.get("password").get(0));
 		if (ControllerAuthentification.getInstance()
