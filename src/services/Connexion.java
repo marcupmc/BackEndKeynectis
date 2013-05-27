@@ -50,6 +50,7 @@ public class Connexion
 				
 		l.setIdentifiant_client(formParam.get("login").get(0));
 		l.setIpadresse(formParam.get("ipClient").get(0));
+		System.out.println("----------LATITUDE : "+formParam.get("latitude").get(0));
 		l.setLatitude(formParam.get("latitude").get(0));
 		l.setLongitude(formParam.get("longitude").get(0));
 		

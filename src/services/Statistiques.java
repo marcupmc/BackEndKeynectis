@@ -37,7 +37,7 @@ public class Statistiques {
 	@Path("/errorperday")
 	@Consumes("application/x-www-form-urlencoded")
 	public String getErrorPerDay(){
-		return ControllerCalculStats.getInstance().getErrorPerDay().toString();
+		return ControllerCalculStats.getInstance().getErrorPerHour().toString();
 	}
 	
 	

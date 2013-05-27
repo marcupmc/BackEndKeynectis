@@ -89,32 +89,32 @@ public class MyFirstFilter  extends Filter<ILoggingEvent> {
 		}
 		else if(typeName.equals("ERROR_DECODING_BLOB_SIGNATURE"))
 		{
-			typeToSave=TypeLog.ERROR_DECODING_BLOB_SIGNATURE;
+			typeToSave=TypeLog.ERREUR_DECODING_BLOB_SIGNATURE;
 			eventType=EventType.ERROR;
 		}
 		else if(typeName.equals("ERROR_RTIFACTORY"))
 		{
-			typeToSave=TypeLog.ERROR_RTIFACTORY;
+			typeToSave=TypeLog.ERREUR_RTIFACTORY;
 			eventType=EventType.ERROR;
 		}
 		else if(typeName.equals("ERROR_ORIGINAL_METIER_FACTORY"))
 		{
-			typeToSave=TypeLog.ERROR_ORIGINAL_METIER_FACTORY;
+			typeToSave=TypeLog.ERREUR_ORIGINAL_METIER_FACTORY;
 			eventType=EventType.ERROR;
 		}
 		else if(typeName.equals("ERROR_ENCODING_PDF_SIGZONE"))
 		{
-			typeToSave=TypeLog.ERROR_ENCODING_PDF_SIGZONE;
+			typeToSave=TypeLog.ERREUR_ENCODING_PDF_SIGZONE;
 			eventType=EventType.ERROR;
 		}
 		else if(typeName.equals("ERROR_PDF2XML"))
 		{
-			typeToSave=TypeLog.ERROR_PDF2XML;
+			typeToSave=TypeLog.ERREUR_PDF2XML;
 			eventType=EventType.ERROR;
 		}
 		else if(typeName.equals("ERROR_KEYNECTIS_KWEBSIGN"))
 		{
-			typeToSave=TypeLog.ERROR_KEYNECTIS_KWEBSIGN;
+			typeToSave=TypeLog.ERREUR_KEYNECTIS_KWEBSIGN;
 			eventType=EventType.ERROR;
 		}else if(typeName.equals("SIGNATURE_REUSSIE"))
 		{

@@ -67,7 +67,7 @@ public class ResponseKeynectis extends HttpServlet
 		String identifiant = (String) request.getSession().getAttribute("identifiant");
 		
 		final Marker marker1 = MarkerFactory.getMarker(TypeLog.SIGNATURE_REUSSIE.toString());
-		final Marker marker2 = MarkerFactory.getMarker(TypeLog.ERROR_KEYNECTIS_KWEBSIGN.toString());
+		final Marker marker2 = MarkerFactory.getMarker(TypeLog.ERREUR_KEYNECTIS_KWEBSIGN.toString());
 		final Logger logger = LoggerFactory.getLogger(EncoderBase64.class);
 		
 		Log l = new Log();
