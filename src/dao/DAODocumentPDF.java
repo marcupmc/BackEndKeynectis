@@ -1,12 +1,15 @@
 package dao;
 
+import java.net.URL;
 import java.util.ArrayList;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import tools.ToolsPDF;
 import domain.DocumentPDF;
 import domain.Signature;
 import domain.Utilisateur;
@@ -60,6 +63,11 @@ public class DAODocumentPDF
 			doc.setUrl(url);
 			doc.setOwner(user);
 			doc.setCertified(false);
+			
+			//A ajouter aussi dans le add document avec une zone de signature
+			byte[] bits = ToolsPDF.getAsByteArray(new URL(url));
+			doc.setContenu(Hibernate.createBlob(bits));
+			// ajouter ici la conversion en blob et l'ajout en bdd voir signature user
 
 			session.save(doc);
 			tx.commit();

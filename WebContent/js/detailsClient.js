@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------------------------------------------------------------
-//
-// Used by detailsClient.jsp
-//
+
+//Used by detailsClient.jsp
+
 //----------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -11,7 +11,7 @@
 function signOUI(){
 	$("#champsAjout").empty();
 	$("#champsAjout").append("<label  class=\"control-label\" for=\"signame\">Nom de la signature : </label>" +
-			"<input type=\"text\" id=\"signame\" name=\"signame\" placeholder=\"nom de la signature\" required=\"required\">");
+	"<input type=\"text\" id=\"signame\" name=\"signame\" placeholder=\"nom de la signature\" required=\"required\">");
 
 	$("#containsSign").val("oui");
 }
@@ -21,3 +21,12 @@ function signNON(){
 	$("#champsAjout").empty();
 	$("#containsSign").val("non");
 }
+
+function showPDF(id){
+	$.get('SendBase64PDF?id='+id, function(data) {
+		$("#pdfViewer").empty();
+		$("#pdfViewer").append("<iframe width=\"98%\" height=\"90%\" name=\"plugin\" src=\"data:application/pdf;base64,"+data+"\" type=\"application/pdf\">");
+	});
+}
+
+
