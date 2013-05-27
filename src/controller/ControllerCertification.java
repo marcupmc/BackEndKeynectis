@@ -94,9 +94,29 @@ public class ControllerCertification
 	 * @return HashMap that contains the blob and the num of the transaction
 	 */
 	public HashMap<String, String> certificationPDF(String identifiant,
-			String url, String urlRetour, String saveFile, String certFolder)
+			String url, String urlRetour, String saveFile, String certFolder,
+			String parameterPath)
 	{
 		HashMap<String, String> toReturn = new HashMap<String, String>();
+
+		try
+		{
+			if ((new File(parameterPath + xmlParametersFile)).exists())
+			{
+				// autho = ToolsXML.readConfig(parameterPath +
+				// xmlParametersFile);
+				toReturn = certificationPDFFromXml(identifiant, url, urlRetour,
+						parameterPath);
+				return toReturn;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("ControllerCertification: Exception\n"
+					+ "certificationPDF: " + e.getMessage());
+		}
+
 		// ------------------Depend de la Base
 		// ----------------------------------------
 		Utilisateur user = DAOUtilisateur.getInstance().getUserByIdentifiant(
@@ -134,7 +154,7 @@ public class ControllerCertification
 		String blob = "";
 		String transNum = "";
 
-		String tag = this.tagFactory(document,decode);
+		String tag = this.tagFactory(document, decode);
 		RequestTransId rti = rtiFactory(origMetierSign, urlRetour, document,
 				certFolder, tag);
 		try
@@ -176,8 +196,9 @@ public class ControllerCertification
 			System.out.println("ControllerCertification: Exception\n"
 					+ "certificationPDFFromXML: " + e.getMessage());
 		}
-		
-		//System.out.println("CertFolder: " + ((KeynectisParameters) autho).getCertPath());
+
+		// System.out.println("CertFolder: " + ((KeynectisParameters)
+		// autho).getCertPath());
 
 		HashMap<String, String> toReturn = new HashMap<String, String>();
 		// ------------------Depend de la Base
@@ -185,8 +206,7 @@ public class ControllerCertification
 		Utilisateur user = DAOUtilisateur.getInstance().getUserByIdentifiant(
 				identifiant);
 		DocumentPDF document = getDocumentOfUserByUrl(user, url);
-		
-		
+
 		// --------------------------Variable parametrable en fonction du metier
 		// / fichier de config?--------
 		String pathCertificat = ((KeynectisParameters) autho).getCertPath()
@@ -199,8 +219,7 @@ public class ControllerCertification
 				.getSignature());
 		String adresseXML = encodingAndSignatureZoneFactory(
 				((KeynectisParameters) autho).getSavePath(), document, decode);
-		
-		
+
 		// -------------------------Creation du certificat de signature
 		// metier-----------------------
 		String origMetierSign = originMetierFactorty(adresseXML,
@@ -225,7 +244,7 @@ public class ControllerCertification
 		String blob = "";
 		String transNum = "";
 
-		String tag = this.tagFactory(document,decode);
+		String tag = this.tagFactory(document, decode);
 		RequestTransId rti = rtiFactoryFromXml(origMetierSign, urlRetour,
 				document, tag); // (origMetierSign, urlRetour,
 								// document,
@@ -273,10 +292,10 @@ public class ControllerCertification
 	 * @return a string that contains the tag
 	 */
 
-	private String tagFactory(DocumentPDF doc,byte[] decode)
+	private String tagFactory(DocumentPDF doc, byte[] decode)
 	{
-//		byte[] decode = EncoderBase64.encodingBlobToByteArray(doc.getOwner()
-//				.getSignature());
+		// byte[] decode = EncoderBase64.encodingBlobToByteArray(doc.getOwner()
+		// .getSignature());
 
 		String signatureBase64 = EncoderBase64.byteArraytoStringBase64(decode);
 
@@ -552,7 +571,6 @@ public class ControllerCertification
 		return adresseXML;
 	}
 
-	
 	/**
 	 * @return the autho
 	 */
@@ -560,6 +578,5 @@ public class ControllerCertification
 	{
 		return autho;
 	}
-	
-	
+
 }

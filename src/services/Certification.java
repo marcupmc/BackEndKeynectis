@@ -46,7 +46,7 @@ public class Certification
 		System.out.println("[TEST KEYNECTIS] On lance la certif");
 		HashMap<String, String> toReturn = ControllerCertification
 				.getInstance().certificationPDF(identifiant, urls.get(0),
-						urlRetour, saveFile, certFolder);
+						urlRetour, saveFile, certFolder, saveFile);
 		String ret = toReturn.get("blob");
 
 		return ret;

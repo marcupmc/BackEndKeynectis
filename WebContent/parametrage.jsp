@@ -19,10 +19,10 @@
 			document.getElementById("tabAuth").setAttribute("class", ""); */
 			$("#tabConst").attr("class", "active");
 			$("#tabAuth").attr("class", "");
-			
+
 			$("#tabConst").show();
 			//$("#tabTypes").show();
-			
+
 			var sel = $('#authority').val();
 			switch (sel) {
 			case "1":
@@ -58,21 +58,7 @@
 	});
 </script>
 
-<%
-	if (request.getAttribute("authorityParameter") != null) {
-%>
-<script>
-	$(function() {
-		$("#tabConst").attr("class", "");
-		$("#tabAuth").attr("class", "");
-		$("#tabTypes").attr("class", "active");
-		$("#types").attr("class", "tab-pane active");
-		$("#auth").attr("class", "tab-pane");
-	});
-</script>
-<%
-	}
-%>
+
 
 
 <title>Parametrage du serveur</title>
@@ -109,40 +95,74 @@
 					if (request.getAttribute("authorityParameter") == null) {
 				%>
 				<script type="text/javascript">
-					
 					$("#tabConst").hide();
 					$("#tabTypes").hide();
-					
 				</script>
-				
+
 				<%
 					}
 				%>
 
 				<div class="tab-content">
-				
-				
-				<!-- 		Zone réservée aux messages d'erreurs -->
-				<%-- <%
-					String msg = (String) request.getParameter("error");
-					if (msg != null)
-					{
+
+
+					<!-- 		Zone réservée aux messages d'erreurs -->
+
+					<%
 						String message = "";
-						if (msg.equals("error_add"))
-							message = "Erreur lors de l'ajout du client dans la base de données";
-						else if (msg.equals("empty_field"))
-							message = "Veuillez remplir tous les champs";
-						else if (msg.equals("missmatch_pwd"))
-		
-							message = "Les mots de passes doivent être identiques";
-				%>
-				<div class="alert alert-block alert-error fade in">
-					Erreur :
-					<%=message%></div>
-				<%
-					}
-				%> --%>
-				<!-- 		Fin de la zone des messages d'erreurs -->
+						String msg = (String) request.getParameter("error");
+						String type = (String) request.getParameter("messType");
+						if ((("success").equals(msg)) && ("KWS".equals(type))) {
+					%>
+					<script>
+						$(function() {
+							$("#tabConst").attr("class", "");
+							$("#tabAuth").attr("class", "");
+							$("#tabTypes").attr("class", "active");
+							$("#types").attr("class", "tab-pane active");
+							$("#auth").attr("class", "tab-pane");
+							$("#tabTypes").show();
+							$("#tabTypes").attr("class", "active");
+							$("#tabConst").attr("class", "");
+						});
+					</script>
+					<%
+						}
+						if ((("error").equals(msg))) 
+						{
+							if("certMetier".equals(type))
+								message = "Le certificat de signature métier n'existe pas.\n Veuillez insérer un fichier existant.";
+							if("certSign".equals(type))
+								message = "Le certificat de signature client n'existe pas.\n Veuillez insérer un fichier existant.";
+							if("certChiff".equals(type))
+								message = "Le certificat de chiffrement n'existe pas.\n Veuillez insérer un fichier existant.";
+							if("certDecipher".equals(type))
+								message = "Le certificat de déchiffrement n'existe pas.\n Veuillez insérer un fichier existant.";
+							if("null".equals(type))
+								message = "Certains ou tous les champs n'ont pas été remplis.\nMerci de bien vouloir remplir tous les champs avant de sauvegarder.";
+					%>
+					<script>
+						$(function() {
+							$("#tabConst").attr("class", "active");
+							$("#tabAuth").attr("class", "");
+							$("#tabConst").show();
+							$("#tabTypes").attr("class", "");
+							$("#const").attr("class", "tab-pane active");
+							$("#types").attr("class", "tab-pane");
+							$("#auth").attr("class", "tab-pane");	
+
+							var sel = $('#authority').val();							
+								$("#comment").load("commentKEY.jsp");
+								$("#configForm").load("formKEY.jsp");
+						});
+					</script>
+					<div class="alert alert-block alert-error fade in">
+						Erreur :
+						<%=message%></div>
+					<%
+						}
+					%>
+					<!-- 		Fin de la zone des messages d'erreurs -->
 
 					<!-- ************************ Onglet de paramétrage de l'autorité de certification ************************ -->
 
