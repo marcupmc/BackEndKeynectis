@@ -107,7 +107,7 @@ public class ResponseKeynectis extends HttpServlet
 		rti.setOutputStream(fos);
 		String transNum = "";
 		int status = -1;
-		
+		String msg="";
 		try
 		{
 			transNum = rti.getTransNum();
@@ -122,10 +122,12 @@ public class ResponseKeynectis extends HttpServlet
 			
 			
 			if (status==1)
-			{
+			{	msg="ok";
 				logger.info(marker1, "Signature reussie ", l);
-			}else
+			}else{
+				msg="error";
 				logger.info(marker2, "Erreur de emise par Keynectis ", l);
+			}
 		}
 		catch (DataNotSetException e)
 		{
@@ -192,7 +194,7 @@ public class ResponseKeynectis extends HttpServlet
 
 //		String url = "finCertification.jsp?identifiant=" + identifiant + "&id="
 //				+ id + "&urlnew=" + newPath;
-		String url = "finCertification.jsp?identifiant=" + identifiant+"&id="+id;
+		String url = "finCertification.jsp?identifiant=" + identifiant+"&id="+id+"&msg="+msg;
 		response.sendRedirect(url);
 	}
 

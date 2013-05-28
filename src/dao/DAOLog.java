@@ -124,7 +124,7 @@ public class DAOLog
 	}
 	
 	public ArrayList<Log> getLogPerEventType(EventType type)
-	{
+	{;
 		ArrayList<Log> logs = new ArrayList<Log>();
 		Session session = null;
 		try

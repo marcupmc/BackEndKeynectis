@@ -43,7 +43,7 @@ public class DAODocumentPDF
 	 * @return true if the document is added, false if not
 	 */
 	public boolean addDocument(long idOwner, String name, String url)
-	{
+	{ 
 		Utilisateur user = DAOUtilisateur.getInstance().getUserById(idOwner);
 		if (user == null)
 			return false;
@@ -395,6 +395,12 @@ public class DAODocumentPDF
 		}
 	}
 	
+	/**
+	 * Add a content to a document from bits array and it id
+	 * @param id
+	 * @param bits
+	 * @return true if the content was add, false if not
+	 */
 	public boolean addContent(long id, byte[]bits){
 		DocumentPDF doc = this.getById(id);
 		if (doc == null)
