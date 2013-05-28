@@ -22,10 +22,11 @@ function signNON(){
 	$("#containsSign").val("non");
 }
 
+//Get the Base64 code of a PDF in the db, from it ID
 function showPDF(id){
 	$.get('SendBase64PDF?id='+id, function(data) {
 		$("#pdfViewer").empty();
-		$("#pdfViewer").append("<iframe width=\"98%\" height=\"90%\" name=\"plugin\" src=\"data:application/pdf;base64,"+data+"\" type=\"application/pdf\">");
+		$("#pdfViewer").append("<iframe width=\"98%\" height=\"92%\" name=\"plugin\" src=\"data:application/pdf;base64,"+data+"\" type=\"application/pdf\">");
 	});
 }
 

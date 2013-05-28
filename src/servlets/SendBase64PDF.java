@@ -28,6 +28,7 @@ public class SendBase64PDF extends HttpServlet {
     }
 
 	/**
+	 * From the id of a document, send the Base64 code of a pdf from a blob
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

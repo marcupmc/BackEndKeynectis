@@ -1,6 +1,7 @@
 package tools;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -393,6 +394,7 @@ public class ToolsPDF
 		return false;
 	}
 
+	@Deprecated
 	public static JSONObject getInfosPDF(String url, int numPage)
 	{
 		JSONObject json = new JSONObject();
@@ -410,6 +412,49 @@ public class ToolsPDF
 		return json;
 	}
 
+	public static JSONObject getInfosPDF(byte[] bits,int numPage){
+		JSONObject json = new JSONObject();
+		try
+		{
+			json.put("image", getImageFromPDFPage(bits, numPage));
+			json.put("nbPages", getNbPageofPDF(bits));
+		}
+		catch (JSONException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return json;
+	}
+	
+	public static int getNbPageofPDF(byte[] bits)
+	{
+		try
+		{
+			InputStream is  =new ByteArrayInputStream(bits);
+			PDDocument doc = PDDocument.load(is);
+			int nb = doc.getDocumentCatalog().getAllPages().size();
+			doc.close();
+			doc = null;
+			return nb;
+		}
+		catch (MalformedURLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
+	
+	@Deprecated
 	public static int getNbPageofPDF(String url)
 	{
 		try
@@ -434,6 +479,37 @@ public class ToolsPDF
 		return 0;
 	}
 
+	
+	public static String getImageFromPDFPage(byte[] bits, int numPage)
+	{
+		try
+		{
+			InputStream is  =new ByteArrayInputStream(bits);
+			PDDocument doc = PDDocument.load(is, true);
+			PDPage page = (PDPage) doc.getDocumentCatalog().getAllPages()
+					.get(numPage);
+			BufferedImage im = page.convertToImage();
+
+			doc.close();
+			doc = null;
+			return EncoderBase64.encodeToString(im);
+
+		}
+		catch (MalformedURLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "";
+	}
+	
+	@Deprecated
 	public static String getImageFromPDFPage(String url, int numPage)
 	{
 		try

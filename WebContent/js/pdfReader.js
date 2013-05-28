@@ -32,7 +32,6 @@ $(document).ready( function () {
 	idDoc = $("#idDoc").val();
 	urltest = $("#url").val();
 	idOwner = $("#idOwner").val();
-	checkNumPage();
 	showPage();
 	
 });
@@ -62,7 +61,7 @@ function showPage(){
 	}
 	$("#imagePDF").css("display","none");
 	$("#loader").css("display","inline");
-	$.get('InfosPDF?url='+urltest+'&num='+numPage, function(data) {
+	$.get('InfosPDF?id='+idDoc+'&num='+numPage, function(data) {
 		var retour = $.parseJSON(data);
 		pageNumber=retour.nbPages;
 		imagePdf = retour.image;
@@ -77,6 +76,7 @@ function showPage(){
 			maxY = minY+$("#imagePDF").height();
 			db++;
 		}
+		checkNumPage();
 	});
 }
 
@@ -86,7 +86,7 @@ function checkNumPage(){
 		$("#previous").css("display","none");
 	else
 		$("#previous").css("display","inline");
-	if(numPage+1==pageNumber)
+	if(numPage+1>=pageNumber)
 		$("#next").css("display","none");
 	else
 		$("#next").css("display","inline");

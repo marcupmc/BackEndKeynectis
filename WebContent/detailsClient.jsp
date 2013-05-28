@@ -182,14 +182,14 @@
 
 	<!-- 	MODAL ICI -->
 	<div id="myModal2" class="modal hide fade" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px;">
+		aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px;margin-left:-400px;">
 		
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
 				<h3>PDF Viewer</h3>
 			</div>
-			<div class="modal-body" style="height: 600px;" id="pdfViewer"></div>
+			<div class="modal-body" style="height: 800px;" id="pdfViewer"></div>
 			<div class="modal-footer">
 				 <a class="btn" data-dismiss="modal"
 					aria-hidden="true">Close</a>
