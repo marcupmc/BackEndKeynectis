@@ -22,9 +22,9 @@
 	<%
 		String identifiant = (String) request.getParameter("identifiant");
 		long id = Long.parseLong((String) request.getParameter("id"));
-		String urlNew = (String) request.getParameter("urlnew");
+// 		String urlNew = (String) request.getParameter("urlnew");
 
-		DAODocumentPDF.getInstance().changeUrl(id, urlNew);
+// 		DAODocumentPDF.getInstance().changeUrl(id, urlNew);
 		DAODocumentPDF.getInstance().certifiedPDF(id);
 	%>
 

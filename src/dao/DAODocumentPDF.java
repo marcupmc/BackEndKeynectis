@@ -394,5 +394,32 @@ public class DAODocumentPDF
 			return null;
 		}
 	}
+	
+	public boolean addContent(long id, byte[]bits){
+		DocumentPDF doc = this.getById(id);
+		if (doc == null)
+			return false;
+		Session session = null;
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure()
+					.buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+
+			doc.setContenu(Hibernate.createBlob(bits));
+
+			session.update(doc);
+			tx.commit();
+			session.close();
+			sessionFactory.close();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
 
 }

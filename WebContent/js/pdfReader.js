@@ -1,15 +1,3 @@
-
-//--------------------------------DOCUMENT TEST---------------------------------------
-//4 pages
-var urltest;// = "http://www.fr.capgemini.com/sites/default/files/resource/pdf/Enterprise_Content_Management.pdf";
-//var urltest="D:\Users\magregoi\Desktop\Attestation";
-//1 page
-//var urltest="http://www.fr.capgemini.com/sites/default/files/resource/pdf/D__claration_transactions_sur_actions_propres_au_15_f__vrier_2013.pdf";
-
-//40 pages
-//http://www.fr.capgemini.com/sites/default/files/resource/pdf/wrbr_2013.pdf
-
-//--------------------------------------------------------------------------------------
 var db=0;
 
 var signatures=[];
@@ -30,7 +18,6 @@ var idOwner;
 $(document).ready( function () { 
 
 	idDoc = $("#idDoc").val();
-	urltest = $("#url").val();
 	idOwner = $("#idOwner").val();
 	showPage();
 	

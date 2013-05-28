@@ -222,8 +222,8 @@ public class ToolsPDF
 		
 		try
 		{
-			PdfReader pdf = new PdfReader(document.getUrl());
-
+			PdfReader pdf = new PdfReader(EncoderBase64.encodingBlobToByteArray(document.getContenu()));
+			
 			FileOutputStream out = new FileOutputStream(outFile);
 			PdfStamper stp = new PdfStamper(pdf, out);
 			addSignature(stp, first, document.getOwner());
@@ -311,22 +311,18 @@ public class ToolsPDF
 		}
 		catch (BadElementException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (MalformedURLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (DocumentException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
