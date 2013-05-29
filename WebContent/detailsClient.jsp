@@ -1,3 +1,4 @@
+<%@page import="tools.ToolsPDF"%>
 <%@page import="tools.EncoderBase64"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -27,18 +28,14 @@
 			<a href="adminHome.jsp" class="btn btn-info">Accueil</a>
 		</h2>
 		<%
-			if (msg != null)
-			{
+			if (msg != null) {
 				String message = "";
-				if (msg.equals("ok"))
-				{
+				if (msg.equals("ok")) {
 		%>
 		<div class="alert alert-block alert-success fade in">Le document
 			a été ajouté avec succès !</div>
 		<%
-			}
-				else
-				{
+			} else {
 					if (msg.equals("bad_parameters"))
 						message = "Veuillez remplir tous les champs du formulaires.";
 					else if (msg.equals("bad_signame"))
@@ -64,20 +61,17 @@
 
 		<div>
 			<%
-				if (client.getSignature() == null)
-				{
+				if (client.getSignature() == null) {
 			%>
 			<h4>Aucune Signature Enregistrée</h4>
 			<%
-				}
-				else
-				{
+				} else {
 
 					byte[] decode = EncoderBase64.encodingBlobToByteArray(client
 							.getSignature());
 					String chaine = EncoderBase64.byteArraytoStringBase64(decode);
 			%>
-			<img src="data:image/png;base64,<%=chaine%>" />
+			<img src="data:image/png;base64,<%=""+chaine+""%>" />
 			<%
 				}
 			%>
@@ -93,25 +87,20 @@
 				<th></th>
 			</tr>
 			<%
-				for (DocumentPDF doc : client.getDocuments())
-				{
+				for (DocumentPDF doc : client.getDocuments()) {
 					boolean signable;
 					if (doc.getSignatures().size() > 0)
 						signable = true;
-					else
-					{
+					else {
 						signable = false;
 					}
 			%>
 
 			<%
-				if (signable)
-					{
+				if (signable) {
 			%><tr class="alert alert-block alert-success">
 				<%
-					}
-						else
-						{
+					} else {
 				%>
 			
 			<tr class="alert alert-block alert-error">
@@ -119,27 +108,26 @@
 					}
 				%>
 
-				<td><a href="<%=doc.getUrl()%>"><%=doc.getName()%></a></td>
+				<td>
+					<%-- 				<a href="<%=doc.getUrl()%>"> --%>
+					  
+					<a href="#myModal2" data-toggle="modal"
+					onclick="showPDF('<%=doc.getId()%>')" > <%=doc.getName()%></a>
+				</td>
 				<td>
 					<%
-						if (doc.isCertified())
-							{
+						if (doc.isCertified()) {
 					%> Oui <%
-						}
-							else
-							{
+						} else {
 					%> Non <%
 						}
 					%>
 				</td>
 				<td>
 					<%
-						if (signable)
-							{
+						if (signable) {
 					%> Oui <%
-						}
-							else
-							{
+						} else {
 					%> Non <%
 						}
 					%>
@@ -149,8 +137,7 @@
 					class="btn btn-small btn-danger">Supprimer</a></td>
 				<td>
 					<%
-						if (!signable)
-							{
+						if (!signable) {
 					%> <a href="RedirectSignature?id=<%=doc.getId()%>"
 					class="btn btn-small btn-info">Ajouter Signature</a> <%
  	}
@@ -188,9 +175,29 @@
 				</div>
 			</div>
 			<input type="submit" class="btn btn-primary"
-				value="Ajouter le document" />
+				value="Ajouter le document" /> 
 		</form>
 	</div>
 
+
+	<!-- 	MODAL ICI -->
+	<div id="myModal2" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px;margin-left:-400px;">
+		
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h3>PDF Viewer</h3>
+			</div>
+			<div class="modal-body" style="height: 800px;" id="pdfViewer"></div>
+			<div class="modal-footer">
+				 <a class="btn" data-dismiss="modal"
+					aria-hidden="true">Close</a>
+			</div>
+
+		
+	</div>
+	<!-- 	FIN MODAL 	 -->
+	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

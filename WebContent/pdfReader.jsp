@@ -50,6 +50,14 @@
 #saveSignatures {
 	display: none;
 }
+
+#previous{
+	display : none;
+}
+
+#next{
+	display : none;
+}
 </style>
 
 </head>

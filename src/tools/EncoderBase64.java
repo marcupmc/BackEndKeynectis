@@ -32,7 +32,7 @@ public class EncoderBase64
 	 */
 	public static byte[] encodingBlobToByteArray(Blob b)
 	{
-		final Marker marker = MarkerFactory.getMarker(TypeLog.ERROR_DECODING_BLOB_SIGNATURE.toString());
+		final Marker marker = MarkerFactory.getMarker(TypeLog.ERREUR_DECODING_BLOB_SIGNATURE.toString());
 		final Logger logger = LoggerFactory.getLogger(EncoderBase64.class);
 		Log l = new Log();
 		l.setIdentifiant_client("");

@@ -1,12 +1,15 @@
 package dao;
 
+import java.net.URL;
 import java.util.ArrayList;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import tools.ToolsPDF;
 import domain.DocumentPDF;
 import domain.Signature;
 import domain.Utilisateur;
@@ -40,7 +43,7 @@ public class DAODocumentPDF
 	 * @return true if the document is added, false if not
 	 */
 	public boolean addDocument(long idOwner, String name, String url)
-	{
+	{ 
 		Utilisateur user = DAOUtilisateur.getInstance().getUserById(idOwner);
 		if (user == null)
 			return false;
@@ -60,6 +63,11 @@ public class DAODocumentPDF
 			doc.setUrl(url);
 			doc.setOwner(user);
 			doc.setCertified(false);
+			
+			//A ajouter aussi dans le add document avec une zone de signature
+			byte[] bits = ToolsPDF.getAsByteArray(new URL(url));
+			doc.setContenu(Hibernate.createBlob(bits));
+			// ajouter ici la conversion en blob et l'ajout en bdd voir signature user
 
 			session.save(doc);
 			tx.commit();
@@ -385,6 +393,39 @@ public class DAODocumentPDF
 			System.out.println(e.getMessage());
 			return null;
 		}
+	}
+	
+	/**
+	 * Add a content to a document from bits array and it id
+	 * @param id
+	 * @param bits
+	 * @return true if the content was add, false if not
+	 */
+	public boolean addContent(long id, byte[]bits){
+		DocumentPDF doc = this.getById(id);
+		if (doc == null)
+			return false;
+		Session session = null;
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure()
+					.buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+
+			doc.setContenu(Hibernate.createBlob(bits));
+
+			session.update(doc);
+			tx.commit();
+			session.close();
+			sessionFactory.close();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 }

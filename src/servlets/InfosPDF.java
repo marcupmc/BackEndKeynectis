@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
+import com.itextpdf.text.Document;
+
+import dao.DAODocumentPDF;
+import domain.DocumentPDF;
+
+import tools.EncoderBase64;
 import tools.ToolsPDF;
 
 /**
@@ -38,10 +44,15 @@ public class InfosPDF extends HttpServlet
 			HttpServletResponse response) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
-		String url = request.getParameter("url");
+		Long id = Long.parseLong(request.getParameter("id"));
 		String numPage = request.getParameter("num");
 
-		JSONObject json = ToolsPDF.getInfosPDF(url, Integer.parseInt(numPage));
+		
+		//JSONObject json = ToolsPDF.getInfosPDF(url, Integer.parseInt(numPage));
+		
+		DocumentPDF documentPDF = DAODocumentPDF.getInstance().getById(id);
+		byte[] decode = EncoderBase64.encodingBlobToByteArray(documentPDF.getContenu());
+		JSONObject json = ToolsPDF.getInfosPDF(decode, Integer.parseInt(numPage));
 		try
 		{
 			System.out.println("nombre de pages : " + json.get("nbPages"));

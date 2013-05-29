@@ -1,5 +1,6 @@
 package domain;
 
+import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ public class DocumentPDF
 	private Set<Signature> signatures = new HashSet<Signature>();
 
 	private Utilisateur owner;
+	private Blob contenu;
 
 	public DocumentPDF()
 	{
@@ -79,6 +81,14 @@ public class DocumentPDF
 	public void setSignatures(Set<Signature> signatures)
 	{
 		this.signatures = signatures;
+	}
+
+	public Blob getContenu() {
+		return contenu;
+	}
+
+	public void setContenu(Blob contenu) {
+		this.contenu = contenu;
 	}
 
 }

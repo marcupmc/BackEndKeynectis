@@ -39,10 +39,10 @@ public class ControllerCertification
 	final Marker marker1 = MarkerFactory.getMarker(TypeLog.ERREUR_LECTURE_CONFIGURATION.toString());
 	final Marker marker2 = MarkerFactory.getMarker(TypeLog.ERREUR_HASHBASE64.toString());
 	final Marker marker3 = MarkerFactory.getMarker(TypeLog.ERREUR_GETBLOB.toString());
-	final Marker marker4 = MarkerFactory.getMarker(TypeLog.ERROR_RTIFACTORY.toString());
-	final Marker marker5 = MarkerFactory.getMarker(TypeLog.ERROR_ORIGINAL_METIER_FACTORY.toString());
-	final Marker marker6 = MarkerFactory.getMarker(TypeLog.ERROR_ENCODING_PDF_SIGZONE.toString());
-	final Marker marker7 = MarkerFactory.getMarker(TypeLog.ERROR_PDF2XML.toString());
+	final Marker marker4 = MarkerFactory.getMarker(TypeLog.ERREUR_RTIFACTORY.toString());
+	final Marker marker5 = MarkerFactory.getMarker(TypeLog.ERREUR_ORIGINAL_METIER_FACTORY.toString());
+	final Marker marker6 = MarkerFactory.getMarker(TypeLog.ERREUR_ENCODING_PDF_SIGZONE.toString());
+	final Marker marker7 = MarkerFactory.getMarker(TypeLog.ERREUR_PDF2XML.toString());
 	
 	
 	
@@ -187,11 +187,12 @@ public class ControllerCertification
 			{
 				autho = ToolsXML.readConfig(parameterPath + xmlParametersFile);
 				//ICI LOG
-				logger.info(marker1, "Erreur de lecture des configurations", l);
+				
 			}
 		}
 		catch (Exception e)
 		{
+			logger.info(marker1, "Erreur de lecture des configurations", l);
 			e.printStackTrace();
 			System.out.println("ControllerCertification: Exception\n"
 					+ "certificationPDFFromXML: " + e.getMessage());
@@ -231,11 +232,11 @@ public class ControllerCertification
 		{
 			hashBase64 = com.dictao.keynectis.quicksign.transid.Util
 					.getB64Hash(origMetierSign);
-			logger.info(marker2, "Erreur de construction du hashBase64", l);
+			
 		}
 		catch (QuickSignException e)
 		{
-
+			logger.info(marker2, "Erreur de construction du hashBase64", l);
 			e.printStackTrace();
 			return null;
 		}

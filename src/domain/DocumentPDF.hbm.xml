@@ -17,6 +17,10 @@
 			<column name="CERTIFIED" />
 		</property>
 
+		<property name="contenu">
+			<column name="CONTENT" sql-type="LONGBLOB " />
+		</property>
+
 
 		<many-to-one name="owner" column="ID_UTILISATEUR" lazy="false"
 			class="domain.Utilisateur" unique="false" />

@@ -14,6 +14,10 @@ public class Statistiques {
 	@GET
 	@Path("/connexionperhours")
 	@Consumes("application/x-www-form-urlencoded")
+	/**
+	 * TODO
+	 * @return
+	 */
 	public String getConnexionsPerHour()
 	{
 		return ControllerCalculStats.getInstance().getConnexionPerHour().toString();
@@ -22,6 +26,10 @@ public class Statistiques {
 	@GET
 	@Path("/connexionreport")
 	@Consumes("application/x-www-form-urlencoded")
+	/**
+	 * TODO
+	 * @return
+	 */
 	public String getConnexionReport(){
 		return ControllerCalculStats.getInstance().getConnexionReport().toString();
 	}
@@ -29,6 +37,10 @@ public class Statistiques {
 	@GET
 	@Path("/errorpertype")
 	@Consumes("application/x-www-form-urlencoded")
+	/**
+	 * TODO
+	 * @return
+	 */
 	public String getErrorPerType(){
 		return ControllerCalculStats.getInstance().getErrorPerType().toString();
 	}
@@ -36,8 +48,12 @@ public class Statistiques {
 	@GET
 	@Path("/errorperday")
 	@Consumes("application/x-www-form-urlencoded")
+	/**
+	 * TODO
+	 * @return
+	 */
 	public String getErrorPerDay(){
-		return ControllerCalculStats.getInstance().getErrorPerDay().toString();
+		return ControllerCalculStats.getInstance().getErrorPerHour().toString();
 	}
 	
 	

@@ -104,7 +104,7 @@ public class ControllerCalculStats {
 		return json;
 	}
 	
-	public JSONObject getErrorPerDay(){
+	public JSONObject getErrorPerHour(){
 		JSONObject json = new JSONObject();
 		ArrayList<Log> logConnexion = DAOLog.getInstance().getLogPerEventType(EventType.ADMIN);//TODO: A changer
 		Map<Date, Integer> treeMap = new TreeMap<Date, Integer>();
