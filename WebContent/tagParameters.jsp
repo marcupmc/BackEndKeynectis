@@ -12,9 +12,12 @@
 <%@page import="java.util.ArrayList"%>
 <%
 	boolean typesExist;
+	
+	String saveFile = this.getServletContext().getRealPath("/temp_xml/");
+
 	ControllerAjoutTypeCertification controller = ControllerAjoutTypeCertification.getInstance();
 	
-	TagParameters types = controller.getParameters();
+	TagParameters types = controller.getParameters(saveFile);
 	if (types.isEmpty()) //  request.getAttribute("types") == null) 
 	{
 		typesExist = false;
@@ -36,16 +39,18 @@
 		<br />
 
 		<table class="table table-striped">
-			<!-- <thead>
+			<thead>
 					<tr>
 	
 						<th></th>
-						<th></th>						
+						<th>Nom</th>						
+						<th>Type</th>
+						<th>Par défaut</th>
 						<th></th>
 						<th></th>
 	
 					</tr>
-				</thead> -->
+				</thead>
 			<tbody>
 				<%
 					/* if (typesExist)
@@ -59,6 +64,8 @@
 
 					<td></td>
 					<td><%=type.getName()%></td>
+					<td><%=type.getId_type()%></td>
+					<td><label class="radio"><input id="<%=type.getName()%>" type="radio" name="optionDefault" value="" <%if(type.isDefaut()){%>checked="checked" <% } %> ></label></td>
 					<td><a
 						href="AddType?action=modify&id=<%=type.getId_type()%>&name=<%=type.getName()%>"
 						class="btn btn-small btn-info" type="buttons">Editer</a></td>
@@ -72,6 +79,8 @@
 				<tr>
 					<td><a href="addType.jsp" class="btn btn-small btn-primary"
 						type="buttons"><i class="icon-plus-sign icon-white"></i>Type</a></td>
+					<td></td>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>

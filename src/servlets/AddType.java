@@ -91,6 +91,7 @@ public class AddType extends HttpServlet
 		String reason = request.getParameter("reason");
 		String location = request.getParameter("location");
 		String contact = request.getParameter("contact");
+		boolean checked = request.getParameter("default")!=null;
 
 		String errMess = "success";
 		String messType = "KWS";
@@ -99,7 +100,7 @@ public class AddType extends HttpServlet
 				+ messType;
 
 		TagParameter type = new TagParameter(name, id, reason, location,
-				contact);
+				contact, checked);
 		ControllerAjoutTypeCertification controller = ControllerAjoutTypeCertification
 				.getInstance();
 

@@ -3,7 +3,6 @@
  */
 package model;
 
-
 /**
  * @author dtadmi
  * 
@@ -17,6 +16,24 @@ public class TagParameter
 	private String PDF_REASON = "";
 	private String PDF_LOCATION = "";
 	private String PDF_CONTACT = "";
+	private boolean defaut = false;
+
+	/**
+	 * @return the defaut
+	 */
+	public boolean isDefaut()
+	{
+		return defaut;
+	}
+
+	/**
+	 * @param defaut
+	 *            the defaut to set
+	 */
+	public void setDefaut(boolean defaut)
+	{
+		this.defaut = defaut;
+	}
 
 	/**
 	 * 
@@ -37,7 +54,7 @@ public class TagParameter
 		this.name = name;
 		this.id_type = id_type;
 	}
-	
+
 	/**
 	 * @param name
 	 * @param id_type
@@ -74,6 +91,49 @@ public class TagParameter
 		PDF_REASON = pDF_REASON;
 		PDF_LOCATION = pDF_LOCATION;
 		PDF_CONTACT = pDF_CONTACT;
+	}
+
+	/**
+	 * @param name
+	 * @param id_type
+	 * @param pDF_REASON
+	 * @param pDF_LOCATION
+	 * @param pDF_CONTACT
+	 * @param defaut
+	 */
+	public TagParameter(String name, String id_type, String pDF_REASON,
+			String pDF_LOCATION, String pDF_CONTACT, boolean defaut)
+	{
+		super();
+		this.name = name;
+		this.id_type = id_type;
+		PDF_REASON = pDF_REASON;
+		PDF_LOCATION = pDF_LOCATION;
+		PDF_CONTACT = pDF_CONTACT;
+		this.defaut = defaut;
+	}
+
+	/**
+	 * @param name
+	 * @param id_type
+	 * @param dATA_METIER
+	 * @param pDF_REASON
+	 * @param pDF_LOCATION
+	 * @param pDF_CONTACT
+	 * @param defaut
+	 */
+	public TagParameter(String name, String id_type, String dATA_METIER,
+			String pDF_REASON, String pDF_LOCATION, String pDF_CONTACT,
+			boolean defaut)
+	{
+		super();
+		this.name = name;
+		this.id_type = id_type;
+		DATA_METIER = dATA_METIER;
+		PDF_REASON = pDF_REASON;
+		PDF_LOCATION = pDF_LOCATION;
+		PDF_CONTACT = pDF_CONTACT;
+		this.defaut = defaut;
 	}
 
 	/**
@@ -177,15 +237,24 @@ public class TagParameter
 	{
 		PDF_CONTACT = pDF_CONTACT;
 	}
-	
-	public void modifyParameters(String name, String id_type, String pDF_REASON,
-			String pDF_LOCATION, String pDF_CONTACT)
+
+	public void modifyParameters(String name, String id_type,
+			String pDF_REASON, String pDF_LOCATION, String pDF_CONTACT)
 	{
 		this.name = name;
 		this.id_type = id_type;
 		PDF_REASON = pDF_REASON;
 		PDF_LOCATION = pDF_LOCATION;
 		PDF_CONTACT = pDF_CONTACT;
+	}
+
+	public boolean equals(TagParameter type)
+	{
+		return ((name.equals(type.getName())) && (id_type.equals(type
+				.getId_type())
+				&& (PDF_REASON.equals(type.getPDF_REASON()))
+				&& (PDF_LOCATION.equals(type.getPDF_LOCATION())) && (PDF_CONTACT
+					.equals(type.getPDF_CONTACT()))));
 	}
 
 }

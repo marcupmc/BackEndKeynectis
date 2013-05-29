@@ -3,6 +3,16 @@
  */
 package controller;
 
+import java.io.File;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+
+import domain.Log;
+import domain.TypeLog;
+
 import tools.ToolsXML;
 import model.TagParameter;
 import model.TagParameters;
@@ -13,6 +23,13 @@ import model.TagParameters;
  */
 public class ControllerAjoutTypeCertification
 {
+	
+	private String xmlTagParametersFile = "\\tagParameters.xml";
+	
+	final Marker marker1 = MarkerFactory.getMarker(TypeLog.ERREUR_LECTURE_CONFIGURATION.toString());
+	
+	final Logger logger = LoggerFactory.getLogger(ControllerAjoutTypeCertification.class);
+	Log l;
 
 	// SINGLETON
 	public static ControllerAjoutTypeCertification getInstance()
@@ -87,6 +104,27 @@ public class ControllerAjoutTypeCertification
 	 */
 	public TagParameters getParameters()
 	{
+		return parameters;
+	}
+	
+	public TagParameters getParameters(String parameterPath)
+	{
+		try
+		{
+			if ((new File(parameterPath + xmlTagParametersFile)).exists())
+			{
+				parameters = ToolsXML.readTagConfig(parameterPath + xmlTagParametersFile);
+				//ICI LOG				
+			}
+		}
+		catch (Exception e)
+		{
+			logger.info(marker1, "Erreur de lecture des configurations", l);
+			e.printStackTrace();
+			System.out.println("ControllerCertification: Exception\n"
+					+ "certificationPDFFromXML: " + e.getMessage());
+		}
+		
 		return parameters;
 	}
 

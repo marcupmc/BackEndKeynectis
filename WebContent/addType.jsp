@@ -115,6 +115,15 @@
 						value="<%=type.getPDF_CONTACT()%>">
 				</div>
 			</div>
+			
+			<div class="control-group">
+				<label class="checkbox" >Définir comme type par défaut				
+					<div class="controls">
+						<input type="checkbox" id="default" value="ON">
+					</div>					
+				</label>
+				
+			</div>
 
 			<div class="control-group">
 				<div class="controls">
