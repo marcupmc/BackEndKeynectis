@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.AuthorityParameters;
+import model.KeynectisParameters;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
@@ -24,8 +27,6 @@ import com.dictao.keynectis.quicksign.transid.ParseBlobException;
 import com.dictao.keynectis.quicksign.transid.ResponseTransId;
 import com.dictao.keynectis.quicksign.transid.SignBlobException;
 
-import domain.AuthorityParameters;
-import domain.KeynectisParameters;
 import domain.Log;
 import domain.TypeLog;
 

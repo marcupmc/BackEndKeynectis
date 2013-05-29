@@ -1,7 +1,7 @@
 /**
  * 
  */
-package domain;
+package model;
 
 /**
  * @author dtadmi

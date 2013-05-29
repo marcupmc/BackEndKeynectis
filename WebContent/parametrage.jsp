@@ -112,7 +112,11 @@
 						String message = "";
 						String msg = (String) request.getParameter("error");
 						String type = (String) request.getParameter("messType");
-						if ((("success").equals(msg)) && ("KWS".equals(type))) {
+						if (("success").equals(msg))
+							{
+								if("KWS".equals(type)) 
+								{
+								}
 					%>
 					<script>
 						$(function() {
@@ -124,9 +128,23 @@
 							$("#tabTypes").show();
 							$("#tabTypes").attr("class", "active");
 							$("#tabConst").attr("class", "");
+							
+							$("#tagList").load("tagParameters.jsp");
+							$("#tagComment").load("tagComment.jsp");
 						});
 					</script>
 					<%
+					
+							if ((("adding_type_error").equals(type))) 
+							{
+								
+									message = "Un autre type possède déjà cet identifiant et ce nom. Veuillez en changer et sauvegarder de nouveau.";
+						%>				
+						<div class="alert alert-block alert-error fade in">
+							Erreur :
+							<%=message%></div>
+						<%
+							}
 						}
 						if ((("error").equals(msg))) 
 						{
@@ -250,7 +268,29 @@
 					<!-- ************************ Onglet de paramétrage des types de certification ************************ -->
 
 					<div class="tab-pane" id="types">
-						<div class="pull-left">
+						<div id="tagParam">
+
+							<div class="container-fluid">
+								<div class="row-fluid">
+									<div class="span4">
+										<div class="pull-left">
+											<div class="well" id="tagComment"></div>
+										</div>
+									</div>
+									<div class="span8">
+										<div class="well">
+
+											<div id="tagList"></div>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+						
+						<!-- <div class="pull-left">
 							<div class="well">
 								<p>
 									Explications de la section<br> <br>
@@ -268,7 +308,7 @@
 								</div>
 							</form>
 
-						</div>
+						</div> -->
 
 					</div>
 

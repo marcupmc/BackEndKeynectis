@@ -157,7 +157,6 @@
     <servlet-name>SaveSignatures</servlet-name>
     <url-pattern>/SaveSignatures</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>ConfigBackEndConstants</display-name>
@@ -168,7 +167,6 @@
     <servlet-name>ConfigBackEndConstants</servlet-name>
     <url-pattern>/ConfigBackEndConstants</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>ShowLogs</display-name>
@@ -179,5 +177,24 @@
     <servlet-name>ShowLogs</servlet-name>
     <url-pattern>/ShowLogs</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <description></description>
+    <display-name>AddType</display-name>
+    <servlet-name>AddType</servlet-name>
+    <servlet-class>servlets.AddType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddType</servlet-name>
+    <url-pattern>/AddType</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TypesXmlSaving</display-name>
+    <servlet-name>TypesXmlSaving</servlet-name>
+    <servlet-class>servlets.TypesXmlSaving</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TypesXmlSaving</servlet-name>
+    <url-pattern>/TypesXmlSaving</url-pattern>
+  </servlet-mapping>
 </web-app>

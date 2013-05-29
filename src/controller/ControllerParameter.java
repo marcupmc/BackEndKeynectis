@@ -3,10 +3,10 @@
  */
 package controller;
 
+import model.AuthorityParameters;
+import model.DictaoParamaters;
+import model.KeynectisParameters;
 import tools.ToolsXML;
-import domain.AuthorityParameters;
-import domain.DictaoParamaters;
-import domain.KeynectisParameters;
 
 /**
  * @author dtadmi

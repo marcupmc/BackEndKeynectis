@@ -1,5 +1,5 @@
 
-<script src="js/validateAuthorityConstForm.js" type="text/javascript"></script>
+<script src="js/modifyServerPart.js" type="text/javascript"></script>
 
 <div class="control-group">
 	<label class="control-label" for="CertAuth">Autorité de
@@ -61,7 +61,7 @@
 		<label class="control-label" for="certSign">Certificat de
 			signature Original Métier</label>
 		<div class="controls">
-			<input type="text" id="certMetier" name="certMetier" placeholder=""
+			<input type="text" id="certMetier" name="certMetier" placeholder="" value="demoqs_s.p12"
 				class="input-xlarge">
 		</div>
 	</div>
@@ -71,7 +71,7 @@
 		<label class="control-label" for="mdpCert"> Mot de passe du
 			certificat</label>
 		<div class="controls">
-			<input type="password" id="mdpMetier" name="mdpMetier" placeholder=""
+			<input type="password" id="mdpMetier" name="mdpMetier" placeholder="" value="DemoQS"
 				class="input-xlarge">
 		</div>
 	</div>
@@ -80,7 +80,7 @@
 		<label class="control-label" for="idAppMetier"> Identifiant
 			application métier </label>
 		<div class="controls">
-			<input type="text" id="idAppMetier" name="idAppMetier" placeholder=""
+			<input type="text" id="idAppMetier" name="idAppMetier" placeholder="" value="ZZDEMAV1"
 				class="input-xlarge">
 		</div>
 	</div>
@@ -91,7 +91,7 @@
 			serveur métier </label>
 		<div class="controls">
 			<input type="text" id="idServMetier" name="idServMetier"
-				placeholder="" class="input-xlarge">
+				placeholder="" value="DEMO" class="input-xlarge">
 		</div>
 	</div>
 
@@ -100,7 +100,7 @@
 		<label class="control-label" for="idOrgMetier"> Identifiant
 			organisme métier </label>
 		<div class="controls">
-			<input type="text" id="idOrgMetier" name="idOrgMetier" placeholder=""
+			<input type="text" id="idOrgMetier" name="idOrgMetier" placeholder="" value="PDFSMS"
 				class="input-xlarge">
 		</div>
 	</div>
@@ -118,7 +118,7 @@
 		<label class="control-label" for="certSign">Certificat de
 			signature</label>
 		<div class="controls">
-			<input type="text" id="certSign" name="certSign" placeholder=""
+			<input type="text" id="certSign" name="certSign" placeholder="" value="demoqs_i.p12"
 				class="input-xlarge">
 		</div>
 	</div>
@@ -128,7 +128,7 @@
 		<label class="control-label" for="mdpCert"> Mot de passe du
 			certificat</label>
 		<div class="controls">
-			<input type="password" id="mdpCert" name="mdpCert" placeholder=""
+			<input type="password" id="mdpCert" name="mdpCert" placeholder="" value="DemoQS"
 				class="input-xlarge">
 		</div>
 	</div>
@@ -146,7 +146,7 @@
 		<label class="control-label" for="certChiff"> Certificat de
 			chiffrement </label>
 		<div class="controls">
-			<input type="text" id="certChiff" name="certChiff" placeholder=""
+			<input type="text" id="certChiff" name="certChiff" placeholder="" value="certQSkeyncryp.cer"
 				class="input-xlarge">
 		</div>
 	</div>
@@ -165,7 +165,7 @@
 			déchiffrement</label>
 		<div class="controls">
 			<input type="text" id="certDecipher" name="certDecipher"
-				placeholder="" class="input-xlarge">
+				placeholder="" value="demoqs_c.p12" class="input-xlarge">
 		</div>
 	</div>
 
@@ -175,7 +175,7 @@
 			du certificat</label>
 		<div class="controls">
 			<input type="password" id="mdpDecipher" name="mdpDecipher"
-				placeholder="" class="input-xlarge">
+				placeholder="" value="DemoQS" class="input-xlarge">
 		</div>
 	</div>
 
@@ -188,42 +188,53 @@
 		</legend>
 	</div>
 
-	<div class="control-group">
-		<label class="control-label" for="servPDFCert"> Serveur de
-			sauvegarde des PDF certifiés </label>
-		<div class="controls">
-			<input type="text" id="servPDFCert" name="servPDFCert" placeholder=""
-				class="input-xlarge">
+	<label class="radio">
+		<input type="radio" name="optionsRadios" id="bddSave" value="bddSave" checked="checked">
+		Sauvegarde en base de données (Recommandé)
+	</label>
+	
+	<label class="radio">
+		<input type="radio" name="optionsRadios" id="ftpSave" value="ftpSave">
+		Sauvegarde sur un serveur externe
+	</label>
+
+	<div id="serverPart">
+		<div class="control-group">
+			<label class="control-label" for="servPDFCert"> Serveur de
+				sauvegarde des PDF certifiés </label>
+			<div class="controls">
+				<input type="text" id="servPDFCert" name="servPDFCert" placeholder="" value="ftp.marc-gregoire.fr"
+					class="input-xlarge">
+			</div>
+		</div>
+	
+		<div class="control-group">
+			<label class="control-label" for="pathPDFCert"> Répertoire sur
+				le serveur des PDF certifiés </label>
+			<div class="controls">
+				<input type="text" id="pathPDFCert" name="pathPDFCert" placeholder="" value="www/Keynectis_Certified"
+					class="input-xlarge">
+			</div>
+		</div>
+	
+		<div class="control-group">
+			<label class="control-label" for="loginPDFCert"> login de
+				connexion au serveur des PDF certifiés </label>
+			<div class="controls">
+				<input type="text" id="loginPDFCert" name="loginPDFCert"
+					placeholder="" value="marcgreg" class="input-xlarge">
+			</div>
+		</div>
+	
+		<div class="control-group">
+			<label class="control-label" for="mdpPDFCert"> Mot de passe de
+				connexion au serveur des PDF certifiés </label>
+			<div class="controls">
+				<input type="password" id="mdpPDFCert" name="mdpPDFCert"
+					placeholder="" value="nCcKMr7E" class="input-xlarge">
+			</div>
 		</div>
 	</div>
-
-	<div class="control-group">
-		<label class="control-label" for="pathPDFCert"> Répertoire sur
-			le serveur des PDF certifiés </label>
-		<div class="controls">
-			<input type="text" id="pathPDFCert" name="pathPDFCert" placeholder=""
-				class="input-xlarge">
-		</div>
-	</div>
-
-	<div class="control-group">
-		<label class="control-label" for="loginPDFCert"> login de
-			connexion au serveur des PDF certifiés </label>
-		<div class="controls">
-			<input type="text" id="loginPDFCert" name="loginPDFCert"
-				placeholder="" class="input-xlarge">
-		</div>
-	</div>
-
-	<div class="control-group">
-		<label class="control-label" for="mdpPDFCert"> Mot de passe de
-			connexion au serveur des PDF certifiés </label>
-		<div class="controls">
-			<input type="password" id="mdpPDFCert" name="mdpPDFCert"
-				placeholder="" class="input-xlarge">
-		</div>
-	</div>
-
 </div>
 
 <div class="control-group">

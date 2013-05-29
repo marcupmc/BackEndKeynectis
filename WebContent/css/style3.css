@@ -19,3 +19,7 @@
 	border-bottom-style: solid;
 	padding-top: 5pt;
 }
+
+.leftAlign{
+	float: left;	
+}
