@@ -28,8 +28,8 @@
 	// 	}
 	
 </script>
-<script type="text/javascript" src="js/easyXDM/easyXDM.debug.js"></script>
-<script type="text/javascript" src="js/easyXDM/getCGU.js"></script>
+<!-- <script type="text/javascript" src="js/easyXDM/easyXDM.debug.js"></script> -->
+<!-- <script type="text/javascript" src="js/easyXDM/getCGU.js"></script> -->
 </head>
 <body>
 	<%
@@ -54,34 +54,35 @@
 
 	<script type="text/javascript">
 		/* attach a submit handler to the form */
-		function toto() {
-			alert('ca commence');
-			/* stop form from submitting normally */
-			//  event.preventDefault();
-			/* get some values from elements on the page: */
-			var form = $("#myForm");
-			var term = form.find('input[name="blob"]').val();
-			var url = form.attr('action');
+// 		function toto() {
+// 			alert('ca commence');
+// 			/* stop form from submitting normally */
+// 			//  event.preventDefault();
+// 			/* get some values from elements on the page: */
+// 			var form = $("#myForm");
+// 			var term = form.find('input[name="blob"]').val();
+// 			var url = form.attr('action');
 
-			alert('before sending')
-			/* Send the data using post */
-			$.post(url, {
-				blob : term
-			}, function(data) {
-				alert('on nous repond  !');
-				$("#result").empty().append(data);
-			});
+// 			alert('before sending')
+// 			/* Send the data using post */
+// 			$.post(url, {
+// 				blob : term
+// 			}, function(data) {
+// 				alert('on nous repond  !');
+// 				$("#result").empty().append(data);
+// 			});
 
 			
-		}
+// 		}
 
 // 		toto();
-		getCGU();
+	document.getElementById("myForm").submit();
+// 		getCGU();
 	</script>
 
 	<p>Donc ici on est en dessous de l'iframe invisible</p>
 
-	<div id="result">Hello</div>
+<!-- 	<div id="result">Hello</div> -->
 
 
 	<!-- 	<iframe name="myiframe" id="myiframe" -->
