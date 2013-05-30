@@ -120,7 +120,7 @@ public class ResponseKeynectis extends HttpServlet
 			DAODocumentPDF.getInstance().addContent(Long.parseLong(id), bits);
 			ftemp.delete();
 			
-			
+			 
 			if (status==1)
 			{	msg="ok";
 				logger.info(marker1, "Signature reussie ", l);

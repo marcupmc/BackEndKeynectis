@@ -49,9 +49,16 @@ public class ControllerCalculStats {
 		}
 		try {
 
-
-			Date itDate = (Date) treeMap.keySet().toArray()[0];
-			while(!itDate.equals(treeMap.keySet().toArray()[treeMap.size()-1])){
+//			Date itDate = (Date) treeMap.keySet().toArray()[0];
+			Date itDate = DAOLog.getInstance().getDateFromFirstLog();
+			itDate.setMinutes(0);
+			itDate.setSeconds(0);
+			Date now = new Date();
+			now.setMinutes(0);
+			now.setSeconds(0);
+			System.out.println(now.toGMTString());
+			System.out.println(itDate.toGMTString());
+			while(!itDate.toGMTString().equals(now.toGMTString())){
 				if(!treeMap.containsKey(itDate)){
 					treeMap.put(itDate, 0);
 				}
@@ -91,11 +98,45 @@ public class ControllerCalculStats {
 	}
 	
 	public JSONObject getErrorPerType(){
-//		ArrayList<Log> logConnexion = DAOLog.getInstance().getLogPerType(TypeLog.CONNEXION);
-//		ArrayList<Log> logConnexionFailed = DAOLog.getInstance().getLogPerType(TypeLog.CONNEXION_FAILED);
+		ArrayList<Log> logErr = DAOLog.getInstance().getLogPerEventType(EventType.ERROR);
+		int err1 = 0;
+		int err2 = 0;
+		int err3 = 0;
+		int err4 = 0;
+		int err5 = 0;
+		int err6 = 0;
+		int err7 = 0;
+		int err8 = 0;
+		int err9 = 0;
+		int err10 = 0;
+		for(Log l : logErr){
+			switch(l.getType()){
+			case CONNEXION_FAILED  : err1 ++;break;
+			case ERREUR_LECTURE_CONFIGURATION : err2++;break;
+			case ERREUR_HASHBASE64 : err3++;break;
+			case ERREUR_GETBLOB : err4++;break;
+			case ERREUR_DECODING_BLOB_SIGNATURE: err5++;break;
+			case ERREUR_RTIFACTORY : err6++;break;
+			case ERREUR_ORIGINAL_METIER_FACTORY : err7++;break;
+			case ERREUR_ENCODING_PDF_SIGZONE : err8++;break;
+			case ERREUR_PDF2XML : err9++; break;
+			case ERREUR_KEYNECTIS_KWEBSIGN: err10++;break;
+			default : break;
+			}
+		}
+		
 		JSONObject json =new JSONObject();
 		try {
-			json.put("failed",0);
+			json.put("CONNEXION_FAILED",err1);
+			json.put("ERREUR_LECTURE_CONFIGURATION",err2);
+			json.put("ERREUR_HASHBASE64", err3);
+			json.put("ERREUR_GETBLOB", err4);
+			json.put("ERREUR_DECODING_BLOB_SIGNATURE",err5);
+			json.put("ERREUR_RTIFACTORY",err6);
+			json.put("ERREUR_ORIGINAL_METIER_FACTORY", err7);
+			json.put("ERREUR_ENCODING_PDF_SIGZONE", err8);
+			json.put("ERREUR_PDF2XML", err9);
+			json.put("ERREUR_KEYNECTIS_KWEBSIGN", err10);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,7 +147,7 @@ public class ControllerCalculStats {
 	
 	public JSONObject getErrorPerHour(){
 		JSONObject json = new JSONObject();
-		ArrayList<Log> logConnexion = DAOLog.getInstance().getLogPerEventType(EventType.ADMIN);//TODO: A changer
+		ArrayList<Log> logConnexion = DAOLog.getInstance().getLogPerEventType(EventType.ERROR);//TODO: A changer
 		Map<Date, Integer> treeMap = new TreeMap<Date, Integer>();
 
 		for(Log l :logConnexion)
@@ -121,8 +162,14 @@ public class ControllerCalculStats {
 		try {
 
 
-			Date itDate = (Date) treeMap.keySet().toArray()[0];
-			while(!itDate.equals(treeMap.keySet().toArray()[treeMap.size()-1])){
+//			Date itDate = (Date) treeMap.keySet().toArray()[0];
+			Date itDate = DAOLog.getInstance().getDateFromFirstLog();
+			itDate.setMinutes(0);
+			itDate.setSeconds(0);
+			Date now = new Date();
+			now.setMinutes(0);
+			now.setSeconds(0);
+			while(!itDate.toGMTString().equals(now.toGMTString())){
 				if(!treeMap.containsKey(itDate)){
 					treeMap.put(itDate, 0);
 				}

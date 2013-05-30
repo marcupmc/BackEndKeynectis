@@ -98,10 +98,11 @@ public class CertifierDocument extends HttpServlet
 					.getInstance().certificationPDFFromXml(identifiant, url,
 							basePath, saveFile);
 
-		}*/
-
+		}*/ 
+  
 		System.out.println("[TEST KEYNECTIS - Servelt] Recuperation du blob ");
-
+		System.out.println("-----TRANSNUM : "+toReturn.get("transNum"));
+		System.out.println("-----HASHB64 : "+toReturn.get("hash"));
 		request.setAttribute("blob", toReturn.get("blob"));
 		request.getSession().setAttribute("transNum", toReturn.get("transNum"));
 		request.getSession().setAttribute("CERT", certFolder);
@@ -120,7 +121,7 @@ public class CertifierDocument extends HttpServlet
 		request.getRequestDispatcher("sendToKeynectis.jsp").forward(request,
 				response);
 	}
-
+ 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

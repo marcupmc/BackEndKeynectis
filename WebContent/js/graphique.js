@@ -7,6 +7,7 @@ var geocoder;
 
 function getConnexionsPerHour(){
 	$.ajax({ 
+		async:true,
 		type: "GET", 
 		url: "http://localhost:5546/TestRest/rest/statistiques/connexionperhours",
 		datatype:"jsonp",
@@ -33,6 +34,7 @@ function getConnexionsPerHour(){
 
 function getConnexionsReport(){
 	$.ajax({ 
+		async:true,
 		type: "GET", 
 		url: "http://localhost:5546/TestRest/rest/statistiques/connexionreport",
 		datatype:"jsonp",
@@ -65,6 +67,7 @@ function getConnexionsReport(){
 
 function getErrorsPerType(){
 	$.ajax({ 
+		async:true,
 		type: "GET", 
 		url: "http://localhost:5546/TestRest/rest/statistiques/errorpertype",
 		datatype:"jsonp",
@@ -73,16 +76,36 @@ function getErrorsPerType(){
 				alert('Erreur ! ');
 			else{
 				var JSONErrorReport  = $.parseJSON(msg);
-				//success = JSONConnexionReport.success;
-				//failed  = JSONErrorReport.failed;
+				var erreur1 = JSONErrorReport.CONNEXION_FAILED;
+				var erreur2 = JSONErrorReport.ERREUR_LECTURE_CONFIGURATION;
+				var erreur3 = JSONErrorReport.ERREUR_HASHBASE64;
+				var erreur4 = JSONErrorReport.ERREUR_GETBLOB;
+				var erreur5 = JSONErrorReport.ERREUR_DECODING_BLOB_SIGNATURE;
+				var erreur6 = JSONErrorReport.ERREUR_RTIFACTORY;
+				var erreur7 = JSONErrorReport.ERREUR_ORIGINAL_METIER_FACTORY;
+				var erreur8 = JSONErrorReport.ERREUR_ENCODING_PDF_SIGZONE;
+				var erreur9 = JSONErrorReport.ERREUR_PDF2XML;
+				var erreur10 = JSONErrorReport.ERREUR_KEYNECTIS_KWEBSIGN;
+				
 				failed  = 4;
 				var data = new google.visualization.DataTable();
 				data.addColumn('string', 'Topping');
 				data.addColumn('number', 'Slices');
 				data.addRows([ 
-				              [ 'Erreurs',failed ] ]);
+				              ['Erreur de connexion',erreur1 ],
+				              ['Erreur de lecture des configuration',erreur2],
+				              ['Erreur de hashBase64',erreur3],
+				              ['Erreur de recuperation du blob',erreur4],
+				              ['Erreur de decodage de la signature',erreur5],
+				              ['Erreur de construction du rti',erreur6],
+				              ['Erreur de construction de l original metier',erreur7],
+				              ['Erreur de d aposition des zones de signature',erreur8],
+				              ['Erreur de pdf to xml',erreur9],
+				              ['Envoie d un code d erreur de KWebSign',erreur10]
+				              
+				              ]);
 				var options = {
-						title : 'Répartition des erreurs'
+						title : 'Répartition des erreurs par type'
 				};
 
 				var chart = new google.visualization.PieChart(document
@@ -111,6 +134,7 @@ function drawChart3()
 
 function drawChart4() {
 	$.ajax({ 
+		async:true,
 		type: "GET", 
 		url: "http://localhost:5546/TestRest/rest/statistiques/errorperday",
 		datatype:"jsonp",

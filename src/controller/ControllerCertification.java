@@ -168,6 +168,7 @@ public class ControllerCertification
 		}
 		toReturn.put("blob", blob);
 		toReturn.put("transNum", transNum);
+		toReturn.put("hash", hashBase64);
 
 		return toReturn;
 	}
@@ -264,7 +265,7 @@ public class ControllerCertification
 		}
 		toReturn.put("blob", blob);
 		toReturn.put("transNum", transNum);
-
+		toReturn.put("hash", hashBase64);
 		return toReturn;
 	}
 
