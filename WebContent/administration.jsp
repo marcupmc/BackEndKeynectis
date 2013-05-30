@@ -78,38 +78,41 @@
 				{
 			%>
 			<table class="table table-striped">
-				<tr>
-
-					<th>Prenom</th>
-					<th>Nom</th>
-					<th>Email</th>
-					<th>Telephone</th>
-					<th>Nombre de documents</th>
-					<th></th>
-					<th></th>
-
-				</tr>
-				<%
-					for (int i = 0; i < lcontact.size(); i++)
-						{
-							Utilisateur c = lcontact.get(i);
-				%>
-				<tr>
-
-					<td><%=c.getFirstName()%></td>
-					<td><%=c.getLastName()%></td>
-					<td><%=c.getEmail()%></td>
-					<td><%=c.getPhoneNumber()%></td>
-					<td><%=c.getDocuments().size()%></td>
-					<td><a href="DetailsClient?id=<%=c.getId()%>"
-						class="btn btn-small btn-info" type="buttons">Détails</a></td>
-					<td><a href="DeleteClient?idClient=<%=c.getId()%>"
-						class="btn btn-small btn-danger" type="button">Supprimer</a></td>
-				<tr>
+				<thead>
+					<tr>
+	
+						<th>Prenom</th>
+						<th>Nom</th>
+						<th>Email</th>
+						<th>Telephone</th>
+						<th>Nombre de documents</th>
+						<th></th>
+						<th></th>
+	
+					</tr>
+				</thead>
+				<tbody>
 					<%
-						}
+						for (int i = 0; i < lcontact.size(); i++)
+							{
+								Utilisateur c = lcontact.get(i);
 					%>
-				
+					<tr>
+	
+						<td><%=c.getFirstName()%></td>
+						<td><%=c.getLastName()%></td>
+						<td><%=c.getEmail()%></td>
+						<td><%=c.getPhoneNumber()%></td>
+						<td><%=c.getDocuments().size()%></td>
+						<td><a href="DetailsClient?id=<%=c.getId()%>"
+							class="btn btn-small btn-info" type="buttons">Détails</a></td>
+						<td><a href="DeleteClient?idClient=<%=c.getId()%>"
+							class="btn btn-small btn-danger" type="button">Supprimer</a></td>
+					</tr>
+						<%
+							}
+						%>
+				</tbody>
 			</table>
 			<%
 				}

@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.AuthorityParameters;
+import model.KeynectisParameters;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
@@ -30,8 +33,7 @@ import com.dictao.keynectis.quicksign.transid.ResponseTransId;
 import com.dictao.keynectis.quicksign.transid.SignBlobException;
 
 import dao.DAODocumentPDF;
-import domain.AuthorityParameters;
-import domain.KeynectisParameters;
+
 import domain.Log;
 import domain.TypeLog;
 
@@ -70,16 +72,19 @@ public class ResponseKeynectis extends HttpServlet
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
 	{
-		String identifiant = (String) request.getSession().getAttribute("identifiant");
-		
-		final Marker marker1 = MarkerFactory.getMarker(TypeLog.SIGNATURE_REUSSIE.toString());
-		final Marker marker2 = MarkerFactory.getMarker(TypeLog.ERREUR_KEYNECTIS_KWEBSIGN.toString());
+		String identifiant = (String) request.getSession().getAttribute(
+				"identifiant");
+
+		final Marker marker1 = MarkerFactory
+				.getMarker(TypeLog.SIGNATURE_REUSSIE.toString());
+		final Marker marker2 = MarkerFactory
+				.getMarker(TypeLog.ERREUR_KEYNECTIS_KWEBSIGN.toString());
 		final Logger logger = LoggerFactory.getLogger(EncoderBase64.class);
-		
+
 		Log l = new Log();
 		l.setIdentifiant_client(identifiant);
 		l.setIpadresse(request.getServerName());
-		
+
 		String id = (String) request.getSession().getAttribute("id");
 		AuthorityParameters autho = (AuthorityParameters) request.getSession()
 				.getAttribute("authority");
@@ -107,25 +112,28 @@ public class ResponseKeynectis extends HttpServlet
 		rti.setOutputStream(fos);
 		String transNum = "";
 		int status = -1;
-		String msg="";
+		String msg = "";
 		try
 		{
 			transNum = rti.getTransNum();
 			status = rti.getStatus();
 			fos.close();
-			
-			File ftemp= new File(pdfOutPath);
+
+			File ftemp = new File(pdfOutPath);
 			byte[] bits = ToolsPDF.getBytesFromFile(ftemp);
-			
+
 			DAODocumentPDF.getInstance().addContent(Long.parseLong(id), bits);
 			ftemp.delete();
-			
-			 
-			if (status==1)
-			{	msg="ok";
+
+			if (status == 1)
+			{
+				msg = "ok";
+
 				logger.info(marker1, "Signature reussie ", l);
-			}else{
-				msg="error";
+			}
+			else
+			{
+				msg = "error";
 				logger.info(marker2, "Erreur de emise par Keynectis ", l);
 			}
 		}
@@ -150,51 +158,50 @@ public class ResponseKeynectis extends HttpServlet
 			e.printStackTrace();
 		}
 
-		
-//
-//		if (null == autho)
-//		{
-//			ToolsFTP.sendToServer(pdfOutPath, "ftp.marc-gregoire.fr",
-//					"www/Keynectis_Certified", "marcgreg", "nCcKMr7E");
-//		}
-//		else
-//		{
-//			ToolsFTP.sendToServer(pdfOutPath,
-//					((KeynectisParameters) autho).getServPDFCert(),
-//					((KeynectisParameters) autho).getPathPDFCert(),
-//					((KeynectisParameters) autho).getLoginPDFCert(),
-//					((KeynectisParameters) autho).getMdpPDFCert());
-//		}
+		//
+		// if (null == autho)
+		// {
+		// ToolsFTP.sendToServer(pdfOutPath, "ftp.marc-gregoire.fr",
+		// "www/Keynectis_Certified", "marcgreg", "nCcKMr7E");
+		// }
+		// else
+		// {
+		// ToolsFTP.sendToServer(pdfOutPath,
+		// ((KeynectisParameters) autho).getServPDFCert(),
+		// ((KeynectisParameters) autho).getPathPDFCert(),
+		// ((KeynectisParameters) autho).getLoginPDFCert(),
+		// ((KeynectisParameters) autho).getMdpPDFCert());
+		// }
 
-//		File f = new File(pdfOutPath);
-//		String filename = f.getName();
-//		f.delete();
+		// File f = new File(pdfOutPath);
+		// String filename = f.getName();
+		// f.delete();
 
-//		String newPath = "http://www.marc-gregoire.fr/Keynectis_Certified/"
-//				+ filename;
-//
-//		if (null != autho)
-//		{
-//			newPath = "http://www."
-//					+ ((KeynectisParameters) autho).getServPDFCert().substring(
-//							((KeynectisParameters) autho).getServPDFCert()
-//									.indexOf("."))
-//					+ ((KeynectisParameters) autho).getPathPDFCert().substring(
-//							((KeynectisParameters) autho).getPathPDFCert()
-//									.indexOf("w"))
-//					/* "http://www.marc-gregoire.fr/Keynectis_Certified/" */
-//					+ filename;
-//		}
-//
-//		System.out.println(newPath);
+		// String newPath = "http://www.marc-gregoire.fr/Keynectis_Certified/"
+		// + filename;
+		//
+		// if (null != autho)
+		// {
+		// newPath = "http://www."
+		// + ((KeynectisParameters) autho).getServPDFCert().substring(
+		// ((KeynectisParameters) autho).getServPDFCert()
+		// .indexOf("."))
+		// + ((KeynectisParameters) autho).getPathPDFCert().substring(
+		// ((KeynectisParameters) autho).getPathPDFCert()
+		// .indexOf("w"))
+		// /* "http://www.marc-gregoire.fr/Keynectis_Certified/" */
+		// + filename;
+		// }
+		//
+		// System.out.println(newPath);
 
 		deleteTempfiles(temp, name);
-		
-		
 
-//		String url = "finCertification.jsp?identifiant=" + identifiant + "&id="
-//				+ id + "&urlnew=" + newPath;
-		String url = "finCertification.jsp?identifiant=" + identifiant+"&id="+id+"&msg="+msg;
+		// String url = "finCertification.jsp?identifiant=" + identifiant +
+		// "&id="
+		// + id + "&urlnew=" + newPath;
+		String url = "finCertification.jsp?identifiant=" + identifiant + "&id="
+				+ id + "&msg=" + msg;
 		response.sendRedirect(url);
 	}
 

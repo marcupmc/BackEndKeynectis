@@ -43,7 +43,7 @@
 						<div class="controls">
 							<input name="authority" type="text" id="auth"
 								value="KWS_INTEGRATION_CDS" readonly="readonly"
-								class="input-xlarge">
+								class="input-xlarge" required="required">
 						</div>
 					</div>
 
@@ -63,7 +63,7 @@
 								signature Original Métier</label>
 							<div class="controls">
 								<input type="text" id="certMetier" name="certMetier"
-									placeholder="" class="input-xlarge">
+									placeholder="" class="input-xlarge" required="required">
 							</div>
 						</div>
 
@@ -73,7 +73,7 @@
 								du certificat</label>
 							<div class="controls">
 								<input type="password" id="mdpMetier" name="mdpMetier"
-									placeholder="" class="input-xlarge">
+									placeholder="" class="input-xlarge" required="required">
 							</div>
 						</div>
 
@@ -82,7 +82,7 @@
 								Identifiant application métier </label>
 							<div class="controls">
 								<input type="text" id="idAppMetier" name="idAppMetier"
-									placeholder="" class="input-xlarge">
+									placeholder="" class="input-xlarge" required="required">
 							</div>
 						</div>
 
@@ -92,7 +92,7 @@
 								Identifiant serveur métier </label>
 							<div class="controls">
 								<input type="text" id="idServMetier" name="idServMetier"
-									placeholder="" class="input-xlarge">
+									placeholder="" class="input-xlarge" required="required">
 							</div>
 						</div>
 
@@ -102,7 +102,7 @@
 								Identifiant organisme métier </label>
 							<div class="controls">
 								<input type="text" id="idOrgMetier" name="idOrgMetier"
-									placeholder="" class="input-xlarge">
+									placeholder="" class="input-xlarge" required="required">
 							</div>
 						</div>
 					</div>
@@ -120,7 +120,7 @@
 								signature</label>
 							<div class="controls">
 								<input type="text" id="certSign" name="certSign" placeholder=""
-									class="input-xlarge">
+									class="input-xlarge" required="required">
 							</div>
 						</div>
 
@@ -130,7 +130,7 @@
 								du certificat</label>
 							<div class="controls">
 								<input type="password" id="mdpCert" name="mdpCert"
-									placeholder="" class="input-xlarge">
+									placeholder="" class="input-xlarge" required="required">
 							</div>
 						</div>
 					</div>
@@ -148,7 +148,7 @@
 								de chiffrement </label>
 							<div class="controls">
 								<input type="text" id="certChiff" name="certChiff"
-									placeholder="" class="input-xlarge">
+									placeholder="" class="input-xlarge" required="required">
 							</div>
 						</div>
 					</div>
@@ -166,7 +166,7 @@
 								déchiffrement</label>
 							<div class="controls">
 								<input type="text" id="certDecipher" name="certDecipher"
-									placeholder="" class="input-xlarge">
+									placeholder="" class="input-xlarge" required="required">
 							</div>
 						</div>
 
@@ -176,7 +176,7 @@
 								passe du certificat</label>
 							<div class="controls">
 								<input type="password" id="mdpDecipher" name="mdpDecipher"
-									placeholder="" class="input-xlarge">
+									placeholder="" class="input-xlarge" required="required">
 							</div>
 						</div>
 

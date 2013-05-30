@@ -25,13 +25,17 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import model.AuthorityParameters;
+import model.DictaoParamaters;
+import model.KeynectisParameters;
+import model.TagParameter;
+import model.TagParameters;
+
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import domain.AuthorityParameters;
-import domain.DictaoParamaters;
-import domain.KeynectisParameters;
+import controller.ControllerAjoutTypeCertification;
 
 /**
  * @author dtadmi
@@ -69,6 +73,14 @@ public class ToolsXML
 	static final String CERTPATH = "CertPath";
 	static final String TEMPPATH = "TempPath";
 	static final String SAVEPATH = "SavePath";
+
+	static final String TAGPARAMETERS = "tagParameters";
+	static final String TAGCONFIG = "tagConfig";
+	static final String TYPENAME = "typeName";
+	static final String TYPEID = "typeIdentifiant";
+	static final String REASON = "reason";
+	static final String LOCATION = "location";
+	static final String CONTACT = "contact";
 
 	/**
 	 * Create the xml file based on the certificate authority and the
@@ -128,25 +140,31 @@ public class ToolsXML
 
 					// CertPath elements
 					Element CertPath = doc.createElement(CERTPATH);
-					if((null != param.getCertPath()) && (""!=param.getCertPath()))
-						CertPath.appendChild(doc.createTextNode(param.getCertPath()));
-					else 
+					if ((null != param.getCertPath())
+							&& ("" != param.getCertPath()))
+						CertPath.appendChild(doc.createTextNode(param
+								.getCertPath()));
+					else
 						CertPath.appendChild(doc.createTextNode(certFolder));
 					authority.appendChild(CertPath);
 
 					// TempPath elements
 					Element TempPath = doc.createElement(TEMPPATH);
-					if((null != param.getTempPath()) && (""!=param.getTempPath()))
-						TempPath.appendChild(doc.createTextNode(param.getTempPath()));
-					else 
-						TempPath.appendChild(doc.createTextNode(savePath));					
+					if ((null != param.getTempPath())
+							&& ("" != param.getTempPath()))
+						TempPath.appendChild(doc.createTextNode(param
+								.getTempPath()));
+					else
+						TempPath.appendChild(doc.createTextNode(savePath));
 					authority.appendChild(TempPath);
 
 					// SavePath elements
 					Element SavePath = doc.createElement(SAVEPATH);
-					if((null != param.getSavePath()) && (""!=param.getSavePath()))
-						SavePath.appendChild(doc.createTextNode(param.getSavePath()));
-					else 
+					if ((null != param.getSavePath())
+							&& ("" != param.getSavePath()))
+						SavePath.appendChild(doc.createTextNode(param
+								.getSavePath()));
+					else
 						SavePath.appendChild(doc.createTextNode(savePath));
 					authority.appendChild(SavePath);
 
@@ -309,6 +327,200 @@ public class ToolsXML
 		return created;
 	}
 
+	public static boolean
+			createTagXMLFile(String savePath)
+	{
+		boolean created = false;
+		
+		TagParameters types =ControllerAjoutTypeCertification.getInstance().getParameters();
+
+		try
+		{
+
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory
+					.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+			// root elements
+			Document doc = docBuilder.newDocument();
+			Element rootElement = doc.createElement(TAGPARAMETERS);
+			doc.appendChild(rootElement);
+
+			for (TagParameter type : types.getTypes())
+			{
+				// tagConfig elements
+				Element tagConfig = doc.createElement(TAGCONFIG);
+				rootElement.appendChild(tagConfig);
+
+				// set attribute to tagConfig element
+				Attr attr = doc.createAttribute(TYPEID);
+				attr.setValue(type.getId_type());
+				tagConfig.setAttributeNode(attr);
+
+				tagConfig.setAttribute(TYPENAME, type.getName());
+				
+				// Reason elements
+				Element Reason = doc.createElement(REASON);
+				Reason.appendChild(doc.createTextNode(type.getPDF_REASON()));
+				tagConfig.appendChild(Reason);
+				
+				// Location elements
+				Element Location = doc.createElement(LOCATION);
+				Location.appendChild(doc.createTextNode(type.getPDF_LOCATION()));
+				tagConfig.appendChild(Location);
+				
+				// Contact elements
+				Element Contact = doc.createElement(CONTACT);
+				Contact.appendChild(doc.createTextNode(type.getPDF_CONTACT()));
+				tagConfig.appendChild(Contact);
+			}
+
+
+			// write the content into xml file
+			TransformerFactory transformerFactory = TransformerFactory
+					.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+
+			File xmlFile = new File(savePath + "\\tagParameters.xml");
+			StreamResult result = new StreamResult(xmlFile);
+
+			// Output to console for testing
+			// StreamResult result = new StreamResult(System.out);
+
+			transformer.transform(source, result);
+
+			if (xmlFile.exists())
+			{
+				System.out.println("File saved! " + xmlFile.getAbsolutePath());
+				created = true;
+			}
+			else
+				System.out
+						.println("Error while saving xml file: file not created!"
+								+ xmlFile.getAbsolutePath());
+
+		}
+		catch (ParserConfigurationException pce)
+		{
+			pce.printStackTrace();
+		}
+		catch (TransformerException tfe)
+		{
+			tfe.printStackTrace();
+		}
+
+		return created;
+	}
+
+	@SuppressWarnings({ "unchecked" })
+	public static TagParameters readTagConfig(String configFile)
+	{
+		ControllerAjoutTypeCertification controller = ControllerAjoutTypeCertification.getInstance();
+		TagParameters parameters = controller.getParameters();
+		try
+		{
+			// First create a new XMLInputFactory
+			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+			// Setup a new eventReader
+			InputStream in = new FileInputStream(configFile);
+			XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
+			// Read the XML document
+			TagParameter type = null;
+
+			while (eventReader.hasNext())
+			{
+				XMLEvent event = eventReader.nextEvent();
+
+				if (event.isStartElement())
+				{
+					StartElement startElement = event.asStartElement();
+					// If we have a tagconfig element we create a new type
+					if ((TAGCONFIG).equals(startElement.getName()
+							.getLocalPart()))
+					{
+						 type = new TagParameter();
+						// We read the attributes from this tag and add it to the type
+						// attribute to our object
+						Iterator<Attribute> attributes = startElement
+								.getAttributes();
+						while (attributes.hasNext())
+						{
+							Attribute attribute = attributes.next();
+							if ((TYPENAME).equals(attribute.getName().toString()))
+							{
+								String typename = attribute.getValue();
+								type.setName(typename);
+								continue;
+							}
+							
+							if ((TYPEID).equals(attribute.getName().toString()))
+							{
+								String typeid = attribute.getValue();
+								type.setId_type(typeid);
+								continue;
+							}
+
+						}
+					}
+
+					if (event.isStartElement())
+					{
+						if ((REASON).equals(event.asStartElement()
+								.getName().getLocalPart()))
+						{
+							event = eventReader.nextEvent();
+							if(event.isCharacters())
+								type.setPDF_REASON(event
+									.asCharacters().getData());
+							continue;
+						}
+					}
+					if ((LOCATION).equals(event.asStartElement().getName()
+							.getLocalPart()))
+					{
+						event = eventReader.nextEvent();
+						if(event.isCharacters())
+							type.setPDF_LOCATION(event
+								.asCharacters().getData());
+						continue;
+					}
+					if ((CONTACT).equals(event.asStartElement().getName()
+							.getLocalPart()))
+					{
+						event = eventReader.nextEvent();
+						if(event.isCharacters())
+							type.setPDF_CONTACT(event
+								.asCharacters().getData());
+						continue;
+					}
+				}
+				// If we reach the end of an tagconfig element we add it to the list of types
+				if (event.isEndElement())
+				{
+					EndElement endElement = event.asEndElement();
+					if ((TAGCONFIG).equals(endElement.getName()
+							.getLocalPart()))
+					{
+						parameters.addType(type);
+					}
+				}
+
+			}
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+			//autho = null;
+		}
+		catch (XMLStreamException e)
+		{
+			e.printStackTrace();
+			//autho = null;
+		}
+		return parameters;
+	}
+	
 	@SuppressWarnings({ "unchecked" })
 	public static AuthorityParameters readConfig(String configFile)
 	{
@@ -513,12 +725,12 @@ public class ToolsXML
 		catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
-			autho=null;
+			autho = null;
 		}
 		catch (XMLStreamException e)
 		{
 			e.printStackTrace();
-			autho=null;
+			autho = null;
 		}
 		return autho;
 	}

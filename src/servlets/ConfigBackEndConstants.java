@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.AuthorityParameters;
+
 import controller.ControllerParameter;
-import domain.AuthorityParameters;
 
 /**
  * Servlet implementation class ConfigBackEnd
@@ -162,20 +163,5 @@ public class ConfigBackEndConstants extends HttpServlet
 					response);
 
 		}
-
-		// String password = request.getParameter("password");
-
-		/*
-		 * if(ControllerAuthentification.getInstance().isAuthentified(login,
-		 * password)){ Utilisateur user =
-		 * DAOUtilisateur.getInstance().getUserByIdentifiant(login);
-		 * request.setAttribute("client", user);
-		 * System.out.println("Authentification Reussie !"); } else
-		 * System.out.println("Echec de l'authentification");
-		 */
-
-		// request.getRequestDispatcher("home_client.jsp").forward(request,
-		// response);
 	}
 }
-

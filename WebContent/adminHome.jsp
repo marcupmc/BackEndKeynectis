@@ -14,6 +14,27 @@
 	<div class="container">
 
 		<h2>ADMINISTRATION DE LA SESSION METIER</h2>
+		
+		<!-- 		Zone réservée aux messages d'erreurs -->
+		<%
+			String msg = (String) request.getParameter("error");
+			if (msg != null)
+			{
+				String message = "";
+				if ((("error").equals(msg)))
+				{
+
+					message = "Une erreur s'est produite lors du processus de sauvegarde des types. Merci de contacter l'IT pour débuggage.";
+		%>
+		<div class="alert alert-block alert-error fade in">
+			Erreur :
+			<%=message%></div>
+		<%
+				}
+			}
+		%>
+		<!-- 		Fin de la zone des messages d'erreurs -->
+		
 		<div class="underTitle">
 			<h3>ADMINISTRATION DU SERVEUR METIER</h3>
 		</div>

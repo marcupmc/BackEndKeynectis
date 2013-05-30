@@ -177,7 +177,28 @@
     <servlet-name>ShowLogs</servlet-name>
     <url-pattern>/ShowLogs</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
+    <description></description>
+    <display-name>AddType</display-name>
+    <servlet-name>AddType</servlet-name>
+    <servlet-class>servlets.AddType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddType</servlet-name>
+    <url-pattern>/AddType</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TypesXmlSaving</display-name>
+    <servlet-name>TypesXmlSaving</servlet-name>
+    <servlet-class>servlets.TypesXmlSaving</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TypesXmlSaving</servlet-name>
+    <url-pattern>/TypesXmlSaving</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <description></description>
     <display-name>SendBase64PDF</display-name>
     <servlet-name>SendBase64PDF</servlet-name>
@@ -187,4 +208,5 @@
     <servlet-name>SendBase64PDF</servlet-name>
     <url-pattern>/SendBase64PDF</url-pattern>
   </servlet-mapping>
+
 </web-app>
