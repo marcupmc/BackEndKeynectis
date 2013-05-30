@@ -178,6 +178,12 @@ public class ControllerCertification
 			String url, String urlRetour, String parameterPath)
 	{
 
+		if(identifiant==null || identifiant.length()==0 ||
+				url==null || url.length()==0 ||
+				urlRetour==null || urlRetour.length()==0 ||
+				parameterPath==null || parameterPath.length()==0)return null;
+		
+		
 			l = new Log();
 			l.setIdentifiant_client(identifiant);
 			l.setIpadresse(url);
