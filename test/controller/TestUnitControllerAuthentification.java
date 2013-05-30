@@ -14,7 +14,7 @@ import dao.DAOUtilisateur;
 import domain.DocumentPDF;
 import domain.Utilisateur;
 
-public class TestControllerAuthentification {
+public class TestUnitControllerAuthentification {
 
 
 	/**
