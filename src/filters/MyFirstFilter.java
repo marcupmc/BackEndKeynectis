@@ -23,7 +23,7 @@ public class MyFirstFilter  extends Filter<ILoggingEvent> {
 		if(typeName.equals("CONNEXION_FAILED"))
 		{
 			typeToSave=TypeLog.CONNEXION_FAILED;
-			eventType=EventType.USER;
+			eventType=EventType.ERROR;
 		}
 		else if(typeName.equals("CONNEXION"))
 		{
@@ -87,32 +87,32 @@ public class MyFirstFilter  extends Filter<ILoggingEvent> {
 			typeToSave=TypeLog.ERREUR_GETBLOB;
 			eventType=EventType.ERROR;
 		}
-		else if(typeName.equals("ERROR_DECODING_BLOB_SIGNATURE"))
+		else if(typeName.equals("ERREUR_DECODING_BLOB_SIGNATURE"))
 		{
 			typeToSave=TypeLog.ERREUR_DECODING_BLOB_SIGNATURE;
 			eventType=EventType.ERROR;
 		}
-		else if(typeName.equals("ERROR_RTIFACTORY"))
+		else if(typeName.equals("ERREUR_RTIFACTORY"))
 		{
 			typeToSave=TypeLog.ERREUR_RTIFACTORY;
 			eventType=EventType.ERROR;
 		}
-		else if(typeName.equals("ERROR_ORIGINAL_METIER_FACTORY"))
+		else if(typeName.equals("ERREUR_ORIGINAL_METIER_FACTORY"))
 		{
 			typeToSave=TypeLog.ERREUR_ORIGINAL_METIER_FACTORY;
 			eventType=EventType.ERROR;
 		}
-		else if(typeName.equals("ERROR_ENCODING_PDF_SIGZONE"))
+		else if(typeName.equals("ERREUR_ENCODING_PDF_SIGZONE"))
 		{
 			typeToSave=TypeLog.ERREUR_ENCODING_PDF_SIGZONE;
 			eventType=EventType.ERROR;
 		}
-		else if(typeName.equals("ERROR_PDF2XML"))
+		else if(typeName.equals("ERREUR_PDF2XML"))
 		{
 			typeToSave=TypeLog.ERREUR_PDF2XML;
 			eventType=EventType.ERROR;
 		}
-		else if(typeName.equals("ERROR_KEYNECTIS_KWEBSIGN"))
+		else if(typeName.equals("ERREUR_KEYNECTIS_KWEBSIGN"))
 		{
 			typeToSave=TypeLog.ERREUR_KEYNECTIS_KWEBSIGN;
 			eventType=EventType.ERROR;

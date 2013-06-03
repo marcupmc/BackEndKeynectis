@@ -28,8 +28,8 @@
 .draggable {
 	margin-top: 10px;
 	margin-bottom: 10px;
-	width: 150px;
-	height: 50px;
+	width: 200px;
+	height: 60px;
 	padding: 0.5em;
 	border: 1px solid black;
 	cursor: move;
@@ -39,9 +39,9 @@
 	vertical-align: top;
 }
 
-#fixer {
-	display: none;
-}
+/* #fixer { */
+/* 	display: none; */
+/* } */
 
 #loader {
 	display: none;
@@ -79,8 +79,8 @@
 		</button>
 		<button onclick="createSignature()" id="createSignature"
 			class="btn btn-info">Ajouter une signature</button>
-		<button onclick="fixer()" id="fixer" class="btn btn-info">Fixer
-			la signature</button>
+<!-- 		<button onclick="fixer()" id="fixer" class="btn btn-info">Fixer -->
+<!-- 			la signature</button> -->
 
 		<table>
 			<tr>

@@ -47,7 +47,7 @@ public class TypesXmlSaving extends HttpServlet
 
 		for (TagParameter type : controller.getParameters().getTypes())
 		{
-			idDefaultRadio = (String)request.getParameter("optionDefault");
+			idDefaultRadio = (String) request.getParameter("optionDefault");
 			if (type.getName().equals(idDefaultRadio))
 			{
 				controller.getParameters().setDefaultType(type);

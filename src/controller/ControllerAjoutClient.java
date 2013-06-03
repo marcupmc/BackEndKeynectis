@@ -5,10 +5,10 @@ import java.util.Set;
 
 import dao.DAOUtilisateur;
 import domain.DocumentPDF;
-
+ 
 public class ControllerAjoutClient
 {
-
+          
 	// SINGLETON
 	public static ControllerAjoutClient getInstance()
 	{
@@ -22,7 +22,7 @@ public class ControllerAjoutClient
 
 	private ControllerAjoutClient()
 	{
-	}
+	}  
 
 	private static ControllerAjoutClient instance;
 
@@ -47,7 +47,7 @@ public class ControllerAjoutClient
 				|| password == null || password.length() == 0
 				|| identifiant == null || identifiant.length() == 0)
 			return false;
-
+    
 		// Verifier que l'identifiant n'existe pa deja
 		if (DAOUtilisateur.getInstance().getUserByIdentifiant(identifiant) != null)
 			return false;

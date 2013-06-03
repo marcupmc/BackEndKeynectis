@@ -128,6 +128,7 @@ public class ResponseKeynectis extends HttpServlet
 			if (status == 1)
 			{
 				msg = "ok";
+
 				logger.info(marker1, "Signature reussie ", l);
 			}
 			else

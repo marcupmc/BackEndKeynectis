@@ -1,3 +1,4 @@
+<%@page import="domain.EventType"%>
 <%@page import="com.itextpdf.text.log.SysoLogger"%>
 <%@page import="sun.misc.Cleaner"%>
 <%@page import="java.util.Date"%>
@@ -132,18 +133,19 @@
 						for (int i = 0; i < liste_logs.size(); i++) {
 																	Log log = liste_logs.get(i);
 					%>
+					<%if (log.getEventype().equals(EventType.ERROR)){
+							%>
+					<tr class="alert alert-block alert-error">
+					<%}else{%>
 					<tr>
+						<%} %>
 						<td><%=log.getId()%></td>
 						<td><%=log.getDate().toString()%></td>
 						<td><%=log.getType().name()%></td>
 						<td><%=log.getIpadresse()%></td>
 						<td><%=log.getIdentifiant_client()%></td>
 						<td>
-							<%
-								if(log.getEventype()!=null){
-							%> <%=log.getEventype().name()%> <%
- 	}
- %>
+							 <%=log.getEventype().name()%> 
 						</td>
 					</tr>
 					<%

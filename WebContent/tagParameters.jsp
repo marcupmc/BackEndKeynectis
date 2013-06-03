@@ -1,3 +1,4 @@
+
 <%@page import="controller.ControllerAjoutTypeCertification"%>
 <%@page import="model.TagParameter"%>
 <%@page import="model.TagParameters"%>
@@ -76,8 +77,9 @@
 						<td><a
 							href="AddType?action=modify&id=<%=type.getId_type()%>&name=<%=type.getName()%>"
 							class="btn btn-small btn-info" type="buttons">Editer</a></td>
-						<td><a href="AddType?action=delete&id=<%=type.getId_type()%>&name=<%=type.getName()%>" class="btn btn-small btn-danger"
-							type="button">Supprimer</a></td>
+						<td><a
+							href="AddType?action=delete&id=<%=type.getId_type()%>&name=<%=type.getName()%>"
+							class="btn btn-small btn-danger" type="button">Supprimer</a></td>
 					</tr>
 					<%
 						}

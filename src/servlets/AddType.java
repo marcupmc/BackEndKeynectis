@@ -53,10 +53,10 @@ public class AddType extends HttpServlet
 
 		if ("modify".equals(action))
 		{
-			request.getRequestDispatcher("addType.jsp?option=modify")
-					.forward(request, response);
-		}		
-		else if("delete".equals(action))
+			request.getRequestDispatcher("addType.jsp?option=modify").forward(
+					request, response);
+		}
+		else if ("delete".equals(action))
 		{
 			TagParameter type = controller.getType(id, name);
 			String errMess = "success";
@@ -65,13 +65,12 @@ public class AddType extends HttpServlet
 					+ messType;
 			if (!controller.removeType(type))
 			{
-				messType = "removing_type_error";				
+				messType = "removing_type_error";
 			}
-			
-			request.getRequestDispatcher(url)
-			.forward(request, response);
-		 }
-		 
+
+			request.getRequestDispatcher(url).forward(request, response);
+		}
+
 	}
 
 	/**
@@ -88,7 +87,7 @@ public class AddType extends HttpServlet
 		String reason = request.getParameter("reason");
 		String location = request.getParameter("location");
 		String contact = request.getParameter("contact");
-		boolean checked = request.getParameter("default")!=null;
+		boolean checked = request.getParameter("default") != null;
 
 		String errMess = "success";
 		String messType = "KWS";
@@ -123,9 +122,9 @@ public class AddType extends HttpServlet
 			String editName = request.getParameter("name");
 			String editId = request.getParameter("id");
 
-			controller.modifyParameters(editId, editName, id, name,
-					reason, location, contact, checked);
-			if(checked)
+			controller.modifyParameters(editId, editName, id, name, reason,
+					location, contact, checked);
+			if (checked)
 				controller.getParameters().setDefaultType(id, name);
 		}
 

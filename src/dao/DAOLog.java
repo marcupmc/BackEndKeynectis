@@ -35,9 +35,26 @@ public class DAOLog
 
 	private static DAOLog instance;
 
+	/**
+	 * Add a log in DB
+	 * @param type
+	 * @param ipadresse
+	 * @param identifiant_client
+	 * @param eventType
+	 * @param longitude
+	 * @param latitude
+	 * @return true if the log has been correctly had, false if not
+	 */
 	public boolean addLog(TypeLog type, String ipadresse,
 			String identifiant_client, EventType eventType,String longitude,String latitude)
 	{
+		if(type==null||
+				ipadresse==null||ipadresse.length()==0||
+				identifiant_client==null||identifiant_client.length()==0||
+				eventType==null||
+				longitude==null || longitude.length()==0||
+				latitude==null || latitude.length()==0)return false;
+		
 		Session session = null;
 		try
 		{
@@ -69,6 +86,10 @@ public class DAOLog
 		return true;
 	}
 
+	/**
+	 * Get All the logs from DB
+	 * @return
+	 */
 	public ArrayList<Log> getAllLogs()
 	{
 		ArrayList<Log> logs = new ArrayList<Log>();
@@ -95,6 +116,11 @@ public class DAOLog
 		return logs;
 	}
 	
+	/**
+	 * Get the logs from a specified TypeLog
+	 * @param type
+	 * @return
+	 */
 	public ArrayList<Log> getLogPerType(TypeLog type)
 	{
 		ArrayList<Log> logs = new ArrayList<Log>();
@@ -123,6 +149,11 @@ public class DAOLog
 		return logs;
 	}
 	
+	/**
+	 * Get the log from a specified EventType
+	 * @param type
+	 * @return
+	 */
 	public ArrayList<Log> getLogPerEventType(EventType type)
 	{;
 		ArrayList<Log> logs = new ArrayList<Log>();
@@ -149,6 +180,32 @@ public class DAOLog
 			return logs;
 		}
 		return logs;
+	}
+	
+	public Date getDateFromFirstLog(){
+		Session session = null;
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure()
+					.buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+			
+			Query q = session.createQuery("from Log l order by l.date ");
+			Log  l = (Log) q.list().get(0);
+			Date firstDate=l.getDate();
+			//SELECT FIRST(column_name) FROM table_name;
+			
+			tx.commit();
+			session.close();
+			sessionFactory.close();
+			return firstDate;
+		}catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return null;
+		}
+
 	}
 
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class TagParameters
 {
 
-	ArrayList<TagParameter> types = null; 
+	ArrayList<TagParameter> types = null;
 
 	/**
 	 * 
@@ -60,7 +60,7 @@ public class TagParameters
 		if (!contains(type.getId_type(), type.getName()))
 		{
 			types.add(type);
-			if(type.isDefaut())
+			if (type.isDefaut())
 				setDefaultType(type);
 			state = true;
 		}

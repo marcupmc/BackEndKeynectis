@@ -11,7 +11,7 @@ import domain.CertificationType;
  */
 public class TagParameter
 {
-	
+
 	private CertificationType type = null;
 
 	private String name = "";
@@ -22,7 +22,6 @@ public class TagParameter
 	private String PDF_CONTACT = "";
 	private boolean defaut = false;
 
-	
 	/**
 	 * 
 	 */
@@ -225,7 +224,7 @@ public class TagParameter
 	{
 		PDF_CONTACT = pDF_CONTACT;
 	}
-	
+
 	/**
 	 * @return the defaut
 	 */
@@ -234,7 +233,6 @@ public class TagParameter
 		return defaut;
 	}
 
-	
 	/**
 	 * @return the type
 	 */
@@ -243,9 +241,9 @@ public class TagParameter
 		return type;
 	}
 
-	
 	/**
-	 * @param type the type to set
+	 * @param type
+	 *            the type to set
 	 */
 	public void setType(CertificationType type)
 	{
@@ -262,7 +260,8 @@ public class TagParameter
 	}
 
 	public void modifyParameters(String name, String id_type,
-			String pDF_REASON, String pDF_LOCATION, String pDF_CONTACT, boolean defaut)
+			String pDF_REASON, String pDF_LOCATION, String pDF_CONTACT,
+			boolean defaut)
 	{
 		this.name = name;
 		this.id_type = id_type;
@@ -270,7 +269,7 @@ public class TagParameter
 		PDF_LOCATION = pDF_LOCATION;
 		PDF_CONTACT = pDF_CONTACT;
 		this.defaut = defaut;
-		
+
 	}
 
 	public boolean equals(TagParameter type)
