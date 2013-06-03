@@ -20,7 +20,7 @@ $(document).ready( function () {
 	idDoc = $("#idDoc").val();
 	idOwner = $("#idOwner").val();
 	showPage();
-	
+
 });
 
 //Affiche la page précédente
@@ -82,11 +82,12 @@ function checkNumPage(){
 //Crée une zone de signature à fixer
 function createSignature(){
 
-	$("#fixer").css("display","inline");
+	//$("#fixer").css("display","inline");
 	$("#signatures").append(""+
 			"<div id=\"sign"+nbSignature+"\" class=\"draggable\" class=\"ui-widget-content\">"+
 			"<p>Zone de Signature</p>" +
-			" <a onclick=\"removeSign("+nbSignature+")\" class=\"btn btn-small btn-danger\" href=\"#\"><i class=\"icon-remove  icon-white\"></i></a>" +
+			"<button onclick=\"fixer()\" id=\"fixer\" class=\"btn btn-info\">Fixer la signature</button> " +
+			"<a onclick=\"removeSign("+nbSignature+")\" class=\"btn btn-small btn-danger\" href=\"#\"><i class=\"icon-remove  icon-white\"></i></a>" +
 			"</div>"
 	);
 	$(".draggable").resizable();
@@ -96,7 +97,9 @@ function createSignature(){
 
 //Supprime la signature créée mais non fixée
 function removeSign(numSignature){
-	$("#fixer").css("display","none");
+	//$("#fixer").css("display","none");
+
+	$("#fixer").remove();
 	$("#sign"+numSignature).remove();
 	$("#createSignature").css("display","inline");
 }
@@ -126,43 +129,44 @@ function fixer(){
 	var hauteur = $("#sign"+nbSignature).height();
 
 //	if(x>=minX && x+largeur<=maxX && y>=minY && y+hauteur<= maxY ){
-		var signature = new Signature(nbSignature, x, y,largeur, hauteur,numPage);
-		signatures.push(signature);
+	var signature = new Signature(nbSignature, x, y,largeur, hauteur,numPage);
+	signatures.push(signature);
 
-		$("#listeSignatures").append("" +
-				"<li id=\""+signature.nom+"\">"+signature.nom+"" +
-						"<a onclick=\"deleteSign("+signature.nom+")\" class=\"btn btn-small btn-danger\" href=\"#\">" +
-								"<i class=\"icon-remove  icon-white\"></i></a>" +
-								"</li>");
-		$("#sign"+nbSignature).remove();
-		afficheSignature();
-		$("#fixer").css("display","none");
-		$("#createSignature").css("display","inline");
-		nbSignature++;
+	$("#listeSignatures").append("" +
+			"<li id=\""+signature.nom+"\">"+signature.nom+"" +
+			"<a onclick=\"deleteSign("+signature.nom+")\" class=\"btn btn-small btn-danger\" href=\"#\">" +
+			"<i class=\"icon-remove  icon-white\"></i></a>" +
+	"</li>");
+	$("#sign"+nbSignature).remove();
+	afficheSignature();
+//	$("#fixer").css("display","none");
+	$("#createSignature").css("display","inline");
+	nbSignature++;
 //	}else
-//		alert("Veuillez positionner la signature sur le document");
-	
+//	alert("Veuillez positionner la signature sur le document");
+//	$("#fixer").remove();
 }
 
 //Affiche toutes les signatures enregistrées
 function afficheSignature(){
+	$(".imgSig").remove();
 	if(signatures.length==0)
 		$("#saveSignatures").css("display","none");
 	else
 		$("#saveSignatures").css("display","inline");
 	for(key in signatures){
-		if(signatures[key].num==numPage){
-			$("body").append("" +
-					"<div id=\"im"+signatures[key].nom+"\" class=\"imgSig\" >" +
-					"<p>"+signatures[key].nom+"</p>" +
-			"</div>");
+		
+		$("body").append("" +
+				"<div id=\"im"+signatures[key].nom+"\" class=\"imgSig\" >" +
+				"<p>"+signatures[key].nom+"</p>" +
+		"</div>");
 
-			$("#im"+signatures[key].nom).offset({ top: signatures[key].posy, left: signatures[key].posx});
-			$("#im"+signatures[key].nom).width(signatures[key].largeur);
-			$("#im"+signatures[key].nom).height(signatures[key].hauteur);
-		}else{
-			$("#id"+signatures[key].nom).remove();
-		}
+		$("#im"+signatures[key].nom).offset({ top: signatures[key].posy, left: signatures[key].posx});
+		$("#im"+signatures[key].nom).width(signatures[key].largeur);
+		$("#im"+signatures[key].nom).height(signatures[key].hauteur);
+
+
+
 	}
 
 }
@@ -170,20 +174,20 @@ function afficheSignature(){
 //Sauvegarde toutes zones de signature du document
 //Redirige vers la page du propriétaire du document 
 function saveSignatures(){
-	
+
 	var myJsonString = JSON.stringify(signatures);
 	$.ajax({
-	    type : 'POST',
-	    dataType : 'json',
-	    data: { jsondata : myJsonString},
-	    url : 'SaveSignatures?idDoc='+idDoc+'&dimX='+maxX+'&dimY='+maxY+'&pdfX='+minX+'&pdfY='+minY,
-	    timeout : 5000,
-	    success : function(msg) {
-	        document.location.href="DetailsClient?id="+idOwner;
-	    },
-	    error : function(xhr, textStatus, errorThrown) {
-	    	 document.location.href="DetailsClient?id="+idOwner;
-	    }
+		type : 'POST',
+		dataType : 'json',
+		data: { jsondata : myJsonString},
+		url : 'SaveSignatures?idDoc='+idDoc+'&dimX='+maxX+'&dimY='+maxY+'&pdfX='+minX+'&pdfY='+minY,
+		timeout : 5000,
+		success : function(msg) {
+			document.location.href="DetailsClient?id="+idOwner;
+		},
+		error : function(xhr, textStatus, errorThrown) {
+			document.location.href="DetailsClient?id="+idOwner;
+		}
 	});
 }
 
