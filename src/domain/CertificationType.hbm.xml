@@ -34,7 +34,7 @@
 			<column name="DEFAULT_TYPE" />
 		</property>
 
-		<set name="documents" inverse="true" lazy="false" cascade="all">
+		<set name="documents" inverse="true" lazy="false">
 			<key column="ID_CERTIFICATION_TYPE" />
 			<one-to-many class="domain.DocumentPDF" />
 		</set>
