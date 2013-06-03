@@ -17,6 +17,8 @@ public class DocumentPDF
 
 	private Utilisateur owner;
 	private Blob contenu;
+	
+	private CertificationType type = null;
 
 	public DocumentPDF()
 	{
@@ -89,6 +91,24 @@ public class DocumentPDF
 
 	public void setContenu(Blob contenu) {
 		this.contenu = contenu;
+	}
+
+	
+	/**
+	 * @return the type
+	 */
+	public CertificationType getType()
+	{
+		return type;
+	}
+
+	
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(CertificationType type)
+	{
+		this.type = type;
 	}
 
 }

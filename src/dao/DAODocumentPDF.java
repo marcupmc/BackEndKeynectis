@@ -3,13 +3,18 @@ package dao;
 import java.net.URL;
 import java.util.ArrayList;
 
+import model.TagParameter;
+
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import controller.ControllerAjoutTypeCertification;
+
 import tools.ToolsPDF;
+import domain.CertificationType;
 import domain.DocumentPDF;
 import domain.Signature;
 import domain.Utilisateur;
@@ -150,7 +155,7 @@ public class DAODocumentPDF
 			session = sessionFactory.openSession();
 			org.hibernate.Transaction tx = session.beginTransaction();
 
-			DocumentPDF doc = DAODocumentPDF.getInstance().getById(idDocument);
+			DocumentPDF doc = this.getById(idDocument);
 			if (doc == null)
 				return false;
 
@@ -357,7 +362,81 @@ public class DAODocumentPDF
 		}
 		return true;
 	}
+	
+	/**
+	 * Set the certification type to operate on a document
+	 * 
+	 * 
+	 */
+	public boolean setCertificationType(long id, TagParameter type)
+	{
+		DocumentPDF doc = this.getById(id);
+		if (doc == null)
+			return false;
+		Session session = null;
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure()
+					.buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
 
+			CertificationType certif = type.getType();
+
+			doc.setType(certif);
+			DAOCertificationType.getInstance().addDocumentToCertif(certif, doc);
+
+			session.update(doc);
+			session.update(certif);
+			tx.commit();
+			session.close();
+			sessionFactory.close();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Set the certification type to operate on a document
+	 * 
+	 * 
+	 */
+	public boolean setCertificationType(long id, String id_type, String name)
+	{
+		DocumentPDF doc = this.getById(id);
+		if (doc == null)
+			return false;
+		Session session = null;
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure()
+					.buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+
+			CertificationType certif = ControllerAjoutTypeCertification.getInstance().getType(id_type, name).getType();
+
+			doc.setType(certif);
+			DAOCertificationType.getInstance().addDocumentToCertif(certif, doc);
+
+			session.update(doc);
+			session.update(certif);
+			tx.commit();
+			session.close();
+			sessionFactory.close();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
 	/**
 	 * Find a document by id
 	 * 

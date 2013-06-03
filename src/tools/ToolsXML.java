@@ -81,6 +81,7 @@ public class ToolsXML
 	static final String REASON = "reason";
 	static final String LOCATION = "location";
 	static final String CONTACT = "contact";
+	static final String TYPEISDEFAULT = "defaultType";
 
 	/**
 	 * Create the xml file based on the certificate authority and the
@@ -327,12 +328,12 @@ public class ToolsXML
 		return created;
 	}
 
-	public static boolean
-			createTagXMLFile(String savePath)
+	public static boolean createTagXMLFile(String savePath)
 	{
 		boolean created = false;
-		
-		TagParameters types =ControllerAjoutTypeCertification.getInstance().getParameters();
+
+		TagParameters types = ControllerAjoutTypeCertification.getInstance()
+				.getParameters();
 
 		try
 		{
@@ -358,23 +359,28 @@ public class ToolsXML
 				tagConfig.setAttributeNode(attr);
 
 				tagConfig.setAttribute(TYPENAME, type.getName());
-				
+
 				// Reason elements
 				Element Reason = doc.createElement(REASON);
 				Reason.appendChild(doc.createTextNode(type.getPDF_REASON()));
 				tagConfig.appendChild(Reason);
-				
+
 				// Location elements
 				Element Location = doc.createElement(LOCATION);
 				Location.appendChild(doc.createTextNode(type.getPDF_LOCATION()));
 				tagConfig.appendChild(Location);
-				
+
 				// Contact elements
 				Element Contact = doc.createElement(CONTACT);
 				Contact.appendChild(doc.createTextNode(type.getPDF_CONTACT()));
 				tagConfig.appendChild(Contact);
-			}
 
+				// Default Type elements 
+				Element isdefaut = doc.createElement(TYPEISDEFAULT);
+				String typeIsDefault = (type.isDefaut() ? "YES" : "NO");
+				isdefaut.appendChild(doc.createTextNode(typeIsDefault));
+				tagConfig.appendChild(isdefaut);
+			}
 
 			// write the content into xml file
 			TransformerFactory transformerFactory = TransformerFactory
@@ -416,7 +422,8 @@ public class ToolsXML
 	@SuppressWarnings({ "unchecked" })
 	public static TagParameters readTagConfig(String configFile)
 	{
-		ControllerAjoutTypeCertification controller = ControllerAjoutTypeCertification.getInstance();
+		ControllerAjoutTypeCertification controller = ControllerAjoutTypeCertification
+				.getInstance();
 		TagParameters parameters = controller.getParameters();
 		try
 		{
@@ -439,21 +446,23 @@ public class ToolsXML
 					if ((TAGCONFIG).equals(startElement.getName()
 							.getLocalPart()))
 					{
-						 type = new TagParameter();
-						// We read the attributes from this tag and add it to the type
+						type = new TagParameter();
+						// We read the attributes from this tag and add it to
+						// the type
 						// attribute to our object
 						Iterator<Attribute> attributes = startElement
 								.getAttributes();
 						while (attributes.hasNext())
 						{
 							Attribute attribute = attributes.next();
-							if ((TYPENAME).equals(attribute.getName().toString()))
+							if ((TYPENAME).equals(attribute.getName()
+									.toString()))
 							{
 								String typename = attribute.getValue();
 								type.setName(typename);
 								continue;
 							}
-							
+
 							if ((TYPEID).equals(attribute.getName().toString()))
 							{
 								String typeid = attribute.getValue();
@@ -466,13 +475,13 @@ public class ToolsXML
 
 					if (event.isStartElement())
 					{
-						if ((REASON).equals(event.asStartElement()
-								.getName().getLocalPart()))
+						if ((REASON).equals(event.asStartElement().getName()
+								.getLocalPart()))
 						{
 							event = eventReader.nextEvent();
-							if(event.isCharacters())
-								type.setPDF_REASON(event
-									.asCharacters().getData());
+							if (event.isCharacters())
+								type.setPDF_REASON(event.asCharacters()
+										.getData());
 							continue;
 						}
 					}
@@ -480,27 +489,41 @@ public class ToolsXML
 							.getLocalPart()))
 					{
 						event = eventReader.nextEvent();
-						if(event.isCharacters())
-							type.setPDF_LOCATION(event
-								.asCharacters().getData());
+						if (event.isCharacters())
+							type.setPDF_LOCATION(event.asCharacters().getData());
 						continue;
 					}
 					if ((CONTACT).equals(event.asStartElement().getName()
 							.getLocalPart()))
 					{
 						event = eventReader.nextEvent();
-						if(event.isCharacters())
-							type.setPDF_CONTACT(event
-								.asCharacters().getData());
+						if (event.isCharacters())
+							type.setPDF_CONTACT(event.asCharacters().getData());
+						continue;
+					}
+
+					if ((TYPEISDEFAULT).equals(event.asStartElement().getName()
+							.getLocalPart()))
+					{
+						event = eventReader.nextEvent();
+						if (event.isCharacters())
+						{
+							String isdefault = event.asCharacters().getData();
+							if ("YES".equals(isdefault))
+								type.setDefaut(true);
+							else if ("NO".equals(isdefault))
+								type.setDefaut(false);
+						}
+
 						continue;
 					}
 				}
-				// If we reach the end of an tagconfig element we add it to the list of types
+				// If we reach the end of an tagconfig element we add it to the
+				// list of types
 				if (event.isEndElement())
 				{
 					EndElement endElement = event.asEndElement();
-					if ((TAGCONFIG).equals(endElement.getName()
-							.getLocalPart()))
+					if ((TAGCONFIG).equals(endElement.getName().getLocalPart()))
 					{
 						parameters.addType(type);
 					}
@@ -511,16 +534,16 @@ public class ToolsXML
 		catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
-			//autho = null;
+			// autho = null;
 		}
 		catch (XMLStreamException e)
 		{
 			e.printStackTrace();
-			//autho = null;
+			// autho = null;
 		}
 		return parameters;
 	}
-	
+
 	@SuppressWarnings({ "unchecked" })
 	public static AuthorityParameters readConfig(String configFile)
 	{

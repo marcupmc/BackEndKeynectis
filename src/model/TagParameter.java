@@ -3,12 +3,16 @@
  */
 package model;
 
+import domain.CertificationType;
+
 /**
  * @author dtadmi
  * 
  */
 public class TagParameter
 {
+	
+	private CertificationType type = null;
 
 	private String name = "";
 	private String id_type = "";
@@ -18,23 +22,7 @@ public class TagParameter
 	private String PDF_CONTACT = "";
 	private boolean defaut = false;
 
-	/**
-	 * @return the defaut
-	 */
-	public boolean isDefaut()
-	{
-		return defaut;
-	}
-
-	/**
-	 * @param defaut
-	 *            the defaut to set
-	 */
-	public void setDefaut(boolean defaut)
-	{
-		this.defaut = defaut;
-	}
-
+	
 	/**
 	 * 
 	 */
@@ -237,15 +225,52 @@ public class TagParameter
 	{
 		PDF_CONTACT = pDF_CONTACT;
 	}
+	
+	/**
+	 * @return the defaut
+	 */
+	public boolean isDefaut()
+	{
+		return defaut;
+	}
+
+	
+	/**
+	 * @return the type
+	 */
+	public CertificationType getType()
+	{
+		return type;
+	}
+
+	
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(CertificationType type)
+	{
+		this.type = type;
+	}
+
+	/**
+	 * @param defaut
+	 *            the defaut to set
+	 */
+	public void setDefaut(boolean defaut)
+	{
+		this.defaut = defaut;
+	}
 
 	public void modifyParameters(String name, String id_type,
-			String pDF_REASON, String pDF_LOCATION, String pDF_CONTACT)
+			String pDF_REASON, String pDF_LOCATION, String pDF_CONTACT, boolean defaut)
 	{
 		this.name = name;
 		this.id_type = id_type;
 		PDF_REASON = pDF_REASON;
 		PDF_LOCATION = pDF_LOCATION;
 		PDF_CONTACT = pDF_CONTACT;
+		this.defaut = defaut;
+		
 	}
 
 	public boolean equals(TagParameter type)

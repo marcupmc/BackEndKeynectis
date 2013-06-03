@@ -75,7 +75,7 @@ public class TagParameters
 		if (null == types)
 			types = new ArrayList<TagParameter>();
 
-		if (!contains(type.getId_type(), type.getName()))
+		if (contains(type.getId_type(), type.getName()))
 		{
 			types.remove(type);
 			state = true;

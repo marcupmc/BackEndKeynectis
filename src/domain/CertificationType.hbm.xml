@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="domain.CertificationType" table="CERTIFICATIONTYPE">
+		<id name="id">
+			<column name="ID_CERTIFICATION_TYPE" />
+			<generator class="increment" />
+		</id>
+		<property name="name">	
+			<column name="NAME" />
+		</property>
+	
+		<property name="id_type">
+			<column name="ID_TYPE" />
+		</property>
+		<property name="DATA_METIER">
+			<column name="DATA_METIER" />
+		</property>
+
+		<property name="PDF_REASON">
+			<column name="PDF_REASON" />
+		</property>
+		
+		<property name="PDF_LOCATION">
+			<column name="PDF_LOCATION" />
+		</property>
+		
+		<property name="PDF_CONTACT">
+			<column name="PDF_CONTACT" />
+		</property>
+
+		<property name="defaut" type="domain.MyBooleanType">
+			<column name="DEFAULT_TYPE" />
+		</property>
+
+		<set name="documents" inverse="true" lazy="false" cascade="all">
+			<key column="ID_CERTIFICATION_TYPE" />
+			<one-to-many class="domain.DocumentPDF" />
+		</set>
+		
+	</class>
+</hibernate-mapping>

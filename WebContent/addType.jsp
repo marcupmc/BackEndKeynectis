@@ -49,21 +49,7 @@
 				{
 					action = "AddType?action=edit&id=" + type.getId_type()
 							+ "&name=" + type.getName();
-		%>
-		<%-- <script type="text/javascript">
-						$("#typeIdentifiant").attr("placeholder", "");
-						$('#typeIdentifiant').val('<%=type.getId_type()%>');
-						$("#typeName").attr("placeholder", "");
-						$('#typeName').val('<%=type.getName()%>');
-						$("#reason").attr("placeholder", "");
-						$('#reason').val('<%=type.getPDF_REASON()%>');
-						$("#location").attr("placeholder", "");
-						$('#location').val('<%=type.getPDF_LOCATION()%>');
-						$("#contact").attr("placeholder", "");
-						$('#contact').val('<%=type.getPDF_CONTACT()%>');
-					</script> --%>
-		<%
-			}
+				}
 			}
 		%>
 
@@ -119,7 +105,8 @@
 			<div class="control-group">
 				<label class="checkbox" >Définir comme type par défaut				
 					<div class="controls">
-						<input type="checkbox" id="default" value="ON">
+						<input type="checkbox" name="default" id="default" value="ON" <%if (type.isDefaut())
+					{%> checked="checked" <%}%>>
 					</div>					
 				</label>
 				

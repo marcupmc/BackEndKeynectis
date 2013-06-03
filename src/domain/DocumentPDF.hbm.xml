@@ -29,6 +29,9 @@
 			<key column="ID_DOCUMENT" />
 			<one-to-many class="domain.Signature" />
 		</set>
+		
+		<many-to-one name="type" column="ID_type" lazy="false"
+			class="domain.CertificationType" unique="false" />
 
 	</class>
 </hibernate-mapping>

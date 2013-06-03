@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.TagParameter;
+
 import controller.ControllerAjoutTypeCertification;
 
 /**
@@ -34,20 +36,36 @@ public class TypesXmlSaving extends HttpServlet
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
 	{
-		
+
 		String saveFile = this.getServletContext().getRealPath("/temp_xml/");
 		// TODO Auto-generated method stub
-		
+
+		ControllerAjoutTypeCertification controller = ControllerAjoutTypeCertification
+				.getInstance();
+
+		String idDefaultRadio = "";
+
+		for (TagParameter type : controller.getParameters().getTypes())
+		{
+			idDefaultRadio = (String)request.getParameter("optionDefault");
+			if (type.getName().equals(idDefaultRadio))
+			{
+				controller.getParameters().setDefaultType(type);
+				break;
+			}
+
+		}
+
 		String errMess = "success";
-		
-		if(!ControllerAjoutTypeCertification.getInstance().saveTagXml(saveFile))
+
+		if (!controller.saveTagXml(saveFile))
 		{
 			errMess = "error";
 		}
-		
-		request.getRequestDispatcher(
-				"adminHome.jsp?error=" + errMess).forward(request, response);
-		
+
+		request.getRequestDispatcher("adminHome.jsp?error=" + errMess).forward(
+				request, response);
+
 	}
 
 	/**

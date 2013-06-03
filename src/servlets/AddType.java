@@ -53,28 +53,25 @@ public class AddType extends HttpServlet
 
 		if ("modify".equals(action))
 		{
-			request.getRequestDispatcher("addType.jsp?option=modify"/*
-																	 * ?id=
-																	 * " + id + "
-																	 * &name=
-																	 * " + name + "
-																	 * &reason="
-																	 * + reason
-																	 * +
-																	 * "&location="
-																	 * +
-																	 * location
-																	 * +
-																	 * "&contact="
-																	 * + contact
-																	 */)
+			request.getRequestDispatcher("addType.jsp?option=modify")
 					.forward(request, response);
-		}
-		/*
-		 * else if("edit".equals(action)) {
-		 * 
-		 * }
-		 */
+		}		
+		else if("delete".equals(action))
+		{
+			TagParameter type = controller.getType(id, name);
+			String errMess = "success";
+			String messType = "KWS";
+			String url = "parametrage.jsp?error=" + errMess + "&messType="
+					+ messType;
+			if (!controller.removeType(type))
+			{
+				messType = "removing_type_error";				
+			}
+			
+			request.getRequestDispatcher(url)
+			.forward(request, response);
+		 }
+		 
 	}
 
 	/**
@@ -126,8 +123,10 @@ public class AddType extends HttpServlet
 			String editName = request.getParameter("name");
 			String editId = request.getParameter("id");
 
-			controller.getType(editId, editName).modifyParameters(name, id,
-					reason, location, contact);
+			controller.modifyParameters(editId, editName, id, name,
+					reason, location, contact, checked);
+			if(checked)
+				controller.getParameters().setDefaultType(id, name);
 		}
 
 		request.setAttribute("types", controller.getParameters());

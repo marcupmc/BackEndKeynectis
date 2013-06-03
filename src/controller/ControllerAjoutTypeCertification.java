@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
+import dao.DAOCertificationType;
 import domain.Log;
 import domain.TypeLog;
 
@@ -23,12 +24,14 @@ import model.TagParameters;
  */
 public class ControllerAjoutTypeCertification
 {
-	
+
 	private String xmlTagParametersFile = "\\tagParameters.xml";
-	
-	final Marker marker1 = MarkerFactory.getMarker(TypeLog.ERREUR_LECTURE_CONFIGURATION.toString());
-	
-	final Logger logger = LoggerFactory.getLogger(ControllerAjoutTypeCertification.class);
+
+	final Marker marker1 = MarkerFactory
+			.getMarker(TypeLog.ERREUR_LECTURE_CONFIGURATION.toString());
+
+	final Logger logger = LoggerFactory
+			.getLogger(ControllerAjoutTypeCertification.class);
 	Log l;
 
 	// SINGLETON
@@ -65,6 +68,7 @@ public class ControllerAjoutTypeCertification
 				parameters = new TagParameters();
 			TagParameter type = new TagParameter(name, id, DATA_METIER,
 					PDF_REASON, PDF_LOCATION, PDF_CONTACT);
+			DAOCertificationType.getInstance().addCertificationType(type);
 			return parameters.addType(type);
 		}
 
@@ -76,6 +80,7 @@ public class ControllerAjoutTypeCertification
 	{
 		if (null != type)
 		{
+			DAOCertificationType.getInstance().addCertificationType(type);
 			return addType(type.getId_type(), type.getName(),
 					type.getDATA_METIER(), type.getPDF_REASON(),
 					type.getPDF_LOCATION(), type.getPDF_LOCATION());
@@ -98,7 +103,31 @@ public class ControllerAjoutTypeCertification
 		return false;
 	}
 
-	
+	public boolean modifyParameters(String editId, String editName,
+			String id_type, String name, String pDF_REASON,
+			String pDF_LOCATION, String pDF_CONTACT, boolean defaut)
+	{
+		getType(editId, editName).modifyParameters(name, id_type, pDF_REASON,
+				pDF_LOCATION, pDF_CONTACT, defaut);
+
+		return DAOCertificationType.getInstance().updateCertificationType(
+				editId, editName, id_type, name);
+	}
+
+	public boolean removeType(String id_type, String name)
+	{
+		DAOCertificationType.getInstance().deleteCertificationType(id_type,
+				name);
+		return parameters.removeType(this.getType(id_type, name));
+	}
+
+	public boolean removeType(TagParameter type)
+	{
+		DAOCertificationType.getInstance().deleteCertificationType(
+				type.getId_type(), type.getName());
+		return parameters.removeType(type);
+	}
+
 	/**
 	 * @return the parameters
 	 */
@@ -106,15 +135,16 @@ public class ControllerAjoutTypeCertification
 	{
 		return parameters;
 	}
-	
+
 	public TagParameters getParameters(String parameterPath)
 	{
 		try
 		{
 			if ((new File(parameterPath + xmlTagParametersFile)).exists())
 			{
-				parameters = ToolsXML.readTagConfig(parameterPath + xmlTagParametersFile);
-				//ICI LOG				
+				parameters = ToolsXML.readTagConfig(parameterPath
+						+ xmlTagParametersFile);
+				// ICI LOG
 			}
 		}
 		catch (Exception e)
@@ -124,28 +154,27 @@ public class ControllerAjoutTypeCertification
 			System.out.println("ControllerCertification: Exception\n"
 					+ "certificationPDFFromXML: " + e.getMessage());
 		}
-		
+
 		return parameters;
 	}
 
-	
 	/**
-	 * @param parameters the parameters to set
+	 * @param parameters
+	 *            the parameters to set
 	 */
 	public void setParameters(TagParameters parameters)
 	{
 		this.parameters = parameters;
-	}	
-	
-	
+	}
+
 	public TagParameter getType(String id, String name)
 	{
 		return parameters.getType(id, name);
 	}
-	
+
 	public boolean saveTagXml(String savePath)
 	{
 		return ToolsXML.createTagXMLFile(savePath);
 	}
-	
+
 }
