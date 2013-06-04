@@ -35,7 +35,7 @@ public class Temporisation
 		{
 			System.out.println("erreur : " + e.getMessage());
 		}
-		if (DAODocumentPDF.getInstance().getById(idDocument).isCertified())
+		if (!DAODocumentPDF.getInstance().getById(idDocument).getCertified().equals("En attente"))
 		{
 			return "ok";
 		}

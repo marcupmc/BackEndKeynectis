@@ -308,7 +308,7 @@ public class DAOUtilisateur
 			{
 				if (docs.getUrl().equals(url))
 				{
-					docs.setCertified(true);
+					docs.setCertified("Certifie");
 					session.update(docs);
 				}
 			}

@@ -116,7 +116,7 @@
 				</td>
 				<td>
 					<%
-						if (doc.isCertified()) {
+						if (doc.getCertified().equals("Certifie")) {
 					%> Oui <%
 						} else {
 					%> Non <%

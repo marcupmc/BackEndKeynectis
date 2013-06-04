@@ -11,11 +11,26 @@ public class DocumentPDF
 	private long id;
 	private String name;
 	private String url;
-	private boolean certified;
+	private String certified; //Doit etre : En attente, Certifie, Erreur-
 
 	private Set<Signature> signatures = new HashSet<Signature>();
 
 	private Utilisateur owner;
+	
+	
+	public String getCertified() {
+		return certified;
+	}
+
+	public void setCertified(String certified) {
+		this.certified = certified;
+	}
+
+	public Utilisateur getOwner() {
+		return owner;
+	}
+
+
 	private Blob contenu;
 	
 	private CertificationType type = null;
@@ -45,20 +60,7 @@ public class DocumentPDF
 		this.url = url;
 	}
 
-	public boolean isCertified()
-	{
-		return certified;
-	}
-
-	public void setCertified(boolean certified)
-	{
-		this.certified = certified;
-	}
-
-	public Utilisateur getOwner()
-	{
-		return owner;
-	}
+	
 
 	public void setOwner(Utilisateur owner)
 	{

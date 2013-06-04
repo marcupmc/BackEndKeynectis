@@ -55,7 +55,7 @@
 				<td><a href="<%=doc.getUrl()%>"><%=doc.getName()%></a></td>
 				<td>
 					<%
-						if (doc.isCertified())
+						if (doc.getCertified().equals("Certifie"))
 							{
 					%> Oui <%
 						}
