@@ -9,15 +9,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Example;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
-import domain.DocumentPDF;
 import domain.EventType;
 import domain.Log;
 import domain.TypeLog;
 
 public class DAOLog
-{
+{ 
 
 	// SINGLETON
 	public static DAOLog getInstance()
@@ -32,7 +29,7 @@ public class DAOLog
 	private DAOLog()
 	{
 	}
-
+ 
 	private static DAOLog instance;
 
 	/**
@@ -47,7 +44,7 @@ public class DAOLog
 	 */
 	public boolean addLog(TypeLog type, String ipadresse,
 			String identifiant_client, EventType eventType,String longitude,String latitude)
-	{
+	{ 
 		if(type==null||
 				ipadresse==null||ipadresse.length()==0||
 				identifiant_client==null||identifiant_client.length()==0||

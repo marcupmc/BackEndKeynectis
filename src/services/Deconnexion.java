@@ -11,9 +11,6 @@ import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
 import servlets.AddDocument;
-
-import controller.ControllerAuthentification;
-import dao.DAOLog;
 import domain.Log;
 import domain.TypeLog;
 

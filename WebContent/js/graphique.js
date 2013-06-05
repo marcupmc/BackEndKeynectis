@@ -2,14 +2,55 @@ var city =[[]];
 var ci = [];
 var success;
 var failed;
-
 var geocoder;
+var numPage=0;
+
+
+//Affiche tous les logs 
+function getAllLog(){
+	
+	$.ajax({ 
+		async:true,
+		type: "GET", 
+		url: "http://localhost:8080/TestRest/rest/statistiques/getalllogs",
+		datatype:"jsonp",
+		success: function(msg){ 
+			var data2 = new google.visualization.DataTable();
+			data2.addColumn('number', 'Id');
+			data2.addColumn('string', 'Date');
+			data2.addColumn('string', 'Type');
+			data2.addColumn('string', 'Adresse Ip');
+			data2.addColumn('string', 'Identifiant');
+			data2.addColumn('string', 'Emetteur');
+		    
+			var allLogs  = $.parseJSON(msg);
+			var listeLog = allLogs.logs;
+			for(i=0;i<listeLog.length;i++)
+			{
+				data2.addRow([listeLog[i].id,
+				              listeLog[i].date,
+				              listeLog[i].type,
+				              listeLog[i].ipadresse,
+				              listeLog[i].identifiant,
+				              listeLog[i].event]);
+				
+			}
+			var table = new google.visualization.Table(document.getElementById('table_div'));
+			$("#waiterLog").remove();
+			$("#table_div").css("display","inline");
+			table.draw(data2, {showRowNumber: false,page:"enable"});
+		}
+	});
+	return false; 
+	
+}
+
 
 function getConnexionsPerHour(){
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:5546/TestRest/rest/statistiques/connexionperhours",
+		url: "http://localhost:8080/TestRest/rest/statistiques/connexionperhours",
 		datatype:"jsonp",
 		success: function(msg){ 
 			if(msg=="error") 
@@ -25,6 +66,9 @@ function getConnexionsPerHour(){
 					data.addRow([new Date(key), value]);
 				});
 				var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
+				
+				$("#waiter4").remove();
+				$("#chart_div").css("visibility","visible");
 				chart.draw(data, {displayZoomButtons: false,min:0});
 			}
 		}
@@ -36,7 +80,7 @@ function getConnexionsReport(){
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:5546/TestRest/rest/statistiques/connexionreport",
+		url: "http://localhost:8080/TestRest/rest/statistiques/connexionreport",
 		datatype:"jsonp",
 		success: function(msg){ 
 			if(msg=="error") 
@@ -58,6 +102,9 @@ function getConnexionsReport(){
 				var chart = new google.visualization.PieChart(document
 						.getElementById('graphs'));
 
+				$("#waiter3").remove();
+				$("#graphs").css("visibility","visible");
+				
 				chart.draw(data, options);
 			}
 		}
@@ -69,7 +116,7 @@ function getErrorsPerType(){
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:5546/TestRest/rest/statistiques/errorpertype",
+		url: "http://localhost:8080/TestRest/rest/statistiques/errorpertype",
 		datatype:"jsonp",
 		success: function(msg){ 
 			if(msg=="error") 
@@ -111,12 +158,56 @@ function getErrorsPerType(){
 				var chart = new google.visualization.PieChart(document
 						.getElementById('errorPie'));
 
+				$("#waiter2").remove();
+				$("#errorPie").css("visibility","visible");
 				chart.draw(data, options);
 			}
 		}
 	});
 	return false; 
+}
 
+function getDocumentReport(){
+	$.ajax({ 
+		async:true,
+		type: "GET", 
+		url: "http://localhost:8080/TestRest/rest/statistiques/documentreport",
+		datatype:"jsonp",
+		success: function(msg){ 
+			if(msg=="error") 
+				alert('Erreur ! ');
+			else{
+				var JSONDocumentReport  = $.parseJSON(msg);
+				var certifie = JSONDocumentReport.certifie;
+				var error   = JSONDocumentReport.error;
+				var waiting = JSONDocumentReport.waiting;
+
+				var data = new google.visualization.DataTable();
+				data.addColumn('string', 'Topping');
+				data.addColumn('number', 'Slices');
+				data.addRows([ [ 'Certifies', certifie ],
+				               [ 'Erreurs',error ],
+				               [ 'En attente',waiting]
+				               ]);
+				var options = {
+						title : 'Statut des documents'
+				};
+
+				var chart = new google.visualization.PieChart(document
+						.getElementById('documentReport'));
+				
+				
+				$("#waiter5").remove();
+				$("#documentReport").css("visibility","visible");
+				chart.draw(data, options);
+			}
+		}
+	});
+	return false; 
+}
+
+function drawChart5() {
+	getDocumentReport();
 }
 
 function drawChart() {
@@ -136,7 +227,7 @@ function drawChart4() {
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:5546/TestRest/rest/statistiques/errorperday",
+		url: "http://localhost:8080/TestRest/rest/statistiques/errorperday",
 		datatype:"jsonp",
 		success: function(msg){ 
 			if(msg=="error") 
@@ -153,6 +244,9 @@ function drawChart4() {
 
 				
 				var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('errorBar'));
+				
+				$("#waiter").remove();
+				$("#errorBar").css("visibility","visible");
 				chart.draw(data, {displayZoomButtons: false,min:0,colors:["red"]});
 
 			}
@@ -230,5 +324,8 @@ function drawMarkersMap() {
 	};
 
 	var chart = new google.visualization.GeoChart(document.getElementById('chart_div2'));
+	
+	$("#waiter6").remove();
+	$("#chart_div2").css("visibility","visible");
 	chart.draw(data, options);
 };

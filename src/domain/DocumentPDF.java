@@ -11,7 +11,7 @@ public class DocumentPDF
 	private long id;
 	private String name;
 	private String url;
-	private String certified; //Doit etre : En attente, Certifie, Erreur-
+	private String certified; //Doit etre : En attente, Certifie, Erreur -
 
 	private Set<Signature> signatures = new HashSet<Signature>();
 

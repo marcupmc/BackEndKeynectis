@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -11,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.ControllerAjoutTypeCertification;
-
-import dao.DAODocumentPDF;
 import dao.DAOUtilisateur;
 import domain.DocumentPDF;
 import domain.Utilisateur;

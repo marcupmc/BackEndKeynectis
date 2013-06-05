@@ -12,10 +12,10 @@
 </head>
 <body>
 
-	<%
-		String blob = (String)request.getParameter("blob");
-	%>
-	<p>hey</p>
+<%-- 	<% --%>
+
+<%-- 	%> --%>
+<!-- 	<p>hey</p> -->
 	<p>
 		<%-- 	<%=blob %> --%>
 	</p>
@@ -24,7 +24,7 @@
 		action="https://keynectis.kwebsign.net/QS/Page1V2">
 		<!-- 		action="https://keynectis.kwebsign.net/QS/Page1V2?page=%3Cscript%3Ewindow.document.forms%5B0%5D.submit%28%29%3B%3C%2Fscript%3E"> -->
 		<input type="hidden" name="appid" value="ZZDEMAV1"> <input
-			type="hidden" id="blob" name="blob" value="<%=blob%>">
+			type="hidden" id="blob" name="blob" value="">
 	</form>
 
 	<div id="result"></div>
@@ -57,7 +57,7 @@
 // 	  });
 // 	}
 	
-// 	document.getElementById("blob").value = parent.test();
+	document.getElementById("blob").value = parent.test();
 	go();
 // 	toto();
 </script>

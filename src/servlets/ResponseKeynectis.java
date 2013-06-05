@@ -1,12 +1,8 @@
 package servlets;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.AuthorityParameters;
-import model.KeynectisParameters;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +18,6 @@ import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
 import tools.EncoderBase64;
-import tools.ToolsFTP;
 import tools.ToolsPDF;
 
 import com.dictao.keynectis.quicksign.transid.CipherBlobException;
@@ -33,7 +27,6 @@ import com.dictao.keynectis.quicksign.transid.ResponseTransId;
 import com.dictao.keynectis.quicksign.transid.SignBlobException;
 
 import dao.DAODocumentPDF;
-
 import domain.Log;
 import domain.TypeLog;
 

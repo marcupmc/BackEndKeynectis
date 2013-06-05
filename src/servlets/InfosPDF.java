@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,13 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import com.itextpdf.text.Document;
-
-import dao.DAODocumentPDF;
-import domain.DocumentPDF;
-
 import tools.EncoderBase64;
 import tools.ToolsPDF;
+import dao.DAODocumentPDF;
+import domain.DocumentPDF;
 
 /**
  * Servlet implementation class InfosPDF

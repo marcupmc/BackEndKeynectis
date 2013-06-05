@@ -6,20 +6,20 @@ package controller;
 import java.io.File;
 import java.util.ArrayList;
 
+import model.TagParameter;
+import model.TagParameters;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
+import tools.ToolsXML;
 import dao.DAOCertificationType;
 import dao.DAODocumentPDF;
 import domain.CertificationType;
 import domain.Log;
 import domain.TypeLog;
-
-import tools.ToolsXML;
-import model.TagParameter;
-import model.TagParameters;
 
 /**
  * @author dtadmi

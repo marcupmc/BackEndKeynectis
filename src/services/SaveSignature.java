@@ -11,13 +11,7 @@ import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
 import servlets.AddDocument;
-import sun.misc.BASE64Decoder;
-
 import tools.EncoderBase64;
-
-import controller.ControllerAuthentification;
-import dao.DAOLog;
-
 import dao.DAOUtilisateur;
 import domain.Log;
 import domain.TypeLog;

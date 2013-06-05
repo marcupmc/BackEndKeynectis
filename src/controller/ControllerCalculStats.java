@@ -10,6 +10,7 @@ import java.util.TreeMap;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
+import dao.DAODocumentPDF;
 import dao.DAOLog;
 import domain.EventType;
 import domain.Log;
@@ -34,6 +35,30 @@ public class ControllerCalculStats {
 
 	private static ControllerCalculStats instance;
 
+	public JSONObject getAllLogs(){
+		JSONObject jsonToReturn =  new JSONObject();
+		ArrayList<Log> logs = DAOLog.getInstance().getAllLogs();
+		ArrayList<JSONObject> jsonOfAllLogs = new ArrayList<JSONObject>();
+		try {
+			for(Log l :logs){
+				JSONObject jsonOfOneLog = new JSONObject();
+
+				jsonOfOneLog.put("id",l.getId());
+				jsonOfOneLog.put("date",l.getDate());
+				jsonOfOneLog.put("type",l.getType().toString());
+				jsonOfOneLog.put("ipadresse",l.getIpadresse());
+				jsonOfOneLog.put("identifiant",l.getIdentifiant_client());
+				jsonOfOneLog.put("event",l.getEventype().toString());
+
+				jsonOfAllLogs.add(jsonOfOneLog);
+			}
+			jsonToReturn.put("logs", jsonOfAllLogs);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return jsonToReturn;
+	}
+
 	public JSONObject getConnexionPerHour(){
 		JSONObject json = new JSONObject();
 		ArrayList<Log> logConnexion = DAOLog.getInstance().getLogPerType(TypeLog.CONNEXION);
@@ -49,7 +74,7 @@ public class ControllerCalculStats {
 		}
 		try {
 
-//			Date itDate = (Date) treeMap.keySet().toArray()[0];
+			//			Date itDate = (Date) treeMap.keySet().toArray()[0];
 			Date itDate = DAOLog.getInstance().getDateFromFirstLog();
 			itDate.setMinutes(0);
 			itDate.setSeconds(0);
@@ -67,7 +92,7 @@ public class ControllerCalculStats {
 				cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
 				itDate = cal.getTime(); // returns new date object, one hour in the future
 			}
-			
+
 			for(Entry<Date, Integer> e :treeMap.entrySet()){
 				json.put( e.getKey().toGMTString(),e.getValue());
 			}
@@ -77,8 +102,8 @@ public class ControllerCalculStats {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 		return json;
 	}
 
@@ -96,7 +121,7 @@ public class ControllerCalculStats {
 
 		return json;
 	}
-	
+
 	public JSONObject getErrorPerType(){
 		ArrayList<Log> logErr = DAOLog.getInstance().getLogPerEventType(EventType.ERROR);
 		int err1 = 0;
@@ -124,7 +149,7 @@ public class ControllerCalculStats {
 			default : break;
 			}
 		}
-		
+
 		JSONObject json =new JSONObject();
 		try {
 			json.put("CONNEXION_FAILED",err1);
@@ -144,7 +169,7 @@ public class ControllerCalculStats {
 
 		return json;
 	}
-	
+
 	public JSONObject getErrorPerHour(){
 		JSONObject json = new JSONObject();
 		ArrayList<Log> logConnexion = DAOLog.getInstance().getLogPerEventType(EventType.ERROR);//TODO: A changer
@@ -162,7 +187,7 @@ public class ControllerCalculStats {
 		try {
 
 
-//			Date itDate = (Date) treeMap.keySet().toArray()[0];
+			//			Date itDate = (Date) treeMap.keySet().toArray()[0];
 			Date itDate = DAOLog.getInstance().getDateFromFirstLog();
 			itDate.setMinutes(0);
 			itDate.setSeconds(0);
@@ -178,7 +203,7 @@ public class ControllerCalculStats {
 				cal.add(Calendar.HOUR_OF_DAY, 1); // adds one day
 				itDate = cal.getTime(); // returns new date object, one hour in the future
 			}
-			
+
 			for(Entry<Date, Integer> e :treeMap.entrySet()){
 				json.put( e.getKey().toGMTString(),e.getValue());
 			}
@@ -192,5 +217,19 @@ public class ControllerCalculStats {
 		return json;
 	}
 
+	public JSONObject getDocumentStatutStats(){
+		JSONObject jsonToReturn = new JSONObject();
+		int nbDocCertifie = DAODocumentPDF.getInstance().getNumberOfCertifiedDocument();
+		int nbDocErreur = DAODocumentPDF.getInstance().getNumberOfErrorDocument();
+		int nbDocEnAttente = DAODocumentPDF.getInstance().getNumberOfWaitingDocument();
+		try {
+			jsonToReturn.put("certifie", nbDocCertifie);
+			jsonToReturn.put("error",nbDocErreur);
+			jsonToReturn.put("waiting", nbDocEnAttente);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return jsonToReturn;
+	}
 
 }

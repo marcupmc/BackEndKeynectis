@@ -13,20 +13,29 @@
 </head>
 <body>
 	<div class="container">
-		<div class="alert alert-success">
+		<%
+		String identifiant = (String) request.getParameter("identifiant");
+		long id = Long.parseLong((String) request.getParameter("id"));
+		String msg = (String)request.getParameter("msg");
+
+		if(msg.equals("ok")){
+			%><div class="alert alert-success">
 			<h2>Certification reussie</h2>
 			<p>Vous allez etre redirige</p>
 		</div>
-	</div>
-
-	<%
-		String identifiant = (String) request.getParameter("identifiant");
-		long id = Long.parseLong((String) request.getParameter("id"));
-// 		String urlNew = (String) request.getParameter("urlnew");
-
-// 		DAODocumentPDF.getInstance().changeUrl(id, urlNew);
-		DAODocumentPDF.getInstance().certifiedPDF(id);
+		<%
+			DAODocumentPDF.getInstance().certifiedPDF(id);
+		}else{
+			 %>
+		<div class="alert alert-error">
+			<h2>Certification echouée</h2>
+			<p>Vous allez etre redirige.</p>
+		</div>
+		<%
+			 DAODocumentPDF.getInstance().certifiedEchecPDF(id);
+		}
+		
 	%>
-
+	</div>
 </body>
 </html>
