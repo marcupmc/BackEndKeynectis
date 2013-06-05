@@ -30,8 +30,6 @@
 		$(function() {
 
 			$.extend($.tablesorter.themes.bootstrap, {
-				// these classes are added to the table. To see other table classes available,
-				// look here: http://twitter.github.com/bootstrap/base-css.html#tables
 				table : 'table table-bordered',
 				header : 'bootstrap-header', // give the header a gradient background
 				footerRow : '',
@@ -47,49 +45,20 @@
 				odd : '' // even row zebra striping
 			});
 
-			// call the tablesorter plugin and apply the uitheme widget
 			$("table").tablesorter({
-				// this will apply the bootstrap theme if "uitheme" widget is included
-				// the widgetOptions.uitheme is no longer required to be set
 				theme : "bootstrap",
 
 				widthFixed : true,
 
 				headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
 
-				// widget code contained in the jquery.tablesorter.widgets.js file
-				// use the zebra stripe widget if you plan on hiding any rows (filter widget)
 				widgets : [ "uitheme", "filter", "zebra" ],
 
 				widgetOptions : {
-					// using the default zebra striping class name, so it actually isn't included in the theme variable above
-					// this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
 					zebra : [ "even", "odd" ],
 
-					// reset filters button
 					filter_reset : ".reset"
-
-				// set the uitheme widget to use the bootstrap theme class names
-				// this is no longer required, if theme is set
-				// ,uitheme : "bootstrap"
-
 				}
-// 			}).tablesorterPager({
-
-// 				// target the pager markup - see the HTML block below
-// 				container : $(".pager"),
-
-// 				// target the pager page select dropdown - choose a page
-// 				cssGoto : ".pagenum",
-
-// 				// remove rows from the table to speed up the sort of large tables.
-// 				// setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
-// 				removeRows : false,
-
-// 				// output string - default is '{page}/{totalPages}';
-// 				// possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
-// 				output : '{startRow} - {endRow} / {filteredRows} ({totalRows})'
-
 			});
 
 		});
@@ -136,7 +105,8 @@
 					<%if (log.getEventype().equals(EventType.ERROR)){
 							%>
 					<tr class="alert alert-block alert-error">
-					<%}else{%>
+						<%}else{%>
+					
 					<tr>
 						<%} %>
 						<td><%=log.getId()%></td>
@@ -144,9 +114,7 @@
 						<td><%=log.getType().name()%></td>
 						<td><%=log.getIpadresse()%></td>
 						<td><%=log.getIdentifiant_client()%></td>
-						<td>
-							 <%=log.getEventype().name()%> 
-						</td>
+						<td><%=log.getEventype().name()%></td>
 					</tr>
 					<%
 						}
@@ -159,22 +127,43 @@
 		<h2>Graphiques</h2>
 		<table id="tableCharts">
 			<tr>
-				<td><div id="errorBar" style="width: 750px; height: 400px;"></div></td>
-				<td><div id="errorPie"
-						style="width: 750px; height: 400px; margin: 0 auto"></div></td>
+				<td><img alt="test" src="img/loader.gif" id="waiter"
+					class="loader">
+					<div id="errorBar"
+						style="width: 750px; height: 400px; visibility: hidden"></div></td>
+				<td><img alt="test" src="img/loader.gif" id="waiter2"
+					class="loader">
+					<div id="errorPie"
+						style="width: 750px; height: 400px; margin: 0 auto; visibility: hidden"></div>
+				</td>
 
 			</tr>
 			<tr>
-				<td><div id="graphs"
-						style="width: 750px; height: 400px; margin: 0 auto"></div></td>
-				<td><div id="chart_div" style="width: 600px; height: 400px;"></div></td>
+				<td><img alt="test" src="img/loader.gif" id="waiter3"
+					class="loader">
+					<div id="graphs"
+						style="width: 750px; height: 400px; margin: 0 auto; visibility: hidden"></div>
+				</td>
+				<td><img alt="test" src="img/loader.gif" id="waiter4"
+					class="loader">
+					<div id="chart_div"
+						style="width: 600px; height: 400px; visibility: hidden"></div></td>
 			</tr>
-			<tr id="carte">
-				<td colspan="2">
+			<tr>
+				<td>
+				<img alt="test" src="img/loader.gif" id="waiter5"
+					class="loader">
+					<div id="documentReport"
+						style="width: 750px; height: 400px; margin: 0 auto; visibility: hidden"></div>
+				</td>
+				<td>
+				<img alt="test" src="img/loader.gif" id="waiter6"
+					class="loader">
 					<div id="chart_div2"
-						style="width: 1400px; padding-left: 25px; height: 500px;"></div>
+						style="width: 750px; padding-left: 25px; height: 500px;"></div>
 				</td>
 			</tr>
+
 		</table>
 
 
@@ -201,6 +190,7 @@
 		google.setOnLoadCallback(drawChart2);
 		google.setOnLoadCallback(drawChart3);
 		google.setOnLoadCallback(drawChart4);
+		google.setOnLoadCallback(drawChart5);
 		google.setOnLoadCallback(drawMarkersMap);
 	</script>
 

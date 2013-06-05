@@ -10,12 +10,14 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Example;
 
 import controller.ControllerAjoutTypeCertification;
 
 import tools.ToolsPDF;
 import domain.CertificationType;
 import domain.DocumentPDF;
+import domain.Log;
 import domain.Signature;
 import domain.Utilisateur;
 
@@ -316,6 +318,33 @@ public class DAODocumentPDF
 		return true;
 	}
 
+	public boolean certifiedEchecPDF(long id)
+	{
+		DocumentPDF doc = this.getById(id);
+		if (doc == null)
+			return false;
+		Session session = null;
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure()
+					.buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+
+			doc.setCertified("Erreur");
+			session.update(doc);
+			tx.commit();
+			session.close();
+			sessionFactory.close();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+	
 	/**
 	 * Set the position of a signature in a document
 	 * 
@@ -505,6 +534,87 @@ public class DAODocumentPDF
 			return false;
 		}
 		return true;
+	}
+	
+	public int getNumberOfCertifiedDocument(){
+		Session session = null;
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure()
+					.buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+
+			DocumentPDF docExample = new DocumentPDF();
+			docExample.setCertified("Certifie");
+			
+			int nbToReturn = session.createCriteria(DocumentPDF.class).add(Example.create(docExample) ).list().size();
+
+			tx.commit();
+			session.close();
+			sessionFactory.close();
+			return nbToReturn;
+			
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return 0;
+		}
+	}
+	
+	public int getNumberOfErrorDocument(){
+		Session session = null;
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure()
+					.buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+
+			DocumentPDF docExample = new DocumentPDF();
+			docExample.setCertified("Erreur");
+			
+			int nbToReturn = session.createCriteria(DocumentPDF.class).add(Example.create(docExample) ).list().size();
+
+			tx.commit();
+			session.close();
+			sessionFactory.close();
+			return nbToReturn;
+			
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return 0;
+		}
+	}
+	
+	public int getNumberOfWaitingDocument(){
+		Session session = null;
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure()
+					.buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+
+			DocumentPDF docExample = new DocumentPDF();
+			docExample.setCertified("En attente");
+			
+			int nbToReturn = session.createCriteria(DocumentPDF.class).add(Example.create(docExample) ).list().size();
+
+			tx.commit();
+			session.close();
+			sessionFactory.close();
+			return nbToReturn;
+			
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return 0;
+		}
 	}
 
 }

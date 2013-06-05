@@ -60,6 +60,8 @@ body {
 /* 	padding-top: 50px; */
 /* 	width : 750px; */
 	background-color: white;
+	vertical-align: center;
+	text-align: center;
 }
 
 #tableCharts td:last-child{
@@ -68,9 +70,6 @@ body {
 /* 	padding-right: 25px; */
 }
 
-#carte td{
-/* 	width : 1500px; */
-	
-/* 	text-align: center; */
-	
+.loader{
+	margin-top: 200px;
 }

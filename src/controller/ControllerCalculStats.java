@@ -10,6 +10,7 @@ import java.util.TreeMap;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
+import dao.DAODocumentPDF;
 import dao.DAOLog;
 import domain.EventType;
 import domain.Log;
@@ -192,5 +193,19 @@ public class ControllerCalculStats {
 		return json;
 	}
 
+	public JSONObject getDocumentStatutStats(){
+		JSONObject jsonToReturn = new JSONObject();
+		int nbDocCertifie = DAODocumentPDF.getInstance().getNumberOfCertifiedDocument();
+		int nbDocErreur = DAODocumentPDF.getInstance().getNumberOfErrorDocument();
+		int nbDocEnAttente = DAODocumentPDF.getInstance().getNumberOfWaitingDocument();
+		try {
+			jsonToReturn.put("certifie", nbDocCertifie);
+			jsonToReturn.put("error",nbDocErreur);
+			jsonToReturn.put("waiting", nbDocEnAttente);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return jsonToReturn;
+	}
 
 }

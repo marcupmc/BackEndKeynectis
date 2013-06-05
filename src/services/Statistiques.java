@@ -56,5 +56,16 @@ public class Statistiques {
 		return ControllerCalculStats.getInstance().getErrorPerHour().toString();
 	}
 	
+	@GET
+	@Path("/documentreport")
+	@Consumes("application/x-www-form-urlencoded")
+	/**
+	 * TODO
+	 * @return
+	 */
+	public String getDocumentStatus(){
+		return ControllerCalculStats.getInstance().getDocumentStatutStats().toString();
+	}
+	
 	
 }
