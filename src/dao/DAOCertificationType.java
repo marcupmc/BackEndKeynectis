@@ -132,52 +132,7 @@ public class DAOCertificationType
 			String dATA_METIER, String pDF_REASON, String pDF_LOCATION,
 			String pDF_CONTACT, boolean defaut)
 	{
-		Session session = null;
-		try
-		{
-			SessionFactory sessionFactory = new Configuration().configure()
-					.buildSessionFactory();
-			session = sessionFactory.openSession();
-			org.hibernate.Transaction tx = session.beginTransaction();
-
-			/*TagParameter type = new TagParameter(name, id_type, dATA_METIER,
-					pDF_REASON, pDF_LOCATION, pDF_CONTACT, defaut);
-			ControllerAjoutTypeCertification.getInstance().addType(type);*/
-			
-			TagParameter type = ControllerAjoutTypeCertification.getInstance()
-					.getType(id_type, name);
-
-			CertificationType certif = null;
-
-			if (null == type.getType())
-			{
-				certif = createCertificationType(type);
-				type.setType(certif);
-			}
-			else
-				certif = type.getType();
-
-			ArrayList<CertificationType> certifs = new ArrayList<CertificationType>();
-			
-			Query q = session
-					.createQuery("from CertificationType as c where c.id_type = '"
-							+ certif.getId_type() + "' and c.name = '" + certif.getName() + "'");
-			certifs = (ArrayList<CertificationType>) q.list();
-			
-			if(certifs.isEmpty())
-				session.save(certif);
-			
-			tx.commit();
-			session.close();
-			sessionFactory.close();
-		}
-		catch (Exception e)
-		{
-			System.out.println(e.getMessage());
-			return false;
-		}
-
-		return true;
+		return addCertificationType(name, id_type);
 	}
 
 	/**
@@ -207,15 +162,17 @@ public class DAOCertificationType
 				certif = type.getType();
 
 			ArrayList<CertificationType> certifs = new ArrayList<CertificationType>();
-			
+
 			Query q = session
 					.createQuery("from CertificationType as c where c.id_type = '"
-							+ certif.getId_type() + "' and c.name = '" + certif.getName() + "'");
+							+ certif.getId_type()
+							+ "' and c.name = '"
+							+ certif.getName() + "'");
 			certifs = (ArrayList<CertificationType>) q.list();
-			
-			if(certifs.isEmpty())
+
+			if (certifs.isEmpty())
 				session.save(certif);
-			
+
 			tx.commit();
 			session.close();
 			sessionFactory.close();
@@ -234,45 +191,10 @@ public class DAOCertificationType
 		 */
 	public boolean addCertificationType(TagParameter type)
 	{
-		Session session = null;
-		try
-		{
-			SessionFactory sessionFactory = new Configuration().configure()
-					.buildSessionFactory();
-			session = sessionFactory.openSession();
-			org.hibernate.Transaction tx = session.beginTransaction();
+		return addCertificationType(type.getName(), type.getId_type(),
+				type.getDATA_METIER(), type.getPDF_REASON(),
+				type.getPDF_LOCATION(), type.getPDF_CONTACT(), type.isDefaut());
 
-			CertificationType certif = null;
-
-			if (null == type.getType())
-			{
-				certif = createCertificationType(type);
-				type.setType(certif);
-			}
-			else
-				certif = type.getType();
-			
-			ArrayList<CertificationType> certifs = new ArrayList<CertificationType>();
-			
-			Query q = session
-					.createQuery("from CertificationType as c where c.id_type = '"
-							+ certif.getId_type() + "' and c.name = '" + certif.getName() + "'");
-			certifs = (ArrayList<CertificationType>) q.list();
-			
-			if(certifs.isEmpty())
-				session.save(certif);
-			
-			tx.commit();
-			session.close();
-			sessionFactory.close();
-		}
-		catch (Exception e)
-		{
-			System.out.println(e.getMessage());
-			return false;
-		}
-
-		return true;
 	}
 
 	/**
@@ -292,7 +214,7 @@ public class DAOCertificationType
 			CertificationType certif = this.getByTypesIdAndName(editId,
 					editName);
 			if (null == certif)
-				return false;
+				return addCertificationType(name, id);
 
 			TagParameter type = ControllerAjoutTypeCertification.getInstance()
 					.getType(id, name);
@@ -453,5 +375,31 @@ public class DAOCertificationType
 			System.out.println(e.getMessage());
 			return null;
 		}
+	}
+
+	public ArrayList<CertificationType> getAllCertifis()
+	{
+		ArrayList<CertificationType> certifs = new ArrayList<CertificationType>();
+		Session session = null;
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure()
+					.buildSessionFactory();
+			session = sessionFactory.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+
+			Query q = session.createQuery("from CertificationType ");
+			certifs = (ArrayList<CertificationType>) q.list();
+
+			tx.commit();
+			session.close();
+			sessionFactory.close();
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return certifs;
+		}
+		return certifs;
 	}
 }

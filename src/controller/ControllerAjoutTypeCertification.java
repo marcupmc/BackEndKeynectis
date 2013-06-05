@@ -4,6 +4,7 @@
 package controller;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,8 @@ import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
 import dao.DAOCertificationType;
+import dao.DAODocumentPDF;
+import domain.CertificationType;
 import domain.Log;
 import domain.TypeLog;
 
@@ -59,7 +62,7 @@ public class ControllerAjoutTypeCertification
 	private TagParameters parameters = null;
 
 	public boolean addType(String id, String name, String DATA_METIER,
-			String PDF_REASON, String PDF_LOCATION, String PDF_CONTACT)
+			String PDF_REASON, String PDF_LOCATION, String PDF_CONTACT, boolean defaut)
 	{
 
 		if (!((null == id || "".equals(id)) || (null == name || "".equals(name))))
@@ -67,7 +70,7 @@ public class ControllerAjoutTypeCertification
 			if (null == parameters)
 				parameters = new TagParameters();
 			TagParameter type = new TagParameter(name, id, DATA_METIER,
-					PDF_REASON, PDF_LOCATION, PDF_CONTACT);
+					PDF_REASON, PDF_LOCATION, PDF_CONTACT, defaut);
 			DAOCertificationType.getInstance().addCertificationType(type);
 			return parameters.addType(type);
 		}
@@ -80,10 +83,9 @@ public class ControllerAjoutTypeCertification
 	{
 		if (null != type)
 		{
-			DAOCertificationType.getInstance().addCertificationType(type);
 			return addType(type.getId_type(), type.getName(),
 					type.getDATA_METIER(), type.getPDF_REASON(),
-					type.getPDF_LOCATION(), type.getPDF_LOCATION());
+					type.getPDF_LOCATION(), type.getPDF_LOCATION(), type.isDefaut());
 		}
 
 		return false;
@@ -133,6 +135,8 @@ public class ControllerAjoutTypeCertification
 	 */
 	public TagParameters getParameters()
 	{
+		if(null != DAOCertificationType.getInstance().getAllCertifis())
+			parameters = getParametersFromDAO();
 		return parameters;
 	}
 
@@ -140,12 +144,21 @@ public class ControllerAjoutTypeCertification
 	{
 		try
 		{
-			if ((new File(parameterPath + xmlTagParametersFile)).exists())
+			File param = (new File(parameterPath + xmlTagParametersFile));
+			if (param.exists())
 			{
 				parameters = ToolsXML.readTagConfig(parameterPath
-						+ xmlTagParametersFile);
+						+ xmlTagParametersFile); 
 				// ICI LOG
 			}
+			/*if(param.delete())
+			{
+				System.out.println(param.getName() + " is deleted!");
+			}
+			else
+			{
+				System.out.println(param.getName()+ ": Delete operation failed!");
+			}*/
 		}
 		catch (Exception e)
 		{
@@ -156,6 +169,40 @@ public class ControllerAjoutTypeCertification
 		}
 
 		return parameters;
+	}
+	
+	public TagParameters getParametersFromDAO()
+	{
+		ArrayList<CertificationType> certifs = DAOCertificationType.getInstance().getAllCertifis();
+		
+		if(certifs.size()>0)
+		{
+			if(null == parameters)
+				parameters = new TagParameters();
+			for(CertificationType certif : certifs)
+			{
+				parameters.addType(new TagParameter(certif.getName(), certif.getId_type(), certif.getDATA_METIER(), certif.getPDF_REASON(), certif.getPDF_LOCATION(), certif.getPDF_CONTACT(), certif.isDefaut()));
+			}
+		}
+		
+		return parameters;
+	}
+	
+	public ArrayList<CertificationType> getCertifsFromDAO()
+	{
+		ArrayList<CertificationType> certifs = DAOCertificationType.getInstance().getAllCertifis();
+		
+		if(certifs.size()>0)
+		{
+			if(null == parameters)
+				parameters = new TagParameters();
+			for(CertificationType certif : certifs)
+			{
+				parameters.addType(new TagParameter(certif.getName(), certif.getId_type(), certif.getDATA_METIER(), certif.getPDF_REASON(), certif.getPDF_LOCATION(), certif.getPDF_CONTACT(), certif.isDefaut()));
+			}
+		}
+		
+		return certifs;
 	}
 
 	/**
@@ -171,10 +218,20 @@ public class ControllerAjoutTypeCertification
 	{
 		return parameters.getType(id, name);
 	}
+	
+	public TagParameter getType(String name)
+	{
+		return parameters.getType(name);
+	}
 
 	public boolean saveTagXml(String savePath)
 	{
 		return ToolsXML.createTagXMLFile(savePath);
 	}
 
+	
+	public boolean addTypeToDocument(long id, TagParameter type)
+	{
+		return DAODocumentPDF.getInstance().setCertificationType(id, type);
+	}
 }

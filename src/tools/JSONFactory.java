@@ -84,7 +84,7 @@ public class JSONFactory
 					jsonToAdd.put("id", doc.getId());
 					jsonToAdd.put("name", doc.getName());
 					jsonToAdd.put("url", doc.getUrl());
-					jsonToAdd.put("isCertified", doc.isCertified());
+					jsonToAdd.put("isCertified", doc.getCertified());
 				}
 				catch (JSONException e)
 				{

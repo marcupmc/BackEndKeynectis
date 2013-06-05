@@ -16,11 +16,19 @@
 
 	String saveFile = this.getServletContext()
 			.getRealPath("/temp_xml/");
+	
+	String act = request.getParameter("act");
 
 	ControllerAjoutTypeCertification controller = ControllerAjoutTypeCertification
 			.getInstance();
 
-	TagParameters types = controller.getParameters(saveFile);
+	TagParameters types = controller.getParameters();
+	if(null!=act)
+	{
+		if("firstAccess".equals(act))
+			types = controller.getParameters(saveFile);
+	}
+	
 	if (types.isEmpty()) //  request.getAttribute("types") == null) 
 	{
 		typesExist = false;

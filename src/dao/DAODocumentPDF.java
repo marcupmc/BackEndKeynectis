@@ -67,7 +67,7 @@ public class DAODocumentPDF
 			doc.setName(name);
 			doc.setUrl(url);
 			doc.setOwner(user);
-			doc.setCertified(false);
+			doc.setCertified("En attente");
 			
 			//A ajouter aussi dans le add document avec une zone de signature
 			byte[] bits = ToolsPDF.getAsByteArray(new URL(url));
@@ -118,7 +118,7 @@ public class DAODocumentPDF
 			doc.setName(name);
 			doc.setUrl(url);
 			doc.setOwner(user);
-			doc.setCertified(false);
+			doc.setCertified("En attente");
 
 			// doc.setSignatureName(sigName); //TODO A modifier car peut être
 			// parametrable
@@ -302,7 +302,7 @@ public class DAODocumentPDF
 			session = sessionFactory.openSession();
 			org.hibernate.Transaction tx = session.beginTransaction();
 
-			doc.setCertified(true);
+			doc.setCertified("Certifie");
 			session.update(doc);
 			tx.commit();
 			session.close();
@@ -382,6 +382,11 @@ public class DAODocumentPDF
 			org.hibernate.Transaction tx = session.beginTransaction();
 
 			CertificationType certif = type.getType();
+			if(null == certif)
+			{
+				certif = DAOCertificationType.getInstance().getByTypesIdAndName(type.getId_type(), type.getName());
+				type.setType(certif);
+			}
 
 			doc.setType(certif);
 			DAOCertificationType.getInstance().addDocumentToCertif(certif, doc);

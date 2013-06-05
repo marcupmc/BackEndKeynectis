@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@page import="model.TagParameter"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -28,7 +27,7 @@
 				if ((("adding_type_error").equals(msg)))
 				{
 
-					message = "Un autre type possède déjà cet identifiant et ce nom. Veuillez en changer et sauvegarder de nouveau.";
+					message = "Un autre type possède déjà cet identifiant et/ou ce nom. Veuillez en changer et sauvegarder de nouveau.";
 		%>
 		<div class="alert alert-block alert-error fade in">
 			Erreur :

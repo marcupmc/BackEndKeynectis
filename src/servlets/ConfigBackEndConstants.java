@@ -143,7 +143,7 @@ public class ConfigBackEndConstants extends HttpServlet
 				else
 				{
 					errMess = "success";
-					messType = "KWS";
+					messType = "KWS_first";
 				}
 
 				request.setAttribute("authorityParameter", autho);

@@ -1,3 +1,4 @@
+<%@page import="com.itextpdf.text.log.SysoLogger"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -106,17 +107,35 @@
 				<div class="tab-content">
 
 
-					<!-- 		Zone réservée aux messages d'erreurs -->
+					
 
 					<%
-						String message = "";
+						String message = ""; 						
 						String msg = (String) request.getParameter("error");
 						String type = (String) request.getParameter("messType");
-						if (("success").equals(msg))
+					
+						if (("success").equals(msg)) 
+						{
+							if ("KWS_first".equals(type)) 
 							{
-								if("KWS".equals(type)) 
-								{
-								}
+								%>
+								<script type="text/javascript">
+								$(function() {
+									$("#tagList").load("tagParameters.jsp",{act : "firstAccess"});
+								});
+								</script>
+								<%
+							}
+							else
+							{
+								%>
+								<script type="text/javascript">
+								$(function() {
+									$("#tagList").load("tagParameters.jsp");
+									});
+								</script>
+								<%
+							}
 					%>
 					<script>
 						$(function() {
@@ -128,35 +147,31 @@
 							$("#tabTypes").show();
 							$("#tabTypes").attr("class", "active");
 							$("#tabConst").attr("class", "");
-							
-							$("#tagList").load("tagParameters.jsp");
+
 							$("#tagComment").load("tagComment.jsp");
 						});
 					</script>
 					<%
-					
-							if ((("adding_type_error").equals(type))) 
-							{
-								
-									message = "Un autre type possède déjà cet identifiant et ce nom. Veuillez en changer et sauvegarder de nouveau.";
-						%>				
-						<div class="alert alert-block alert-error fade in">
-							Erreur :
-							<%=message%></div>
-						<%
-							}
+						if ((("adding_type_error").equals(type))) {
+
+								message = "Un autre type possède déjà cet identifiant et ce nom. Veuillez en changer et sauvegarder de nouveau.";
+					%>
+					<div class="alert alert-block alert-error fade in">
+						Erreur :
+						<%=message%></div>
+					<%
 						}
-						if ((("error").equals(msg))) 
-						{
-							if("certMetier".equals(type))
+						}
+						if ((("error").equals(msg))) {
+							if ("certMetier".equals(type))
 								message = "Le certificat de signature métier n'existe pas.\n Veuillez insérer un fichier existant.";
-							if("certSign".equals(type))
+							if ("certSign".equals(type))
 								message = "Le certificat de signature client n'existe pas.\n Veuillez insérer un fichier existant.";
-							if("certChiff".equals(type))
+							if ("certChiff".equals(type))
 								message = "Le certificat de chiffrement n'existe pas.\n Veuillez insérer un fichier existant.";
-							if("certDecipher".equals(type))
+							if ("certDecipher".equals(type))
 								message = "Le certificat de déchiffrement n'existe pas.\n Veuillez insérer un fichier existant.";
-							if("null".equals(type))
+							if ("null".equals(type))
 								message = "Certains ou tous les champs n'ont pas été remplis.\nMerci de bien vouloir remplir tous les champs avant de sauvegarder.";
 					%>
 					<script>
@@ -167,11 +182,11 @@
 							$("#tabTypes").attr("class", "");
 							$("#const").attr("class", "tab-pane active");
 							$("#types").attr("class", "tab-pane");
-							$("#auth").attr("class", "tab-pane");	
+							$("#auth").attr("class", "tab-pane");
 
-							var sel = $('#authority').val();							
-								$("#comment").load("commentKEY.jsp");
-								$("#configForm").load("formKEY.jsp");
+							var sel = $('#authority').val();
+							$("#comment").load("commentKEY.jsp");
+							$("#configForm").load("formKEY.jsp");
 						});
 					</script>
 					<div class="alert alert-block alert-error fade in">
@@ -289,7 +304,7 @@
 							</div>
 
 						</div>
-						
+
 						<!-- <div class="pull-left">
 							<div class="well">
 								<p>

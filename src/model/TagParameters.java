@@ -59,10 +59,14 @@ public class TagParameters
 
 		if (!contains(type.getId_type(), type.getName()))
 		{
-			types.add(type);
-			if (type.isDefaut())
-				setDefaultType(type);
-			state = true;
+			if(!contains(type.getName()))
+			{
+				types.add(type);
+				if (type.isDefaut())
+					setDefaultType(type);
+				state = true;
+			}
+			
 		}
 
 		return state;
@@ -112,6 +116,27 @@ public class TagParameters
 
 		return state;
 	}
+	
+	private boolean contains(String name)
+	{
+		boolean state = false;
+		if (null == types)
+			types = new ArrayList<TagParameter>();
+
+		if (!types.isEmpty())
+		{
+			for (TagParameter type : types)
+			{
+				if (name.equals(type.getName()))
+				{
+					state = true;
+					break;
+				}
+			}
+		}
+
+		return state;
+	}
 
 	public TagParameter getType(String id, String name)
 	{
@@ -120,6 +145,22 @@ public class TagParameters
 			for (TagParameter type : types)
 			{
 				if (id.equals(type.getId_type()) && name.equals(type.getName()))
+				{
+					return type;
+				}
+			}
+		}
+
+		return null;
+	}
+	
+	public TagParameter getType(String name)
+	{
+		if (contains(name))
+		{
+			for (TagParameter type : types)
+			{
+				if (name.equals(type.getName()))
 				{
 					return type;
 				}

@@ -100,7 +100,7 @@ public class AddDocument extends HttpServlet
 							&& DAODocumentPDF.getInstance().addDocument(
 									idClient, nameDocument, urlDocument,
 									sigName))
-						msgErr = "ok";
+						msgErr = "success";
 					else
 						msgErr = "signame_err";
 				}
