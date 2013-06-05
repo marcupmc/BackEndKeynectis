@@ -138,7 +138,7 @@
 							{
 					%>
 				
-				<tr class="alert alert-block alert-error">
+				<tr class="alert alert-block alert-unready">
 					<%
 						}
 					%>

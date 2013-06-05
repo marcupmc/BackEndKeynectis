@@ -23,3 +23,9 @@
 .leftAlign{
 	float: left;	
 }
+
+.alert-unready {
+  color: #ff6103;
+  background-color: #ffcc99;
+  border-color: #ffbad9;
+}
