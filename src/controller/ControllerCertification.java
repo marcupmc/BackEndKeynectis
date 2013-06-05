@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
-import servlets.AddDocument;
 import tools.EncoderBase64;
 import tools.ToolsPDF;
 import tools.ToolsXML;

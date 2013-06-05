@@ -9,9 +9,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Example;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
-import domain.DocumentPDF;
 import domain.EventType;
 import domain.Log;
 import domain.TypeLog;

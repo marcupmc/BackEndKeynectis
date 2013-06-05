@@ -56,12 +56,17 @@ body {
 	
 }
 
+#tableCharts{
+	margin: auto;
+}
+
 #tableCharts td{
 /* 	padding-top: 50px; */
 /* 	width : 750px; */
 	background-color: white;
 	vertical-align: center;
 	text-align: center;
+	margin: auto;
 }
 
 #tableCharts td:last-child{

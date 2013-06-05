@@ -5,23 +5,15 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MultivaluedMap;
 
-import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
 import servlets.AddDocument;
-import tools.JSONFactory;
-
 import controller.ControllerAuthentification;
-
-import controller.Initialisator;
-import dao.DAOLog;
-import dao.DAOUtilisateur;
 import domain.Log;
 import domain.TypeLog;
-import domain.Utilisateur;
 
 @Path("/authentification")
 public class Connexion

@@ -2,8 +2,49 @@ var city =[[]];
 var ci = [];
 var success;
 var failed;
-
 var geocoder;
+var numPage=0;
+
+
+//Affiche tous les logs 
+function getAllLog(){
+	
+	$.ajax({ 
+		async:true,
+		type: "GET", 
+		url: "http://localhost:8080/TestRest/rest/statistiques/getalllogs",
+		datatype:"jsonp",
+		success: function(msg){ 
+			var data2 = new google.visualization.DataTable();
+			data2.addColumn('number', 'Id');
+			data2.addColumn('string', 'Date');
+			data2.addColumn('string', 'Type');
+			data2.addColumn('string', 'Adresse Ip');
+			data2.addColumn('string', 'Identifiant');
+			data2.addColumn('string', 'Emetteur');
+		    
+			var allLogs  = $.parseJSON(msg);
+			var listeLog = allLogs.logs;
+			for(i=0;i<listeLog.length;i++)
+			{
+				data2.addRow([listeLog[i].id,
+				              listeLog[i].date,
+				              listeLog[i].type,
+				              listeLog[i].ipadresse,
+				              listeLog[i].identifiant,
+				              listeLog[i].event]);
+				
+			}
+			var table = new google.visualization.Table(document.getElementById('table_div'));
+			$("#waiterLog").remove();
+			$("#table_div").css("display","inline");
+			table.draw(data2, {showRowNumber: false,page:"enable"});
+		}
+	});
+	return false; 
+	
+}
+
 
 function getConnexionsPerHour(){
 	$.ajax({ 

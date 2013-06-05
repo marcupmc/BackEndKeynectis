@@ -2,15 +2,26 @@ package services;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.MultivaluedMap;
 
 import controller.ControllerCalculStats;
 
 @Path("/statistiques")
 public class Statistiques {
 
+	
+	@GET
+	@Path("/getalllogs")
+	@Consumes("application/x-www-form-urlencoded")
+	/**
+	 * TODO
+	 * @return
+	 */
+	public String getAllLogs()
+	{
+		return ControllerCalculStats.getInstance().getAllLogs().toString();
+	}
+	
 	@GET
 	@Path("/connexionperhours")
 	@Consumes("application/x-www-form-urlencoded")

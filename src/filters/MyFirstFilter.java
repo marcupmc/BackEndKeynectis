@@ -4,7 +4,6 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.filter.Filter;
 import ch.qos.logback.core.spi.FilterReply;
 import dao.DAOLog;
-import dao.DAOUtilisateur;
 import domain.EventType;
 import domain.Log;
 import domain.TypeLog;

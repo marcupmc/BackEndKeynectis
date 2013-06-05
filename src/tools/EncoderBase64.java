@@ -8,18 +8,15 @@ import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
 
-import org.eclipse.jdt.internal.compiler.ast.ThisReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
-import controller.ControllerCertification;
-import domain.Log;
-import domain.TypeLog;
-
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
+import domain.Log;
+import domain.TypeLog;
 
 public class EncoderBase64
 {

@@ -12,12 +12,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Example;
 
-import controller.ControllerAjoutTypeCertification;
-
 import tools.ToolsPDF;
+import controller.ControllerAjoutTypeCertification;
 import domain.CertificationType;
 import domain.DocumentPDF;
-import domain.Log;
 import domain.Signature;
 import domain.Utilisateur;
 
