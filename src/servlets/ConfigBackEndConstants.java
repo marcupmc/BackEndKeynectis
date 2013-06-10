@@ -1,7 +1,12 @@
 package servlets;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.AuthorityParameters;
+
+import org.apache.commons.fileupload.DiskFileUpload;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import controller.ControllerParameter;
 
 /**
@@ -47,8 +58,45 @@ public class ConfigBackEndConstants extends HttpServlet
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
 	{
-		// TODO Auto-generated method stub
-		String authority = request.getParameter("authority");
+
+		boolean isMultipartContent = ServletFileUpload
+				.isMultipartContent(request);
+		if (!isMultipartContent)
+		{
+			System.out.println("You are not trying to upload<br/>");
+			return;
+		}
+		System.out.println("You are trying to upload<br/>");
+
+		String CertPath = "";
+
+		String TempPath = "";
+
+		String SavePath = "";
+
+		String authority = "";
+		String certMetier = "";
+		String mdpMetier = "";
+		String idAppMetier = "";
+		String idServMetier = "";
+		String idOrgMetier = "";
+		String certSign = "";
+		String mdpCert = "";
+		String certChiff = "";
+		String certDecipher = "";
+		String mdpDecipher = "";
+		String servPDFCert = "";
+		String pathPDFCert = "";
+		String loginPDFCert = "";
+		String mdpPDFCert = "";
+
+		String errMess = "";
+		String messType = "";
+
+		File certMetierFile = null;
+		File certSignFile = null;
+		File certChiffFile = null;
+		File certDecipherFile = null;
 
 		AuthorityParameters autho = null;
 
@@ -61,45 +109,225 @@ public class ConfigBackEndConstants extends HttpServlet
 		System.out.println("Authority = " + authority + "\n saveFile = "
 				+ saveFile);
 
-		String CertPath = request.getParameter("CertPath");
-		if ((null == CertPath) || ("".equals(CertPath)))
+		try
 		{
-			CertPath = certFolder; // request.getParameter("CertPath");
-		}
+			System.out.println("EmettreServlet");
 
-		String TempPath = request.getParameter("TempPath");
-		if ((null == TempPath) || ("".equals(TempPath)))
+			// Create a new file upload handler
+			DiskFileUpload upload = new DiskFileUpload();
+
+			// Set upload parameters
+			int yourMaxMemorySize = 512 * 1024 * 8; // en bytes
+			int yourMaxRequestSize = 1024 * 1024 * 8;
+			String yourTempDirectory = this.getServletContext().getRealPath(
+					"/temp_xml/");// "/home/temp/"; // un répertoire ou tomcat
+			// a le droit d'écrire
+
+			upload.setSizeThreshold(yourMaxMemorySize);
+			upload.setSizeMax(yourMaxRequestSize);
+			upload.setRepositoryPath(yourTempDirectory);
+
+			// Parse the request -on recupère tous les champs du formulaire
+			List items = upload.parseRequest(request);
+
+			// Process the uploaded items
+			Iterator iter = items.iterator();
+			while (iter.hasNext())
+			{
+
+				FileItem item = (FileItem) iter.next();
+
+				// Process a regular form field
+				if (item.isFormField())
+				{
+					String fieldname = item.getFieldName();
+					String fieldvalue = item.getString();
+
+					{
+						if ("authority".equals(fieldname))
+							authority = fieldvalue;
+
+						// authority = request.getParameter("authority");
+
+						/*else if ("CertPath".equals(fieldname))
+						{
+							CertPath = fieldvalue;
+							// CertPath = request.getParameter("CertPath");
+							if ((null == CertPath) || ("".equals(CertPath)))
+							{
+								CertPath = certFolder; // request.getParameter("CertPath");
+							}
+						}
+
+						else if ("TempPath".equals(fieldname))
+						{
+							TempPath = fieldvalue;
+							// TempPath = request.getParameter("TempPath");
+							if ((null == TempPath) || ("".equals(TempPath)))
+							{
+								TempPath = tempFolder; // request.getParameter("TempPath");
+							}
+						}
+
+						else if ("SavePath".equals(fieldname))
+						{
+							SavePath = fieldvalue;
+							// SavePath = request.getParameter("SavePath");
+							// System.out.println("1:" + SavePath);
+							if ((null == SavePath) || ("".equals(SavePath)))
+							{
+								SavePath = saveFile; // request.getParameter("SavePath");
+								// System.out.println("2:" + SavePath);
+							}
+						}*/
+
+						else if ("mdpMetier".equals(fieldname))
+							mdpMetier = fieldvalue;
+						else if ("idAppMetier".equals(fieldname))
+							idAppMetier = fieldvalue;
+						else if ("idServMetier".equals(fieldname))
+							idServMetier = fieldvalue;
+						else if ("idOrgMetier".equals(fieldname))
+							idOrgMetier = fieldvalue;
+						else if ("mdpCert".equals(fieldname))
+							mdpCert = fieldvalue;
+						else if ("mdpDecipher".equals(fieldname))
+							mdpDecipher = fieldvalue;
+						else if ("servPDFCert".equals(fieldname))
+							servPDFCert = fieldvalue;
+						else if ("pathPDFCert".equals(fieldname))
+							pathPDFCert = fieldvalue;
+						else if ("loginPDFCert".equals(fieldname))
+							loginPDFCert = fieldvalue;
+						else if ("mdpPDFCert".equals(fieldname))
+							mdpPDFCert = fieldvalue;
+					}
+
+				}
+				// Process a file upload
+				else
+				{
+					String fieldname = item.getFieldName();
+					String filename = item.getName();
+					String contentType = item.getContentType();
+					boolean isInMemory = item.isInMemory();
+					long sizeInBytes = item.getSize();
+
+					boolean writeToFile = true;
+					// Copie directe pour les petits fichiers, sinon streaming
+					// (le streaming ne marche pas)
+					if (sizeInBytes > 512 * 1024 * 8)
+						writeToFile = false;
+
+					// Process a file upload
+					if ((writeToFile) /* & (fieldName.equals("source")) */)
+					{ // Ecriture directe
+						System.out.println("Ecriture directe");
+
+						if ("certMetier".equals(fieldname))
+						{
+
+							certMetierFile = new File(yourTempDirectory + "/"
+									+ filename);
+							item.write(certMetierFile);
+
+							certMetier = certMetierFile.getAbsolutePath();
+						}
+						else if ("certSign".equals(fieldname))
+						{
+
+							certSignFile = new File(yourTempDirectory + "/"
+									+ filename);
+							item.write(certSignFile);
+
+							certSign = certSignFile.getAbsolutePath();
+						}
+						else if ("certChiff".equals(fieldname))
+						{
+
+							certChiffFile = new File(yourTempDirectory + "/"
+									+ filename);
+							item.write(certChiffFile);
+
+							certChiff = certChiffFile.getAbsolutePath();
+						}
+						else if ("certDecipher".equals(fieldname))
+						{
+
+							certDecipherFile = new File(yourTempDirectory + "/"
+									+ filename);
+							item.write(certDecipherFile);
+
+							certDecipher = certDecipherFile.getAbsolutePath();
+						}
+
+						/*
+						 * File uploadedFile = new File(yourTempDirectory +
+						 * filename); item.write(uploadedFile);
+						 */
+					}
+					else
+					{ // Streaming
+						File uploadedFile = new File(yourTempDirectory + "/"
+								+ filename); // ou sinon un nouveau nom de
+												// fichier à la place de
+												// fileName
+						InputStream sourceFile = item.getInputStream();
+						OutputStream destinationFile = new FileOutputStream(
+								uploadedFile);
+						byte buffer[] = new byte[512 * 1024];
+						int nbLecture;
+						while ((nbLecture = sourceFile.read(buffer)) != -1)
+						{
+							destinationFile.write(buffer, 0, nbLecture);
+						}
+						sourceFile.close();
+					}
+
+				}
+			}
+
+			System.out.println("certMetier: " + certMetier);
+			System.out.println("certSign: " + certSign);
+			System.out.println("certChiff: " + certChiff);
+			System.out.println("certDecipher: " + certDecipher);
+		}
+		catch (ServletException e)
 		{
-			TempPath = tempFolder; // request.getParameter("TempPath");
+			e.printStackTrace();
 		}
-
-		String SavePath = request.getParameter("SavePath");
-		// System.out.println("1:" + SavePath);
-		if ((null == SavePath) || ("".equals(SavePath)))
+		catch (IOException e)
 		{
-			SavePath = saveFile; // request.getParameter("SavePath");
-			// System.out.println("2:" + SavePath);
+			e.printStackTrace();
 		}
-
-		String errMess = "";
-		String messType = "";
+		catch (FileUploadException e)
+		{
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 
 		if (("KWS_INTEGRATION_CDS").equals(authority))
 		{
-			String certMetier = request.getParameter("certMetier");
-			String mdpMetier = request.getParameter("mdpMetier");
-			String idAppMetier = request.getParameter("idAppMetier");
-			String idServMetier = request.getParameter("idServMetier");
-			String idOrgMetier = request.getParameter("idOrgMetier");
-			String certSign = request.getParameter("certSign");
-			String mdpCert = request.getParameter("mdpCert");
-			String certChiff = request.getParameter("certChiff");
-			String certDecipher = request.getParameter("certDecipher");
-			String mdpDecipher = request.getParameter("mdpDecipher");
-			String servPDFCert = request.getParameter("servPDFCert");
-			String pathPDFCert = request.getParameter("pathPDFCert");
-			String loginPDFCert = request.getParameter("loginPDFCert");
-			String mdpPDFCert = request.getParameter("mdpPDFCert");
+
+			/*
+			 * certMetier = request.getParameter("certMetier"); mdpMetier =
+			 * request.getParameter("mdpMetier"); idAppMetier =
+			 * request.getParameter("idAppMetier"); idServMetier =
+			 * request.getParameter("idServMetier"); idOrgMetier =
+			 * request.getParameter("idOrgMetier"); certSign =
+			 * request.getParameter("certSign"); mdpCert =
+			 * request.getParameter("mdpCert"); certChiff =
+			 * request.getParameter("certChiff"); certDecipher =
+			 * request.getParameter("certDecipher"); mdpDecipher =
+			 * request.getParameter("mdpDecipher"); servPDFCert =
+			 * request.getParameter("servPDFCert"); pathPDFCert =
+			 * request.getParameter("pathPDFCert"); loginPDFCert =
+			 * request.getParameter("loginPDFCert"); mdpPDFCert =
+			 * request.getParameter("mdpPDFCert");
+			 */
 
 			autho = controller.validateParameters(CertPath, TempPath, SavePath,
 					certMetier, mdpMetier, idAppMetier, idServMetier,
@@ -118,28 +346,25 @@ public class ConfigBackEndConstants extends HttpServlet
 			}
 			else
 			{
+				/********************* Gestion des erreurs *****************************/
 
-				if (!(new File(CertPath + "\\" + certMetier)).exists())
-				{
-					errMess = "error";
-					messType = "certMetier";
-				}
-				else if (!(new File(CertPath + "\\" + certSign)).exists())
-				{
-					errMess = "error";
-					messType = "certSign";
-				}
-				else if (!(new File(CertPath + "\\" + certChiff)).exists())
-				{
-					errMess = "error";
-					messType = "certChiff";
-				}
-				else if (!(new File(CertPath + "\\" + certDecipher)).exists())
-				{
-					errMess = "error";
-					messType = "certDecipher";
-				}
-				else
+				/*
+				 * if (!(new File(CertPath + "\\" + certMetier)).exists()) {
+				 * errMess = "error"; messType = "certMetier"; } else if (!(new
+				 * File(CertPath + "\\" + certSign)).exists()) { errMess =
+				 * "error"; messType = "certSign"; } else if (!(new
+				 * File(CertPath + "\\" + certChiff)).exists()) { errMess =
+				 * "error"; messType = "certChiff"; } else if (!(new
+				 * File(CertPath + "\\" + certDecipher)).exists()) { errMess =
+				 * "error"; messType = "certDecipher"; }
+				 *//**
+				 * 
+				 * §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+				 * §§§§§§§§§§§§§§§
+				 **/
+				/*
+				 * else
+				 */
 				{
 					errMess = "success";
 					messType = "KWS_first";
@@ -162,5 +387,6 @@ public class ConfigBackEndConstants extends HttpServlet
 					response);
 
 		}
+
 	}
 }

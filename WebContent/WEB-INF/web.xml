@@ -197,7 +197,6 @@
     <servlet-name>TypesXmlSaving</servlet-name>
     <url-pattern>/TypesXmlSaving</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>SendBase64PDF</display-name>
@@ -208,5 +207,4 @@
     <servlet-name>SendBase64PDF</servlet-name>
     <url-pattern>/SendBase64PDF</url-pattern>
   </servlet-mapping>
-
 </web-app>

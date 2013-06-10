@@ -4,6 +4,7 @@
 
 $(function() 
 		{
+	$("#tabAuth").hide();
 	$('#serverPart').hide();
 	$('input:radio').click(function() 
 			{

@@ -5,12 +5,12 @@
 	<label class="control-label" for="CertAuth">Autorité de
 		certification</label>
 	<div class="controls">
-		<input name="authority" type="text" id="auth" value="KWS_INTEGRATION_CDS"
-			readonly="readonly" class="input-xlarge">
+		<input name="authority" type="text" id="auth"
+			value="KWS_INTEGRATION_CDS" readonly="readonly" class="input-xlarge">
 	</div>
 </div>
 
-<div id="legend">
+<!-- <div id="legend">
 	<legend class="partTitle">Paramètres globaux</legend>
 </div>
 
@@ -30,12 +30,12 @@
 	</div>
 </div>
 
-<!-- <div class="control-group">
+<div class="control-group">
 							<label class="control-label" for="inputServIPAd">Adresse IP du serveur</label>
 							<div class="controls">
 								<input name="IPAd" type="text" id="inputServIPAd" placeholder="">
 							</div>								
-						</div> -->
+						</div>
 
 <div class="control-group">
 	<label class="control-label" for="inputSavePath">Adresse de
@@ -43,7 +43,7 @@
 	<div class="controls">
 		<input name="SavePath" type="text" id="inputSavePath" placeholder="">
 	</div>
-</div>
+</div> -->
 
 
 <div id="legend">
@@ -61,8 +61,8 @@
 		<label class="control-label" for="certSign">Certificat de
 			signature Original Métier</label>
 		<div class="controls">
-			<input type="text" id="certMetier" name="certMetier" placeholder="" value="demoqs_s.p12"
-				class="input-xlarge">
+			<input type="file" id="certMetier" name="certMetier" placeholder=""
+				value="demoqs_s.p12" class="input-xlarge">
 		</div>
 	</div>
 
@@ -71,8 +71,8 @@
 		<label class="control-label" for="mdpCert"> Mot de passe du
 			certificat</label>
 		<div class="controls">
-			<input type="password" id="mdpMetier" name="mdpMetier" placeholder="" value="DemoQS"
-				class="input-xlarge">
+			<input type="password" id="mdpMetier" name="mdpMetier" placeholder=""
+				value="DemoQS" class="input-xlarge">
 		</div>
 	</div>
 
@@ -80,8 +80,8 @@
 		<label class="control-label" for="idAppMetier"> Identifiant
 			application métier </label>
 		<div class="controls">
-			<input type="text" id="idAppMetier" name="idAppMetier" placeholder="" value="ZZDEMAV1"
-				class="input-xlarge">
+			<input type="text" id="idAppMetier" name="idAppMetier" placeholder=""
+				value="ZZDEMAV1" class="input-xlarge">
 		</div>
 	</div>
 
@@ -100,8 +100,8 @@
 		<label class="control-label" for="idOrgMetier"> Identifiant
 			organisme métier </label>
 		<div class="controls">
-			<input type="text" id="idOrgMetier" name="idOrgMetier" placeholder="" value="PDFSMS"
-				class="input-xlarge">
+			<input type="text" id="idOrgMetier" name="idOrgMetier" placeholder=""
+				value="PDFSMS" class="input-xlarge">
 		</div>
 	</div>
 </div>
@@ -118,8 +118,8 @@
 		<label class="control-label" for="certSign">Certificat de
 			signature</label>
 		<div class="controls">
-			<input type="text" id="certSign" name="certSign" placeholder="" value="demoqs_i.p12"
-				class="input-xlarge">
+			<input type="file" id="certSign" name="certSign" placeholder=""
+				value="demoqs_i.p12" class="input-xlarge">
 		</div>
 	</div>
 
@@ -128,8 +128,8 @@
 		<label class="control-label" for="mdpCert"> Mot de passe du
 			certificat</label>
 		<div class="controls">
-			<input type="password" id="mdpCert" name="mdpCert" placeholder="" value="DemoQS"
-				class="input-xlarge">
+			<input type="password" id="mdpCert" name="mdpCert" placeholder=""
+				value="DemoQS" class="input-xlarge">
 		</div>
 	</div>
 </div>
@@ -146,8 +146,8 @@
 		<label class="control-label" for="certChiff"> Certificat de
 			chiffrement </label>
 		<div class="controls">
-			<input type="text" id="certChiff" name="certChiff" placeholder="" value="certQSkeyncryp.cer"
-				class="input-xlarge">
+			<input type="file" id="certChiff" name="certChiff" placeholder=""
+				value="certQSkeyncryp.cer" class="input-xlarge">
 		</div>
 	</div>
 </div>
@@ -164,7 +164,7 @@
 		<label class="control-label" for="certSign">Certificat de
 			déchiffrement</label>
 		<div class="controls">
-			<input type="text" id="certDecipher" name="certDecipher"
+			<input type="file" id="certDecipher" name="certDecipher"
 				placeholder="" value="demoqs_c.p12" class="input-xlarge">
 		</div>
 	</div>
@@ -188,14 +188,12 @@
 		</legend>
 	</div>
 
-	<label class="radio">
-		<input type="radio" name="optionsRadios" id="bddSave" value="bddSave" checked="checked">
-		Sauvegarde en base de données (Recommandé)
-	</label>
-	
-	<label class="radio">
-		<input type="radio" name="optionsRadios" id="ftpSave" value="ftpSave">
-		Sauvegarde sur un serveur externe
+	<label class="radio"> <input type="radio" name="optionsRadios"
+		id="bddSave" value="bddSave" checked="checked"> Sauvegarde en
+		base de données (Recommandé)
+	</label> <label class="radio"> <input type="radio" name="optionsRadios"
+		id="ftpSave" value="ftpSave"> Sauvegarde sur un serveur
+		externe
 	</label>
 
 	<div id="serverPart">
@@ -203,20 +201,20 @@
 			<label class="control-label" for="servPDFCert"> Serveur de
 				sauvegarde des PDF certifiés </label>
 			<div class="controls">
-				<input type="text" id="servPDFCert" name="servPDFCert" placeholder="" value="ftp.marc-gregoire.fr"
-					class="input-xlarge">
+				<input type="text" id="servPDFCert" name="servPDFCert"
+					placeholder="" value="ftp.marc-gregoire.fr" class="input-xlarge">
 			</div>
 		</div>
-	
+
 		<div class="control-group">
-			<label class="control-label" for="pathPDFCert"> Répertoire sur
-				le serveur des PDF certifiés </label>
+			<label class="control-label" for="pathPDFCert"> Répertoire
+				sur le serveur des PDF certifiés </label>
 			<div class="controls">
-				<input type="text" id="pathPDFCert" name="pathPDFCert" placeholder="" value="www/Keynectis_Certified"
-					class="input-xlarge">
+				<input type="text" id="pathPDFCert" name="pathPDFCert"
+					placeholder="" value="www/Keynectis_Certified" class="input-xlarge">
 			</div>
 		</div>
-	
+
 		<div class="control-group">
 			<label class="control-label" for="loginPDFCert"> login de
 				connexion au serveur des PDF certifiés </label>
@@ -225,10 +223,10 @@
 					placeholder="" value="marcgreg" class="input-xlarge">
 			</div>
 		</div>
-	
+
 		<div class="control-group">
-			<label class="control-label" for="mdpPDFCert"> Mot de passe de
-				connexion au serveur des PDF certifiés </label>
+			<label class="control-label" for="mdpPDFCert"> Mot de passe
+				de connexion au serveur des PDF certifiés </label>
 			<div class="controls">
 				<input type="password" id="mdpPDFCert" name="mdpPDFCert"
 					placeholder="" value="nCcKMr7E" class="input-xlarge">
@@ -236,10 +234,16 @@
 		</div>
 	</div>
 </div>
+<div class="well">
+	<div class="rightAlign">
+		<div class="control-group">
 
-<div class="control-group">
-
-	<div class="controls">
-		<button id="formButton" type="submit" class="btn btn-success">Valider</button>
+			<div class="controls">
+				<button id="formButton" type="submit" class="btn btn-success">Valider</button>
+			</div>
+		</div>
+	</div>
+	<div class="leftAlign">
+		<a class="btn btn-inverse" href="parametrage.jsp">Onglet Précédent</a>
 	</div>
 </div>

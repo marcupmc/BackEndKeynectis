@@ -16,19 +16,19 @@
 
 	String saveFile = this.getServletContext()
 			.getRealPath("/temp_xml/");
-	
+
 	String act = request.getParameter("act");
 
 	ControllerAjoutTypeCertification controller = ControllerAjoutTypeCertification
 			.getInstance();
 
 	TagParameters types = controller.getParameters();
-	if(null!=act)
+	if (null != act)
 	{
-		if("firstAccess".equals(act))
+		if ("firstAccess".equals(act))
 			types = controller.getParameters(saveFile);
 	}
-	
+
 	if (types.isEmpty()) //  request.getAttribute("types") == null) 
 	{
 		typesExist = false;
@@ -111,15 +111,23 @@
 			</table>
 	</div>
 
-	<div class="control-group">
-		<div class="controls">
-			<div class="rightAlign">
-				<!-- <a href="TypesXmlSaving" class="btn btn-success">Enregistrer</a> -->
-				<button type="submit" class="btn btn-success">Enregistrer</button>
-			</div>
+	<div class="well">
+		<div class="control-group">
+			<div class="controls">
+				<div class="rightAlign">
+					<!-- <a href="TypesXmlSaving" class="btn btn-success">Enregistrer</a> -->
+					<button type="submit" class="btn btn-success">Enregistrer</button>
+				</div>
 
+			</div>
+		</div>
+		<div class="leftAlign">
+			<div class="controls">
+				<a class="btn btn-inverse" href="parametrage.jsp?previous=const">Onglet précédent</a>
+			</div>
 		</div>
 	</div>
+
 
 	</form>
 
