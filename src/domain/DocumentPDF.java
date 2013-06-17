@@ -11,29 +11,30 @@ public class DocumentPDF
 	private long id;
 	private String name;
 	private String url;
-	private String certified; //Doit etre : En attente, Certifie, Erreur -
+	private String certified; // Doit etre : En attente, Certifie, Erreur -
 
 	private Set<Signature> signatures = new HashSet<Signature>();
 
+	private Blob contenu;
+
+	private CertificationType type = null;
+
 	private Utilisateur owner;
-	
-	
-	public String getCertified() {
+
+	public String getCertified()
+	{
 		return certified;
 	}
 
-	public void setCertified(String certified) {
+	public void setCertified(String certified)
+	{
 		this.certified = certified;
 	}
 
-	public Utilisateur getOwner() {
+	public Utilisateur getOwner()
+	{
 		return owner;
 	}
-
-
-	private Blob contenu;
-	
-	private CertificationType type = null;
 
 	public DocumentPDF()
 	{
@@ -60,8 +61,6 @@ public class DocumentPDF
 		this.url = url;
 	}
 
-	
-
 	public void setOwner(Utilisateur owner)
 	{
 		this.owner = owner;
@@ -87,15 +86,16 @@ public class DocumentPDF
 		this.signatures = signatures;
 	}
 
-	public Blob getContenu() {
+	public Blob getContenu()
+	{
 		return contenu;
 	}
 
-	public void setContenu(Blob contenu) {
+	public void setContenu(Blob contenu)
+	{
 		this.contenu = contenu;
 	}
 
-	
 	/**
 	 * @return the type
 	 */
@@ -104,9 +104,9 @@ public class DocumentPDF
 		return type;
 	}
 
-	
 	/**
-	 * @param type the type to set
+	 * @param type
+	 *            the type to set
 	 */
 	public void setType(CertificationType type)
 	{

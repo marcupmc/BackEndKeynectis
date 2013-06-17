@@ -61,13 +61,13 @@ public class AddType extends HttpServlet
 			TagParameter type = controller.getType(id, name);
 			String errMess = "success";
 			String messType = "KWS";
-			String url = "parametrage.jsp?error=" + errMess + "&messType="
-					+ messType;
+			
 			if (!controller.removeType(type))
 			{
 				messType = "removing_type_error";
 			}
-
+			String url = "parametrage.jsp?error=" + errMess + "&messType="
+					+ messType;
 			request.getRequestDispatcher(url).forward(request, response);
 		}
 

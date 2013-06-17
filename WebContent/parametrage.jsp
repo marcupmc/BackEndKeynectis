@@ -12,36 +12,38 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap-min.js"></script>
 <script type="text/javascript">
-function nextTab()
-{
-	/* $("#const").attr("class", "tab-pane active");
-	document.getElementById("const").setAttribute("class", "tab-pane active"); */
-	/* document.getElementById("tabConst").setAttribute("class", "active");
-	document.getElementById("tabAuth").setAttribute("class", ""); */
-	$("#tabConst").attr("class", "active");
-	$("#tabAuth").attr("class", "");
-
-	$("#tabAuth").hide();
-	$("#tabConst").show();
-	//$("#tabTypes").show();
-
-	var sel = $('#authority').val();
-	switch (sel) {
-	case "1":
-		/* $("#constInner").load("paramConstKEY.jsp"); */
-		$("#comment").load("commentKEY.jsp");
-		$("#configForm").load("formKEY.jsp");
-		break;
-	case "2":
-		/* $("#constInner").load("paramConstDICTAO.jsp"); */
-		$("#comment").load("commentDICTAO.jsp");
-		$("#configForm").load("formDICTAO.jsp");
-		break;
-	}
-};
 	$(function() {
-		$("#nextTab").click(nextTab());
+		$("#nextTab").click(function() {
+			// $("#const").attr("class", "tab-pane active");
+			//document.getElementById("const").setAttribute("class", "tab-pane active"); 
+			// document.getElementById("tabConst").setAttribute("class", "active");
+			// document.getElementById("tabAuth").setAttribute("class", ""); 
+			
+			$("#tabConst").attr("class", "active");
+			$("#tabAuth").attr("class", "");
+
+			$("#tabAuth").hide();
+			$("#tabConst").show();
+			//$("#tabTypes").show();
+
+			var sel = $('#authority').val();
+			switch (sel) {
+			case "1":
+				// $("#constInner").load("paramConstKEY.jsp"); 
+				$("#comment").load("commentKEY.jsp");
+				$("#configForm").load("formKEY.jsp");
+				break;
+			case "2":
+				// $("#constInner").load("paramConstDICTAO.jsp"); 
+				$("#comment").load("commentDICTAO.jsp");
+				$("#configForm").load("formDICTAO.jsp");
+				break;
+			}
+		});
 	});
+	/* $(function() {
+		$("#nextTab").click(nextTab());
+	}); */
 
 	$(function() {
 		$("#authority").change(function() {
@@ -63,14 +65,13 @@ function nextTab()
 </script>
 
 <%
-	String previous = (String)request.getParameter("previous");
-	if("const".equals(previous))
-	{
-		%>
-		<script type="text/javascript">
-			//nextTab();
-		</script>
-		<%
+	String previous = (String) request.getParameter("previous");
+	if ("const".equals(previous)) {
+%>
+<script type="text/javascript">
+	//nextTab();
+</script>
+<%
 	}
 %>
 
@@ -174,6 +175,16 @@ function nextTab()
 							<%=message%></div>
 						<%
 							}
+							else if ((("removing_type_error").equals(type))) {
+		
+									message = "Impossible de supprimer ce type pour le moment. Débuggez ou réessayez ultérieurement.";
+						%>
+						<div class="alert alert-block alert-error fade in">
+							Erreur :
+							<%=message%></div>
+						<%
+							}
+						
 							}
 							if ((("error").equals(msg))) {
 								if ("certMetier".equals(type))
@@ -187,11 +198,11 @@ function nextTab()
 								if ("null".equals(type))
 									message = "Certains ou tous les champs n'ont pas été remplis.\nMerci de bien vouloir remplir tous les champs avant de sauvegarder.";
 						%>
-						
+
 						<div class="alert alert-block alert-error fade in">
 							Erreur :
 							<%=message%></div>
-							<script>
+						<script>
 							$(function() {
 								//$("#tabAuth").hide();
 								$("#tabConst").attr("class", "active");
@@ -212,8 +223,8 @@ function nextTab()
 							}
 						%>
 						<!-- 		Fin de la zone des messages d'erreurs -->
-						
-						
+
+
 
 						<!-- ************************ Onglet de paramétrage de l'autorité de certification ************************ -->
 
@@ -288,7 +299,7 @@ function nextTab()
 													action="ConfigBackEndConstants" method="post"
 													enctype="multipart/form-data"></form>
 
-												
+
 
 											</div>
 										</div>
