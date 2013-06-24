@@ -157,7 +157,7 @@ public class ResponseKeynectis extends HttpServlet
 		// if (null == autho)
 		// {
 		// ToolsFTP.sendToServer(pdfOutPath, "ftp.marc-gregoire.fr",
-		// "www/Keynectis_Certified", "marcgreg", "nCcKMr7E");
+		// "www/Keynectis_Certified", "", "");
 		// }
 		// else
 		// {
