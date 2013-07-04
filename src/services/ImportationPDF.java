@@ -39,6 +39,7 @@ public class ImportationPDF
 		if (user == null)
 			return "error";
 		JSONObject toReturn = JSONFactory.getInstance().makeUserJSON(user);
+		
 		System.out.println(toReturn.toString());
 		return toReturn.toString();
 	}

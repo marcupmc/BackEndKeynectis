@@ -48,9 +48,7 @@ public class DAOLog
 		if(type==null||
 				ipadresse==null||ipadresse.length()==0||
 				identifiant_client==null||identifiant_client.length()==0||
-				eventType==null||
-				longitude==null || longitude.length()==0||
-				latitude==null || latitude.length()==0)return false;
+				eventType==null)return false;
 		
 		Session session = null;
 		try
