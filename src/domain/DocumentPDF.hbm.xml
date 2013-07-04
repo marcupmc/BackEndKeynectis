@@ -30,7 +30,7 @@
 			<one-to-many class="domain.Signature" />
 		</set>
 		
-		<many-to-one name="type" column="ID_type" lazy="false"
+		<many-to-one name="type" column="ID_CERTIFICATION_TYPE" lazy="false"
 			class="domain.CertificationType" unique="false" />
 
 	</class>

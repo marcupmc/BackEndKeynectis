@@ -19,7 +19,6 @@ import domain.DocumentPDF;
 /**
  * Servlet implementation class InfosPDF
  */
-@WebServlet("/InfosPDF")
 public class InfosPDF extends HttpServlet
 {
 

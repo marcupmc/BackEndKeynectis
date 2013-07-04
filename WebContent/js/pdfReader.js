@@ -155,17 +155,17 @@ function afficheSignature(){
 	else
 		$("#saveSignatures").css("display","inline");
 	for(key in signatures){
-		
-		$("body").append("" +
-				"<div id=\"im"+signatures[key].nom+"\" class=\"imgSig\" >" +
-				"<p>"+signatures[key].nom+"</p>" +
-		"</div>");
+		if(signatures[key].num==numPage){
+			$("body").append("" +
+					"<div id=\"im"+signatures[key].nom+"\" class=\"imgSig\" >" +
+					"<p>"+signatures[key].nom+"</p>" +
+			"</div>");
 
-		$("#im"+signatures[key].nom).offset({ top: signatures[key].posy, left: signatures[key].posx});
-		$("#im"+signatures[key].nom).width(signatures[key].largeur);
-		$("#im"+signatures[key].nom).height(signatures[key].hauteur);
+			$("#im"+signatures[key].nom).offset({ top: signatures[key].posy, left: signatures[key].posx});
+			$("#im"+signatures[key].nom).width(signatures[key].largeur);
+			$("#im"+signatures[key].nom).height(signatures[key].hauteur);
 
-
+		}
 
 	}
 

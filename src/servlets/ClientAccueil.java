@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ClientAccueil
  */
-@WebServlet("/ClientAccueil")
 public class ClientAccueil extends HttpServlet
 {
 

@@ -14,7 +14,6 @@ import controller.ControllerAjoutTypeCertification;
 /**
  * Servlet implementation class AddType
  */
-@WebServlet("/AddType")
 public class AddType extends HttpServlet
 {
 

@@ -26,7 +26,6 @@ import controller.ControllerParameter;
 /**
  * Servlet implementation class ConfigBackEnd
  */
-@WebServlet("/ConfigBackEnd")
 public class ConfigBackEndConstants extends HttpServlet
 {
 

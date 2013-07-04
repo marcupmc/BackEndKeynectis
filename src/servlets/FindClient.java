@@ -15,7 +15,6 @@ import domain.Utilisateur;
 /**
  * Servlet implementation class FindClient
  */
-@WebServlet("/FindClient")
 public class FindClient extends HttpServlet
 {
 

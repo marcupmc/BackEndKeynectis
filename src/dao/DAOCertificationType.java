@@ -150,7 +150,9 @@ public class DAOCertificationType
 
 			TagParameter type = ControllerAjoutTypeCertification.getInstance()
 					.getType(id_type, name);
-
+			//DEbug
+			System.out.println("---Type : "+type.getName());
+			
 			CertificationType certif = null;
 
 			if (null == type.getType())
@@ -234,7 +236,8 @@ public class DAOCertificationType
 		}
 		catch (Exception e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
+			e.printStackTrace();
 			return false;
 		}
 

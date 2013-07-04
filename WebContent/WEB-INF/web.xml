@@ -207,4 +207,14 @@
     <servlet-name>SendBase64PDF</servlet-name>
     <url-pattern>/SendBase64PDF</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateDocumentCertificationType</display-name>
+    <servlet-name>UpdateDocumentCertificationType</servlet-name>
+    <servlet-class>servlets.UpdateDocumentCertificationType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateDocumentCertificationType</servlet-name>
+    <url-pattern>/UpdateDocumentCertificationType</url-pattern>
+  </servlet-mapping>
 </web-app>

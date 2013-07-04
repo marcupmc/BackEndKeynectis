@@ -13,7 +13,6 @@ import dao.DAODocumentPDF;
 /**
  * Servlet implementation class AddSignaturePDF
  */
-@WebServlet("/AddSignaturePDF")
 public class AddSignaturePDF extends HttpServlet
 {
 

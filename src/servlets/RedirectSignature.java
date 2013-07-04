@@ -14,7 +14,6 @@ import domain.DocumentPDF;
 /**
  * Servlet implementation class RedirectSignature
  */
-@WebServlet("/RedirectSignature")
 public class RedirectSignature extends HttpServlet
 {
 

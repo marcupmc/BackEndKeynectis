@@ -15,7 +15,6 @@ import domain.Utilisateur;
 /**
  * Servlet implementation class ClientAuthentification
  */
-@WebServlet("/ClientAuthentification")
 public class ClientAuthentification extends HttpServlet
 {
 

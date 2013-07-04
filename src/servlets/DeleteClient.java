@@ -20,7 +20,6 @@ import domain.TypeLog;
 /**
  * Servlet implementation class DeleteClient
  */
-@WebServlet("/DeleteClient")
 public class DeleteClient extends HttpServlet
 {
 

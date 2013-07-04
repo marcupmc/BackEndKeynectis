@@ -25,7 +25,6 @@ import domain.TypeLog;
 /**
  * Servlet implementation class CertifierDocument
  */
-@WebServlet("/CertifierDocument")
 public class CertifierDocument extends HttpServlet
 {
 

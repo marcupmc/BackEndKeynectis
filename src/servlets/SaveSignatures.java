@@ -23,7 +23,6 @@ import domain.TypeLog;
 /**
  * Servlet implementation class SaveSignatures
  */
-@WebServlet("/SaveSignatures")
 public class SaveSignatures extends HttpServlet
 {
 

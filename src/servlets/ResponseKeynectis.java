@@ -34,7 +34,6 @@ import domain.TypeLog;
 /**
  * Servlet implementation class ResponseKeynectis
  */
-@WebServlet("/ResponseKeynectis")
 public class ResponseKeynectis extends HttpServlet
 {
 
@@ -84,9 +83,12 @@ public class ResponseKeynectis extends HttpServlet
 				.getAttribute("authority");
 
 		String blob = (String) request.getParameter("blob");
-		String adresseCertificat = ((KeynectisParameters) autho).getCertDecipher();/* (String) request.getSession().getAttribute(
+		//String adresseCertificat = ((KeynectisParameters) autho).getCertDecipher();
+		String adresseCertificat =(String) request.getSession().getAttribute(
 				"CERT")
-				+ "/demoqs_c.p12";*/
+				+ "/demoqs_c.p12";
+		
+		
 		String transNumInSession = (String) request.getSession().getAttribute(
 				"transNum");
 		String pdfOutPath = (String) request.getSession().getAttribute("OUT")
@@ -102,8 +104,8 @@ public class ResponseKeynectis extends HttpServlet
 		ResponseTransId rti = new ResponseTransId();
 		rti.setB64Blob(blob);
 
-		/*rti.setCipherCertFilePath(adresseCertificat, "DemoQS");*/
-		rti.setCipherCertFilePath(adresseCertificat, ((KeynectisParameters) autho).getMdpDecipher());
+		rti.setCipherCertFilePath(adresseCertificat, "DemoQS");
+//		rti.setCipherCertFilePath(adresseCertificat, ((KeynectisParameters) autho).getMdpDecipher());
 		rti.setOutputStream(fos);
 		String transNum = "";
 		int status = -1;

@@ -17,7 +17,6 @@ import domain.Utilisateur;
 /**
  * Servlet implementation class DetailsClient
  */
-@WebServlet("/DetailsClient")
 public class DetailsClient extends HttpServlet
 {
 
@@ -56,42 +55,7 @@ public class DetailsClient extends HttpServlet
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException
 	{
-		// TODO Auto-generated method stub
-
-		long idClient = Long.parseLong(request.getParameter("id"));
-		String select = "";
-		Utilisateur user = DAOUtilisateur.getInstance().getUserById(idClient);
-		Set<DocumentPDF> docs = user.getDocuments();
-
-		String msg = "certif_adding_success";
-
-		for (DocumentPDF doc : docs)
-		{
-			select = (String) request.getParameter(doc.getName()); // selected
-																	// certification
-																	// option in
-																	// the
-																	// select
-																	// tag
-			if (!("Choisir un type".equals(select)))
-				if (!ControllerAjoutTypeCertification.getInstance()
-						.addTypeToDocument(
-								doc.getId(),
-								ControllerAjoutTypeCertification.getInstance()
-										.getType(select)))
-				{
-					msg = "cetif_adding_error";
-					request.setAttribute("typ", select);
-					request.setAttribute("docu", doc.getName());
-				}
-
-		}
-
-		request.setAttribute("msg", msg);
-
-		request.setAttribute("client", user);
-		request.getRequestDispatcher("detailsClient.jsp").forward(request,
-				response);
+		
 	}
 
 }

@@ -15,7 +15,6 @@ import domain.DocumentPDF;
 /**
  * Servlet implementation class SendBase64PDF
  */
-@WebServlet("/SendBase64PDF")
 public class SendBase64PDF extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

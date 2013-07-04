@@ -15,7 +15,6 @@ import domain.Log;
 /**
  * Servlet implementation class ShowLogs
  */
-@WebServlet("/ShowLogs")
 public class ShowLogs extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -10,7 +10,7 @@
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="js/jquery-1.9.1.js"></script>
 <script src="js/bootstrap.js"></script>
-<script src="js/bootstrap-min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#nextTab").click(function() {

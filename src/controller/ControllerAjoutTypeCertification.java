@@ -71,8 +71,8 @@ public class ControllerAjoutTypeCertification
 				parameters = new TagParameters();
 			TagParameter type = new TagParameter(name, id, DATA_METIER,
 					PDF_REASON, PDF_LOCATION, PDF_CONTACT, defaut);
-			DAOCertificationType.getInstance().addCertificationType(type);
-			return parameters.addType(type);
+			parameters.addType(type);
+			return DAOCertificationType.getInstance().addCertificationType(type);
 		}
 
 		return false;

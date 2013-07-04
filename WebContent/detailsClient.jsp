@@ -44,7 +44,7 @@
 					if ("success".equals(msg))
 						message = "Le document a été ajouté avec succès !";
 					else if ("certif_adding_success".equals(msg))
-						message = "Les types de certification ont été enregistrés avec suucès!";
+						message = "Les types de certification ont été enregistrés avec succès!";
 		%>
 		<div class="alert alert-block alert-success fade in">
 			<%=message%>
@@ -106,7 +106,8 @@
 
 		<h3>Liste des documents</h3>
 		<form class="form-horizontal" method="post"
-			action="DetailsClient?id=<%=client.getId()%>">
+			action="UpdateDocumentCertificationType">
+			<input type="hidden" value="<%=client.getId()%>" id="idClient" name="idClient">
 			<table class="table">
 				<tr>
 					<th>Nom du document</th>

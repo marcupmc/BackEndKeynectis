@@ -20,7 +20,6 @@ import domain.TypeLog;
 /**
  * Servlet implementation class AddNewClient
  */
-@WebServlet("/AddNewClient")
 public class AddNewClient extends HttpServlet
 {
 

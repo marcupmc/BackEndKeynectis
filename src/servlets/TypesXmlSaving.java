@@ -14,7 +14,6 @@ import controller.ControllerAjoutTypeCertification;
 /**
  * Servlet implementation class TypesXmlSaving
  */
-@WebServlet("/TypesXmlSaving")
 public class TypesXmlSaving extends HttpServlet
 {
 

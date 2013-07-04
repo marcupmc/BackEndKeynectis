@@ -22,7 +22,7 @@ import domain.TypeLog;
 /**
  * Servlet implementation class AddDocument
  */
-@WebServlet("/AddDocument")
+
 public class AddDocument extends HttpServlet
 {
 
@@ -85,7 +85,7 @@ public class AddDocument extends HttpServlet
 					log.setIdentifiant_client(DAOUtilisateur.getInstance()
 							.getUserById(idClient).getIdentifiant());
 					logger.info(marker, "ajout d'un document", log);
-					msgErr = "ok";
+					msgErr = "success";
 				}
 			}
 			else

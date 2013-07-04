@@ -21,7 +21,6 @@ import domain.TypeLog;
 /**
  * Servlet implementation class DeleteDocument
  */
-@WebServlet("/DeleteDocument")
 public class DeleteDocument extends HttpServlet
 {
 
