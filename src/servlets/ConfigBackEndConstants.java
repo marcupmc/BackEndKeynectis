@@ -146,40 +146,6 @@ public class ConfigBackEndConstants extends HttpServlet
 						if ("authority".equals(fieldname))
 							authority = fieldvalue;
 
-						// authority = request.getParameter("authority");
-
-						/*else if ("CertPath".equals(fieldname))
-						{
-							CertPath = fieldvalue;
-							// CertPath = request.getParameter("CertPath");
-							if ((null == CertPath) || ("".equals(CertPath)))
-							{
-								CertPath = certFolder; // request.getParameter("CertPath");
-							}
-						}
-
-						else if ("TempPath".equals(fieldname))
-						{
-							TempPath = fieldvalue;
-							// TempPath = request.getParameter("TempPath");
-							if ((null == TempPath) || ("".equals(TempPath)))
-							{
-								TempPath = tempFolder; // request.getParameter("TempPath");
-							}
-						}
-
-						else if ("SavePath".equals(fieldname))
-						{
-							SavePath = fieldvalue;
-							// SavePath = request.getParameter("SavePath");
-							// System.out.println("1:" + SavePath);
-							if ((null == SavePath) || ("".equals(SavePath)))
-							{
-								SavePath = saveFile; // request.getParameter("SavePath");
-								// System.out.println("2:" + SavePath);
-							}
-						}*/
-
 						else if ("mdpMetier".equals(fieldname))
 							mdpMetier = fieldvalue;
 						else if ("idAppMetier".equals(fieldname))
@@ -310,24 +276,6 @@ public class ConfigBackEndConstants extends HttpServlet
 
 		if (("KWS_INTEGRATION_CDS").equals(authority))
 		{
-
-			/*
-			 * certMetier = request.getParameter("certMetier"); mdpMetier =
-			 * request.getParameter("mdpMetier"); idAppMetier =
-			 * request.getParameter("idAppMetier"); idServMetier =
-			 * request.getParameter("idServMetier"); idOrgMetier =
-			 * request.getParameter("idOrgMetier"); certSign =
-			 * request.getParameter("certSign"); mdpCert =
-			 * request.getParameter("mdpCert"); certChiff =
-			 * request.getParameter("certChiff"); certDecipher =
-			 * request.getParameter("certDecipher"); mdpDecipher =
-			 * request.getParameter("mdpDecipher"); servPDFCert =
-			 * request.getParameter("servPDFCert"); pathPDFCert =
-			 * request.getParameter("pathPDFCert"); loginPDFCert =
-			 * request.getParameter("loginPDFCert"); mdpPDFCert =
-			 * request.getParameter("mdpPDFCert");
-			 */
-
 			autho = controller.validateParameters(CertPath, TempPath, SavePath,
 					certMetier, mdpMetier, idAppMetier, idServMetier,
 					idOrgMetier, certSign, mdpCert, certChiff, certDecipher,
