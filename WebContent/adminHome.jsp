@@ -51,15 +51,15 @@
 					</div>
 			</a></li>
 
-			<li class="span3"><a href="#">
-					<div class="thumbnail">
-						<img style="width: 140px; height: 140px;" class="img-rounded"
-							alt="stylo" src="img/stylo.png">
-						<div class="caption">
-							<h3>Signature</h3>
-						</div>
-					</div>
-			</a></li>
+<!-- 			<li class="span3"><a href="#"> -->
+<!-- 					<div class="thumbnail"> -->
+<!-- 						<img style="width: 140px; height: 140px;" class="img-rounded" -->
+<!-- 							alt="stylo" src="img/stylo.png"> -->
+<!-- 						<div class="caption"> -->
+<!-- 							<h3>Signature</h3> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 			</a></li> -->
 			<li class="span3"><a href="ShowLogs">
 					<div class="thumbnail">
 						<img style="width: 140px; height: 140px;" class="img-rounded"
