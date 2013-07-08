@@ -318,9 +318,11 @@ public class ConfigBackEndConstants extends HttpServlet
 				}
 
 				request.setAttribute("authorityParameter", autho);
-				request.getRequestDispatcher(
+				/*request.getRequestDispatcher(
 						"parametrage.jsp?error=" + errMess + "&messType="
-								+ messType).forward(request, response);
+								+ messType).forward(request, response);*/
+				request.getRequestDispatcher("adminHome.jsp").forward(request,
+						response);
 			}
 
 		}

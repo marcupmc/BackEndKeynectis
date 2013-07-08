@@ -28,6 +28,8 @@ public class ControllerParameter
 	private ControllerParameter()
 	{
 	}
+	
+	private AuthorityParameters autho = null;
 
 	private static ControllerParameter instance;
 
@@ -50,7 +52,7 @@ public class ControllerParameter
 	public AuthorityParameters validateParameters(String CertPath,
 			String TempPath, String SavePath)
 	{
-		AuthorityParameters autho = null;
+		//AuthorityParameters autho = null;
 		if (null == CertPath || null == TempPath || null == SavePath)
 		{
 			autho = null;
@@ -112,7 +114,7 @@ public class ControllerParameter
 			String servPDFCert, String pathPDFCert, String loginPDFCert,
 			String mdpPDFCert)
 	{
-		AuthorityParameters autho = null;
+		//AuthorityParameters autho = null;
 		if (/* null == CertPath || null == TempPath || null == SavePath || */(null == certMetier || ""
 				.equals(certMetier))
 				|| (null == mdpMetier|| ""
@@ -173,4 +175,14 @@ public class ControllerParameter
 		else
 			return null;
 	}
+
+	
+	/**
+	 * @return the autho
+	 */
+	public AuthorityParameters getAutho()
+	{
+		return autho;
+	}
+	
 }

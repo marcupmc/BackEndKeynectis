@@ -1,3 +1,4 @@
+<%@page import="model.AuthorityParameters"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,6 +15,23 @@
 	<div class="container">
 
 		<h2>ADMINISTRATION DE LA SESSION METIER</h2>
+		
+		<%
+			AuthorityParameters autho = (AuthorityParameters)request.getAttribute("authorityParameter");
+			request.setAttribute("authorityParameter", autho);
+			
+			String authorit = "";
+			String urlTypes ="typeCertifConfig.jsp?autho=";
+			if (null == autho) 
+			{
+				
+			}
+			else
+			{
+				 authorit = autho.getAuthority();
+				 urlTypes+=authorit;
+			}
+		%>
 		
 		<!-- 		Zone réservée aux messages d'erreurs -->
 		<%
@@ -60,6 +78,17 @@
 <!-- 						</div> -->
 <!-- 					</div> -->
 <!-- 			</a></li> -->
+
+			<li class="span3"><a href="<%=urlTypes%>">
+					<div class="thumbnail">
+						<img style="width: 140px; height: 140px;" class="img-rounded"
+							alt="types de certif" src="img/certificates.png">
+						<div class="caption">
+							<h3>Certifications</h3>
+						</div>
+					</div>
+			</a></li>
+
 			<li class="span3"><a href="ShowLogs">
 					<div class="thumbnail">
 						<img style="width: 140px; height: 140px;" class="img-rounded"

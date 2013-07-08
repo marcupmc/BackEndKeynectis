@@ -13,6 +13,15 @@ public class AuthorityParameters
 	protected String authority = "";
 	protected int type = 0;
 
+	
+	/**
+	 * @return the name of the authority
+	 */
+	public String getAuthority()
+	{
+		return authority;
+	}
+
 	protected String CertPath = "";
 	protected String TempPath = "";
 	protected String SavePath = "";
