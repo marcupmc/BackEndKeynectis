@@ -69,9 +69,25 @@
 		</div>
 	</div>
 
-<%if(!(("".equals(authorit)) || (null == authorit) )  )
+<%if( null != authorit )  
 	{
-		if("KWS_INTEGRATION_CDS".equals(authorit))
+	
+		if("".equals(authorit))
+		{
+			%>
+			<!-- 		Zone réservée aux messages d'erreurs -->
+			<%
+				
+				String message = "Cette page affiche la liste des types de certifications correspondant à l'autorité de certification utilisée mais vous n'avez choisi aucune autorité.\n Veuillez vous rendre dans les configurations et y choisir l'autorité à utiliser.";
+			%>
+			<div class="alert alert-block alert-error fade in">
+				Erreur :
+				<%=message%></div>
+			
+			<!-- 		Fin de la zone des messages d'erreurs -->
+		<%
+		}
+		else if("KWS_INTEGRATION_CDS".equals(authorit))
 		{
 %>
 		

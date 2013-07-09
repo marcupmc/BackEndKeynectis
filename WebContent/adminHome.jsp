@@ -20,7 +20,7 @@
 			AuthorityParameters autho = (AuthorityParameters)request.getAttribute("authorityParameter");
 			request.setAttribute("authorityParameter", autho);
 			
-			String authorit = "";
+			/* String authorit = "";
 			String urlTypes ="typeCertifConfig.jsp?autho=";
 			if (null == autho) 
 			{
@@ -30,7 +30,7 @@
 			{
 				 authorit = autho.getAuthority();
 				 urlTypes+=authorit;
-			}
+			} */
 		%>
 		
 		<!-- 		Zone réservée aux messages d'erreurs -->
@@ -78,7 +78,8 @@
 <!-- 						</div> -->
 <!-- 					</div> -->
 <!-- 			</a></li> -->
-
+<% if (null != autho)
+	{%>
 			<li class="span3"><a href="TypeCertifConfig"<%-- "<%=urlTypes%>" --%>>
 					<div class="thumbnail">
 						<img style="width: 140px; height: 140px;" class="img-rounded"
@@ -88,6 +89,7 @@
 						</div>
 					</div>
 			</a></li>
+<% } %>
 
 			<li class="span3"><a href="ShowLogs">
 					<div class="thumbnail">
