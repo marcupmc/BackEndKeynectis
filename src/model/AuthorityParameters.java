@@ -10,7 +10,7 @@ package model;
 public class AuthorityParameters
 {
 
-	protected String authority = "";
+	protected String authority = "KWS_INTEGRATION_CDS";
 	protected int type = 0;
 
 	
