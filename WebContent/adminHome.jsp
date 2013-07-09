@@ -81,8 +81,7 @@
 
 			<li class="span3"><a href="<%=urlTypes%>">
 					<div class="thumbnail">
-						<img style="width: 140px; height: 140px;" class="img-rounded"
-							alt="types de certif" src="img/certificates.png">
+						<img style="width: 140px; height: 140px;" class="img-rounded" alt="stylo" src="img/stylo.png">
 						<div class="caption">
 							<h3>Certifications</h3>
 						</div>
