@@ -15,7 +15,7 @@
 <%@page import="domain.Utilisateur"%>
 <%@page import="java.util.ArrayList"%>
 <%
-	boolean typesExist;
+	/* boolean typesExist;
 
 	String saveFile = this.getServletContext()
 			.getRealPath("/temp_xml/");
@@ -23,10 +23,10 @@
 	String act = request.getParameter("act");
 
 	ControllerAjoutTypeCertification controller = ControllerAjoutTypeCertification
-			.getInstance();
+			.getInstance(); */
 
-	TagParameters types = controller.getParameters();
-	if (null != act)
+	TagParameters types = (TagParameters)request.getAttribute("types");//controller.getParameters();
+	/* if (null != act)
 	{
 		if ("firstAccess".equals(act))
 			types = controller.getParameters(saveFile);
@@ -40,16 +40,19 @@
 	{
 		typesExist = true;
 		//types = (TagParameters) request.getAttribute("types");
-	}
+	} */
 %>
 
 <%
 	
 
-	AuthorityParameters autho = ControllerParameter.getInstance().getAutho();
+	AuthorityParameters autho = (AuthorityParameters)request.getAttribute("authorityParameter");//ControllerParameter.getInstance().getAutho();
 	request.setAttribute("authorityParameter", autho);
 	
-	String authorit = autho.getAuthority();//request.getParameter("autho");
+	String authorit = "";
+	
+	if(null!=autho)
+		authorit = autho.getAuthority();//request.getParameter("autho");
 	
 %>
 

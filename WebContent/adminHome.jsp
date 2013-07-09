@@ -79,7 +79,7 @@
 <!-- 					</div> -->
 <!-- 			</a></li> -->
 
-			<li class="span3"><a href="<%=urlTypes%>">
+			<li class="span3"><a href="TypeCertifConfig"<%-- "<%=urlTypes%>" --%>>
 					<div class="thumbnail">
 						<img style="width: 140px; height: 140px;" class="img-rounded"
 							alt="types de certif" src="img/certificates.png">

@@ -217,4 +217,14 @@
     <servlet-name>UpdateDocumentCertificationType</servlet-name>
     <url-pattern>/UpdateDocumentCertificationType</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TypeCertifConfig</display-name>
+    <servlet-name>TypeCertifConfig</servlet-name>
+    <servlet-class>servlets.TypeCertifConfig</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TypeCertifConfig</servlet-name>
+    <url-pattern>/TypeCertifConfig</url-pattern>
+  </servlet-mapping>
 </web-app>

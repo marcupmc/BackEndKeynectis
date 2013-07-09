@@ -144,7 +144,7 @@ public class ConfigBackEndConstants extends HttpServlet
 
 					{
 						if ("authority".equals(fieldname))
-							authority = fieldvalue;
+							authority = fieldvalue; 
 
 						else if ("mdpMetier".equals(fieldname))
 							mdpMetier = fieldvalue;
