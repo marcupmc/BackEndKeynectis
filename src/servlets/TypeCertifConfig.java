@@ -16,7 +16,7 @@ import controller.ControllerParameter;
 /**
  * Servlet implementation class TypeCertifConfig
  */
-@WebServlet("/TypeCertifConfig")
+
 public class TypeCertifConfig extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
