@@ -1,3 +1,5 @@
+<%@page import="tools.ToolsXML"%>
+<%@page import="java.io.File"%>
 <%@page import="controller.ControllerParameter"%>
 <%@page import="model.AuthorityParameters"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -18,7 +20,12 @@
 		<h2>ADMINISTRATION DE LA SESSION METIER</h2>
 		
 		<%
-			AuthorityParameters autho = ControllerParameter.getInstance().getAutho();//(AuthorityParameters)request.getAttribute("authorityParameter");
+			String parameterPath = this.getServletContext().getRealPath("/temp_xml/");
+			String xmlParametersFile = "\\parameters.xml";
+		
+			AuthorityParameters autho = ControllerParameter.getInstance().getAutho(parameterPath, xmlParametersFile);//(AuthorityParameters)request.getAttribute("authorityParameter");
+				
+		
 			request.setAttribute("authorityParameter", autho);
 			
 			/* String authorit = "";

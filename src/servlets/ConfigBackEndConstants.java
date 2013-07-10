@@ -276,7 +276,7 @@ public class ConfigBackEndConstants extends HttpServlet
 
 		if (("KWS_INTEGRATION_CDS").equals(authority))
 		{
-			autho = controller.validateParameters(CertPath, TempPath, SavePath,
+			autho = controller.validateParameters(certFolder, tempFolder, saveFile,
 					certMetier, mdpMetier, idAppMetier, idServMetier,
 					idOrgMetier, certSign, mdpCert, certChiff, certDecipher,
 					mdpDecipher, servPDFCert, pathPDFCert, loginPDFCert,
@@ -321,7 +321,7 @@ public class ConfigBackEndConstants extends HttpServlet
 				/*request.getRequestDispatcher(
 						"parametrage.jsp?error=" + errMess + "&messType="
 								+ messType).forward(request, response);*/
-				request.getRequestDispatcher("adminHome.jsp").forward(request,
+				request.getRequestDispatcher("adminHome.jsp").forward(request, 
 						response);
 			}
 
@@ -329,7 +329,7 @@ public class ConfigBackEndConstants extends HttpServlet
 		else if (("DICTAO").equals(authority))
 		{
 
-			autho = controller.validateParameters(CertPath, TempPath, SavePath);
+			autho = controller.validateParameters(certFolder, tempFolder, saveFile);
 
 			request.setAttribute("authorityParameter", autho);
 			request.getRequestDispatcher("adminHome.jsp").forward(request,

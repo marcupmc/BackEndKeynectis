@@ -1,4 +1,3 @@
-
 <%@page import="controller.ControllerParameter"%>
 <%@page import="model.KeynectisParameters"%>
 <%@page import="model.AuthorityParameters"%>
@@ -24,7 +23,7 @@
 
 	ControllerAjoutTypeCertification controller = ControllerAjoutTypeCertification
 			.getInstance(); */
-
+	
 	TagParameters types = (TagParameters)request.getAttribute("types");//controller.getParameters();
 	/* if (null != act)
 	{
@@ -114,7 +113,7 @@
 							identifiants KWS. <br> Pour ce faire, appuyer sur le bouton +Type
 							en dessous de la liste des types. <br> <br> Ces informations
 							seront utilisées lors de opérations de certification une fois que vous
-							aurez appuyé sur VALIDER.<br> Vous pouvez les modifier à tout
+							aurez appuyé sur ENREGISTRER.<br> Vous pouvez les modifier à tout
 							moment en revenant sur cette page.
 						
 						</p>
@@ -232,3 +231,4 @@
 		}
 	}
 %>
+
