@@ -24,7 +24,7 @@
 
 	ControllerAjoutTypeCertification controller = ControllerAjoutTypeCertification
 			.getInstance(); */
-
+	
 	TagParameters types = (TagParameters)request.getAttribute("types");//controller.getParameters();
 	/* if (null != act)
 	{

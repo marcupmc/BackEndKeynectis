@@ -3,6 +3,8 @@
  */
 package controller;
 
+import java.io.File;
+
 import model.AuthorityParameters;
 import model.DictaoParamaters;
 import model.KeynectisParameters;
@@ -30,6 +32,8 @@ public class ControllerParameter
 	}
 	
 	private AuthorityParameters autho = null;
+	private String xmlParametersFile = /* "D:\\Users\\dtadmi\\Downloads\\Compressed\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\TestRest\\temp_xml */"\\parameters.xml";
+	
 
 	private static ControllerParameter instance;
 
@@ -50,18 +54,19 @@ public class ControllerParameter
 	 * @return the AuthorityParameters object created if succeeded, else null
 	 */
 	public AuthorityParameters validateParameters(String CertPath,
-			String TempPath, String SavePath)
+			String TempPath, String SavePath) 
 	{
 		//AuthorityParameters autho = null;
 		if (null == CertPath || null == TempPath || null == SavePath)
 		{
-			autho = null;
+			autho = new DictaoParamaters();
 		}
 		else
 		{
-			autho = new DictaoParamaters(CertPath, TempPath, SavePath);
-			autho = manageXML(autho, SavePath, CertPath);
+			autho = new DictaoParamaters(CertPath, TempPath, SavePath);			
 		}
+		
+		autho = manageXML(autho, SavePath, CertPath);
 
 		return autho;
 	}
@@ -182,6 +187,30 @@ public class ControllerParameter
 	 */
 	public AuthorityParameters getAutho()
 	{
+		return autho;
+	}
+	
+	/**
+	 * @return the autho
+	 */
+	public AuthorityParameters getAutho(String parameterPath, String xmlParametersFile)
+	{
+		if(null == autho)
+		{
+			try
+			{
+				if ((new File(parameterPath + xmlParametersFile)).exists())
+				{
+					autho = ToolsXML.readConfig(parameterPath + xmlParametersFile);					
+				}
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				System.out.println("ControllerParameter: Exception\n"
+						+ "Problème lecture XML: " + e.getMessage());
+			}
+		}
 		return autho;
 	}
 	
