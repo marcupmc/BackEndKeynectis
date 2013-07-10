@@ -15,7 +15,7 @@
 	identifiants KWS. <br> Pour ce faire, appuyer sur le bouton +Type
 	en dessous de la liste des types. <br> <br> Ces informations
 	seront utilisées lors de opérations de certification une fois que vous
-	aurez appuyé sur VALIDER.<br> Vous pouvez les modifier à tout
+	aurez appuyé sur ENREGISTRER.<br> Vous pouvez les modifier à tout
 	moment en revenant sur cette page.
 
 </p>

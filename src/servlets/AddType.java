@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.AuthorityParameters;
 import model.TagParameter;
 import controller.ControllerAjoutTypeCertification;
+import controller.ControllerParameter;
 
 /**
  * Servlet implementation class AddType
@@ -65,8 +67,11 @@ public class AddType extends HttpServlet
 			{
 				messType = "removing_type_error";
 			}
-			String url = "parametrage.jsp?error=" + errMess + "&messType="
-					+ messType;
+			String url = "typeCertifConfig.jsp";/*"parametrage.jsp?error=" + errMess + "&messType="
+					+ messType;*/
+			request.setAttribute("types", controller.getParameters());
+			AuthorityParameters autho = ControllerParameter.getInstance().getAutho();
+			request.setAttribute("authorityParameter", autho); 
 			request.getRequestDispatcher(url).forward(request, response);
 		}
 
@@ -91,9 +96,9 @@ public class AddType extends HttpServlet
 		String errMess = "success";
 		String messType = "KWS";
 
-		String url = "parametrage.jsp?error=" + errMess + "&messType="
+		String url = "typeCertifConfig.jsp";/*"parametrage.jsp?error=" + errMess + "&messType="
 				+ messType;
-
+*/
 		TagParameter type = new TagParameter(name, id, reason, location,
 				contact, checked);
 		ControllerAjoutTypeCertification controller = ControllerAjoutTypeCertification
@@ -128,7 +133,8 @@ public class AddType extends HttpServlet
 		}
 
 		request.setAttribute("types", controller.getParameters());
-
+		AuthorityParameters autho = ControllerParameter.getInstance().getAutho();
+		request.setAttribute("authorityParameter", autho); 
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 

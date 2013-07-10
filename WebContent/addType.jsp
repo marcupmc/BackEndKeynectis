@@ -114,8 +114,8 @@
 
 			<div class="control-group">
 				<div class="controls">
-					<a href="parametrage.jsp?error=success&messType=KWS"
-						class="btn btn-danger">Annuler</a>
+					<a href= "TypeCertifConfig"
+						class="btn btn-danger">Annuler</a> <!-- "parametrage.jsp?error=success&messType=KWS" -->
 					<button type="submit" class="btn btn-primary">Enregistrer</button>
 
 
