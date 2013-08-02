@@ -15,7 +15,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Logs</title>
-<link rel="stylesheet" href="css/style.css" />
+<!-- <link rel="stylesheet" href="css/style.css" /> -->
+<link rel="stylesheet" href="css/orange_style.css" />
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
@@ -40,9 +41,12 @@
 			Liste des logs <a href="adminHome.jsp" class="btn btn-info">Accueil</a>
 		</h2>
 
-		<div class="alert alert-block alert-info fade in">Cette section
+<!-- 		<div class="alert alert-block alert-info fade in">Cette section -->
+<!-- 			regroupe des informations sur des évènements dont le serveur a eu -->
+<!-- 			connaissance</div> -->
+			<div class="box-warning"><h4>Cette section
 			regroupe des informations sur des évènements dont le serveur a eu
-			connaissance</div>
+			connaissance</h4></div>
 
 
 		

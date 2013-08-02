@@ -1,0 +1,63 @@
+@CHARSET "ISO-8859-1";
+
+@import url("style.css");
+
+body {
+	background-color: white;
+	background-image: url("../img/background_orangeDegrade.png");
+	background-repeat: repeat-y;
+	background-attachment: fixed;
+	background-position: 100% 100%;
+	
+}
+
+#logo_entreprise{
+	width: 50px;
+	margin-right: 10px;
+}
+
+.underTitle {
+	border-bottom: thin;
+	margin: auto;
+	padding-left: 28pt;
+	background-color: transparent;
+	text-align: left;
+	/* 	color: blue; */
+	/* 	color:rgb(0, 136, 204); */
+	color: #ff6600;
+	border-bottom-color: gray;
+	border-bottom-style: solid;
+	padding-top: 5pt;
+}
+
+.icones {
+	margin: auto;
+	padding-right: 50pt;
+	padding-left: 28pt;
+	padding-top: 10pt;
+	width: 100%;
+}
+
+/* .btn-primary{ */
+
+/* 	background-image: linear-gradient(to bottom, #39B7CD, #39B7CD); */
+/* } */
+
+/* .btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.btn-primary.disabled,.btn-primary[disabled] */
+/* 	{	 */
+/* 	background-color: #39B7CD;	 */
+/* } */
+.thumbnails li :HOVER {
+	background-color: #f78a42;
+	text-decoration: none;
+}
+
+.thumbnails {
+	padding-top: 15px;
+}
+
+#todo li {
+	opacity: 0.5;
+}
+
+@CHARSET "ISO-8859-1";

@@ -5,8 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Gestion des clients</title>
-<link rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet" href="css/style3.css" />
+<!-- <link rel="stylesheet" href="css/style.css" /> -->
+<link rel="stylesheet" href="css/orange_style.css" />
+<link rel="stylesheet" href="css/orange_style3.css" />
 
 </head>
 <body>

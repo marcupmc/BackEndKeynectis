@@ -5,7 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Ajouter un nouveau Client</title>
-<link rel="stylesheet" href="css/style.css" />
+<!-- <link rel="stylesheet" href="css/style.css" /> -->
+<link rel="stylesheet" href="css/orange_style.css" />
 </head>
 <body>
 	<div class="container">

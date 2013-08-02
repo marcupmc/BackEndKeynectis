@@ -1,0 +1,31 @@
+@CHARSET "ISO-8859-1";
+
+@import url("orange_generalHomePages.css");
+
+.rightAlign{
+	float: right;
+}
+
+
+.underTitle {
+	border-bottom:thin;
+	margin: auto;
+	padding-left: 28pt;
+	background-color: transparent;
+	text-align: left;
+/* 	color: blue; */
+	color:#ff6600;
+	border-bottom-color: gray;
+	border-bottom-style: solid;
+	padding-top: 5pt;
+}
+
+.leftAlign{
+	float: left;	
+}
+
+.alert-unready {
+  color: #ff6103;
+  background-color: #ffcc99;
+  border-color: #ffbad9;
+}

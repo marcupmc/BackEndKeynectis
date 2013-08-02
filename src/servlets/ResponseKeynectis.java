@@ -115,15 +115,20 @@ public class ResponseKeynectis extends HttpServlet
 			transNum = rti.getTransNum();
 			status = rti.getStatus();
 			fos.close();
-
 			File ftemp = new File(pdfOutPath);
 			byte[] bits = ToolsPDF.getBytesFromFile(ftemp);
 
 			DAODocumentPDF.getInstance().addContent(Long.parseLong(id), bits);
 			ftemp.delete();
-
 			if (status == 1)
 			{
+
+//				File ftemp = new File(pdfOutPath);
+//				byte[] bits = ToolsPDF.getBytesFromFile(ftemp);
+//
+//				DAODocumentPDF.getInstance().addContent(Long.parseLong(id), bits);
+//				ftemp.delete();
+				
 				msg = "ok";
 
 				logger.info(marker1, "Signature reussie ", l);

@@ -10,14 +10,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>AUTOSign Administration Page</title>
 
-<link rel="stylesheet" href="css/generalHomePages.css" />
+<!-- <link rel="stylesheet" href="css/generalHomePages.css" /> -->
+<link rel="stylesheet" href="css/orange_generalHomePages.css" />
 
 </head>
 <body>
 
 	<div class="container">
 
-		<h2>ADMINISTRATION DE LA SESSION METIER</h2>
+		<h2><img src="img/orange.png" id="logo_entreprise"/>ADMINISTRATION DE LA SESSION METIER</h2>
 		
 		<%
 			String parameterPath = this.getServletContext().getRealPath("/temp_xml/");
