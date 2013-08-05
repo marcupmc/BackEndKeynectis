@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xfa generator="AdobeLiveCycleDesignerES_V10.0.2.20120224.1.869952" APIVersion="3.5.12002.0"?>
+<xdp:xdp xmlns:xdp="http://ns.adobe.com/xdp/" timeStamp="2013-08-02T10:18:45Z" uuid="201871bc-65fa-4f31-bd62-023c1e9a1d32">
+<template xmlns="http://www.xfa.org/schema/xfa-template/2.8/">
+   <?formServer defaultPDFRenderFormat acrobat9.0static?>
+   <?formServer allowRenderCaching 0?>
+   <?formServer formModel both?>
+   <subform name="edition_orange" layout="tb" locale="fr_FR" restoreState="auto">
+      <pageSet>
+         <pageArea name="Page1" id="Page1">
+            <contentArea x="0.25in" y="0.25in" w="576pt" h="756pt"/>
+            <medium stock="default" short="612pt" long="792pt"/>
+            <?templateDesigner expand 1?></pageArea>
+         <?templateDesigner expand 1?></pageSet>
+      <subform w="576pt" name="page" layout="tb">
+         <subform w="203.2mm" name="header" layout="tb">
+            <bind match="none"/>
+            <subform w="203.2mm" name="logo" layout="tb">
+               <bind match="none"/>
+               <draw name="logo" w="25.4mm" h="25.4mm">
+                  <value>
+                     <image href="D:\Clients\ORANGE\demo_sign\images\logo-orange.jpg" contentType="image/jpg"/>
+                  </value>
+                  <ui>
+                     <imageEdit/>
+                  </ui>
+               </draw>
+               <?templateDesigner expand 1?></subform>
+            <subform w="203.2mm" name="title" layout="tb">
+               <bind match="none"/>
+               <field name="label" w="203.2mm" h="5.2331mm">
+                  <ui>
+                     <textEdit/>
+                  </ui>
+                  <font typeface="Calibri" weight="bold" size="12pt">
+                     <fill>
+                        <color value="255,255,255"/>
+                     </fill>
+                  </font>
+                  <margin topInset="0.5mm" bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm"/>
+                  <para vAlign="middle" hAlign="center"/>
+                  <value>
+                     <text>DEMO SIGNATURE</text>
+                  </value>
+                  <border>
+                     <edge presence="hidden"/>
+                     <fill>
+                        <color value="255,100,0"/>
+                     </fill>
+                  </border>
+                  <bind match="dataRef" ref="$.header.title"/>
+               </field>
+               <margin topInset="5mm" bottomInset="5mm"/>
+               <?templateDesigner expand 1?></subform>
+            <?templateDesigner expand 1?></subform>
+         <subform w="203.2mm" name="body" layout="tb">
+            <bind match="none"/>
+            <subform w="203.2mm" name="content" layout="tb">
+               <bind match="none"/>
+               <keep intact="contentArea"/>
+               <subform w="203.2mm" name="bloc" layout="tb">
+                  <bind match="none"/>
+                  <field name="titre" w="203.2mm" h="6mm" y="3mm">
+                     <ui>
+                        <textEdit>
+                           <border presence="hidden">
+                              <?templateDesigner StyleID aped0?></border>
+                           <margin/>
+                        </textEdit>
+                     </ui>
+                     <font typeface="Arial">
+                        <fill>
+                           <color value="255,100,0"/>
+                        </fill>
+                     </font>
+                     <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+                     <para vAlign="middle" hAlign="center"/>
+                     <value>
+                        <text>INFORMATIONS CLIENT</text>
+                     </value>
+                     <border>
+                        <edge>
+                           <color value="255,100,0"/>
+                        </edge>
+                        <corner thickness="0.176mm">
+                           <color value="255,100,0"/>
+                        </corner>
+                     </border>
+                     <bind match="dataRef" ref="$.content.bloc_client.title"/>
+                  </field>
+                  <field name="nom" w="100mm" h="6mm">
+                     <ui>
+                        <textEdit>
+                           <border presence="hidden">
+                              <?templateDesigner StyleID aped0?></border>
+                           <margin/>
+                        </textEdit>
+                     </ui>
+                     <font typeface="Arial"/>
+                     <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+                     <para vAlign="middle"/>
+                     <caption reserve="30mm">
+                        <para vAlign="middle" hAlign="right" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" marginLeft="0pt" marginRight="2.835pt"/>
+                        <font typeface="Arial" baselineShift="0pt"/>
+                        <value>
+                           <text>Nom :</text>
+                        </value>
+                     </caption>
+                     <bind match="dataRef" ref="$.content.bloc_client.client.nom"/>
+                  </field>
+                  <field name="prenom" w="100mm" h="6mm">
+                     <ui>
+                        <textEdit>
+                           <border presence="hidden">
+                              <?templateDesigner StyleID aped0?></border>
+                           <margin/>
+                        </textEdit>
+                     </ui>
+                     <font typeface="Arial"/>
+                     <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+                     <para vAlign="middle" marginRight="2.835pt"/>
+                     <caption reserve="30mm">
+                        <para vAlign="middle" hAlign="right" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" marginLeft="0pt" marginRight="2.835pt"/>
+                        <value>
+                           <text>Prenom	 :</text>
+                        </value>
+                        <font typeface="Arial" baselineShift="0pt"/>
+                     </caption>
+                     <bind match="dataRef" ref="$.content.bloc_client.client.prenom"/>
+                  </field>
+                  <field name="adresse" w="170mm" h="6mm">
+                     <ui>
+                        <textEdit>
+                           <border presence="hidden">
+                              <?templateDesigner StyleID aped0?></border>
+                           <margin/>
+                        </textEdit>
+                     </ui>
+                     <font typeface="Arial"/>
+                     <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+                     <para vAlign="middle" marginRight="2.835pt"/>
+                     <caption reserve="30mm">
+                        <para vAlign="middle" hAlign="right" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" marginLeft="0pt" marginRight="2.835pt"/>
+                        <value>
+                           <text> Adresse :</text>
+                        </value>
+                        <font typeface="Arial" baselineShift="0pt"/>
+                     </caption>
+                     <bind match="dataRef" ref="$.content.bloc_client.client.adresse.adresse"/>
+                  </field>
+                  <field name="cp" w="50mm" h="6mm">
+                     <ui>
+                        <textEdit>
+                           <border presence="hidden">
+                              <?templateDesigner StyleID aped0?></border>
+                           <margin/>
+                        </textEdit>
+                     </ui>
+                     <font typeface="Arial"/>
+                     <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+                     <para vAlign="middle" marginRight="2.835pt"/>
+                     <caption reserve="30mm">
+                        <para vAlign="middle" hAlign="right" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" marginLeft="0pt" marginRight="2.835pt"/>
+                        <value>
+                           <text>Code Postale :</text>
+                        </value>
+                        <font typeface="Arial" baselineShift="0pt"/>
+                     </caption>
+                     <bind match="dataRef" ref="$.content.bloc_client.client.adresse.cp"/>
+                  </field>
+                  <field name="ville" w="80mm" h="6mm">
+                     <ui>
+                        <textEdit>
+                           <border presence="hidden">
+                              <?templateDesigner StyleID aped0?></border>
+                           <margin/>
+                        </textEdit>
+                     </ui>
+                     <font typeface="Arial"/>
+                     <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+                     <para vAlign="middle" marginRight="2.835pt"/>
+                     <caption reserve="30mm">
+                        <para vAlign="middle" hAlign="right" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" marginLeft="0pt" marginRight="2.835pt"/>
+                        <value>
+                           <text>Ville :</text>
+                        </value>
+                        <font typeface="Arial" baselineShift="0pt"/>
+                     </caption>
+                     <bind match="dataRef" ref="$.content.bloc_client.client.adresse.ville"/>
+                  </field>
+                  <field name="pays" w="80mm" h="6mm" y="6mm">
+                     <ui>
+                        <textEdit>
+                           <border presence="hidden">
+                              <?templateDesigner StyleID aped0?></border>
+                           <margin/>
+                        </textEdit>
+                     </ui>
+                     <font typeface="Arial"/>
+                     <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+                     <para vAlign="middle" marginRight="2.835pt"/>
+                     <caption reserve="30mm">
+                        <para vAlign="middle" hAlign="right" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" marginLeft="0pt" marginRight="2.835pt"/>
+                        <value>
+                           <text>Pays :</text>
+                        </value>
+                        <font typeface="Arial" baselineShift="0pt"/>
+                     </caption>
+                     <bind match="dataRef" ref="$.content.bloc_client.client.adresse.pays"/>
+                  </field>
+                  <keep intact="contentArea"/>
+                  <?templateDesigner expand 1?></subform>
+               <margin bottomInset="10mm"/>
+               <?templateDesigner expand 1?></subform>
+            <?templateDesigner expand 1?></subform>
+         <subform w="203.2mm" name="footer" layout="tb">
+            <bind match="none"/>
+            <field name="titre" w="203.2mm" h="6mm">
+               <ui>
+                  <textEdit>
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                  </textEdit>
+               </ui>
+               <font typeface="Arial">
+                  <fill>
+                     <color value="255,100,0"/>
+                  </fill>
+               </font>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle" hAlign="center"/>
+               <value>
+                  <text>SIGNATURE CLIENT</text>
+               </value>
+               <border>
+                  <edge>
+                     <color value="255,100,0"/>
+                  </edge>
+                  <corner thickness="0.176mm">
+                     <color value="255,100,0"/>
+                  </corner>
+               </border>
+               <bind match="dataRef" ref="$.footer.title"/>
+            </field>
+            <field name="SignatureField" w="85.725mm" h="28.575mm">
+               <ui>
+                  <signature type="PDF1.6">
+                     <border presence="hidden">
+                        <?templateDesigner StyleID aped0?></border>
+                     <margin/>
+                     <manifest action="all"/>
+                  </signature>
+               </ui>
+               <font typeface="Arial"/>
+               <margin topInset="1mm" bottomInset="1mm" leftInset="1mm" rightInset="1mm"/>
+               <para vAlign="middle"/>
+               <caption reserve="25mm">
+                  <para vAlign="middle"/>
+                  <value>
+                     <text>Signature</text>
+                  </value>
+               </caption>
+               <bind match="none"/>
+               <border>
+                  <edge presence="hidden"/>
+                  <fill>
+                     <color value="255,204,153"/>
+                  </fill>
+               </border>
+            </field>
+            <?templateDesigner expand 1?>
+         </subform>
+         <bind match="none"/>
+         <?templateDesigner expand 1?>
+      </subform>
+      <proto/>
+      <desc>
+         <text name="version">9.0.0.2.20100902.2.720808</text>
+      </desc>
+      <?templateDesigner Hyphenation excludeInitialCap:1, excludeAllCaps:1, wordCharCnt:7, remainCharCnt:3, pushCharCnt:3?>
+      <?templateDesigner expand 1?>
+      <?renderCache.subset "Arial" 0 0 ISO-8859-1 4 128 32 0003001D0024002600280029002A002C002F003000310032003300350036003700380039004400470048004A004C004F0050005100520055005600570058005C :ACEFGILMNOPRSTUVadegilmnorstuy?>
+      <?renderCache.subset "Calibri" 1 0 ISO-8859-1 4 52 13 000300040018001C0027002F00440045004B005A005E00640068 ADEGIMNORSTU?>
+   </subform>
+   <?templateDesigner DefaultPreviewDynamic 1?>
+   <?templateDesigner SavePDFWithLog 0?>
+   <?templateDesigner Grid show:1, snap:1, units:1, color:ff8080, origin:(0,0), interval:(79375,79375), objsnap:0, guidesnap:0, pagecentersnap:-433742483?>
+   <?templateDesigner SaveTaggedPDF 0?>
+   <?templateDesigner SavePDFWithEmbeddedFonts 0?>
+   <?templateDesigner DefaultLanguage JavaScript?>
+   <?templateDesigner DefaultRunAt client?>
+   <?acrobat JavaScript strictScoping?>
+   <?PDFPrintOptions embedViewerPrefs 0?>
+   <?PDFPrintOptions embedPrintOnFormOpen 0?>
+   <?PDFPrintOptions scalingPrefs 0?>
+   <?PDFPrintOptions enforceScalingPrefs 0?>
+   <?PDFPrintOptions paperSource 0?>
+   <?PDFPrintOptions duplexMode 0?>
+   <?templateDesigner DefaultPreviewType interactive?>
+   <?templateDesigner DefaultPreviewPagination simplex?>
+   <?templateDesigner XDPPreviewFormat 19?>
+   <?templateDesigner DefaultPreviewDataFileName ..\xml\data.xml?>
+   <?templateDesigner FormTargetVersion 28?>
+   <?templateDesigner Rulers horizontal:1, vertical:1, guidelines:1, crosshairs:0?>
+   <?templateDesigner Zoom 94?></template>
+<config xmlns="http://www.xfa.org/schema/xci/2.8/">
+   <agent name="designer">
+      <!--  [0..n]  -->
+      <destination>pdf</destination>
+      <pdf>
+         <!--  [0..n]  -->
+         <fontInfo/>
+      </pdf>
+   </agent>
+   <present>
+      <!--  [0..n]  -->
+      <destination>pdf</destination>
+      <pdf>
+         <!--  [0..n]  -->
+         <fontInfo>
+            <embed>0</embed>
+         </fontInfo>
+         <tagged>0</tagged>
+         <version>1.7</version>
+         <adobeExtensionLevel>3</adobeExtensionLevel>
+      </pdf>
+      <common>
+         <data>
+            <xsl>
+               <uri/>
+            </xsl>
+            <outputXSL>
+               <uri/>
+            </outputXSL>
+         </data>
+      </common>
+      <cache>
+         <macroCache/>
+      </cache>
+      <xdp>
+         <packets>*</packets>
+      </xdp>
+   </present>
+   <psMap>
+      <font typeface="Calibri" psName="Calibri" weight="normal" posture="normal"/>
+      <font typeface="Calibri" psName="Calibri-Bold" weight="bold" posture="normal"/>
+   </psMap>
+</config>
+<localeSet xmlns="http://www.xfa.org/schema/xfa-locale-set/2.7/">
+   <locale name="fr_FR" desc="Français (France)">
+      <calendarSymbols name="gregorian">
+         <monthNames>
+            <month>janvier</month>
+            <month>février</month>
+            <month>mars</month>
+            <month>avril</month>
+            <month>mai</month>
+            <month>juin</month>
+            <month>juillet</month>
+            <month>août</month>
+            <month>septembre</month>
+            <month>octobre</month>
+            <month>novembre</month>
+            <month>décembre</month>
+         </monthNames>
+         <monthNames abbr="1">
+            <month>janv.</month>
+            <month>févr.</month>
+            <month>mars</month>
+            <month>avr.</month>
+            <month>mai</month>
+            <month>juin</month>
+            <month>juil.</month>
+            <month>août</month>
+            <month>sept.</month>
+            <month>oct.</month>
+            <month>nov.</month>
+            <month>déc.</month>
+         </monthNames>
+         <dayNames>
+            <day>dimanche</day>
+            <day>lundi</day>
+            <day>mardi</day>
+            <day>mercredi</day>
+            <day>jeudi</day>
+            <day>vendredi</day>
+            <day>samedi</day>
+         </dayNames>
+         <dayNames abbr="1">
+            <day>dim.</day>
+            <day>lun.</day>
+            <day>mar.</day>
+            <day>mer.</day>
+            <day>jeu.</day>
+            <day>ven.</day>
+            <day>sam.</day>
+         </dayNames>
+         <meridiemNames>
+            <meridiem>AM</meridiem>
+            <meridiem>PM</meridiem>
+         </meridiemNames>
+         <eraNames>
+            <era>av. J.-C.</era>
+            <era>ap. J.-C.</era>
+         </eraNames>
+      </calendarSymbols>
+      <datePatterns>
+         <datePattern name="full">EEEE D MMMM YYYY</datePattern>
+         <datePattern name="long">D MMMM YYYY</datePattern>
+         <datePattern name="med">D MMM YY</datePattern>
+         <datePattern name="short">DD/MM/YY</datePattern>
+      </datePatterns>
+      <timePatterns>
+         <timePattern name="full">HH' h 'MM Z</timePattern>
+         <timePattern name="long">HH:MM:SS Z</timePattern>
+         <timePattern name="med">HH:MM:SS</timePattern>
+         <timePattern name="short">HH:MM</timePattern>
+      </timePatterns>
+      <dateTimeSymbols>GaMjkHmsSEDFwWxhKzZ</dateTimeSymbols>
+      <numberPatterns>
+         <numberPattern name="numeric">z,zz9.zzz</numberPattern>
+         <numberPattern name="currency">z,zz9.99 $</numberPattern>
+         <numberPattern name="percent">z,zz9%</numberPattern>
+      </numberPatterns>
+      <numberSymbols>
+         <numberSymbol name="decimal">,</numberSymbol>
+         <numberSymbol name="grouping"> </numberSymbol>
+         <numberSymbol name="percent">%</numberSymbol>
+         <numberSymbol name="minus">-</numberSymbol>
+         <numberSymbol name="zero">0</numberSymbol>
+      </numberSymbols>
+      <currencySymbols>
+         <currencySymbol name="symbol">€</currencySymbol>
+         <currencySymbol name="isoname">EUR</currencySymbol>
+         <currencySymbol name="decimal">,</currencySymbol>
+      </currencySymbols>
+      <typefaces/>
+   </locale>
+</localeSet>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.2.1-c043 52.437709, 2010/08/04-17:30:07        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" rdf:about="">
+         <xmp:MetadataDate>2013-08-02T10:18:45Z</xmp:MetadataDate>
+         <xmp:CreatorTool>Adobe LiveCycle Designer ES 10.0</xmp:CreatorTool>
+      </rdf:Description>
+      <rdf:Description xmlns:pdf="http://ns.adobe.com/pdf/1.3/" rdf:about="">
+         <pdf:Producer>Adobe LiveCycle Designer ES 10.0</pdf:Producer>
+      </rdf:Description>
+      <rdf:Description xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" rdf:about="">
+         <xmpMM:DocumentID>uuid:201871bc-65fa-4f31-bd62-023c1e9a1d32</xmpMM:DocumentID>
+      </rdf:Description>
+      <rdf:Description xmlns:desc="http://ns.adobe.com/xfa/promoted-desc/" rdf:about="">
+         <desc:version rdf:parseType="Resource">
+            <rdf:value>9.0.0.2.20100902.2.720808</rdf:value>
+            <desc:ref>/template/subform[1]</desc:ref>
+         </desc:version>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+<connectionSet xmlns="http://www.xfa.org/schema/xfa-connection-set/2.8/">
+   <xsdConnection name="DataConnection" dataDescription="edition_orange">
+      <uri>..\xsd\schema.xsd</uri>
+      <rootElement>edition_orange</rootElement>
+      <?templateDesigner fileDigest shaHash="WWNUuU4Kj+eufupXV6PsWZ9odVI="?></xsdConnection>
+</connectionSet>
+<xfa:datasets xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/">
+   <xfa:data xfa:dataNode="dataGroup"/>
+   <dd:dataDescription xmlns:dd="http://ns.adobe.com/data-description/" dd:name="edition_orange">
+      <edition_orange>
+         <header>
+            <title/>
+         </header>
+         <footer>
+            <title/>
+            <signature/>
+         </footer>
+         <content>
+            <bloc_client>
+               <title/>
+               <client>
+                  <nom/>
+                  <prenom/>
+                  <adresse>
+                     <adresse/>
+                     <cp/>
+                     <ville/>
+                     <pays/>
+                  </adresse>
+               </client>
+            </bloc_client>
+         </content>
+      </edition_orange>
+   </dd:dataDescription>
+</xfa:datasets></xdp:xdp>

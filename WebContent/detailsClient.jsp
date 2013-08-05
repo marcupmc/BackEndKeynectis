@@ -12,10 +12,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Details Client</title>
-<!-- <link rel="stylesheet" href="css/style.css" /> -->
-<!-- <link rel="stylesheet" href="css/style3.css" /> -->
-<link rel="stylesheet" href="css/orange_style.css" />
-<link rel="stylesheet" href="css/orange_style3.css" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/style3.css" />
+<!-- <link rel="stylesheet" href="css/orange_style.css" /> -->
+<!-- <link rel="stylesheet" href="css/orange_style3.css" /> -->
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>

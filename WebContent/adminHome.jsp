@@ -10,15 +10,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>AUTOSign Administration Page</title>
 
-<!-- <link rel="stylesheet" href="css/generalHomePages.css" /> -->
-<link rel="stylesheet" href="css/orange_generalHomePages.css" />
+<link rel="stylesheet" href="css/generalHomePages.css" />
+<!-- <link rel="stylesheet" href="css/orange_generalHomePages.css" /> -->
 
 </head>
 <body>
 
 	<div class="container">
 
-		<h2><img src="img/orange.png" id="logo_entreprise"/>ADMINISTRATION DE LA SESSION METIER</h2>
+		<h2>
+<!-- 		<img src="img/orange.png" id="logo_entreprise"/> -->
+		ADMINISTRATION DE LA SESSION METIER</h2>
 		
 		<%
 			String parameterPath = this.getServletContext().getRealPath("/temp_xml/");
@@ -132,6 +134,16 @@
 							alt="stylo" src="img/group.png">
 						<div class="caption">
 							<h3>Gestion</h3>
+						</div>
+					</div>
+			</a></li>
+			
+			<li class="span3"><a href="templateToClient.jsp">
+					<div class="thumbnail">
+						<img style="width: 140px; height: 140px;" class="img-rounded"
+							alt="stylo" src="img/facture.png">
+						<div class="caption">
+							<h3>Documents</h3>
 						</div>
 					</div>
 			</a></li>

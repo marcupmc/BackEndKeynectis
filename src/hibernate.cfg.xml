@@ -24,5 +24,6 @@
 		<mapping resource="domain/Signature.hbm.xml" />
 		<mapping resource="domain/Log.hbm.xml" />
 		<mapping resource="domain/CertificationType.hbm.xml" />
+		<mapping resource="domain/Template.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

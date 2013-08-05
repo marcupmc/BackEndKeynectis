@@ -7,10 +7,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<!-- <link rel="stylesheet" href="css/style.css" /> -->
-<!-- <link rel="stylesheet" href="css/style3.css" /> -->
-<link rel="stylesheet" href="css/orange_style.css" />
-<link rel="stylesheet" href="css/orange_style3.css" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/style3.css" />
+<!-- <link rel="stylesheet" href="css/orange_style.css" /> -->
+<!-- <link rel="stylesheet" href="css/orange_style3.css" /> -->
 
 <%@page import="domain.Utilisateur"%>
 <%@page import="java.util.ArrayList"%>
