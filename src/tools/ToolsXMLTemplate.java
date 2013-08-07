@@ -1,8 +1,19 @@
 package tools;
 
+import java.io.File;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -81,7 +92,52 @@ public class ToolsXMLTemplate {
 		client.appendChild(nom);
 		//Reprendre a partir du prenom
 		
+		Element prenom = doc.createElement("prenom");
+		prenom.setTextContent(user.getFirstName());
+		client.appendChild(prenom);
+		
+		Element adresse = doc.createElement("adresse");
+		client.appendChild(adresse);
+		
+		Element adresseClient = doc.createElement("adresse");
+		adresseClient.setTextContent("A REMPLIR");
+		adresse.appendChild(adresseClient);
+		
+		Element codePostal = doc.createElement("cp");
+		codePostal.setTextContent("A REMPLIR");
+		adresse.appendChild(codePostal);
+		
+		Element ville = doc.createElement("ville");
+		ville.setTextContent("A REMPLIR");
+		adresse.appendChild(ville);
+		
+		Element pays = doc.createElement("pays");
+		pays.setTextContent("A REMPLIR");
+		adresse.appendChild(pays);
 		
 		return doc;
+	}
+	
+	
+	public static void docToFile(Document doc, String nomDeFichier){
+		Source source = new DOMSource(doc);
+		Result resultat = new StreamResult(new File(nomDeFichier));
+		Transformer transfo = null;
+		try {
+			transfo = TransformerFactory.newInstance().newTransformer();
+		} catch(TransformerConfigurationException e) {
+			System.err.println("Impossible de creer un transformateur XML.");
+			System.exit(1);
+		}
+		transfo.setOutputProperty(OutputKeys.METHOD, "xml");
+		transfo.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+		transfo.setOutputProperty(OutputKeys.ENCODING, "utf-8");
+		transfo.setOutputProperty(OutputKeys.INDENT, "yes");
+		try {
+			transfo.transform(source, resultat);
+		} catch(TransformerException e) {
+			System.err.println("La transformation a echoue : " + e);
+			System.exit(1);
+		}
 	}
 }
