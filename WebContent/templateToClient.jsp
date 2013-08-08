@@ -17,7 +17,7 @@
 <body>
 
 	<div class="container">
-		<h2>Génération de documents pour client</h2>
+		<h2>Génération de documents pour client <a href="adminHome.jsp" class="btn btn-info">Accueil</a></h2>
 
 		<div>
 			<a class="btn btn-primary" onclick="getTemplate()" href="#modalTemplate"	data-toggle="modal" >Sélectionner un template</a>

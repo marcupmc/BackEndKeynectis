@@ -6,7 +6,7 @@ function getClient(){
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:8080/TestRest/rest/getClient/all",
+		url: "http://localhost:80/TestRest/rest/getClient/all",
 		datatype:"jsonp",
 		success: function(msg){ 
 			$("#tableClient").empty();
@@ -32,7 +32,7 @@ function getTemplate(){
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:8080/TestRest/rest/getTemplate/all",
+		url: "http://localhost:80/TestRest/rest/getTemplate/all",
 		datatype:"jsonp",
 		success: function(msg){ 
 			$("#tableTemplate").empty();
@@ -64,7 +64,7 @@ function choixClient(id){
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:8080/TestRest/rest/getClient/byid?id="+id,
+		url: "http://localhost:80/TestRest/rest/getClient/byid?id="+id,
 		datatype:"jsonp",
 		success: function(msg){ 
 			var user = $.parseJSON(msg);
@@ -98,7 +98,7 @@ function choixTemplate(id){
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:8080/TestRest/rest/getTemplate/byid?id="+id,
+		url: "http://localhost:80/TestRest/rest/getTemplate/byid?id="+id,
 		datatype:"jsonp",
 		success: function(msg){ 
 			var template = $.parseJSON(msg);
@@ -122,29 +122,48 @@ function choixTemplate(id){
 //Affiche le bouton du formulaire lorsque le client et le template sont choisis
 function afficheBouton(){
 	if(templateSelected&&clientSelected){
-		var boutonValide = "<input type=\"submit\" class=\"btn btn-success\">";
-		$("#formLifecycle").append(boutonValide);
-		$("#formLifecycle").submit(function(){
-			alert("TODO");
-			//submitClientTemplate();
-			return false;
-		});
+		var boutonValide = "<button onclick=\"toTest()\" class=\"btn btn-success\">GO</button>";
+		$(".container").append(boutonValide);
+//		$("#formLifecycle").submit(function(){
+//			//alert("TODO");
+//			submitClientTemplate();
+//			return false;
+//		});
 	}
 }
 
 //Envoie les id du client et les id du template a un service Rest
-//http://localhost:8080/rest/services/demo_sign/process/renderForm:1.0
+//http://localhost:80/rest/services/demo_sign/process/renderForm:1.0
 function submitClientTemplate(){
 	alert("soumission !!");
-	var idClient = $("#idClient").value();
-	var idTemplate = $("idTemplate").value();
+	var idClient = $("#idClient").val();
+	var idTemplate = $("#idTemplate").val();
 	$.ajax({ 
 		async:true,
 		type: "GET",
-		url :"http://localhost:8080/rest/services/demo_sign/process/renderForm:1.0?idClient="+idClient+"&idTemplate="+idTemplate,
+		//url :"http://localhost:8080/rest/services/demo_sign/process/renderForm:1.0?idClient="+idClient+"&idTemplate="+idTemplate,
+		url:"http://localhost:80/TestRest/rest/testservice/test?idClient="+idClient,
 		success:function(msg){
-			alert("Le PDF est produit");
+			alert("Le PDF est produit pour le client : "+msg);
+			return false;
 		}
 	});
+	return false;
 }
 
+function toTest(){
+	var idClient = $("#idClient").val();
+	var idTemplate = $("#idTemplate").val();
+	$.ajax({ 
+		async:true,
+		type: "GET",
+		//url :"http://localhost:8080/rest/services/demo_sign/process/renderForm:1.0?idClient="+idClient+"&idTemplate="+idTemplate,
+		url:"http://localhost:80/TestRest/rest/testservice/test?idClient="+idClient,
+		success:function(msg){
+			//alert("Le PDF est produit pour le client : "+msg);
+			$(".container").append("<pre id=\"xml\">"+msg+"</pre>");
+			$("#xml").text(msg);
+		}
+	});
+	return false;
+}
