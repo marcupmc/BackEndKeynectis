@@ -78,3 +78,9 @@ body {
 .loader{
 	margin-top: 200px;
 }
+
+/* FOR GIF LOADING */
+#gifLoader{
+	position : absolute;
+	 left : 50%;
+}

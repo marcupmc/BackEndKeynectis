@@ -122,7 +122,7 @@ function choixTemplate(id){
 //Affiche le bouton du formulaire lorsque le client et le template sont choisis
 function afficheBouton(){
 	if(templateSelected&&clientSelected){
-		var boutonValide = "<button onclick=\"toTest()\" class=\"btn btn-success\">GO</button>";
+		var boutonValide = "<button onclick=\"toTest()\" class=\"btn btn-success\">Générer</button>";
 		$(".container").append(boutonValide);
 //		$("#formLifecycle").submit(function(){
 //			//alert("TODO");
@@ -152,18 +152,38 @@ function submitClientTemplate(){
 }
 
 function toTest(){
+	startTemporisation();
 	var idClient = $("#idClient").val();
 	var idTemplate = $("#idTemplate").val();
 	$.ajax({ 
 		async:true,
 		type: "GET",
-		//url :"http://localhost:8080/rest/services/demo_sign/process/renderForm:1.0?idClient="+idClient+"&idTemplate="+idTemplate,
-		url:"http://localhost:80/TestRest/rest/testservice/test?idClient="+idClient,
+		url :"http://localhost:8080/rest/services/demo_sign/process/renderForm:1.0?idClient="+idClient+"&idTemplate="+idTemplate,
+		//url:"http://localhost:8080/TestRest/rest/testservice/test?idClient="+idClient,
 		success:function(msg){
+			stopTemporisation();
 			//alert("Le PDF est produit pour le client : "+msg);
-			$(".container").append("<pre id=\"xml\">"+msg+"</pre>");
-			$("#xml").text(msg);
-		}
+//			$(".container").append("<pre id=\"xml\">"+msg+"</pre>");
+//			$("#xml").text(msg);
+			alert("Le document est généré");
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			stopTemporisation();
+			alert("Le document est généré ! ");
+			// alert(xhr.status);
+	        //alert(thrownError);
+	      }
 	});
 	return false;
+}
+
+function startTemporisation(){
+	$("body").append("<img src=\"img/loader.gif\" id=\"gifLoader\" alt=\"Loader\" />");
+	$("body").css("opacity","0.3");
+	$("#gifLoader").css("opacity","1");
+}
+
+function stopTemporisation(){
+	$("#gifLoader").remove();
+	$("body").css("opacity","1");
 }

@@ -12,7 +12,7 @@ function getAllLog(){
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:8080/TestRest/rest/statistiques/getalllogs",
+		url: "http://localhost:80/TestRest/rest/statistiques/getalllogs",
 		datatype:"jsonp",
 		success: function(msg){ 
 			var data2 = new google.visualization.DataTable();
@@ -50,7 +50,7 @@ function getConnexionsPerHour(){
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:8080/TestRest/rest/statistiques/connexionperhours",
+		url: "http://localhost:80/TestRest/rest/statistiques/connexionperhours",
 		datatype:"jsonp",
 		success: function(msg){ 
 			if(msg=="error") 
@@ -80,7 +80,7 @@ function getConnexionsReport(){
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:8080/TestRest/rest/statistiques/connexionreport",
+		url: "http://localhost:80/TestRest/rest/statistiques/connexionreport",
 		datatype:"jsonp",
 		success: function(msg){ 
 			if(msg=="error") 
@@ -116,7 +116,7 @@ function getErrorsPerType(){
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:8080/TestRest/rest/statistiques/errorpertype",
+		url: "http://localhost:80/TestRest/rest/statistiques/errorpertype",
 		datatype:"jsonp",
 		success: function(msg){ 
 			if(msg=="error") 
@@ -171,7 +171,7 @@ function getDocumentReport(){
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:8080/TestRest/rest/statistiques/documentreport",
+		url: "http://localhost:80/TestRest/rest/statistiques/documentreport",
 		datatype:"jsonp",
 		success: function(msg){ 
 			if(msg=="error") 
@@ -227,7 +227,7 @@ function drawChart4() {
 	$.ajax({ 
 		async:true,
 		type: "GET", 
-		url: "http://localhost:8080/TestRest/rest/statistiques/errorperday",
+		url: "http://localhost:80/TestRest/rest/statistiques/errorperday",
 		datatype:"jsonp",
 		success: function(msg){ 
 			if(msg=="error") 
