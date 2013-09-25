@@ -159,6 +159,7 @@ function toTest(){
 		async:true,
 		type: "GET",
 		url :"http://localhost:8080/rest/services/demo_sign/process/renderForm:1.0?idClient="+idClient+"&idTemplate="+idTemplate,
+		dataType:"json",
 		//url:"http://localhost:8080/TestRest/rest/testservice/test?idClient="+idClient,
 		success:function(msg){
 			stopTemporisation();
@@ -169,7 +170,7 @@ function toTest(){
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 			stopTemporisation();
-			alert("Le document est généré ! ");
+			alert("Le document est généré ! : \n xhr : "+xhr.status+"\n request message : "+xhr.responseText+"\n error : "+thrownError.toString());
 			// alert(xhr.status);
 	        //alert(thrownError);
 	      }

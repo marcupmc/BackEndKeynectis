@@ -13,6 +13,9 @@
 		<property name="url">
 			<column name="URL" />
 		</property>
+		<property name="nbPage">
+			<column name="NBPAGE" />
+		</property>
 		<property name="certified">
 			<column name="CERTIFIED" />
 		</property>

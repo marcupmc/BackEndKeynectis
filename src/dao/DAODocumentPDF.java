@@ -68,6 +68,7 @@ public class DAODocumentPDF
 			doc.setUrl(url);
 			doc.setOwner(user);
 			doc.setCertified("En attente");
+			doc.setNbPage(4);
 			
 			//A ajouter aussi dans le add document avec une zone de signature
 			byte[] bits = ToolsPDF.getAsByteArray(new URL(url));

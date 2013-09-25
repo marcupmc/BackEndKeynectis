@@ -12,7 +12,7 @@ public class DocumentPDF
 	private String name;
 	private String url;
 	private String certified; // Doit etre : En attente, Certifie, Erreur -
-
+	private int nbPage;
 	private Set<Signature> signatures = new HashSet<Signature>();
 
 	private Blob contenu;
@@ -111,6 +111,14 @@ public class DocumentPDF
 	public void setType(CertificationType type)
 	{
 		this.type = type;
+	}
+
+	public int getNbPage() {
+		return nbPage;
+	}
+
+	public void setNbPage(int nbPage) {
+		this.nbPage = nbPage;
 	}
 
 }
